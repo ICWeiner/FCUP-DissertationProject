@@ -5,6 +5,7 @@ Different user types:
 
 System functionalities:
     - During local instance setup provide different ways to handle registration and login(e.g. openLDAP or self-contained)
+    - Automatic creation and assignment of student/teacher VMs/Containers
     - Disable all comunications between student VMs/Containers
 
 Common functionalities:
@@ -14,7 +15,7 @@ Common functionalities:
         - Password recovery
 
 Student functionalities:
-    - List different assignments/tests
+    - List different exercises
     - Check complete submission history including grading
     - Request Evaluation
 
