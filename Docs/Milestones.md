@@ -1,11 +1,9 @@
-Requirements Elicitation
+Requirements Elicitation and Web App Wireframes
 
 Understanding and verification of previously done work
 
 Development of aditional modules and enhacement of previous modules where possible
 
-
-Web App Wireframes
 
 Study of technologies to be used in Web App Development
 
