@@ -76,17 +76,15 @@ def create(template_id, first_clone_id, hostnames_file):
 def start(first_vm_id, last_vm_id):
     print("Starting virtual machines...\n")
 
-    current_vm_id = first_vm_id
-    for current_vm_id in last_vm_id:
-        print("Starting virtual machine with ID " + current_vm_id + "\n")
+    for current_vm_id in range(first_vm_id, last_vm_id + 1):
+        print(f"Starting virtual machine with ID {current_vm_id}\n")
         subprocess.run(["qm", "start", current_vm_id])
     print("Done")
 
 def stop(first_vm_id, last_vm_id):
     print("Stoping virtual machines...\n")
 
-    current_vm_id = first_vm_id
-    for current_vm_id in last_vm_id:
+    for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print("Stoping virtual machine with ID " + current_vm_id + "\n")
         subprocess.run(["qm", "stop", current_vm_id])
     print("Done")
@@ -94,8 +92,7 @@ def stop(first_vm_id, last_vm_id):
 def destroy(first_vm_id, last_vm_id):
     print("Destroying virtual machines...\n")
 
-    current_vm_id = first_vm_id
-    for current_vm_id in last_vm_id:
+    for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print("Destroying virtual machine with ID " + current_vm_id + "\n")
         subprocess.run(["qm", "destroy", current_vm_id, ">", "/dev/null"])
     print("Done")
@@ -103,8 +100,7 @@ def destroy(first_vm_id, last_vm_id):
 def rollback(first_vm_id, last_vm_id):
     print("Rolling back virtual machines to initial state...\n")
 
-    current_vm_id = first_vm_id
-    for current_vm_id in last_vm_id:
+    for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print("Rolling back virtual machine with ID " + current_vm_id + "\n")
         subprocess.run(["qm", "rollback", current_vm_id, "snap01", ">", "/dev/null"])
     print("Done")
@@ -146,12 +142,26 @@ if __name__ == "__main__":
     print(args[2])
     print(args_length)
 
-    if args_length < 2:
-        usage()
-    elif args_length == 5 and args[1] == 'create':
+    if args_length == 5 and args[1] == 'create':
         template_id = args[2]
         first_clone_id = args[3]
         hostnames_file = args[4]
         create(template_id, first_clone_id, hostnames_file)
+    elif args_length == 3 or args_length == 4 :
+        first_vm_id = int(args[2])
+        last_vm_id = int(args[3]) if args_length > 3 else first_vm_id
+        if args[1] == 'start':
+            start(first_vm_id, last_vm_id)
+        elif args[1] == 'stop':
+            stop(first_vm_id, last_vm_id)
+        elif args[1] == 'destroy':
+            destroy(first_vm_id, last_vm_id)
+        elif args[1] == 'rollback':
+            rollback(first_vm_id, last_vm_id)
+        elif args[1] == 'get-ip':
+            output_file = args[4]
+            get_ip(first_vm_id, last_vm_id, output_file)
+        else :
+            usage()
     else:
         usage()
