@@ -1,0 +1,1 @@
+scp /home/diogo/Documents/FCUP-DissertationProject root@192.168.57.22:/root/diogo/

@@ -2,6 +2,7 @@ import subprocess
 import sys
 import os
 from shlex import quote
+from re import search
 
 def usage():
     print("""Usage: python vm_manager.py [OPTION]
@@ -45,26 +46,20 @@ def create(template_id, first_clone_id, hostnames_file):
 
             print(f"{hostname} VM ({current_clone_id}) created.\n")
 
-            # Set memory
             subprocess.run(["qm", "set", current_clone_id, "--memory", "4096"])
 
-            # Set CPUs
             subprocess.run(["qm", "set", current_clone_id, "--sockets", "1", "--cores", "2", "--cpu", "cputype=kvm64"])
 
-            # Set disk size
             subprocess.run(["qm", "resize", current_clone_id, "scsi0", "32G"])
 
-            # Enable QEMU Guest Agent
             subprocess.run(["qm", "set", current_clone_id, "--agent", "enabled=1"])
 
-            # Set networking
             subprocess.run(["qm", "set", current_clone_id, "--net0", "virtio,bridge=vmbr0,firewall=1"])
 
             current_clone_id+=1
 
-    print("Finished creating VMs.\n")
-
-    print("Snapshotting virtual machines\n")
+    print("""Finished creating VMs.\n
+          Snapshotting virtual machines\n""")
 
     current_clone_id = first_clone_id
 
@@ -78,6 +73,70 @@ def create(template_id, first_clone_id, hostnames_file):
             current_clone_id+=1
     print("Finished snapshotting virtual machines\n")
     
+def start(first_vm_id, last_vm_id):
+    print("Starting virtual machines...\n")
+
+    current_vm_id = first_vm_id
+    for current_vm_id in last_vm_id:
+        print("Starting virtual machine with ID " + current_vm_id + "\n")
+        subprocess.run(["qm", "start", current_vm_id])
+    print("Done")
+
+def stop(first_vm_id, last_vm_id):
+    print("Stoping virtual machines...\n")
+
+    current_vm_id = first_vm_id
+    for current_vm_id in last_vm_id:
+        print("Stoping virtual machine with ID " + current_vm_id + "\n")
+        subprocess.run(["qm", "stop", current_vm_id])
+    print("Done")
+
+def destroy(first_vm_id, last_vm_id):
+    print("Destroying virtual machines...\n")
+
+    current_vm_id = first_vm_id
+    for current_vm_id in last_vm_id:
+        print("Destroying virtual machine with ID " + current_vm_id + "\n")
+        subprocess.run(["qm", "destroy", current_vm_id, ">", "/dev/null"])
+    print("Done")
+
+def rollback(first_vm_id, last_vm_id):
+    print("Rolling back virtual machines to initial state...\n")
+
+    current_vm_id = first_vm_id
+    for current_vm_id in last_vm_id:
+        print("Rolling back virtual machine with ID " + current_vm_id + "\n")
+        subprocess.run(["qm", "rollback", current_vm_id, "snap01", ">", "/dev/null"])
+    print("Done")
+
+def get_ip(first_vm_id, last_vm_id):
+    def retrieve_hostname(vm_id):
+        #retrieve hostname from vm config using the respective ID
+        output = subprocess.run(["qm", "config", vm_id], capture_output=True, text=True)
+        for line in output.stdout.splitlines():
+            if "name:" in line.lower():
+                name = line.split(": ")[1]
+                return name
+        return None
+    def retrieve_ip(vm_id):
+        #retrieve ip from interface ens18
+        output = subprocess.run(["qm", "guest", "exec", vm_id, "--", "ip", "-4", "addr", "show", "ens18"], capture_output=True, text=True)
+        for line in output.stdout.splitlines():
+            match = search(r"inet\s(\d+\.\d+\.\d+\.\d+)", line)
+            if match:
+                return match.group(1)
+        return None
+    
+    print("Getting IP addresses\n")
+
+    current_vm_id = first_vm_id
+    with open("output.txt", "w") as file:
+        for current_vm_id in last_vm_id:
+            file.write(f"Hostname: {retrieve_hostname} IP: {retrieve_ip}\n")
+    print("IP addresses saved to pmvmips.txt")
+        
+        
+        
 
 if __name__ == "__main__":
     args = sys.argv

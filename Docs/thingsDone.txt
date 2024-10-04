@@ -1,0 +1,9 @@
+gained access to machine
+
+wrote requirements and milestones
+
+made diagram for system a sitemap for web app
+
+studied preivously done code
+
+converted previous code from bash tol python, to be used in nornir
