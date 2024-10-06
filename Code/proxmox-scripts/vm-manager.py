@@ -42,19 +42,19 @@ def create(template_id, first_clone_id, hostnames_file):
         for line in lines:
             hostname = quote(line.strip())
 
-            subprocess.run(["qm", "clone", template_id, current_clone_id, "--name" , hostname, "--full", ">", "/dev/null"])
+            subprocess.run(["qm", "clone", str(template_id), str(current_clone_id), "--name" , hostname, "--full", ">", "/dev/null"])
 
             print(f"{hostname} VM ({current_clone_id}) created.\n")
 
-            subprocess.run(["qm", "set", current_clone_id, "--memory", "4096"])
+            subprocess.run(["qm", "set", str(current_clone_id), "--memory", "4096"])
 
-            subprocess.run(["qm", "set", current_clone_id, "--sockets", "1", "--cores", "2", "--cpu", "cputype=kvm64"])
+            subprocess.run(["qm", "set", str(current_clone_id), "--sockets", "1", "--cores", "2", "--cpu", "cputype=kvm64"])
 
-            subprocess.run(["qm", "resize", current_clone_id, "scsi0", "32G"])
+            subprocess.run(["qm", "resize", str(current_clone_id), "scsi0", "32G"])
 
-            subprocess.run(["qm", "set", current_clone_id, "--agent", "enabled=1"])
+            subprocess.run(["qm", "set", str(current_clone_id), "--agent", "enabled=1"])
 
-            subprocess.run(["qm", "set", current_clone_id, "--net0", "virtio,bridge=vmbr0,firewall=1"])
+            subprocess.run(["qm", "set", str(current_clone_id), "--net0", "virtio,bridge=vmbr0,firewall=1"])
 
             current_clone_id+=1
 
@@ -68,7 +68,7 @@ def create(template_id, first_clone_id, hostnames_file):
         for line in lines:
             hostname = quote(line.strip())
 
-            subprocess.run(["qm", "snapshot", current_clone_id, "snap01", "--description", "Initial snapshot"])
+            subprocess.run(["qm", "snapshot", str(current_clone_id), "snap01", "--description", "Initial snapshot"])
             print(".\n")
             current_clone_id+=1
     print("Finished snapshotting virtual machines\n")
@@ -78,7 +78,7 @@ def start(first_vm_id, last_vm_id):
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print(f"Starting virtual machine with ID {current_vm_id}\n")
-        subprocess.run(["qm", "start", current_vm_id])
+        subprocess.run(["qm", "start", str(current_vm_id)])
     print("Done")
 
 def stop(first_vm_id, last_vm_id):
@@ -86,7 +86,7 @@ def stop(first_vm_id, last_vm_id):
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print(f"Stopping virtual machine with ID {current_vm_id}\n")
-        subprocess.run(["qm", "stop", current_vm_id])
+        subprocess.run(["qm", "stop", str(current_vm_id)])
     print("Done")
 
 def destroy(first_vm_id, last_vm_id):
@@ -94,7 +94,7 @@ def destroy(first_vm_id, last_vm_id):
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print(f"Destroying virtual machine with ID {current_vm_id}\n")
-        subprocess.run(["qm", "destroy", current_vm_id, ">", "/dev/null"])
+        subprocess.run(["qm", "destroy", str(current_vm_id), ">", "/dev/null"])
     print("Done")
 
 def rollback(first_vm_id, last_vm_id):
@@ -102,13 +102,13 @@ def rollback(first_vm_id, last_vm_id):
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print(f"Rolling back virtual machine with ID {current_vm_id}\n")
-        subprocess.run(["qm", "rollback", current_vm_id, "snap01", ">", "/dev/null"])
+        subprocess.run(["qm", "rollback", str(current_vm_id), "snap01", ">", "/dev/null"])
     print("Done")
 
 def get_ip(first_vm_id, last_vm_id):
     def retrieve_hostname(vm_id):
         #retrieve hostname from vm config using the respective ID
-        output = subprocess.run(["qm", "config", vm_id], capture_output=True, text=True)
+        output = subprocess.run(["qm", "config", str(vm_id)], capture_output=True, text=True)
         for line in output.stdout.splitlines():
             if "name:" in line.lower():
                 name = line.split(": ")[1]
@@ -116,7 +116,7 @@ def get_ip(first_vm_id, last_vm_id):
         return None
     def retrieve_ip(vm_id):
         #retrieve ip from interface ens18
-        output = subprocess.run(["qm", "guest", "exec", vm_id, "--", "ip", "-4", "addr", "show", "ens18"], capture_output=True, text=True)
+        output = subprocess.run(["qm", "guest", "exec", str(vm_id), "--", "ip", "-4", "addr", "show", "ens18"], capture_output=True, text=True)
         for line in output.stdout.splitlines():
             match = search(r"inet\s(\d+\.\d+\.\d+\.\d+)", line)
             if match:
@@ -161,6 +161,3 @@ if __name__ == "__main__":
             usage()
     else:
         usage()
-
-    print(args_length)
-    print(args)
