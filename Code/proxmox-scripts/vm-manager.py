@@ -105,17 +105,16 @@ def rollback(first_vm_id, last_vm_id):
         subprocess.run(["qm", "rollback", str(current_vm_id), "snap01", ">", "/dev/null"])
     print("Done")
 
-def get_ip(first_vm_id, last_vm_id):
-    def retrieve_hostname(vm_id):
-        #retrieve hostname from vm config using the respective ID
+def get_ip(first_vm_id, last_vm_id, output_file):
+    def retrieve_hostname(vm_id): #retrieve hostname from vm config using the respective ID
         output = subprocess.run(["qm", "config", str(vm_id)], capture_output=True, text=True)
         for line in output.stdout.splitlines():
             if "name:" in line.lower():
                 name = line.split(": ")[1]
                 return name
         return None
-    def retrieve_ip(vm_id):
-        #retrieve ip from interface ens18
+    
+    def retrieve_ip(vm_id): #retrieve ip from interface ens18
         output = subprocess.run(["qm", "guest", "exec", str(vm_id), "--", "ip", "-4", "addr", "show", "ens18"], capture_output=True, text=True)
         for line in output.stdout.splitlines():
             match = search(r"inet\s(\d+\.\d+\.\d+\.\d+)", line)
@@ -125,11 +124,11 @@ def get_ip(first_vm_id, last_vm_id):
     
     print("Getting IP addresses\n")
 
-    current_vm_id = first_vm_id
-    with open("output.txt", "w") as file:
-        for current_vm_id in last_vm_id:
-            file.write(f"Hostname: {retrieve_hostname} IP: {retrieve_ip}\n")
-    print("IP addresses saved to pmvmips.txt")
+    with open(output_file, "w") as file:
+        for current_vm_id in range(first_vm_id, last_vm_id + 1):
+            print(f"Retrieving IP address of virtual machine with ID {current_vm_id}\n")
+            file.write(f"VM ID: {current_vm_id}  Hostname: {retrieve_hostname(current_vm_id)} IP: {retrieve_ip(current_vm_id)}\n")
+    print(f"IP addresses saved to {output_file}\n")
         
         
         
@@ -143,7 +142,12 @@ if __name__ == "__main__":
         first_clone_id = args[3]
         hostnames_file = args[4]
         create(template_id, first_clone_id, hostnames_file)
-    elif args_length > 2 and args_length < 6 :
+    elif (args_length == 4 or args_length == 5) and args[1] == 'get-ip':
+            first_vm_id = int(args[2])
+            last_vm_id = int(args[3]) if args_length == 5 else first_vm_id
+            output_file = args[4] if args_length == 5 else args[3]
+            get_ip(first_vm_id, last_vm_id, output_file)
+    elif args_length == 3 or args_length == 4 :
         first_vm_id = int(args[2])
         last_vm_id = int(args[3]) if args_length == 4 else first_vm_id
         if args[1] == 'start':
@@ -154,9 +158,6 @@ if __name__ == "__main__":
             destroy(first_vm_id, last_vm_id)
         elif args[1] == 'rollback':
             rollback(first_vm_id, last_vm_id)
-        elif args[1] == 'get-ip':
-            output_file = args[4] if args_length == 5 else args[3]
-            get_ip(first_vm_id, last_vm_id, output_file)
         else :
             usage()
     else:
