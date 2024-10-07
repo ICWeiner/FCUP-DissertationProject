@@ -42,21 +42,21 @@ def create(template_id, first_clone_id, hostnames_file):
         for line in lines:
             hostname = quote(line.strip())
 
-            subprocess.run(["qm", "clone", str(template_id), str(current_clone_id), "--name" , hostname, "--full", ">", "/dev/null"])
+            subprocess.run(["qm", "clone", template_id, current_clone_id, "--name" , hostname])
 
-            print(f"{hostname} VM ({current_clone_id}) created.\n")
+            print(f"{hostname} VM {current_clone_id} created.\n")
 
-            subprocess.run(["qm", "set", str(current_clone_id), "--memory", "4096"])
+            subprocess.run(["qm", "set", current_clone_id, "--memory", "4096"])
 
-            subprocess.run(["qm", "set", str(current_clone_id), "--sockets", "1", "--cores", "2", "--cpu", "cputype=kvm64"])
+            subprocess.run(["qm", "set", current_clone_id, "--sockets", "1", "--cores", "2", "--cpu", "cputype=kvm64"])
 
-            subprocess.run(["qm", "resize", str(current_clone_id), "scsi0", "32G"])
+            subprocess.run(["qm", "resize", current_clone_id, "scsi0", "32G"])
 
-            subprocess.run(["qm", "set", str(current_clone_id), "--agent", "enabled=1"])
+            subprocess.run(["qm", "set", current_clone_id, "--agent", "enabled=1"])
 
-            subprocess.run(["qm", "set", str(current_clone_id), "--net0", "virtio,bridge=vmbr0,firewall=1"])
+            subprocess.run(["qm", "set", current_clone_id, "--net0", "virtio,bridge=vmbr0,firewall=1"])
 
-            current_clone_id+=1
+            current_clone_id = int(current_clone_id) + 1
 
     print("""Finished creating VMs.\n
           Snapshotting virtual machines\n""")
@@ -94,7 +94,7 @@ def destroy(first_vm_id, last_vm_id):
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print(f"Destroying virtual machine with ID {current_vm_id}\n")
-        subprocess.run(["qm", "destroy", str(current_vm_id), ">", "/dev/null"])
+        subprocess.run(["qm", "destroy", str(current_vm_id)])
     print("Done")
 
 def rollback(first_vm_id, last_vm_id):
@@ -102,7 +102,7 @@ def rollback(first_vm_id, last_vm_id):
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
         print(f"Rolling back virtual machine with ID {current_vm_id}\n")
-        subprocess.run(["qm", "rollback", str(current_vm_id), "snap01", ">", "/dev/null"])
+        subprocess.run(["qm", "rollback", str(current_vm_id), "snap01"])
     print("Done")
 
 def get_ip(first_vm_id, last_vm_id, output_file):
