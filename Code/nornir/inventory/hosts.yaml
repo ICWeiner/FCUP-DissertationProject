@@ -1,0 +1,5 @@
+hosts:
+    rt1:
+        hostname: 171.190.10.64
+        groups:
+              - iosxr
