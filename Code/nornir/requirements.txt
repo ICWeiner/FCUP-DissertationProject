@@ -1,0 +1,4 @@
+mypy-extensions==1.0.0
+nornir==3.4.1
+ruamel.yaml==0.18.6
+ruamel.yaml.clib==0.2.8
