@@ -132,7 +132,8 @@ def get_ip(first_vm_id, last_vm_id, output_file):
             file.write(f"VM ID: {current_vm_id}  Hostname: {retrieve_hostname(current_vm_id)} IP: {retrieve_ip(current_vm_id)}\n")
     print(f"IP addresses saved to {output_file}\n")
         
-        
+def proxmox_connect(proxmox_host, username, password, ):
+    return
         
 
 if __name__ == "__main__":
