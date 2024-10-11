@@ -6,6 +6,8 @@ from re import search
 
 import constants
 
+baseuri = ""
+
 def usage():
     print("""Usage: python vm_manager.py [OPTION]
           
@@ -31,7 +33,7 @@ def usage():
           IP address to the specified file.
           """)
     
-def create(template_id, first_clone_id, hostnames_file):
+def create(template_id, first_clone_id, hostnames_file, session):
     if not os.path.exists(hostnames_file):
         print(f"Error: Hostnames list file '{hostnames_file}' does not exist.")
         return 1
@@ -75,23 +77,35 @@ def create(template_id, first_clone_id, hostnames_file):
             current_clone_id+=1
     print("Finished snapshotting virtual machines\n")
     
-def start(first_vm_id, last_vm_id):
+def start(first_vm_id, last_vm_id, session):
     print("Starting virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        print(f"Starting virtual machine with ID {current_vm_id}\n")
-        #subprocess.run(["qm", "start", str(current_vm_id)])
+        response = session.get(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/current')
+
+        if response.json()["data"]['qmpstatus'] == 'running':
+            print(f'VM {current_vm_id} is already running.\n')
+        else:
+            print(f"Starting virtual machine with ID {current_vm_id}\n")
+            session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/start')
     print("Done")
 
-def stop(first_vm_id, last_vm_id):
+def stop(first_vm_id, last_vm_id, session):
     print("Stoping virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        print(f"Stopping virtual machine with ID {current_vm_id}\n")
-        #subprocess.run(["qm", "stop", str(current_vm_id)])
+        response = session.get(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/current')
+
+
+        if response.json()["data"]['qmpstatus'] == 'stopped':
+            print(f'VM {current_vm_id} is already stopped.\n')
+        else:
+            print(f"Stopping virtual machine with ID {current_vm_id}\n")
+            session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/stop')
+
     print("Done")
 
-def destroy(first_vm_id, last_vm_id):
+def destroy(first_vm_id, last_vm_id, session):
     print("Destroying virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
@@ -99,7 +113,7 @@ def destroy(first_vm_id, last_vm_id):
         #subprocess.run(["qm", "destroy", str(current_vm_id)])
     print("Done")
 
-def rollback(first_vm_id, last_vm_id):
+def rollback(first_vm_id, last_vm_id, session):
     print("Rolling back virtual machines to initial state...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
@@ -107,7 +121,7 @@ def rollback(first_vm_id, last_vm_id):
         #subprocess.run(["qm", "rollback", str(current_vm_id), "snap01"])
     print("Done")
 
-def get_ip(first_vm_id, last_vm_id, output_file):
+def get_ip(first_vm_id, last_vm_id, output_file, session):
     def retrieve_hostname(vm_id): #retrieve hostname from vm config using the respective ID
         output = []#subprocess.run(["qm", "config", str(vm_id)], capture_output=True, text=True)
         for line in output.stdout.splitlines():
@@ -131,17 +145,19 @@ def get_ip(first_vm_id, last_vm_id, output_file):
             print(f"Retrieving IP address of virtual machine with ID {current_vm_id}\n")
             file.write(f"VM ID: {current_vm_id}  Hostname: {retrieve_hostname(current_vm_id)} IP: {retrieve_ip(current_vm_id)}\n")
     print(f"IP addresses saved to {output_file}\n")
-        
-def proxmox_connect(proxmox_host, username, password, ):
 
+
+        
+def proxmox_connect(proxmox_host, username, password):
+    global baseuri
     baseuri = f'https://{proxmox_host}:8006/api2/json'
     uri = f'{baseuri}/access/ticket'
     
     headers = { "Content-Type": "application/x-www-form-urlencoded"}
 
     auth =   {
-        "username": constants.username,
-        "password": constants.password
+        "username": username,
+        "password": password
     }
 
     try:
@@ -156,32 +172,38 @@ def proxmox_connect(proxmox_host, username, password, ):
             response_data=response.json()
         except ValueError:
             print("Error: Failure during JSON parsing")
+            exit(1)
     else:
         print(f'Error: HTTP error {response.status_code}')
-
+        
     session = requests.Session()
 
-    session.cookies.set({"PVEAuthCookie", response_data["data"]["ticket"]})
+    session.verify = False
+
+    session.cookies.set("PVEAuthCookie", response_data["data"]["ticket"])
 
     session.headers.update({"CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]})  
 
     response = session.get(f'{baseuri}/nodes/pve1')
 
+    '''
     print(response.content)
 
     print(response)
 
-    print(response.json)
+    print(response.json())
 
     print(response.request)
 
+    exit(0)
+    '''
+
     return session
-        
+
+    
 
 if __name__ == "__main__":
-
-    proxmox_connect("localhost", constants.username, constants.password)
-
+    
     args = sys.argv
     args_length = len(args)
 
@@ -189,23 +211,32 @@ if __name__ == "__main__":
         template_id = args[2]
         first_clone_id = args[3]
         hostnames_file = args[4]
-        create(template_id, first_clone_id, hostnames_file)
+
+        session = proxmox_connect(constants.proxmox_host, constants.username, constants.password)
+
+        create(template_id, first_clone_id, hostnames_file, session)
     elif (args_length == 4 or args_length == 5) and args[1] == 'get-ip':
             first_vm_id = int(args[2])
             last_vm_id = int(args[3]) if args_length == 5 else first_vm_id
             output_file = args[4] if args_length == 5 else args[3]
-            get_ip(first_vm_id, last_vm_id, output_file)
+
+            session = proxmox_connect(constants.proxmox_host, constants.username, constants.password)
+
+            get_ip(first_vm_id, last_vm_id, output_file, session)
     elif args_length == 3 or args_length == 4 :
         first_vm_id = int(args[2])
         last_vm_id = int(args[3]) if args_length == 4 else first_vm_id
+
+        session = proxmox_connect(constants.proxmox_host, constants.username, constants.password)
+
         if args[1] == 'start':
-            start(first_vm_id, last_vm_id)
+            start(first_vm_id, last_vm_id, session)
         elif args[1] == 'stop':
-            stop(first_vm_id, last_vm_id)
+            stop(first_vm_id, last_vm_id, session)
         elif args[1] == 'destroy':
-            destroy(first_vm_id, last_vm_id)
+            destroy(first_vm_id, last_vm_id, session)
         elif args[1] == 'rollback':
-            rollback(first_vm_id, last_vm_id)
+            rollback(first_vm_id, last_vm_id, session)
         else :
             usage()
     else:
