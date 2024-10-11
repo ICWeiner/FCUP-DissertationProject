@@ -133,10 +133,50 @@ def get_ip(first_vm_id, last_vm_id, output_file):
     print(f"IP addresses saved to {output_file}\n")
         
 def proxmox_connect(proxmox_host, username, password, ):
+
+    baseuri = f'https://{proxmox_host}:8006/api2/json'
+    uri = f'{baseuri}/access/ticket'
+    
+    headers = { "Content-Type": "application/x-www-form-urlencoded"}
+
+    auth =   {
+        "username": constants.username,
+        "password": constants.password
+    }
+
+    try:
+        response = requests.post(uri, headers=headers , data=auth, verify=False)  #proxmox node currently has a bad cert
+    except:
+        print("Error: Failure during ticket request")
+        exit(1)
+
+
+    if response.status_code == 200:
+        try:
+            response_data=response.json()
+        except ValueError:
+            print("Error: Failure during JSON parsing")
+    else:
+        print(f'Error: HTTP error {response.status_code}')
+
+    session = requests.Session()
+
+    session.cookies.set("PVEAuthCookie", ticket = response_data["data"]["ticket"])
+
+    headers = {
+        "CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]
+    }
+
+    
+
+
     return
         
 
 if __name__ == "__main__":
+
+    proxmox_connect("localhost", constants.username, constants.password)
+
     args = sys.argv
     args_length = len(args)
 
