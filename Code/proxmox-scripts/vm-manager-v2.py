@@ -109,7 +109,7 @@ def rollback(first_vm_id, last_vm_id):
 
 def get_ip(first_vm_id, last_vm_id, output_file):
     def retrieve_hostname(vm_id): #retrieve hostname from vm config using the respective ID
-        output = #subprocess.run(["qm", "config", str(vm_id)], capture_output=True, text=True)
+        output = []#subprocess.run(["qm", "config", str(vm_id)], capture_output=True, text=True)
         for line in output.stdout.splitlines():
             if "name:" in line.lower():
                 name = line.split(": ")[1]
@@ -117,7 +117,7 @@ def get_ip(first_vm_id, last_vm_id, output_file):
         return None
     
     def retrieve_ip(vm_id): #retrieve ip from interface ens18
-        output = #subprocess.run(["qm", "guest", "exec", str(vm_id), "--", "ip", "-4", "addr", "show", "ens18"], capture_output=True, text=True)
+        output = []#subprocess.run(["qm", "guest", "exec", str(vm_id), "--", "ip", "-4", "addr", "show", "ens18"], capture_output=True, text=True)
         for line in output.stdout.splitlines():
             match = search(r"inet\s(\d+\.\d+\.\d+\.\d+)", line)
             if match:
@@ -161,16 +161,21 @@ def proxmox_connect(proxmox_host, username, password, ):
 
     session = requests.Session()
 
-    session.cookies.set("PVEAuthCookie", ticket = response_data["data"]["ticket"])
+    session.cookies.set({"PVEAuthCookie", response_data["data"]["ticket"]})
 
-    headers = {
-        "CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]
-    }
+    session.headers.update({"CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]})  
 
-    
+    response = session.get(f'{baseuri}/nodes/pve1')
 
+    print(response.content)
 
-    return
+    print(response)
+
+    print(response.json)
+
+    print(response.request)
+
+    return session
         
 
 if __name__ == "__main__":
