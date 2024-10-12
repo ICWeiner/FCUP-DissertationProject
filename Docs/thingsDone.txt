@@ -6,4 +6,4 @@ made diagram for system a sitemap for web app
 
 studied preivously done code
 
-converted previous code from bash tol python, to be used in nornir
+converted previous code from bash to python and rewrote it to use proxmox API instead of running directly in proxmox host 

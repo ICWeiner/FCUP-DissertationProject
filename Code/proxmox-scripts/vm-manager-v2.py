@@ -1,6 +1,5 @@
 import requests
 import sys
-import os
 from shlex import quote
 from re import search
 
@@ -48,8 +47,7 @@ def create(template_id, first_clone_id, hostnames_file, session):
 
             data = {
                 'newid': current_clone_id,
-                #'memory': '4096',
-                #'snapname': f'{current_clone_id}-initial-snap'
+                'name': hostname,
             } 
 
             response = session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{template_id}/clone', data = data)
@@ -57,29 +55,14 @@ def create(template_id, first_clone_id, hostnames_file, session):
             if response.status_code != 200:
                 print(f'Unexpected HTTP status code {response.status_code}')
                 continue
-            
-            #response = session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{template_id}/clone')
-            
-
-
-            #subprocess.run(["qm", "clone", template_id, current_clone_id, "--name" , hostname])
 
             print(f"{hostname} VM {current_clone_id} created.\n")
 
-
-            #subprocess.run(["qm", "set", current_clone_id, "--sockets", "1", "--cores", "2", "--cpu", "cputype=kvm64"])
-
-            #subprocess.run(["qm", "resize", current_clone_id, "scsi0", "32G"])
-
-            #subprocess.run(["qm", "set", current_clone_id, "--agent", "enabled=1"])
-
-            #subprocess.run(["qm", "set", current_clone_id, "--net0", "virtio,bridge=vmbr0,firewall=1"])
-
             current_clone_id = int(current_clone_id) + 1
 
-    '''
+    
     print("""Finished creating VMs.\n
-          Snapshotting virtual machines\n""")
+          Creating initial snapshots\n""")
 
     current_clone_id = first_clone_id
 
@@ -88,11 +71,21 @@ def create(template_id, first_clone_id, hostnames_file, session):
         for line in lines:
             hostname = quote(line.strip())
 
-            #subprocess.run(["qm", "snapshot", str(current_clone_id), "snap01", "--description", "Initial snapshot"])
+            data = {
+                'snapname': f'initial_snap_{current_clone_id}',
+                'description': f'Initial snapshot of VM {current_clone_id}',
+            }
+            response = session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_clone_id}/snapshot', data = data)
+
+            if response.status_code != 200:
+                print(f'Unexpected HTTP status code {response.status_code}')
+                continue
+
             print(".\n")
-            current_clone_id+=1
+            current_clone_id = int(current_clone_id) + 1
+
     print("Finished snapshotting virtual machines\n")
-    '''
+    
     
 def start(first_vm_id, last_vm_id, session):
     print("Starting virtual machines...\n")
@@ -133,13 +126,12 @@ def destroy(first_vm_id, last_vm_id, session):
     print("Destroying virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        response = session.delete(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}', data = {'purge':'1'})
+        response = session.delete(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}')
 
         if response.status_code == 200:
             print(f"Destroying virtual machine with ID {current_vm_id}\n")
         else:
             print(f'Unexpected HTTP status code {response.status_code}')
-            print(response)
             print(f'Error: Could not destroy VM {current_vm_id}\n')
 
     print("Done")
@@ -148,26 +140,34 @@ def rollback(first_vm_id, last_vm_id, session):
     print("Rolling back virtual machines to initial state...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        print(f"Rolling back virtual machine with ID {current_vm_id}\n")
-        #subprocess.run(["qm", "rollback", str(current_vm_id), "snap01"])
+        response = session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/snapshot/initial_snap_{current_vm_id}/rollback')
+
+        if response.status_code == 200:
+            print(f"Rolling back virtual machine with ID {current_vm_id}\n")
+        else:
+            print(f'Unexpected HTTP status code {response.status_code}')
+            print(f'Error: Could not destroy VM {current_vm_id}\n')
     print("Done")
 
 def get_ip(first_vm_id, last_vm_id, output_file, session):
     def retrieve_hostname(vm_id): #retrieve hostname from vm config using the respective ID
-        output = []#subprocess.run(["qm", "config", str(vm_id)], capture_output=True, text=True)
-        for line in output.stdout.splitlines():
-            if "name:" in line.lower():
-                name = line.split(": ")[1]
-                return name
-        return None
+        response = session.get(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/get-host-name')
+
+        if response.status_code != 200:
+            print(f"VM with ID {current_vm_id} is not currently running\n")
+            return None
+        
+        name = response.json()['data']['result']['host-name'] #TODO: this doesnt seem to get the fullname...
+        return name
     
     def retrieve_ip(vm_id): #retrieve ip from interface ens18
-        output = []#subprocess.run(["qm", "guest", "exec", str(vm_id), "--", "ip", "-4", "addr", "show", "ens18"], capture_output=True, text=True)
-        for line in output.stdout.splitlines():
-            match = search(r"inet\s(\d+\.\d+\.\d+\.\d+)", line)
-            if match:
-                return match.group(1)
-        return None
+        response = session.get(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/network-get-interfaces')
+
+        if response.status_code != 200:        #output = []#subprocess.run(["qm", "config", str(vm_id)], capture_output=True, text=True)
+            print(f"VM with ID {current_vm_id} is not currently running\n")
+            return None
+        ip = response.json()['data']['result'][1]['ip-addresses'][0]['ip-address']
+        return ip
     
     print("Getting IP addresses\n")
 
