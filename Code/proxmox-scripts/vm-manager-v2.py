@@ -46,11 +46,26 @@ def create(template_id, first_clone_id, hostnames_file, session):
         for line in lines:
             hostname = quote(line.strip())
 
+            data = {
+                'newid': current_clone_id,
+                #'memory': '4096',
+                #'snapname': f'{current_clone_id}-initial-snap'
+            } 
+
+            response = session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{template_id}/clone', data = data)
+
+            if response.status_code != 200:
+                print(f'Unexpected HTTP status code {response.status_code}')
+                continue
+            
+            #response = session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{template_id}/clone')
+            
+
+
             #subprocess.run(["qm", "clone", template_id, current_clone_id, "--name" , hostname])
 
             print(f"{hostname} VM {current_clone_id} created.\n")
 
-            #subprocess.run(["qm", "set", current_clone_id, "--memory", "4096"])
 
             #subprocess.run(["qm", "set", current_clone_id, "--sockets", "1", "--cores", "2", "--cpu", "cputype=kvm64"])
 
@@ -62,6 +77,7 @@ def create(template_id, first_clone_id, hostnames_file, session):
 
             current_clone_id = int(current_clone_id) + 1
 
+    '''
     print("""Finished creating VMs.\n
           Snapshotting virtual machines\n""")
 
@@ -76,6 +92,7 @@ def create(template_id, first_clone_id, hostnames_file, session):
             print(".\n")
             current_clone_id+=1
     print("Finished snapshotting virtual machines\n")
+    '''
     
 def start(first_vm_id, last_vm_id, session):
     print("Starting virtual machines...\n")
@@ -85,13 +102,17 @@ def start(first_vm_id, last_vm_id, session):
 
         if response.json()["data"]['qmpstatus'] == 'running':
             print(f'VM {current_vm_id} is already running.\n')
-        else:
+        elif response.status_code == 200:
             print(f"Starting virtual machine with ID {current_vm_id}\n")
             session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/start')
+        else:
+            print(f'Unexpected HTTP status code {response.status_code}')
+            print(f'Error: Could not start VM {current_vm_id}')
+
     print("Done")
 
 def stop(first_vm_id, last_vm_id, session):
-    print("Stoping virtual machines...\n")
+    print("Stopping virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
         response = session.get(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/current')
@@ -99,9 +120,12 @@ def stop(first_vm_id, last_vm_id, session):
 
         if response.json()["data"]['qmpstatus'] == 'stopped':
             print(f'VM {current_vm_id} is already stopped.\n')
-        else:
+        elif response.status_code == 200:
             print(f"Stopping virtual machine with ID {current_vm_id}\n")
             session.post(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/stop')
+        else: 
+            print(f'Unexpected HTTP status code {response.status_code}')
+            print(f'Error: Could not stop VM {current_vm_id}\n')
 
     print("Done")
 
@@ -109,8 +133,15 @@ def destroy(first_vm_id, last_vm_id, session):
     print("Destroying virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        print(f"Destroying virtual machine with ID {current_vm_id}\n")
-        #subprocess.run(["qm", "destroy", str(current_vm_id)])
+        response = session.delete(f'{baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}', data = {'purge':'1'})
+
+        if response.status_code == 200:
+            print(f"Destroying virtual machine with ID {current_vm_id}\n")
+        else:
+            print(f'Unexpected HTTP status code {response.status_code}')
+            print(response)
+            print(f'Error: Could not destroy VM {current_vm_id}\n')
+
     print("Done")
 
 def rollback(first_vm_id, last_vm_id, session):
