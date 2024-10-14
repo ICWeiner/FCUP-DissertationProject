@@ -1,2 +1,2 @@
-VM ID: 300  Hostname: up IP: 192.168.57.130
-VM ID: 301  Hostname: up IP: 192.168.57.132
+VM ID: 300  Hostname: up IP: 192.168.57.211
+VM ID: 301  Hostname: up IP: 192.168.57.135
