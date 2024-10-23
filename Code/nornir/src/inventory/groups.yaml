@@ -1,0 +1,17 @@
+# groups.yaml
+---
+cisco_switch:
+    platform: cisco_ios_telnet
+
+cisco_router:
+    platform: cisco_ios_telnet
+
+vpcs:
+    platform: generic_termserver_telnet
+
+linuxvm:
+    platform: generic_telnet
+
+linux:
+    platform: linux
+

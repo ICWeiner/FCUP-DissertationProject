@@ -1,0 +1,6 @@
+up201904529:
+  groups:
+  - linux
+  hostname: 192.168.57.252
+  password: admredes23
+  username: ar

@@ -218,18 +218,6 @@ def proxmox_connect(proxmox_host, username, password):
 
     response = session.get(f'{baseuri}/nodes/pve1')
 
-    '''
-    print(response.content)
-
-    print(response)
-
-    print(response.json())
-
-    print(response.request)
-
-    exit(0)
-    '''
-
     return session
 
     
