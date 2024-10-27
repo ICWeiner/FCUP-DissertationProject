@@ -6,7 +6,7 @@ from nornir.core.filter import F
 from utils.tools import updated_inventory_host
 
 
-inventory, runner = updated_inventory_host("up201904529.yaml")
+inventory, runner = updated_inventory_host("up202001001.yaml")
 nr = InitNornir(
     inventory=inventory,
     runner=runner

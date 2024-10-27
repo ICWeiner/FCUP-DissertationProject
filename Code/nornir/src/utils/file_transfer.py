@@ -9,7 +9,7 @@ def transfer_file(task: Task, source_file: str):
             source_file=source_file,
             dest_file="gns3/" + task.host.name,
             direction='get',  # Change direction to 'get' to transfer from remote to local
-            file_system='/home/ar/GNS3/projects',
+            file_system='/home/up/GNS3/projects',
             overwrite_file=True
         )
 

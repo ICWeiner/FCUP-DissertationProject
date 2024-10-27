@@ -91,9 +91,11 @@ def interpret_linux_response(results):
     return False, "Unable to determine ping status from results"
 
 def interpret_vpcs_response(results):
-    success_matches = re.findall(r'icmp_s=\d+ ttl=\d+ time=.* ms', results)
+    success_matches = re.findall(r'icmp_seq=\d+ ttl=\d+ time=.* ms', results)
     total_pings = results.count('icmp_seq=')
     successful_pings = len(success_matches)
+    print(f'results is {results}')
+    print(f'total pings is {total_pings} and successful ping is {successful_pings} and success matches is {success_matches}')
     if total_pings > 0:
         success_rate = (successful_pings / total_pings) * 100
         if success_rate >= 100 - TOLERANCE:

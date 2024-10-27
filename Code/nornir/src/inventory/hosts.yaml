@@ -1,6 +1,6 @@
-up201904529:
+up202001001:
   groups:
   - linux
-  hostname: 192.168.57.252
+  hostname: 192.168.57.145
   password: admredes23
-  username: ar
+  username: up
