@@ -1,0 +1,7 @@
+mudar testes para usar api GNS3
+
+identificar sitios por onde passar
+
+modulo generico
+
+fazer documentaçao para modulo novo
