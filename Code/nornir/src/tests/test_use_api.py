@@ -43,6 +43,6 @@ for i in linux_hosts.inventory.hosts.items():
     ping_lib = PingLibrary(config)
 
     # Perform ping for a hostname (the full destination ip must be provided)
-    ping_results = ping_lib.ping('pc1', '10.0.1.1')
+    ping_results = ping_lib.command('pc1', '10.0.1.1')
     print('Ping Results:', ping_results)
     
