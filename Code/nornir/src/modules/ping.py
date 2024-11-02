@@ -60,7 +60,6 @@ class PingLibrary:
             task=netmiko_send_command,
             command_string=f"ping {destination} {options}"
         )
-        #print_result(results)
         print(get_result_strings(results))
         return results # returnar tuplo bool, msg
     
