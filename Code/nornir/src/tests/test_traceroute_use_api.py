@@ -1,15 +1,8 @@
 from nornir import InitNornir
 from utils.gns3_api import get_project_id, get_project_nodes, start_project, gns3_to_yaml
-from modules.ping import PingLibrary
+from modules.traceroute import TracerouteLibrary
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
-
-def ping_worker(config):
-    ping_lib = PingLibrary(config)
-
-    # Perform ping for a hostname (the full destination ip must be provided)
-    ping_results = ping_lib.ping('pc1', '10.0.1.1')
-    print('Ping Results:', ping_results)
 
 # Initialize Nornir
 try:
@@ -40,9 +33,9 @@ for i in linux_hosts.inventory.hosts.items():
     start_project(node_ip, project_id)
 
     config = f'{node_name}.yaml'
-    ping_lib = PingLibrary(config)
+    trace_lib = TracerouteLibrary(config)
 
     # Perform ping for a hostname (the full destination ip must be provided)
-    ping_results = ping_lib.command('pc1', '10.0.1.1')
-    print('Ping Results:', ping_results)
+    trace_results = trace_lib.command('r1', '10.0.1.4')
+    print('Trace Results:', trace_results)
     

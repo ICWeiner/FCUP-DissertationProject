@@ -46,7 +46,7 @@ class CommandLibrary:
     def _command_linux(self, source, destination):
         raise NotImplementedError("Please Implement this method")
     
-    def _send_command(self, source, destination, options):
+    def _send_command(self, source, command):
         raise NotImplementedError("Please Implement this method")
     
     def interpret_cisco_response(self, results):

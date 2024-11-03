@@ -1,12 +1,7 @@
 from modules.module import CommandLibrary
-from nornir import InitNornir
 from nornir_netmiko.tasks import netmiko_send_command
 from nornir.core.filter import F
-from nornir_utils.plugins.functions import print_result
-from nornir.core.task import AggregatedResult, MultiResult, Result
-from utils.tools import updated_inventory_host
 from utils.constants import TOLERANCE
-#from utils.results_processing import get_result_strings
 import re
 
 class PingLibrary(CommandLibrary):
@@ -14,26 +9,30 @@ class PingLibrary(CommandLibrary):
         super().__init__(file)
 
     def _command_router(self, source, destination):
-        results = self.get_result_strings(self._send_command(source, destination, ""))
+        command = f'ping {destination} '
+        results = self.get_result_strings(self._send_command(source, command))
         return self.interpret_cisco_response(results)
     
     def _command_switch(self, source, destination):
-        results = self.get_result_strings(self._send_command(source, destination, ""))
+        command = f'ping {destination} '
+        results = self.get_result_strings(self._send_command(source, command))
         return self.interpret_cisco_response(results)
     
     def _command_vpcs(self, source, destination):
-        results = self.get_result_strings(self._send_command(source, destination, "-c 4"))
+        command = f'ping {destination} '
+        results = self.get_result_strings(self._send_command(source, command))
         return self.interpret_vpcs_response(results)
     
     def _command_linux(self, source, destination):
-        results = self.get_result_strings(self._send_command(source, destination, "-c 4"))
+        command = f'ping {destination} -c 4'
+        results = self.get_result_strings(self._send_command(source, command))
         return self.interpret_linux_response(results)
     
-    def _send_command(self, source, destination, options):
+    def _send_command(self, source, command):
         filter = self.nr.filter(F(name__contains=source))
         results = filter.run(
-            task=netmiko_send_command,
-            command_string=f"ping {destination} {options}"
+            task = netmiko_send_command,
+            command_string = command
         )
         print(self.get_result_strings(results))
         return results # returnar tuplo bool, msg

@@ -1,7 +1,7 @@
 CONFIG_FILE = "./config.yaml"
 # modify host file from config json object
-def updated_inventory_host(file): # file represents the up20xxxxxx.yaml file
-    path = "inventory/" + file
+def updated_inventory_host(filename):
+    path = "inventory/" + filename
     inventory = {
             "plugin": "SimpleInventory",
             "options": {
