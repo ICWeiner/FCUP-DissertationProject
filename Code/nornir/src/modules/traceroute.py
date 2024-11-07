@@ -1,6 +1,4 @@
 from modules.module import CommandLibrary
-from nornir_netmiko.tasks import netmiko_send_command
-from nornir.core.filter import F
 import re
 
 class TracerouteLibrary(CommandLibrary):
@@ -27,16 +25,6 @@ class TracerouteLibrary(CommandLibrary):
         results = self.get_result_strings(self._send_command(source, command))
         return self.interpret_linux_traceroute_response(results)
     
-    def _send_command(self, source, command):
-        filter = self.nr.filter(F(name__contains=source))
-        results = filter.run(
-            task = netmiko_send_command,
-            command_string = command
-        )
-        #print_result(results)
-        print(self.get_result_strings(results))
-        return results # return tuple (bool, msg)
-
     '''
     tracing the route to 10.0.1.4
 

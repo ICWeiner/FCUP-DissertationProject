@@ -1,5 +1,6 @@
 from nornir import InitNornir
 from nornir.core.task import AggregatedResult, MultiResult, Result
+from nornir_netmiko.tasks import netmiko_send_command
 from utils.tools import updated_inventory_host
 import re
 
@@ -46,9 +47,6 @@ class CommandLibrary:
     def _command_linux(self, source, destination):
         raise NotImplementedError("Please Implement this method")
     
-    def _send_command(self, source, command):
-        raise NotImplementedError("Please Implement this method")
-    
     def interpret_cisco_response(self, results):
         raise NotImplementedError("Please Implement this method")
 
@@ -57,6 +55,15 @@ class CommandLibrary:
 
     def interpret_vpcs_response(self, results):
         raise NotImplementedError("Please Implement this method")
+    
+    def _send_command(self, source, command):
+        filter = self.nr.filter(F(name__contains=source))
+        results = filter.run(
+            task = netmiko_send_command,
+            command_string = command
+        )
+        print(self.get_result_strings(results))
+        return results # returnar tuplo bool, msg
         
     def get_result_strings(self, aggregated_result: AggregatedResult) -> list:
 

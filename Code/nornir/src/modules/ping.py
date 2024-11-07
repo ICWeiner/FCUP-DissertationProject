@@ -1,6 +1,4 @@
 from modules.module import CommandLibrary
-from nornir_netmiko.tasks import netmiko_send_command
-from nornir.core.filter import F
 from utils.constants import TOLERANCE
 import re
 
@@ -27,15 +25,6 @@ class PingLibrary(CommandLibrary):
         command = f'ping {destination} -c 4'
         results = self.get_result_strings(self._send_command(source, command))
         return self.interpret_linux_response(results)
-    
-    def _send_command(self, source, command):
-        filter = self.nr.filter(F(name__contains=source))
-        results = filter.run(
-            task = netmiko_send_command,
-            command_string = command
-        )
-        print(self.get_result_strings(results))
-        return results # returnar tuplo bool, msg
     
     def interpret_cisco_response(self, results):
         success_match = re.search(r'Success rate is (\d+) percent \((\d+)/(\d+)\)', results)
