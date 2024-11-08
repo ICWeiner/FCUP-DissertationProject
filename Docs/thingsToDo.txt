@@ -1,20 +1,16 @@
-
-
-identificar sitios por onde passar
-
-
-fazer documentaçao para modulo novo
-
-mandar ctrl + c antes de input 
-
 firewall/segurança
-
-ver capturas wireshark
-
-RE traceroute
 
 modulos adicionais
 
 integrar modulos 
+
+containers?
+
+mandar ctrl + c antes de input e sanitizar em geral
+
+
+ver capturas wireshark
+
+RE traceroute
 
 snapshots proxmox testes de velocidade
