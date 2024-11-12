@@ -1,0 +1,1 @@
+"As each snapshot needs to save the whole RAM to disk you need to make sure there is enough space on your storage. If you use a lot of RAM in the VM it takes some time to save it. "

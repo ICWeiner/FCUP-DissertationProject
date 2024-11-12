@@ -4,7 +4,6 @@ modulos adicionais
 
 integrar modulos 
 
-containers?
 
 mandar ctrl + c antes de input e sanitizar em geral
 

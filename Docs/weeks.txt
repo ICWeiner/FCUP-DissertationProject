@@ -1,0 +1,20 @@
+previous weeks
+
+study of proxmox setup
+converted bash script to python
+converted script to use proxmox API instead of qm command
+wrote requirements and milestones
+made diagram for system a sitemap for web app
+study of previous code development
+converted pinglibrary to use API
+modified ping test to be more complete
+wrote baseLibrary
+
+
+
+5/11
+wireshark caps to understand why commands sometimes dont work 
+Research about proxmox firewall, snapshots and containers vs VMs
+
+12/11
+wrote proxmox scripts related to VM operations

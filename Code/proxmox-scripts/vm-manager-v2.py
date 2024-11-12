@@ -3,8 +3,9 @@ import sys
 import os
 from shlex import quote
 from re import search
+from utils.connection import proxmox_connect
 
-import constants
+import utils.constants as constants
 
 baseuri = ""
 
@@ -178,52 +179,11 @@ def get_ip(first_vm_id, last_vm_id, output_file, session):
             file.write(f"VM ID: {current_vm_id}  Hostname: {retrieve_hostname(current_vm_id)} IP: {retrieve_ip(current_vm_id)}\n")
     print(f"IP addresses saved to {output_file}\n")
 
-
-        
-def proxmox_connect(proxmox_host, username, password):
-    global baseuri
-    baseuri = f'https://{proxmox_host}:8006/api2/json'
-    uri = f'{baseuri}/access/ticket'
-    
-    headers = { "Content-Type": "application/x-www-form-urlencoded"}
-
-    auth =   {
-        "username": username,
-        "password": password
-    }
-
-    try:
-        response = requests.post(uri, headers=headers , data=auth, verify=False)  #proxmox node currently has a bad cert
-    except:
-        print("Error: Failure during ticket request")
-        exit(1)
-
-
-    if response.status_code == 200:
-        try:
-            response_data=response.json()
-        except ValueError:
-            print("Error: Failure during JSON parsing")
-            exit(1)
-    else:
-        print(f'Error: HTTP error {response.status_code}')
-        
-    session = requests.Session()
-
-    session.verify = False
-
-    session.cookies.set("PVEAuthCookie", response_data["data"]["ticket"])
-
-    session.headers.update({"CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]})  
-
-    response = session.get(f'{baseuri}/nodes/pve1')
-
-    return session
-
     
 
 if __name__ == "__main__":
-    
+    baseuri = f'https://{constants.proxmox_host}:8006/api2/json'
+
     args = sys.argv
     args_length = len(args)
 
