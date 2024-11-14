@@ -7,17 +7,79 @@ from utils.connection import proxmox_connect
 import utils.constants as constants
 from utils.proxmox_vm_ip_fetcher import get_ip
 
-def create_proxmox_vm_isolation_rule(first_vm_id, last_vm_id, allowed_vm_ip, session):
-    data = {    
-                'comment': 'Restrict student VMs from communicating with each other',
+def _get_firewall_uri_list():    #Get
+    uri_list = [f'{constants.baseuri}/cluster/firewall/options',
+                f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/firewall/options']
+    #add more if you have more proxmoxhosts
+    
+    return uri_list
+
+
+def create_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, allowed_vm_ip, session):
+
+    for uri in _get_firewall_uri_list:
+        response = session.put(uri, data = {'enable':0})
+        response.raise_for_status()
+
+    firewall_rule_0 = {    
+                'comment': 'Student VM accepts only packets from Teacher VM',
                 'source': allowed_vm_ip,
                 'action': 'ACCEPT',
                 'enable': 1,
                 'type': 'in',
             } 
-    for current_vm_id in range(first_vm_id, last_vm_id + 1):# TODO:CONTINUAR AQUI, provavelmente 'data' esta mal
-        response = session.post(f'{constants.baseuri}/nodes/{current_vm_id}/firewall/rules', data = data)
+    
+    firewall_rule_1 = {    
+                'comment': 'Student VMs sends only packets to Teacher VM',
+                'dest': allowed_vm_ip,
+                'action': 'ACCEPT',
+                'enable': 1,
+                'type': 'out',
+            }
+    
+    firewall_rule_2 = {    
+                'comment': 'Student VMs drops all other packets',
+                'action': 'DROP',
+                'enable': 1,
+                'type': 'in',
+            } 
+
+    for current_vm_id in range(first_vm_id, last_vm_id + 1):
+        response = session.put(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/firewall/options',
+                            data = {'enable':1})
+        response.raise_for_status()
+
+        firewall_rules = [firewall_rule_2, firewall_rule_1, firewall_rule_0]
+
+        for rule in firewall_rules:
+            response = session.post(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/firewall/rules',
+                                    data = rule)
+            response.raise_for_status()
+
         print(response)
+    
+def delete_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, session):
+
+    for uri in _get_firewall_uri_list:
+        response = session.put(uri, data = {'enable':0})
+        response.raise_for_status()
+
+
+    for current_vm_id in range(first_vm_id, last_vm_id + 1):
+        response = session.put(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/firewall/options',
+                            data = {'enable':0})
+        response.raise_for_status()
+
+
+        response = session.get(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/firewall/rules')
+        response.raise_for_status()
+
+        number_of_rules = len(response.json()['data'])
+
+        for i in range(number_of_rules): #Since the number of higher pos rules changes when deleting, we can always delete rule pos 0
+            response = session.delete(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/firewall/rules/0')
+            response.raise_for_status()
+        
 
 
 if __name__ == "__main__":
@@ -30,5 +92,8 @@ if __name__ == "__main__":
 
     teacher_vm_ip = teacher_vm[800][0]
 
-    create_proxmox_vm_isolation_rule(300,301,teacher_vm, session)
+
+    create_proxmox_vm_isolation_rules(300, 301, teacher_vm_ip, session)
+
+    #delete_proxmox_vm_isolation_rules(300, 301, session)
 

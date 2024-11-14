@@ -18,3 +18,5 @@ Research about proxmox firewall, snapshots and containers vs VMs
 
 12/11
 wrote proxmox scripts related to VM operations
+studied workings of proxmox firewall
+wrote proxmox script to create firewall rules to isolate VMs
