@@ -1,13 +1,21 @@
-import requests
-import sys
-import os
-from shlex import quote
-from re import search
 from utils.connection import proxmox_connect
 import utils.constants as constants
 from utils.proxmox_vm_ip_fetcher import get_ip
 
-def _get_firewall_uri_list():    #Get
+def usage():
+    print("""Usage: python vm_manager.py [OPTION]
+          
+          create_proxmox_vm_isolation_rules <first-vm-id> <last-vm-id> <allowed-vm-ip> <session>
+          Activates the proxmox firewall at the datacenter, node and vm levels.
+          Creates firewall rules to disable communication between "student" VMs, they may only
+          communicate with the designated IP, typically the "teacher" VM.
+
+          create_proxmox_vm_isolation_rules <first-vm-id> <last-vm-id> <allowed-vm-ip> <session>
+          Deactivates the proxmox firewall at the datacenter, node and vm levels.
+          Deletes firewall rules enabling full internet access and communication between VMs.
+          """)
+
+def _get_firewall_uri_list():    #Get list of all firewall activation uri's
     uri_list = [f'{constants.baseuri}/cluster/firewall/options',
                 f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/firewall/options']
     #add more if you have more proxmoxhosts
@@ -22,7 +30,7 @@ def create_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, allowed_vm_ip, se
         response.raise_for_status()
 
     firewall_rule_0 = {    
-                'comment': 'Student VM accepts only packets from Teacher VM',
+                'comment': 'VM accepts only packets from Teacher VM',
                 'source': allowed_vm_ip,
                 'action': 'ACCEPT',
                 'enable': 1,
@@ -30,7 +38,7 @@ def create_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, allowed_vm_ip, se
             } 
     
     firewall_rule_1 = {    
-                'comment': 'Student VMs sends only packets to Teacher VM',
+                'comment': 'VM sends only packets to Teacher VM',
                 'dest': allowed_vm_ip,
                 'action': 'ACCEPT',
                 'enable': 1,
@@ -38,7 +46,7 @@ def create_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, allowed_vm_ip, se
             }
     
     firewall_rule_2 = {    
-                'comment': 'Student VMs drops all other packets',
+                'comment': 'VM drops all other packets',
                 'action': 'DROP',
                 'enable': 1,
                 'type': 'in',
@@ -93,7 +101,7 @@ if __name__ == "__main__":
     teacher_vm_ip = teacher_vm[800][0]
 
 
-    create_proxmox_vm_isolation_rules(300, 301, teacher_vm_ip, session)
+    #create_proxmox_vm_isolation_rules(300, 301, teacher_vm_ip, session)
 
     #delete_proxmox_vm_isolation_rules(300, 301, session)
 
