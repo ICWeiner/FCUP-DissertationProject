@@ -16,6 +16,9 @@ class Square(Shape):
     def printSide(self):
         print(self.side)
 
+def test():
+    return "OLA"
+
 shape = Shape("Red")
 
 square = Square("Blue",5)

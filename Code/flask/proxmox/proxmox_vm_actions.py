@@ -1,6 +1,6 @@
 import os
 from shlex import quote
-import utils.constants as constants
+import proxmox.utils.constants as constants
 
 def usage():
     print("""Usage: python vm_manager.py [OPTION]

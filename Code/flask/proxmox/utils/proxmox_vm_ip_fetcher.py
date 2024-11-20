@@ -1,12 +1,10 @@
-import utils.constants as constants
+import proxmox.utils.constants as constants
 
 def get_ip(first_vm_id, last_vm_id, session): #Returns a dictionary that uses the vm id as key, with the ip and hostname as elements of a list
     def retrieve_hostname(vm_id): #retrieve hostname from vm config using the respective ID
         response = session.get(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/get-host-name')
 
-        if response.status_code != 200:
-            print(f"VM with ID {current_vm_id} is not currently running\n")
-            return None
+        response.raise_for_status()
         
         name = response.json()['data']['result']['host-name']
         return name
@@ -14,9 +12,8 @@ def get_ip(first_vm_id, last_vm_id, session): #Returns a dictionary that uses th
     def retrieve_ip(vm_id): #retrieve ip from interface ens18
         response = session.get(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/network-get-interfaces')
 
-        if response.status_code != 200:        
-            print(f"VM with ID {current_vm_id} is not currently running\n")
-            return None
+        response.raise_for_status()
+        
         ip = response.json()['data']['result'][1]['ip-addresses'][0]['ip-address']
         return ip
     

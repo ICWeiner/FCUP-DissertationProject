@@ -1,6 +1,6 @@
-from utils.connection import proxmox_connect
-import utils.constants as constants
-from utils.proxmox_vm_ip_fetcher import get_ip
+from proxmox.utils.connection import proxmox_connect
+import proxmox.utils.constants as constants
+from proxmox.utils.proxmox_vm_ip_fetcher import get_ip
 
 def usage():
     print("""Usage: python vm_manager.py [OPTION]
@@ -25,8 +25,8 @@ def _get_firewall_uri_list():    #Get list of all firewall activation uri's
 
 def create_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, allowed_vm_ip, session):
 
-    for uri in _get_firewall_uri_list:
-        response = session.put(uri, data = {'enable':0})
+    for uri in _get_firewall_uri_list():
+        response = session.put(uri, data = {'enable':1})
         response.raise_for_status()
 
     firewall_rule_0 = {    
@@ -68,7 +68,7 @@ def create_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, allowed_vm_ip, se
     
 def delete_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, session):
 
-    for uri in _get_firewall_uri_list:
+    for uri in _get_firewall_uri_list():
         response = session.put(uri, data = {'enable':0})
         response.raise_for_status()
 

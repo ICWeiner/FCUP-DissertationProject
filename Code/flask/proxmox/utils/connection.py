@@ -1,5 +1,5 @@
 import requests
-import utils.constants as constants
+import proxmox.utils.constants as constants
 
 def proxmox_connect(username, password):
     uri = f'{constants.baseuri}/access/ticket'
