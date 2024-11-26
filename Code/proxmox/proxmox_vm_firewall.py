@@ -88,20 +88,3 @@ def delete_proxmox_vm_isolation_rules(first_vm_id, last_vm_id, session):
             response = session.delete(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/firewall/rules/0')
             response.raise_for_status()
         
-
-
-if __name__ == "__main__":
-    
-    session = proxmox_connect(constants.username, constants.password)
-
-    student_vms = get_ip(300,301,session)
-
-    teacher_vm = get_ip(800,800,session)
-
-    teacher_vm_ip = teacher_vm[800][0]
-
-
-    #create_proxmox_vm_isolation_rules(300, 301, teacher_vm_ip, session)
-
-    #delete_proxmox_vm_isolation_rules(300, 301, session)
-
