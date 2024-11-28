@@ -1,4 +1,3 @@
-firewall/segurança
 
 modulos adicionais
 
@@ -8,8 +7,7 @@ integrar modulos
 mandar ctrl + c antes de input e sanitizar em geral
 
 
-ver capturas wireshark
+
 
 RE traceroute
 
-snapshots proxmox testes de velocidade

@@ -10,3 +10,8 @@ converted previous code from bash to python and rewrote it to use proxmox API in
 
 Converted modules to use GNS3 API instead of having to run localy
 
+firewall/segurança
+
+snapshots proxmox testes de velocidade
+
+ver capturas wireshark

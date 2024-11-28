@@ -1,4 +1,7 @@
 <header>
-      <a href="{{ 'http://localhost:5000/api/v1/vm/300/start' }}">{{ 'Start VM 300' }}</a>
-      <a href="{{ 'http://localhost:5000/api/v1/vm/300/stop' }}">{{ 'Stop VM 300' }}</a>
+      <a href="{{ url_for('vm_bp.start_vm', vmid=300) }}">{{ 'Start VM 300' }}</a>
+      <a href="{{ url_for('vm_bp.stop_vm', vmid=300) }}">{{ 'Stop VM 300' }}</a>
+      <a href="{{ url_for('vm_bp.start_firewall', vmid=300) }}">{{ 'Isolate VM 300' }}</a>
+      <a href="{{ url_for('vm_bp.stop_firewall', vmid=300) }}">{{ 'De-isolate VM 300' }}</a>
+      <a href="{{ url_for('tests_bp.ping', vmid=300) }}">{{ 'Run ping test VM 300' }}</a>
  </header>

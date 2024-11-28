@@ -1,4 +1,4 @@
-from modules.module import CommandLibrary
+from nornir_lib.modules.module import CommandLibrary
 import re
 
 class TracerouteLibrary(CommandLibrary):

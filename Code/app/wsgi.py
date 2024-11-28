@@ -1,4 +1,7 @@
 from application import init_app
+import sys
+
+sys.path.append("..")
 
 app = init_app()
 

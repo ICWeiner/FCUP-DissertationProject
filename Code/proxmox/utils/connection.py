@@ -1,8 +1,9 @@
 import requests
-import proxmox.utils.constants as constants
+from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 
-def proxmox_connect(username, password):
-    uri = f'{constants.baseuri}/access/ticket'
+
+def proxmox_connect(proxmox_host, username, password):
+    uri = f'{proxmox_base_uri(proxmox_host)}/access/ticket'
     
     headers = { "Content-Type": "application/x-www-form-urlencoded"}
 
@@ -34,6 +35,6 @@ def proxmox_connect(username, password):
 
     session.headers.update({"CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]})  
 
-    response = session.get(f'{constants.baseuri}/nodes/pve1')
+    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/pve1')
 
     return session

@@ -24,3 +24,4 @@ class Config:
     # Proxmox credentials
     PROXMOX_USER =  environ.get('PROXMOX_USER')
     PROXMOX_PASSWORD =  environ.get('PROXMOX_PASSWORD')
+    PROXMOX_HOST =  environ.get('PROXMOX_HOST')

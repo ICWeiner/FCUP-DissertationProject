@@ -1,8 +1,10 @@
 import proxmox.utils.constants as constants
+from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 
-def get_ip(first_vm_id, last_vm_id, session): #Returns a dictionary that uses the vm id as key, with the ip and hostname as elements of a list
+
+def get_ip(proxmox_host, first_vm_id, last_vm_id, session): #Returns a dictionary that uses the vm id as key, with the ip and hostname as elements of a list
     def retrieve_hostname(vm_id): #retrieve hostname from vm config using the respective ID
-        response = session.get(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/get-host-name')
+        response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/get-host-name')
 
         response.raise_for_status()
         
@@ -10,7 +12,7 @@ def get_ip(first_vm_id, last_vm_id, session): #Returns a dictionary that uses th
         return name
     
     def retrieve_ip(vm_id): #retrieve ip from interface ens18
-        response = session.get(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/network-get-interfaces')
+        response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/network-get-interfaces')
 
         response.raise_for_status()
         

@@ -1,6 +1,8 @@
 import os
 from shlex import quote
 import proxmox.utils.constants as constants
+from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
+
 
 def usage():
     print("""Usage: python vm_manager.py [OPTION]
@@ -23,7 +25,7 @@ def usage():
           Rolls back the specifiedVM to the initial snapshot taken after VM creation.
           """)
     
-def create(template_id, first_clone_id, hostnames_file, session):
+def create(proxmox_host, template_id, first_clone_id, hostnames_file, session):
     if not os.path.exists(hostnames_file):
         print(f"Error: Hostnames list file '{hostnames_file}' does not exist.")
         return 1
@@ -41,7 +43,7 @@ def create(template_id, first_clone_id, hostnames_file, session):
                 'name': hostname,
             } 
 
-            response = session.post(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{template_id}/clone', data = data)
+            response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{template_id}/clone', data = data)
 
             if response.status_code != 200:
                 print(f'Unexpected HTTP status code {response.status_code}')
@@ -66,7 +68,7 @@ def create(template_id, first_clone_id, hostnames_file, session):
                 'snapname': f'initial_snap_{current_clone_id}',
                 'description': f'Initial snapshot of VM {current_clone_id}',
             }
-            response = session.post(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_clone_id}/snapshot', data = data)
+            response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{current_clone_id}/snapshot', data = data)
 
             if response.status_code != 200:
                 print(f'Unexpected HTTP status code {response.status_code}')
@@ -78,46 +80,46 @@ def create(template_id, first_clone_id, hostnames_file, session):
     print("Finished snapshotting virtual machines\n")
     
     
-def start(first_vm_id, last_vm_id, session):
+def start(proxmox_host, first_vm_id, last_vm_id, session):
     print("Starting virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        response = session.get(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/current')
+        response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/current')
 
         if response.json()["data"]['qmpstatus'] == 'running':
             print(f'VM {current_vm_id} is already running.\n')
         elif response.status_code == 200:
             print(f"Starting virtual machine with ID {current_vm_id}\n")
-            session.post(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/start')
+            session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/start')
         else:
             print(f'Unexpected HTTP status code {response.status_code}')
             print(f'Error: Could not start VM {current_vm_id}')
 
     print("Done")
 
-def stop(first_vm_id, last_vm_id, session):
+def stop(proxmox_host, first_vm_id, last_vm_id, session):
     print("Stopping virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        response = session.get(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/current')
+        response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/current')
 
 
         if response.json()["data"]['qmpstatus'] == 'stopped':
             print(f'VM {current_vm_id} is already stopped.\n')
         elif response.status_code == 200:
             print(f"Stopping virtual machine with ID {current_vm_id}\n")
-            session.post(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/stop')
+            session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/status/stop')
         else: 
             print(f'Unexpected HTTP status code {response.status_code}')
             print(f'Error: Could not stop VM {current_vm_id}\n')
 
     print("Done")
 
-def destroy(first_vm_id, last_vm_id, session):
+def destroy(proxmox_host, first_vm_id, last_vm_id, session):
     print("Destroying virtual machines...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        response = session.delete(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}')
+        response = session.delete(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}')
 
         if response.status_code == 200:
             print(f"Destroying virtual machine with ID {current_vm_id}\n")
@@ -127,11 +129,11 @@ def destroy(first_vm_id, last_vm_id, session):
 
     print("Done")
 
-def rollback(first_vm_id, last_vm_id, session):
+def rollback(proxmox_host, first_vm_id, last_vm_id, session):
     print("Rolling back virtual machines to initial state...\n")
 
     for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        response = session.post(f'{constants.baseuri}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/snapshot/initial_snap_{current_vm_id}/rollback')
+        response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{current_vm_id}/snapshot/initial_snap_{current_vm_id}/rollback')
 
         if response.status_code == 200:
             print(f"Rolling back virtual machine with ID {current_vm_id}\n")

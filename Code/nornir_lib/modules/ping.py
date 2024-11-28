@@ -1,5 +1,5 @@
-from modules.module import CommandLibrary
-from utils.constants import TOLERANCE
+from nornir_lib.modules.module import CommandLibrary
+from nornir_lib.utils.constants import TOLERANCE
 import re
 
 class PingLibrary(CommandLibrary):

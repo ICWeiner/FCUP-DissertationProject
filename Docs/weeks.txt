@@ -18,6 +18,21 @@ Research about proxmox firewall, snapshots and containers vs VMs
 
 12/11
 changes in proxmox scripts related to VM operations
-studied workings of proxmox firewall
+studied workings of proxmox firewall - https://ciaduck.blogspot.com/2020/04/proxmox-firewall-and-isolating-vms.html?m=1
 wrote proxmox script to create firewall rules to isolate VMs
+made some tests on snapshot speeds with and without ram
 
+19/11
+started work on flask
+fixed some errors in firewall api script
+restructed project folders
+implemented some basic endpoints to interact with proxmox via the flask application
+WSGI Research - https://www.fullstackpython.com/wsgi-servers.html
+Gunicorn experiments on 'teacher' vm
+Study of flask basics - https://hackersandslackers.com/series/build-flask-apps/
+
+
+26/11
+More work on flask
+Integrated proxmox api calls with flask application
+Working on implementing nornir tasks with flask application
