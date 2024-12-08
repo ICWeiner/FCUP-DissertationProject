@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+        <a href="{{ url_for('vm_bp.start_vm', vm_id=300) }}">{{ 'Start work environment' }}</a>
+        <a href="{{ url_for('vm_bp.stop_vm', vm_id=300) }}">{{ 'Stop work environment' }}</a>
+        <a href="{{ url_for('vm_bp.connect', vm_id=300) }}">{{ 'Connect to work environment' }}</a>
+        <a href="{{ url_for('vm_bp.start_firewall', vm_id=300) }}">{{ 'Turn on exam mode' }}</a>
+        <a href="{{ url_for('vm_bp.stop_firewall', vm_id=300) }}">{{ 'Turn off exam mode' }}</a>
+        <a href="{{ url_for('tests_bp.ping', vm_id=300) }}">{{ 'Check exercise results' }}</a>
+    </div>
+{% endblock %}

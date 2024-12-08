@@ -1,4 +1,5 @@
 from nornir import InitNornir
+from nornir.core.filter import F
 from nornir.core.task import AggregatedResult, MultiResult, Result
 from nornir_netmiko.tasks import netmiko_send_command
 from nornir_lib.utils.tools import updated_inventory_host

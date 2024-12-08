@@ -2,7 +2,7 @@ import proxmox.utils.constants as constants
 from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 
 
-def usage():
+def usage():#TODO: Make arguments of all function be more in line with vm_actions
     print("""Usage: python vm_manager.py [OPTION]
           
           create_proxmox_vm_isolation_rules <proxmox-host> <first-vm-id> <last-vm-id> <allowed-vm-ip> <session>

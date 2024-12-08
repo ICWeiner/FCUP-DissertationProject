@@ -14,12 +14,12 @@ tests_bp = Blueprint(
 )
 
 
-@tests_bp.route('/vm/<int:vmid>/test/ping')
-def ping(vmid):#TODO: FINISH IMPLEMENTING PING TEST
-    #ping_test(vmid, 'test', 'pc1', '10.0.0.1')
+@tests_bp.route('/vm/<int:vm_id>/test/ping')
+def ping(vm_id):#TODO: FINISH IMPLEMENTING PING TEST
+    #ping_test(vm_id, 'test', 'pc1', '10.0.0.1')
 
     try:
-        nr = InitNornir(config_file='application/tests/config.yaml')
+        nr = InitNornir(config_file='config.yaml')
     except Exception as e:
         print(f'Failed to initialize Nornir: {str(e)}')
         exit(1)
@@ -28,6 +28,8 @@ def ping(vmid):#TODO: FINISH IMPLEMENTING PING TEST
     linux_hosts = nr.filter(F(name__startswith = str('up2')) & F(platform__eq = 'linux'))
 
     gns3_filename = 'test' #TODO: pass this as an argument
+
+    results = ''
 
     for i in linux_hosts.inventory.hosts.items(): 
         
@@ -49,8 +51,7 @@ def ping(vmid):#TODO: FINISH IMPLEMENTING PING TEST
         ping_lib = PingLibrary(config)
 
         # Perform ping for a hostname (the full destination ip must be provided)
-        ping_results = ping_lib.command('pc1', '10.0.0.1') #TODO: pass these arguments as arguments instead of hard coding
-        return ping_results
+        results = ping_lib.command('pc1', '10.0.1.1') #TODO: pass these arguments as arguments instead of hard coding
 
 
-    return f'<p>Exe VM with id {vmid} </p>'
+    return f'<p>TEST RESULTS: <br> {results} </p>'

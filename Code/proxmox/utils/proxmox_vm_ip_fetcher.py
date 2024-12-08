@@ -2,32 +2,20 @@ import proxmox.utils.constants as constants
 from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 
 
-def get_ip(proxmox_host, first_vm_id, last_vm_id, session): #Returns a dictionary that uses the vm id as key, with the ip and hostname as elements of a list
-    def retrieve_hostname(vm_id): #retrieve hostname from vm config using the respective ID
-        response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/get-host-name')
 
-        response.raise_for_status()
-        
-        name = response.json()['data']['result']['host-name']
-        return name
+def get_hostname(proxmox_host,session, vm_id): #retrieve hostname from vm config using the respective ID
+    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/get-host-name')
+
+    response.raise_for_status()
     
-    def retrieve_ip(vm_id): #retrieve ip from interface ens18
-        response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/network-get-interfaces')
+    name = response.json()['data']['result']['host-name']
+    return name
 
-        response.raise_for_status()
-        
-        ip = response.json()['data']['result'][1]['ip-addresses'][0]['ip-address']
-        return ip
+def get_ip(proxmox_host,session, vm_id): #retrieve ip from interface ens18
+    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/agent/network-get-interfaces')
+
+    response.raise_for_status()
     
-    print("Getting IP addresses\n")
-
-    vms = {}
-
-    for current_vm_id in range(first_vm_id, last_vm_id + 1):
-        print(f"Retrieving IP address of virtual machine with ID {current_vm_id}\n")
-
-        vm_ip = retrieve_ip(current_vm_id)
-        vm_hostname = retrieve_hostname(current_vm_id)
-        vms.update({current_vm_id: [vm_ip, vm_hostname]})
-
-    return vms
+    ip = response.json()['data']['result'][1]['ip-addresses'][0]['ip-address']
+    return ip
+    

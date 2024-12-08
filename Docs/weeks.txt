@@ -33,6 +33,16 @@ Study of flask basics - https://hackersandslackers.com/series/build-flask-apps/
 
 
 26/11
-More work on flask
+More work on flask (more restructuring, blueprints, etc.)
 Integrated proxmox api calls with flask application
 Working on implementing nornir tasks with flask application
+
+03/12
+GNS3 Web - explore (still in beta phase, altough from experimenting it seems feature complete)
+Clone before evaluation - explore (cloning active VM is possible, but not with RAM which is what we want)
+Explore use of containers in conjunction with GNS3 Web (possible, just install gns3-server on container)
+Make more than 1 user use a single gns3 server (possible, but no user isolation, everything is shared, not desirable in exam setting)
+Worked on site front end (just basic html and redirecting to gns3 web directly from site) 
+
+10/12
+Write some documentation about flask app and proxmox api calls

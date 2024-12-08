@@ -23,10 +23,12 @@ def init_app():
         from .home import routes as home
         from .vm import routes as vm
         from .tests import routes as tests
+        from .exercises  import routes as exercises
 
         # Register Blueprints
         app.register_blueprint(home.home_bp)
         app.register_blueprint(vm.vm_bp)
         app.register_blueprint(tests.tests_bp)
+        app.register_blueprint(exercises.exercises_bp)
 
         return app
