@@ -39,10 +39,18 @@ Working on implementing nornir tasks with flask application
 
 03/12
 GNS3 Web - explore (still in beta phase, altough from experimenting it seems feature complete)
-Clone before evaluation - explore (cloning active VM is possible, but not with RAM which is what we want)
+Clone before evaluation - explore (cloning active VM is possible, but not with RAM which is what we want, not possible on containers with RAM, not with backups neither snapshots )
 Explore use of containers in conjunction with GNS3 Web (possible, just install gns3-server on container)
 Make more than 1 user use a single gns3 server (possible, but no user isolation, everything is shared, not desirable in exam setting)
 Worked on site front end (just basic html and redirecting to gns3 web directly from site) 
+Containers - cant seem to use ubuntu 24.04/10 (needs to update proxmox packages but always gives error) ((FIXED))
 
 10/12
 Write some documentation about flask app and proxmox api calls
+Containers - Setting up a template GNS3 Container
+NETMIKO send_command might be the cause for tests sometimes not working "randomly" (fast_cli)
+
+
+Containers - Contrary to VMs, IP seems to change frequently, solve this or workaround it? (non-issue)
+
+

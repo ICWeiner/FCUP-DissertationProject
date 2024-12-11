@@ -1,7 +1,7 @@
 from application import init_app
 import sys
 
-sys.path.append("..")
+sys.path.append("..")#Necessary to import nornir_lib and proxmox folders in other parts of the app
 
 app = init_app()
 

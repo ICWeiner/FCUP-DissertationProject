@@ -3,28 +3,6 @@ from shlex import quote
 import proxmox.utils.constants as constants
 from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 
-
-def usage():
-    print("""Usage: python vm_manager.py [OPTION]
-          
-          create <proxmox_host> <session> <template-id> <clone-id> <hostnames>    
-          Clones the specified template VM with the given hostname.
-          It then configures memory, CPU, disk size, enables QEMU guest agent and takes a snapshot.
-
-          start <proxmox_host> <session> <vm-id> 
-          Starts the specified VM.
-
-          stop <proxmox_host> <session> <vm-id> 
-          Stops the specified VM.
-
-          destroy <proxmox_host> <session> <vm-id> 
-          Destroys the specified VM.
-        
-          rollback <proxmox_host> <session> <vm-id> 
-          Rolls back the specified VM to the initial snapshot taken after VM creation.
-
-          <session> is created with the help of "connection" in utils/ 
-          """)
     
 def create(proxmox_host, session, template_id, clone_id, hostname):
     print("\nCreating virtual machine:\n")

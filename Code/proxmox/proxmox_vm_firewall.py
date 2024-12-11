@@ -1,20 +1,7 @@
 import proxmox.utils.constants as constants
 from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 
-
-def usage():#TODO: Make arguments of all function be more in line with vm_actions
-    print("""Usage: python vm_manager.py [OPTION]
-          
-          create_proxmox_vm_isolation_rules <proxmox-host> <first-vm-id> <last-vm-id> <allowed-vm-ip> <session>
-          Activates the proxmox firewall at the datacenter, node and vm levels.
-          Creates firewall rules to disable communication between "student" VMs, they may only
-          communicate with the designated IP, typically the "teacher" VM.
-
-          delete_proxmox_vm_isolation_rules <proxmox-host> <first-vm-id> <last-vm-id> <allowed-vm-ip> <session>
-          Deactivates the proxmox firewall at the datacenter, node and vm levels.
-          Deletes firewall rules enabling full internet access and communication between VMs.
-          """)
-
+#TODO: Make arguments of all function be more in line with vm_actions
 def _get_firewall_uri_list(proxmox_host):    #Get list of all firewall activation uri's
     uri_list = [f'{proxmox_base_uri(proxmox_host)}/cluster/firewall/options',
                 f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/firewall/options']
