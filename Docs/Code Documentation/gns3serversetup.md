@@ -16,7 +16,7 @@ eval "$(register-python-argcomplete pipx)"
 
 git clone https://github.com/GNS3/vpcs.git
 
-cd GNS3/images/vpcs/src
+cd vpcs/src
 
 ./mk.sh
 

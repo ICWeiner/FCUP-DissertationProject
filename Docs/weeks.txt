@@ -46,10 +46,13 @@ Worked on site front end (just basic html and redirecting to gns3 web directly f
 Containers - cant seem to use ubuntu 24.04/10 (needs to update proxmox packages but always gives error) ((FIXED))
 
 10/12
-Write some documentation about flask app and proxmox api calls
-Containers - Setting up a template GNS3 Container
-NETMIKO send_command might be the cause for tests sometimes not working "randomly" (fast_cli)
+Write some documentation about flask app, proxmox api calls and nornir usage.
 
+Containers - Setting up a template GNS3 Container (QEMU guest agent cant be run on containers, priviledged or not. is this a problem?
+it actually can but doing so can possibly leave open a big attack vector...
+Switching from QEMU to docker within GNS3 seems doable, abandoning linux support in GNS3 doesn't...)
+
+NETMIKO send_command might be the cause for tests sometimes not working "randomly" (fast_cli set to false, after some testing, problem seems taken care of... )
 
 Containers - Contrary to VMs, IP seems to change frequently, solve this or workaround it? (non-issue)
 
