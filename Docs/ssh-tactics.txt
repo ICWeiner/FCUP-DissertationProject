@@ -1,0 +1,11 @@
+ # SSH into vm directly
+
+ssh -f -L 9990:192.168.57.161:22 -L8006:192.168.57.22:8006 -L3128:192.168.57.22:3128 up202007895@ssh.alunos.dcc.fc.up.pt "sleep 10" && ssh -p 9990 up@localhost
+
+# SSH into DCC
+
+ssh up202007895@ssh.alunos.dcc.fc.up.pt -L8006:192.168.57.22:8006 -L3128:192.168.57.22:3128 -L3080:192.168.57.158:3080
+
+# and SSH into VM
+
+ssh -f -L 9990:192.168.57.161:22 up202007895@ssh.alunos.dcc.fc.up.pt "sleep 10" && ssh -p 9990 up@localhost

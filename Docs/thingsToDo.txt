@@ -1,13 +1,13 @@
 
 modulos adicionais
 
-integrar modulos 
-
 
 mandar ctrl + c antes de input e sanitizar em geral
 
-
+switch to netmiko's "send_command_timing" if bug rearises
 
 
 RE traceroute
+
+
 
