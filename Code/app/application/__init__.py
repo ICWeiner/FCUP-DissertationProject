@@ -1,9 +1,11 @@
-from flask import Flask
+from flask import Flask 
+from flask_sqlalchemy import SQLAlchemy
 
 
 # Globally accessible libraries
-'''
+
 db = SQLAlchemy()
+'''
 r = FlaskRedis()
 '''
 
@@ -13,8 +15,9 @@ def init_app():
     app.config.from_object('config.Config')
 
     # Initialize Plugins
-    ''' 
+    
     db.init_app(app)
+    '''
     r.init_app(app)
     '''
 
@@ -30,5 +33,7 @@ def init_app():
         app.register_blueprint(vm.vm_bp)
         app.register_blueprint(tests.tests_bp)
         app.register_blueprint(exercises.exercises_bp)
+
+        db.create_all()
 
         return app

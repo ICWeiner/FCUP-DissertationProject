@@ -60,7 +60,7 @@ Containers - Contrary to VMs, IP seems to change frequently, solve this or worka
 
 17/12
 
-GNS3 - multiple gns3 web server instances running on a single VM?( all instances can still access each other's files)
+GNS3 - multiple gns3 web server instances running on a single VM?(no, all instances can still access each other's files)
 
 Docker in GNS3(still limited, alternative would be running any QEMU VM directly on proxmoxVE, good suggestion for future work)
 

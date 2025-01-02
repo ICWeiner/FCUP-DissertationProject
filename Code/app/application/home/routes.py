@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template
 from flask import current_app as app
-#from flask_blueprint_tutorial.api import fetch_products
 
 
 # Blueprint Configuration
