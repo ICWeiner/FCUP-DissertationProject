@@ -67,3 +67,11 @@ Docker in GNS3(still limited, alternative would be running any QEMU VM directly 
 Created a template GNS3-Server, provisioned with a working templates for a cisco router, switch, linux machine and VPCS, base on ubuntu 24.10
 
 Create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
+
+
+2/01
+Create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
+- added a database to the flask application
+- worked on creating a vm for a student when required(not finished)
+- refined database uml definition
+- added login and signup capabilites

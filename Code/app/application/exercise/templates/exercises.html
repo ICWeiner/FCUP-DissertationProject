@@ -5,7 +5,7 @@
         <h1>{{title}}</h1>
         <p>{{description}}</p>
         {% for id, name in exercises.items() %}
-            <a href="{{ url_for('exercises_bp.exercise', id=id )}}">{{ name }}</a><br>
+            <a href="{{ url_for('exercise_bp.exercise', id=id )}}">{{ name }}</a><br>
         {% endfor %}
 
     </div>

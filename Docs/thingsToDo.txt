@@ -1,13 +1,10 @@
 
-modulos adicionais
+additional modules
 
-
-mandar ctrl + c antes de input e sanitizar em geral
+send "ctrl + c" before sending commands and general sanitization of inputs in VMs
 
 switch to netmiko's "send_command_timing" if bug rearises
 
-
 RE traceroute
 
-
-
+Insert authentication(jwt) in endpoints that should be protected, such as creation and starting, stoping of VMs

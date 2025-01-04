@@ -16,6 +16,6 @@ def home():
 
     return render_template(
         'home.html',
-        title="Jinja Demo Site",
-        description="Smarter page templates with Flask & Jinja.",
+        title="GNS3 - Evaluation platform",
+        description="GNS3 - Evaluation platform",
         template='home-template',)

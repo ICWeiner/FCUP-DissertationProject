@@ -1,16 +1,16 @@
 from flask import Blueprint, render_template
 from flask import current_app as app
+from flask_login import current_user, login_required
 
 
-#TODO: FIX ABOVE IMPORTS
-
-exercises_bp = Blueprint(
-    'exercises_bp', __name__,
+exercise_bp = Blueprint(
+    'exercise_bp', __name__,
     template_folder='templates',
     static_folder='static'
 )
 
-@exercises_bp.route('/exercise/<int:id>')
+@exercise_bp.route('/exercise/<int:id>')
+#@login_required
 def exercise(id):
 
     return render_template(
@@ -21,7 +21,8 @@ def exercise(id):
         exercise=id,
         exercise_title="Sample Exercise")
 
-@exercises_bp.route('/exercises')
+@exercise_bp.route('/exercises')
+#@login_required
 def exercises():
 
     return render_template(

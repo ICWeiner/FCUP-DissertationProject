@@ -4,17 +4,19 @@ from nornir import InitNornir
 from nornir.core.filter import F
 from nornir_lib.utils.gns3_api import get_project_id, get_project_nodes, start_project, gns3_to_yaml
 from nornir_lib.modules.ping import PingLibrary
+from flask_login import current_user, login_required
 
 #TODO: FIX ABOVE IMPORTS
 
-tests_bp = Blueprint(
-    'tests_bp', __name__,
+test_bp = Blueprint(
+    'test_bp', __name__,
     template_folder='templates',
     static_folder='static'
 )
 
 
-@tests_bp.route('/vm/<int:vm_id>/test/ping')
+@test_bp.route('/vm/<int:vm_id>/test/ping')
+#@login_required
 def ping(vm_id):#TODO: FINISH IMPLEMENTING PING TEST
     #ping_test(vm_id, 'test', 'pc1', '10.0.0.1')
 
