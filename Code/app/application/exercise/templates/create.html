@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+        <div class="form-wrapper">
+        
+            <h1>New Exercise</h1>
+        
+            <form method="POST" action="/exercise/create">
+              {{ form.csrf_token }}
+        
+              <fieldset class="title">
+                {{ form.title.label }}
+                {{ form.title(placeholder='Title') }}
+                {% if form.title.errors %}
+                  <ul class="errors">
+                    {% for error in form.title.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
+        
+              <fieldset class="body">
+                {{ form.body.label }}
+                {{ form.body(placeholder='Body') }}
+                {% if form.body.errors %}
+                  <ul class="errors">
+                    {% for error in form.body.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
+        
+              <div class="submit-button">
+                {{ form.submit }}
+              </div>
+        
+            </form>
+          </div>
+    </div>
+{% endblock %}
