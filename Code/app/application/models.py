@@ -54,7 +54,9 @@ class User(UserMixin, db.Model):
         default = False
     )
 
-    exercises  = db.relationship('Exercise', secondary='userexercises', back_populates='users')
+    submissions  = db.relationship('Submission', backref='user')
+
+    workvms  = db.relationship('WorkVm', backref='user')
 
     def set_password(self, password):
         """Create hashed password."""
@@ -67,9 +69,60 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
-#TODO: finish updating to match latest uml definition
-class Vm(db.Model):
-    __tablename__ = 'vm'
+class WorkVm(db.Model):
+    __tablename__ = 'workvm'
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+        unique = True
+    )
+
+    proxmox_work_vm_id = db.Column(
+        db.Integer,
+        primary_key=True,
+        unique = True,
+        nullable = False
+    )
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("user.id"),
+        nullable = False
+    )
+
+    templatevm_id = db.Column(
+        db.Integer,
+        db.ForeignKey("templatevm.id"),
+        nullable = False
+    )
+
+    submissions  = db.relationship('Submission', backref='user')
+
+
+class TemplateVm(db.Model):
+    __tablename__ = 'templatevm'
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+        unique = True
+    )
+
+    proxmox_template_vm_id = db.Column(
+        db.Integer,
+        primary_key=True,
+        unique = True,
+        nullable = False
+    )
+
+    exercise_id = db.Column(
+        db.Integer,
+        db.ForeignKey("exercise.id"),
+        nullable = False
+    )
+
+    workvms  = db.relationship('workvm', backref='templatevm')
     
 class Exercise(db.Model):
     __tablename__ = 'exercise'
@@ -101,14 +154,15 @@ class Exercise(db.Model):
         nullable = False
     )
 
-    users  = db.relationship('User', secondary='userexercises', back_populates='exercises')
+    submissions  = db.relationship('Submission', backref='user')
 
+    templatevm = db.relationship('TemplateVm', backref='exercise', lazy=True, uselist=False)#uselist = false for one-to-one relation
 
     def __repr__(self):
         return '<Exercise {}>'.format(self.name)
     
-class UserExercises(db.Model):
-    __tablename__ = 'userexercises'
+class Submission(db.Model):
+    __tablename__ = 'submission'
     
     id = db.Column(
         db.Integer,
@@ -124,6 +178,12 @@ class UserExercises(db.Model):
     exercise_id = db.Column(
         db.Integer,
         db.ForeignKey("exercise.id"),
+        nullable = False
+    )
+
+    workvm_id = db.Column(
+        db.Integer,
+        db.ForeignKey("workvm.id"),
         nullable = False
     )
 
@@ -144,7 +204,7 @@ class UserExercises(db.Model):
         nullable = True
     )
 
-    Status = db.Column(
+    status = db.Column(
         db.String(60),
         nullable = True
     )

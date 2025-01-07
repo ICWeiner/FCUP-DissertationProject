@@ -8,3 +8,5 @@ switch to netmiko's "send_command_timing" if bug rearises
 RE traceroute
 
 Insert authentication(jwt) in endpoints that should be protected, such as creation and starting, stoping of VMs
+
+reenable login capabilites

@@ -70,8 +70,8 @@ Create a exercise ( problem definition (html markdown), tests to run (allow mult
 
 
 2/01
-Create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
+(ongoing) create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
 - added a database to the flask application
 - worked on creating a vm for a student when required(not finished)
 - refined database uml definition
-- added login and signup capabilites
+- added login and signup capabilites(currently disabled for ease of development)

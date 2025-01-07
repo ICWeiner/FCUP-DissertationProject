@@ -56,6 +56,8 @@ def signup():
 
 
             # Send POST request to create the VM
+            #TODO:This logic should be placed elsewhere, it creates a vm for a user
+            '''
             vm_creation_url =  f'{}{url_for('vm_bp.create_vm', template_vm_id = 110)}'#TODO: remove this hard coding, retrieve from DB?
             data = {
                 "email": form.email.data,
@@ -67,7 +69,7 @@ def signup():
                 response.raise_for_status()  
             except HTTPException as e:
                 flash(f"Failed to create VM: {e}")    
-
+            '''
             login_user(user)
             return redirect(url_for('exercise_bp.exercises'))
         flash('A user already exists with that email address.')
