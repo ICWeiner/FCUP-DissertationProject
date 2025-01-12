@@ -1,11 +1,10 @@
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
 from flask_login import login_required, logout_user, current_user, login_user
-import requests
 from .forms import LoginForm, SignupForm
-from ..models import db, User
+from ..models import Exercise, User, TemplateVm, WorkVm, db
+from ..vm.routes import clone_vm
 from .. import login_manager
 from datetime import datetime as dt
-from werkzeug.exceptions import HTTPException
 
 
 
@@ -45,32 +44,40 @@ def signup():
     if form.validate_on_submit(): 
         existing_user = User.query.filter_by(email=form.email.data).first() 
         if existing_user is None:
-            user = User(
-                username=form.username.data,
-                email=form.email.data,
-                created_on = dt.now()
-            )
-            user.set_password(form.password.data)
-            db.session.add(user)
-            #db.session.commit()  # Create new user
-
-
-            # Send POST request to create the VM
-            #TODO:This logic should be placed elsewhere, it creates a vm for a user
-            '''
-            vm_creation_url =  f'{}{url_for('vm_bp.create_vm', template_vm_id = 110)}'#TODO: remove this hard coding, retrieve from DB?
-            data = {
-                "email": form.email.data,
-            }
-
-            # Send the request and validate response
             try:
-                response = requests.post(vm_creation_url, json=data)
-                response.raise_for_status()  
-            except HTTPException as e:
-                flash(f"Failed to create VM: {e}")    
-            '''
-            login_user(user)
+                with db.session.begin_nested():
+                    new_user = User(
+                        username=form.username.data,
+                        email=form.email.data,
+                        created_on = dt.now()
+                    )
+                    new_user.set_password(form.password.data)
+
+                    db.session.add(new_user)
+
+                    existing_exercises = Exercise.query.all()
+                    
+                    for exercise in existing_exercises: 
+                            hostname = f'{new_user.username}{exercise.name}'#TODO: this needs to be a valid DNS name
+
+                            clone_id = clone_vm(exercise.templatevm.templatevm_proxmox_id, hostname)
+
+                            workvm = WorkVm(workvm_proxmox_id = clone_id,
+                                user = new_user,
+                                templatevm = exercise.templatevm,
+                                created_on = dt.now(),
+                                )
+                    
+                            db.session.add(workvm)
+
+
+                    db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                flash(f'Error: {str(e)}')
+                return redirect(url_for('auth_bp.signup'))
+
+            login_user(new_user)
             return redirect(url_for('exercise_bp.exercises'))
         flash('A user already exists with that email address.')
     return render_template(

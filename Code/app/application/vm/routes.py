@@ -79,10 +79,9 @@ def stop_firewall(vm_id:int):
 
     proxmox_vm_firewall.delete_proxmox_vm_isolation_rules(app.config['PROXMOX_HOST'], vm_id, vm_id, session)#TODO: REVIEW LOGIC TO APPLY TO THE VM THAT BELONGS TO THE GIVEN STUDENT
 
-
     return jsonify(), 200
 
-def create_vm_for_new_exercise(templatevm_proxmox_id, hostname):
+def clone_vm(templatevm_proxmox_id, hostname):
     session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
 
     clone_id = proxmox_vm_actions.get_free_id(app.config['PROXMOX_HOST'], session)

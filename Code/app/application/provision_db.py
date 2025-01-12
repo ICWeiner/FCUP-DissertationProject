@@ -6,7 +6,7 @@ def provision_data():
     # Provides the database with a small amount of data if empty
     user1 = User.query.filter_by(username='Alice').first()
     if not user1:
-        user1 = User(username = 'Alice',
+        user1 = User(username = 'Alice',#NOTE: these users do not have any workvm assigned yet
                     email = 'alice@mail.com',
                     created_on = dt.now(),
                     )
@@ -20,7 +20,7 @@ def provision_data():
         db.session.add(user2)
         templatevm = TemplateVm(templatevm_proxmox_id=110,
                                 created_on = dt.now())
-        exercise = Exercise(name = 'exercise',
+        exercise = Exercise(name = 'exercise',#NOTE: this exercise does not have any workvm assigned
                             description = 'Lorem ipsum',
                             templatevm = templatevm,
                             created_on = dt.now()

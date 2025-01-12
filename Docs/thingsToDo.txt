@@ -24,3 +24,5 @@ make scripts or migrations to provision DB with data
 figure out configuration of template VM (base gns3-vm -> provision with gns3-topology -> run provided commands -> convert into template -> clone for use)
 
 mark exercises as active/inactive?
+
+make the "connect to work environment", "start" and "stop" buttons interact with the correct vm, given a user and exercise

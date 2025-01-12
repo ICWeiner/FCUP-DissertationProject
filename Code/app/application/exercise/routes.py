@@ -3,7 +3,7 @@ from flask import current_app as app
 from flask_login import current_user, login_required
 from datetime import datetime as dt
 from .forms import CreateExerciseForm
-from ..vm.routes import create_vm_for_new_exercise
+from ..vm.routes import clone_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 
@@ -65,7 +65,7 @@ def exercise_create():
                 for user in existing_users: 
                     hostname = f'{user.username}{new_exercise.name}'#TODO: this needs to be a valid DNS name
 
-                    clone_id = create_vm_for_new_exercise(new_exercise.templatevm.templatevm_proxmox_id, hostname)
+                    clone_id = clone_vm(new_exercise.templatevm.templatevm_proxmox_id, hostname)
 
                     workvm = WorkVm(workvm_proxmox_id = clone_id,
                         user = user,
@@ -79,6 +79,7 @@ def exercise_create():
         except Exception as e:
             db.session.rollback()
             flash(f'Error: {str(e)}')
+            return redirect(url_for('exercise_bp.exercise_create'))
         return redirect(url_for('exercise_bp.exercises'))
 
     return render_template(
