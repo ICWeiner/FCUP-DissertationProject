@@ -4,6 +4,7 @@
     <div class="container">
         <h1>{{title}}</h1>
         <p>{{description}}</p>
+        <a href="{{ url_for('exercise_bp.exercise_create')}}">Create exercise</a><br>
         {% for id, name in exercises.items() %}
             <a href="{{ url_for('exercise_bp.exercise', id=id )}}">{{ name }}</a><br>
         {% endfor %}

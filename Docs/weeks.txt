@@ -65,6 +65,7 @@ GNS3 - multiple gns3 web server instances running on a single VM?(no, all instan
 Docker in GNS3(still limited, alternative would be running any QEMU VM directly on proxmoxVE, good suggestion for future work)
 
 Created a template GNS3-Server, provisioned with a working templates for a cisco router, switch, linux machine and VPCS, base on ubuntu 24.10
+Did not use GNS3-VM due to it not being any easier to setup than our GNS3-Server.
 
 Create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
 
@@ -75,3 +76,12 @@ Create a exercise ( problem definition (html markdown), tests to run (allow mult
 - worked on creating a vm for a student when required(not finished)
 - refined database uml definition
 - added login and signup capabilites(currently disabled for ease of development)
+
+8/01:
+(ongoing) create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
+- Focus on exercise definition from
+
+VM creation
+- fixed a few errors in database implementation
+- wrote code to clone template vm into work vm using event listeners (after_insert)
+- rewrote code to not use event listeners, now fires manually

@@ -10,3 +10,7 @@ RE traceroute
 Insert authentication(jwt) in endpoints that should be protected, such as creation and starting, stoping of VMs
 
 reenable login capabilites
+
+vm creation logic, after exercise creation or when user registers
+
+make vm creation logic more scalable (celery seems like a good option)

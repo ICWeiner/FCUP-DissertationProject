@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, jsonify
+from flask import Blueprint, redirect, request, jsonify
 from flask import current_app as app
 from proxmox.utils.connection import proxmox_connect
 from proxmox.utils.proxmox_vm_ip_fetcher import get_ip
@@ -18,7 +18,6 @@ vm_bp = Blueprint(
 #TODO: or maybe its not the responsibility of this code to do that?
 @vm_bp.route('/vm/<int:template_vm_id>/clone', methods=['POST'])
 def create_vm(template_vm_id:int):
-    #proxmox_host, session, template_id, clone_id, hostname
 
     data = request.get_json()
 
@@ -82,3 +81,12 @@ def stop_firewall(vm_id:int):
 
 
     return jsonify(), 200
+
+def create_vm_for_new_exercise(templatevm_proxmox_id, hostname):
+    session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
+
+    clone_id = proxmox_vm_actions.get_free_id(app.config['PROXMOX_HOST'], session)
+
+    proxmox_vm_actions.create(app.config['PROXMOX_HOST'], session, templatevm_proxmox_id, clone_id, hostname)
+
+    return clone_id

@@ -78,9 +78,8 @@ class WorkVm(db.Model):
         unique = True
     )
 
-    proxmox_work_vm_id = db.Column(
+    workvm_proxmox_id = db.Column(
         db.Integer,
-        primary_key=True,
         unique = True,
         nullable = False
     )
@@ -97,7 +96,16 @@ class WorkVm(db.Model):
         nullable = False
     )
 
-    submissions  = db.relationship('Submission', backref='user')
+    created_on = db.Column(
+        db.DateTime,
+        index = False,
+        unique = False,
+        nullable = False
+    )
+
+    db.UniqueConstraint('user_id', 'templatevm_id')#Disallow duplicate user/templatevm(exercise) combos 
+
+    submissions  = db.relationship('Submission', backref='workvm')
 
 
 class TemplateVm(db.Model):
@@ -109,20 +117,22 @@ class TemplateVm(db.Model):
         unique = True
     )
 
-    proxmox_template_vm_id = db.Column(
+    templatevm_proxmox_id = db.Column(
         db.Integer,
-        primary_key=True,
         unique = True,
         nullable = False
     )
 
-    exercise_id = db.Column(
-        db.Integer,
-        db.ForeignKey("exercise.id"),
+    created_on = db.Column(
+        db.DateTime,
+        index = False,
+        unique = False,
         nullable = False
     )
 
-    workvms  = db.relationship('workvm', backref='templatevm')
+    exercise = db.relationship('Exercise', backref='templatevm', lazy=True, uselist=False)#uselist = false for one-to-one relation
+
+    workvms  = db.relationship('WorkVm', backref='templatevm')
     
 class Exercise(db.Model):
     __tablename__ = 'exercise'
@@ -136,7 +146,7 @@ class Exercise(db.Model):
     name = db.Column(
         db.String(64),
         index = False,
-        unique = True,
+        #unique = True,TODO:REENABLE THIS LATER
         nullable = False
     )
 
@@ -154,9 +164,14 @@ class Exercise(db.Model):
         nullable = False
     )
 
-    submissions  = db.relationship('Submission', backref='user')
+    templatevm_id = db.Column(
+        db.Integer,
+        db.ForeignKey("templatevm.id"),
+        nullable = True
+    )
 
-    templatevm = db.relationship('TemplateVm', backref='exercise', lazy=True, uselist=False)#uselist = false for one-to-one relation
+    submissions  = db.relationship('Submission', backref='exercise')
+
 
     def __repr__(self):
         return '<Exercise {}>'.format(self.name)

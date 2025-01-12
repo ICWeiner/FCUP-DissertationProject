@@ -1,11 +1,11 @@
-import os
-from shlex import quote
 import proxmox.utils.constants as constants
 from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 
 
 def get_free_id(proxmox_host, session):
     response = session.get(f'{proxmox_base_uri(proxmox_host)}/cluster/nextid')
+
+    response.raise_for_status()
 
     free_id = response.json()['data']
 
@@ -20,15 +20,15 @@ def create(proxmox_host, session, template_id, clone_id, hostname):
     } 
 
     response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{template_id}/clone', data = data)
-    
+
     response.raise_for_status()
 
     #VM initial snapshot creation
-
     data = {
         'snapname': f'initial_snap_{clone_id}',
         'description': f'Initial snapshot of VM {clone_id}',
     }
+
     response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{clone_id}/snapshot', data = data)
 
     response.raise_for_status()
