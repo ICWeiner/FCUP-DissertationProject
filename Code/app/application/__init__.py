@@ -1,6 +1,7 @@
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+import os
 
 
 # Globally accessible libraries
@@ -32,6 +33,7 @@ def init_app():
         from .test import routes as test
         from .exercise  import routes as exercise
         from .auth  import routes as auth
+        from .provision_db import provision_data#creates a small amount of pre configured data for DB
 
         # Register Blueprints
         app.register_blueprint(home.home_bp)
@@ -40,6 +42,13 @@ def init_app():
         app.register_blueprint(exercise.exercise_bp)
         app.register_blueprint(auth.auth_bp)
 
-        db.create_all()
+        #db.create_all()
+        if not os.path.exists('instance/my_database.db'):  # Check if the database exists
+            print("#######################")
+            print('DATABASE does not exist')
+            print('creating new database')
+            print("#######################")
+            db.create_all()
+            provision_data()
 
         return app

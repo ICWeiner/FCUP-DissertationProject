@@ -1,5 +1,6 @@
 import requests
 from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
+import proxmox.utils.constants as constants
 
 
 def proxmox_connect(proxmox_host, username, password):
@@ -13,7 +14,7 @@ def proxmox_connect(proxmox_host, username, password):
     }
 
     try:
-        response = requests.post(uri, headers=headers , data=auth, verify=False)  #proxmox node currently has a bad cert
+        response = requests.post(uri, headers=headers , data=auth, verify=False)  #TODO:proxmox node currently has a bad cert
     except:
         print("Error: Failure during ticket request")
         exit(1)
@@ -35,6 +36,6 @@ def proxmox_connect(proxmox_host, username, password):
 
     session.headers.update({"CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]})  
 
-    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/pve1')
+    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}')
 
     return session
