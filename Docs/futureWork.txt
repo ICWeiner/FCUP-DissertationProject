@@ -1,0 +1,10 @@
+Containers instead of full QEMU VMs (this is trivial if you dont require the use of linux machine in your gns3-server instances)
+
+Switch to GNS3VM deplyoment instead of doing our manual setup which isnt much more than Ubuntu + gns3-server (Althought there doesnt seem to be much to benefit from this, apart from a bit of standartization)
+
+Figure out how to run the GNS3 QEMU VMs (gns3 linux instances) directly on proxmox while having the rest in a container.
+
+Make the project support more than 1 ProxmoxVE node, this could help with scalability
+
+Research and implement integration with existing LDAP/Active directory instances (replacing the 'user' table)
+

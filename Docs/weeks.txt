@@ -79,11 +79,13 @@ Create a exercise ( problem definition (html markdown), tests to run (allow mult
 
 8/01:
 (ongoing) create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
-- Focus on exercise definition from
+- Focus on exercise definition form
 
 VM creation
 - fixed a few errors in database implementation
 - wrote code to clone template vm into work vm using event listeners (after_insert)
-- rewrote code to not use event listeners, now fires manually
+- rewrote code to not use event listeners, now fires manually, as event listeners were causing some sequences, and were perhaps overkill
 
 implemented proxmox authentication token storage, reducing # of calls to API
+
+small documentation work
