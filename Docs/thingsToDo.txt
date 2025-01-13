@@ -5,21 +5,13 @@ send "ctrl + c" before sending commands and general sanitization of inputs in VM
 
 switch to netmiko's "send_command_timing" if bug rearises
 
-RE traceroute
+Regular Expression traceroute
 
 Insert authentication(jwt) in endpoints that should be protected, such as creation and starting, stoping of VMs
 
 reenable login capabilites
 
-vm creation logic, after exercise creation or when user registers
-
 make vm creation logic more scalable (celery seems like a good option)
-
-create vms for user when he registers
-
-make it so proxmox authentication cookie is stored and used while still valid
-
-make scripts or migrations to provision DB with data
 
 figure out configuration of template VM (base gns3-vm -> provision with gns3-topology -> run provided commands -> convert into template -> clone for use)
 

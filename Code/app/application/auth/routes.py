@@ -70,7 +70,6 @@ def signup():
                     
                             db.session.add(workvm)
 
-
                     db.session.commit()
             except Exception as e:
                 db.session.rollback()

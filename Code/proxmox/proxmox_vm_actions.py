@@ -70,7 +70,7 @@ def stop(proxmox_host, session, vm_id):
         return False
 
 
-    print("Done")
+    return True
 
 def destroy(proxmox_host, session, vm_id):
 

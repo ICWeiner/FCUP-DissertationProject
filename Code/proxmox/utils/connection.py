@@ -38,4 +38,6 @@ def proxmox_connect(proxmox_host, username, password):
 
     response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}')
 
+    response.raise_for_status()
+
     return session

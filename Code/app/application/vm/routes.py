@@ -1,11 +1,12 @@
 from flask import Blueprint, redirect, request, jsonify
 from flask import current_app as app
-from proxmox.utils.connection import proxmox_connect
-from proxmox.utils.proxmox_vm_ip_fetcher import get_ip
+from flask_login import login_required
 import proxmox.proxmox_vm_actions as proxmox_vm_actions
 import proxmox.proxmox_vm_firewall as proxmox_vm_firewall
+from proxmox.utils.proxmox_vm_ip_fetcher import get_ip
 from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
-from flask_login import login_required
+from .proxmox_session import get_proxmox_session
+
 
 
 vm_bp = Blueprint(
@@ -13,6 +14,7 @@ vm_bp = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
+#TODO: maybe jsonify is not the correct return for these functions
 
 #TODO:FIX: session is created in every call, but this is unecessary, as token is valid for some time
 #TODO: or maybe its not the responsibility of this code to do that?
@@ -25,7 +27,7 @@ def create_vm(template_vm_id:int):
         return jsonify(response = "Error: Missing email data.", status = 400)
 
 
-    session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
+    session = get_proxmox_session(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
 
     clone_id = proxmox_vm_actions.get_free_id(app.config['PROXMOX_HOST'], session)
     
@@ -38,31 +40,31 @@ def create_vm(template_vm_id:int):
 
     return jsonify(response), 201
 
-@vm_bp.route('/vm/<int:vm_id>/start')
+@vm_bp.route('/vm/<int:vm_id>/start', methods=['POST'])
 #@login_required
 def start_vm(vm_id:int):
-    session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
+    session = get_proxmox_session(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
     proxmox_vm_actions.start(app.config['PROXMOX_HOST'], session, vm_id)
     return jsonify(), 200
 
-@vm_bp.route('/vm/<int:vm_id>/stop')
+@vm_bp.route('/vm/<int:vm_id>/stop', methods=['POST'])
 #@login_required
 def stop_vm(vm_id:int):
-    session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
+    session = get_proxmox_session(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
     proxmox_vm_actions.stop(app.config['PROXMOX_HOST'], session, vm_id)
     return jsonify(), 200
 
-@vm_bp.route('/vm/<int:vm_id>/connect')
+@vm_bp.route('/vm/<int:vm_id>/connect', methods=['POST'])
 def connect(vm_id:int):
-    session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
+    session = get_proxmox_session(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
     vm_ip = get_ip(app.config['PROXMOX_HOST'], session, vm_id)
 
     return redirect(f'http://{vm_ip}:3080/')
 
 #TODO: REVIEW LOGIC TO APPLY TO ALL VMS OR JUST ONE
-@vm_bp.route('/vm/<int:vm_id>/firewall/create')
+@vm_bp.route('/vm/<int:vm_id>/firewall/create', methods=['POST'])
 def start_firewall(vm_id:int):
-    session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
+    session = get_proxmox_session(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
 
     teacher_vm = get_ip(app.config['PROXMOX_HOST'],session, 800)#TODO: REVIEW LOGIC TO APPLY TO THE VM THAT BELONGS TO THE GIVEN STUDENT
 
@@ -73,16 +75,16 @@ def start_firewall(vm_id:int):
     return jsonify(), 200
 
 #TODO: REVIEW LOGIC TO APPLY TO ALL VMS OR JUST ONE
-@vm_bp.route('/vm/<int:vm_id>/firewall/destroy')
+@vm_bp.route('/vm/<int:vm_id>/firewall/destroy', methods=['POST'])
 def stop_firewall(vm_id:int):
-    session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
+    session = get_proxmox_session(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
 
     proxmox_vm_firewall.delete_proxmox_vm_isolation_rules(app.config['PROXMOX_HOST'], vm_id, vm_id, session)#TODO: REVIEW LOGIC TO APPLY TO THE VM THAT BELONGS TO THE GIVEN STUDENT
 
     return jsonify(), 200
 
 def clone_vm(templatevm_proxmox_id, hostname):
-    session = proxmox_connect(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
+    session = get_proxmox_session(app.config['PROXMOX_HOST'], app.config['PROXMOX_USER'],app.config['PROXMOX_PASSWORD'])
 
     clone_id = proxmox_vm_actions.get_free_id(app.config['PROXMOX_HOST'], session)
 

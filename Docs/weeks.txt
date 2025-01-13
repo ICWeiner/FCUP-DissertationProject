@@ -85,3 +85,5 @@ VM creation
 - fixed a few errors in database implementation
 - wrote code to clone template vm into work vm using event listeners (after_insert)
 - rewrote code to not use event listeners, now fires manually
+
+implemented proxmox authentication token storage, reducing # of calls to API
