@@ -16,8 +16,6 @@ vm_bp = Blueprint(
 )
 #TODO: maybe jsonify is not the correct return for these functions
 
-#TODO:FIX: session is created in every call, but this is unecessary, as token is valid for some time
-#TODO: or maybe its not the responsibility of this code to do that?
 @vm_bp.route('/vm/<int:template_vm_id>/clone', methods=['POST'])
 def create_vm(template_vm_id:int):
 

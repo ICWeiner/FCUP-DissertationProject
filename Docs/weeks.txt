@@ -78,8 +78,6 @@ Create a exercise ( problem definition (html markdown), tests to run (allow mult
 - added login and signup capabilites(currently disabled for ease of development)
 
 8/01:
-(ongoing) create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
-- Focus on exercise definition form
 
 VM creation
 - fixed a few errors in database implementation
@@ -89,3 +87,12 @@ VM creation
 implemented proxmox authentication token storage, reducing # of calls to API
 
 small documentation work
+
+14/01:
+(ongoing) create a exercise ( problem definition (html markdown), tests to run (allow multiple (allow granular grading over a sets of steps)) ,with ability to import from file(csv for example), include gns3 topology with ability to insert pre configurations to be made after import)
+- Focus on exercise definition form
+- Client side form (separation of concerns)
+
+WSGI research
+Regular Expression traceroute
+

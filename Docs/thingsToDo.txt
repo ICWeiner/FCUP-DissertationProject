@@ -15,8 +15,14 @@ make vm creation logic more scalable (celery seems like a good option)
 
 figure out configuration of template VM (base gns3-vm -> provision with gns3-topology -> run provided commands -> convert into template -> clone for use)
 
-mark exercises or even students as active/inactive? (to reduce number of existing VMs, as storage may be cheap but not infinite)
-
 make the "connect to work environment", "start" and "stop" buttons interact with the correct vm, given a user and exercise
 
 switch from sqlite3 to a "real" DB system like PostgreSQL
+
+templates de templates, varios exs com uma topologia
+
+test time to vm creation with a larger amount
+
+Separate back-end from front-end
+
+Make database more complete in terms of evaluation
