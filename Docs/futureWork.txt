@@ -9,3 +9,5 @@ Make the project support more than 1 ProxmoxVE node, this could help with scalab
 Research and implement integration with existing LDAP/Active directory instances (replacing the 'user' table)
 
 mark exercises or even students as active/inactive? (to reduce number of existing VMs, as storage may be cheap but not infinite)
+
+add HTTPS capabilites

@@ -1,6 +1,7 @@
 import json
 import yaml
 
+#TODO: this code seems to never be used, should be removed?
 # converts gns3 json file to yaml-type host file inventory
 def parse_gns3_to_yaml(gns3_path, student_ip, student_mec, destination_folder):
     try:
@@ -46,7 +47,7 @@ def parse_gns3_to_yaml(gns3_path, student_ip, student_mec, destination_folder):
                             'port': port,
                             'groups': [platform],
                             'username': 'ar',
-                            'password': 'admredes23'
+                            'password': 'admredes23'#TODO: Remove these hardcoded credentials
                         }
 
                     hosts[hostname] = host

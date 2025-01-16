@@ -93,6 +93,8 @@ small documentation work
 - Focus on exercise definition form
 - Client side form (separation of concerns)
 
+Thin provisioning research
 WSGI research
-Regular Expression traceroute
+cleaned up some code related to proxmox API interaction
+Un-hardcode ping test
 

@@ -83,8 +83,8 @@ def gns3_to_yaml(node_ip, node_name, gns3_obj):
                     platform = 'cisco_switch'
             elif device['node_type'] in ('virtualbox', 'vmware', 'qemu', 'docker'):
                 platform = 'linuxvm'
-                options = device['properties'].get('options', '')
-                port = int(options.split(':')[-1].split(',')[0])
+                #options = device['properties'].get('options', '')#TODO: discuss this
+                #port = int(options.split(':')[-1].split(',')[0])
 
             hostname = device['name'].lower()
 
@@ -96,7 +96,7 @@ def gns3_to_yaml(node_ip, node_name, gns3_obj):
             if platform == 'linuxvm':
                 host.update({
                     'username': 'ar',
-                    'password': 'admredes23'}
+                    'password': 'admredes23'}#TODO: Remove these hardcoded credentials
                 )
             
             hosts[hostname] = host
