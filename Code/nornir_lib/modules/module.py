@@ -61,6 +61,7 @@ class CommandLibrary:
         filter = self.nr.filter(F(name__contains=source))
         results = filter.run(
             task = netmiko_send_command,
+            read_timeout = 30,#TODO: This is the total time to wait for the command to finish, this value may need fine tuning
             command_string = command
         )
         print(self.get_result_strings(results))

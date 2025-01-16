@@ -96,5 +96,8 @@ small documentation work
 Thin provisioning research
 WSGI research
 cleaned up some code related to proxmox API interaction
-Un-hardcode ping test
-
+some Un-hardcoding of ping test
+added some input capabilites to ping and traceroute test
+discuss:
+#TODO: discuss this
+#TODO: switch doesnt have ttl option...?

@@ -6,12 +6,13 @@ class TracerouteLibrary(CommandLibrary):
         super().__init__(file)
     
     def _command_router(self, source, destination):
-        command=f"traceroute {destination} ttl 1 4"#TODO: make ttl optional and not hardcoded
+        command=f"traceroute {destination} ttl 1 3"#TODO: make ttl optional and not hardcoded
         results = self.get_result_strings(self._send_command(source, command))
         return self.interpret_cisco_traceroute_response(results)
     
     def _command_switch(self, source, destination):
-        command=f"traceroute {destination} ttl 1 4"#TODO: make ttl optional and not hardcoded
+        #TODO: switch doesnt have ttl option...?
+        command=f"traceroute {destination} ttl 1 3"#TODO: make ttl optional and not hardcoded
         results = self.get_result_strings(self._send_command(source, command))
         return self.interpret_cisco_traceroute_response(results)
     
