@@ -98,6 +98,16 @@ WSGI research
 cleaned up some code related to proxmox API interaction
 some Un-hardcoding of ping test
 added some input capabilites to ping and traceroute test
+
 discuss:
-#TODO: discuss this
-#TODO: switch doesnt have ttl option...?
+#TODO: discuss this (was necessary for some reason, now isn't?)
+SPICE needed for gui, need to add a telnet backdoor, or a better way
+
+#TODO: switch doesnt have ttl option...? check if its because IOS version?
+Switch has Cisco IOS V15.2 , no ttl option
+Router has Cisco IOS V12.4 , has ttl option
+
+tried cloning 20 vms based on vm 110, only managed 4 clones before proxmox threw an error:
+ " Error: 500 Server Error: got no worker upid - start worker failed for url: https://localhost:8006/api2/json/nodes/pve1/qemu/110/clone "
+Try to find a way to increase number of workers, but even that wont help for much
+Try to listen for the error, stop and continue when one or more jobs are completed

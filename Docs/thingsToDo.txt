@@ -11,7 +11,7 @@ Insert authentication(jwt) in endpoints that should be protected, such as creati
 
 reenable login capabilites
 
-make vm creation logic more scalable (celery seems like a good option)
+make vm creation logic more scalable (asynchronous calls to proxmox's API) (test with gunicorn asynchronous workers) (celery might be good option)
 
 figure out configuration of template VM (base gns3-vm -> provision with gns3-topology -> run provided commands -> convert into template -> clone for use)
 
@@ -23,6 +23,6 @@ templates de templates, varios exs com uma topologia
 
 test time to vm creation with a larger amount
 
-Separate back-end from front-end
+Separate back-end from front-end (CSR and backend json replies)
 
 Make database more complete in terms of evaluation

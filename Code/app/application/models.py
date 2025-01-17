@@ -119,7 +119,7 @@ class TemplateVm(db.Model):
 
     templatevm_proxmox_id = db.Column(
         db.Integer,
-        unique = True,
+        #unique = True,TODO:Reenable this later
         nullable = False
     )
 
