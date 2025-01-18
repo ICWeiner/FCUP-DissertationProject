@@ -99,9 +99,14 @@ cleaned up some code related to proxmox API interaction
 some Un-hardcoding of ping test
 added some input capabilites to ping and traceroute test
 
-discuss:
+Readded telnet backdoor to linuxvm (work by previous student)
 #TODO: discuss this (was necessary for some reason, now isn't?)
 SPICE needed for gui, need to add a telnet backdoor, or a better way
+For SPICE connection by way of gns3-web, machine connecting to gns3 remotely must have gns3-webclient-pack installed locally
+Insert code changes in 
+/usr/share/gns3/gns3-server/lib/python3.12/site-packages/gns3server/compute/qemu/qemu_vm.py
+and 
+/usr/share/gns3/gns3-server/lib/python3.12/site-packages/gns3server/compute/base_node.py
 
 #TODO: switch doesnt have ttl option...? check if its because IOS version?
 Switch has Cisco IOS V15.2 , no ttl option
@@ -109,5 +114,5 @@ Router has Cisco IOS V12.4 , has ttl option
 
 tried cloning 20 vms based on vm 110, only managed 4 clones before proxmox threw an error:
  " Error: 500 Server Error: got no worker upid - start worker failed for url: https://localhost:8006/api2/json/nodes/pve1/qemu/110/clone "
-Try to find a way to increase number of workers, but even that wont help for much
-Try to listen for the error, stop and continue when one or more jobs are completed
+Find a way to increase number of workers, but even that wont help for much
+Listen for the error, stop and continue when one or more jobs are completed
