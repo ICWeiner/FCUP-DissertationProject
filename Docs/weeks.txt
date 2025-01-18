@@ -98,6 +98,7 @@ WSGI research
 cleaned up some code related to proxmox API interaction
 some Un-hardcoding of ping test
 added some input capabilites to ping and traceroute test
+Some changes to template gns3-server VM
 
 Readded telnet backdoor to linuxvm (work by previous student)
 #TODO: discuss this (was necessary for some reason, now isn't?)

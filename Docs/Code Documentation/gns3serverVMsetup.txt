@@ -12,6 +12,20 @@ curl https://raw.githubusercontent.com/GNS3/gns3-server/master/scripts/remote-in
 
 sudo bash gns3-remote-install.sh --with-iou --with-i386-repository 
 
+
+
+# Insert code changes in 
+/usr/share/gns3/gns3-server/lib/python3.12/site-packages/gns3server/compute/qemu/qemu_vm.py
+# and 
+
+/usr/share/gns3/gns3-server/lib/python3.12/site-packages/gns3server/compute/base_node.py
+
+https://github.com/pmsantos29/network-automation/tree/main/gns3server
+
+#read Environment for Practical Evaluations in Network Administration for more details
+
+
+
 # add templates as needed
 # P.S. gns3 web is still in beta and, in particular has a few bugs related to adding templates, consider trying gns3 gui to add templates
 
