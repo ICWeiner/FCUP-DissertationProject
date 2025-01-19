@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, SubmitField, TextAreaField, IntegerField, FileField
 from wtforms.validators import (
     DataRequired,
     Email,
@@ -18,9 +18,27 @@ class CreateExerciseForm(FlaskForm):
         ]
     )
     body = TextAreaField(
-        'Body',
+        'Body Text',
         validators=[
             DataRequired(),
+        ]
+    )
+    templatevm_proxmox_id = IntegerField(
+        'Template VM Proxmox ID',
+        validators=[
+            DataRequired(),
+        ]
+    )
+    gns3_file = FileField(
+        'GNS3 File',
+        validators=[
+            Optional(),
+        ]
+    )
+    commands = TextAreaField(
+        'Commands',
+        validators=[
+            Optional(),
         ]
     )
     

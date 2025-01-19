@@ -44,7 +44,7 @@ class TracerouteLibrary(CommandLibrary):
     4  *  *  * 
 
     '''
-    def interpret_cisco_traceroute_response(self, results):#TODO: Test this expression
+    def interpret_cisco_traceroute_response(self, results):
         match = re.search(r"Tracing the route to ([\d.]+)", results)
         
         if match:

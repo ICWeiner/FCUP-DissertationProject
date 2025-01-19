@@ -15,8 +15,14 @@ exercise_bp = Blueprint(
 )
 
 @exercise_bp.route('/exercise/<int:id>', methods = ['GET'])
-#@login_required
+@login_required
 def exercise(id):
+    user_id = current_user.get_id() #get id of current user
+
+    current_templatevm_id = Exercise.query.get(id).templatevm_id #get id of the templatevm of the exercise
+
+    #get the id of the workvm of the current user and the current exercise
+    current_user_workvm_id = WorkVm.query.filter_by(user_id = user_id, templatevm_id = current_templatevm_id).first().workvm_proxmox_id
 
     return render_template(
         'exercise.html',
@@ -24,10 +30,12 @@ def exercise(id):
         description="Here you can see the details of a selected available exercises.",
         template='exercise-template',
         exercise=id,
+        current_user_id = user_id,
+        vm_id = current_user_workvm_id,
         exercise_title="Sample Exercise")
 
 @exercise_bp.route('/exercises', methods = ['GET'])
-#@login_required
+@login_required
 def exercises():
     exercises = {exercise.id: exercise.name for exercise in Exercise.query.all()}
 
@@ -39,7 +47,7 @@ def exercises():
         exercises= exercises)
 
 @exercise_bp.route('/exercise/create', methods = ['GET', 'POST'])
-#@login_required
+@login_required
 def exercise_create():
 
     form = CreateExerciseForm()
@@ -47,7 +55,7 @@ def exercise_create():
         try:
             with db.session.begin_nested():
 
-                new_templatevm = TemplateVm(templatevm_proxmox_id=10000,#TODO:remove hardcoded 10000 to actual template
+                new_templatevm = TemplateVm(templatevm_proxmox_id = form.templatevm_proxmox_id.data,
                                             created_on = dt.now())
 
                 db.session.add(new_templatevm)

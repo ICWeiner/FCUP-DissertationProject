@@ -16,20 +16,20 @@ vm_bp = Blueprint(
 )
 
 
-@vm_bp.route('/vm/<int:template_vm_id>/clone', methods=['POST'])
+@vm_bp.route('/vm/<int:template_vm_id>/clone', methods=['POST'])#TODO: do i need this endpoint?
 def create_vm(template_vm_id:int):
 
     data = request.get_json()
 
-    if 'email' not in data:
-        return jsonify(response = "Error: Missing email data.", status = 400)
+    if 'hostname' not in data:
+        return jsonify(response = "Error: Missing hostname data.", status = 400)
 
 
     session = get_proxmox_session( *_get_proxmox_host_and_credentials() )
 
     clone_id = proxmox_vm_actions.get_free_id( _get_proxmox_host(), session)
     
-    hostname = f'gns3-{data["email"]}'
+    hostname = data["hostname"]
 
     proxmox_vm_actions.create( _get_proxmox_host(), session, template_vm_id,clone_id, hostname)
 
@@ -39,33 +39,35 @@ def create_vm(template_vm_id:int):
     return jsonify(response), 201
 
 @vm_bp.route('/vm/<int:vm_id>/start', methods=['POST'])
-#@login_required
+@login_required
 def start_vm(vm_id:int):
     session = get_proxmox_session( *_get_proxmox_host_and_credentials())
     proxmox_vm_actions.start( _get_proxmox_host(), session, vm_id)
     return jsonify(), 200
 
 @vm_bp.route('/vm/<int:vm_id>/stop', methods=['POST'])
-#@login_required
+@login_required
 def stop_vm(vm_id:int):
     session = get_proxmox_session( *_get_proxmox_host_and_credentials())
     proxmox_vm_actions.stop( _get_proxmox_host(), session, vm_id)
     return jsonify(), 200
 
 @vm_bp.route('/vm/<int:vm_id>/delete', methods=['POST'])
-#@login_required
+@login_required
 def delete_vm(vm_id:int):
     session = get_proxmox_session( *_get_proxmox_host_and_credentials())
     proxmox_vm_actions.destroy( _get_proxmox_host(), session, vm_id)
     return jsonify(), 200
 
 @vm_bp.route('/vm/<int:vm_id>/connect', methods=['POST'])
+@login_required
 def connect(vm_id:int):
     vm_ip = get_vm_ip(vm_id)
 
     return redirect(f'http://{vm_ip}:3080/')
 
 @vm_bp.route('/vm/<int:vm_id>/firewall/create', methods=['POST'])
+@login_required
 def start_firewall(vm_id:int):
     teacher_vm_ip = get_vm_ip(800)#TODO: 800 is the ID of the development 'teacher' vm, in the future this should come as an argument
 
@@ -76,6 +78,7 @@ def start_firewall(vm_id:int):
     return jsonify(), 200
 
 @vm_bp.route('/vm/<int:vm_id>/firewall/destroy', methods=['POST'])
+@login_required
 def stop_firewall(vm_id:int):
     session = get_proxmox_session( *_get_proxmox_host_and_credentials())
 

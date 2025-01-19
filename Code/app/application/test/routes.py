@@ -19,7 +19,7 @@ test_bp = Blueprint(
 
 
 @test_bp.route('/vm/<int:vm_id>/test/ping', methods=['POST'])
-#@login_required
+@login_required
 def ping(vm_id):#TODO: FINISH IMPLEMENTING PING TEST
 
     hostname = request.form.get('hostname')#TODO: not the best way of getting this info
@@ -55,7 +55,7 @@ def ping(vm_id):#TODO: FINISH IMPLEMENTING PING TEST
     return f'<p>TEST RESULTS: <br> {results} </p>'
 
 @test_bp.route('/vm/<int:vm_id>/test/traceroute', methods=['POST'])
-#@login_required
+@login_required
 def traceroute(vm_id):#TODO: FINISH IMPLEMENTING TRACEROUTE TEST
 
     hostname = request.form.get('hostname')#TODO: not the best way of getting this info

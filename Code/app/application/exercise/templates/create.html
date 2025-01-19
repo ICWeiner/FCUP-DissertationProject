@@ -32,6 +32,39 @@
                   </ul>
                 {% endif %}
               </fieldset>
+
+              <fieldset class="templatevm_proxmox_id">
+                {{ form.templatevm_proxmox_id.label }}
+                {{ form.templatevm_proxmox_id(placeholder='Proxmox ID') }}
+                {% if form.templatevm_proxmox_id.errors %}
+                  <ul class="errors">
+                    {% for error in form.templatevm_proxmox_id.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
+
+              <fieldset class="gns3_file">
+                {{ form.gns3_file.label }}
+                {{ form.gns3_file(placeholder='GNS3 Project File') }}
+                {% if form.gns3_file.errors %}
+                  <ul class="errors">
+                    {% for error in form.gns3_file.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
+
+              <fieldset class="commands">
+                {{ form.commands.label }}
+                {{ form.commands(placeholder='Commands to run on template VM') }}
+                {% if form.commands.errors %}
+                  <ul class="errors">
+                    {% for error in form.commands.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
         
               <div class="submit-button">
                 {{ form.submit }}

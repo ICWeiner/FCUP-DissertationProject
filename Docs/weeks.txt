@@ -100,9 +100,11 @@ some Un-hardcoding of ping test
 added some input capabilites to ping and traceroute test
 Re-implemented changes to template gns3-server VM, specifically telnet backdoor to linuxvm
 need gns3-webclient-pack to be able to connect to spice console of linuxvm
+reenable login capabilites
+made the "connect to work environment", "start" and "stop" buttons interact with the correct vm, given a user and exercise
 
 Readded telnet backdoor to linuxvm (work by previous student)
-#TODO: discuss this (was necessary for some reason, now isn't?)
+discuss this (was necessary for some reason, now isn't?)
 SPICE needed for gui, need to add a telnet backdoor, or a better way
 For SPICE connection by way of gns3-web, machine connecting to gns3 remotely must have gns3-webclient-pack installed locally
 Insert code changes in 
@@ -110,7 +112,7 @@ Insert code changes in
 and 
 /usr/share/gns3/gns3-server/lib/python3.12/site-packages/gns3server/compute/base_node.py
 
-#TODO: switch doesnt have ttl option...? check if its because IOS version?
+switch doesnt have ttl option...? check if its because IOS version?
 Switch has Cisco IOS V15.2 , no ttl option
 Router has Cisco IOS V12.4 , has ttl option
 
@@ -119,3 +121,6 @@ tried cloning 20 vms based on vm 110, only managed 4 clones before proxmox threw
 Find a way to increase number of workers, but even that wont help for much
 Listen for the error, stop and continue when one or more jobs are completed
 ... cant seem to replicate the error...
+
+21/01:
+figure out configuration of template VM (base gns3-vm -> provision with gns3-topology -> run provided commands -> convert into template -> clone for use)
