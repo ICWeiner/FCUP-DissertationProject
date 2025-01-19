@@ -33,7 +33,7 @@ def init_app():
         from .test import routes as test
         from .exercise  import routes as exercise
         from .auth  import routes as auth
-        from .provision_db import provision_data#creates a small amount of pre configured data for DB
+        from .provision_db import provision_data, alt_provision_data#creates a small amount of pre configured data for DB
 
         # Register Blueprints
         app.register_blueprint(home.home_bp)

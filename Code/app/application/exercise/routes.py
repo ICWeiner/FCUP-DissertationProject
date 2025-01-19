@@ -47,7 +47,7 @@ def exercise_create():
         try:
             with db.session.begin_nested():
 
-                new_templatevm = TemplateVm(templatevm_proxmox_id=110,#TODO:remove hardcoded 110 to actual template
+                new_templatevm = TemplateVm(templatevm_proxmox_id=10000,#TODO:remove hardcoded 10000 to actual template
                                             created_on = dt.now())
 
                 db.session.add(new_templatevm)
@@ -63,7 +63,7 @@ def exercise_create():
                 existing_users = User.query.all()
 
                 for user in existing_users: 
-                    hostname = f'{user.username}{new_exercise.name}'#TODO: this needs to be a valid DNS name
+                    hostname = 'uservm'#f'{user.username}{new_exercise.name}'#TODO: this needs to be a valid DNS name
 
                     clone_id = clone_vm(new_exercise.templatevm.templatevm_proxmox_id, hostname)
 

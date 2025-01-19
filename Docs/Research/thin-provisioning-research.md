@@ -1,6 +1,6 @@
 Setup currently is using thin provisioning from a pool named "data"
 
-at the present there is a template vm with ID 110, all gns3-server instances are created by cloning this VM and making the necessary changes
+at the present there is a template vm with ID 10000, all gns3-server instances are created by cloning this VM and making the necessary changes
 
 by using lvs command on pve host, more detailed information can be obtained
 

@@ -52,6 +52,13 @@ def stop_vm(vm_id:int):
     proxmox_vm_actions.stop( _get_proxmox_host(), session, vm_id)
     return jsonify(), 200
 
+@vm_bp.route('/vm/<int:vm_id>/delete', methods=['POST'])
+#@login_required
+def delete_vm(vm_id:int):
+    session = get_proxmox_session( *_get_proxmox_host_and_credentials())
+    proxmox_vm_actions.destroy( _get_proxmox_host(), session, vm_id)
+    return jsonify(), 200
+
 @vm_bp.route('/vm/<int:vm_id>/connect', methods=['POST'])
 def connect(vm_id:int):
     vm_ip = get_vm_ip(vm_id)

@@ -23,6 +23,16 @@ def create(proxmox_host, session, template_id, clone_id, hostname):
 
     response.raise_for_status()
 
+    # Remove protection flag from clone
+    data = {
+        'protection': 0,
+    } 
+
+    response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{clone_id}/config', data = data)
+
+    response.raise_for_status()
+
+
     #VM initial snapshot creation
     data = {
         'snapname': f'initial_snap_{clone_id}',

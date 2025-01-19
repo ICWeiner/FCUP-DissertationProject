@@ -98,7 +98,8 @@ WSGI research
 cleaned up some code related to proxmox API interaction
 some Un-hardcoding of ping test
 added some input capabilites to ping and traceroute test
-Some changes to template gns3-server VM
+Re-implemented changes to template gns3-server VM, specifically telnet backdoor to linuxvm
+need gns3-webclient-pack to be able to connect to spice console of linuxvm
 
 Readded telnet backdoor to linuxvm (work by previous student)
 #TODO: discuss this (was necessary for some reason, now isn't?)
@@ -117,3 +118,4 @@ tried cloning 20 vms based on vm 110, only managed 4 clones before proxmox threw
  " Error: 500 Server Error: got no worker upid - start worker failed for url: https://localhost:8006/api2/json/nodes/pve1/qemu/110/clone "
 Find a way to increase number of workers, but even that wont help for much
 Listen for the error, stop and continue when one or more jobs are completed
+... cant seem to replicate the error...

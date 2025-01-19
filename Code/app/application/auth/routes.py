@@ -58,7 +58,7 @@ def signup():
                     existing_exercises = Exercise.query.all()
                     
                     for exercise in existing_exercises: 
-                            hostname = f'{new_user.username}{exercise.name}'#TODO: this needs to be a valid DNS name
+                            hostname = 'uservm'#'f'{new_user.username}{exercise.name}'#TODO: this needs to be a valid DNS name
 
                             clone_id = clone_vm(exercise.templatevm.templatevm_proxmox_id, hostname)
 
