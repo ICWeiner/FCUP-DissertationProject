@@ -3,9 +3,10 @@ from flask import current_app as app
 from flask_login import login_required
 import proxmox.proxmox_vm_actions as proxmox_vm_actions
 import proxmox.proxmox_vm_firewall as proxmox_vm_firewall
-from proxmox.utils.proxmox_vm_ip_fetcher import get_ip, get_hostname
 from proxmox.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 from .proxmox_session import get_proxmox_session
+from .utils import _get_proxmox_host_and_credentials, _get_proxmox_credentials, _get_proxmox_host
+from .services import get_vm_ip
 
 
 
@@ -85,31 +86,3 @@ def stop_firewall(vm_id:int):
     proxmox_vm_firewall.delete_proxmox_vm_isolation_rules( _get_proxmox_host(), vm_id, session)#TODO: REVIEW LOGIC TO APPLY TO THE VM THAT BELONGS TO THE GIVEN STUDENT
 
     return jsonify(), 200
-
-def get_vm_ip(vm_proxmox_id):
-    session = get_proxmox_session( *_get_proxmox_host_and_credentials())
-    vm_ip = get_ip( _get_proxmox_host(), session, vm_proxmox_id)
-    return vm_ip
-
-def get_vm_hostname(vm_proxmox_id):
-    session = get_proxmox_session( *_get_proxmox_host_and_credentials())
-    vm_ip = get_hostname( _get_proxmox_host(), session, vm_proxmox_id)
-    return vm_ip
-
-def clone_vm(templatevm_proxmox_id, hostname):
-    session = get_proxmox_session( *_get_proxmox_host_and_credentials())
-
-    clone_id = proxmox_vm_actions.get_free_id( _get_proxmox_host(), session)
-
-    proxmox_vm_actions.create( _get_proxmox_host(), session, templatevm_proxmox_id, clone_id, hostname)
-
-    return clone_id
-
-def _get_proxmox_host():
-    return app.config['PROXMOX_HOST']
-
-def _get_proxmox_credentials():
-    return app.config['PROXMOX_USER'], app.config['PROXMOX_PASSWORD']
-
-def _get_proxmox_host_and_credentials():
-    return _get_proxmox_host(), *_get_proxmox_credentials()

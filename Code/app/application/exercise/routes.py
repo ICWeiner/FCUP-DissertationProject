@@ -3,7 +3,7 @@ from flask import current_app as app
 from flask_login import current_user, login_required
 from datetime import datetime as dt
 from .forms import CreateExerciseForm
-from ..vm.routes import clone_vm
+from ..vm.services import clone_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 

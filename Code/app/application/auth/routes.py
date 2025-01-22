@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, render_template, flash, request, session,
 from flask_login import login_required, logout_user, current_user, login_user
 from .forms import LoginForm, SignupForm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
-from ..vm.routes import clone_vm
+from ..vm.services import clone_vm
 from .. import login_manager
 from datetime import datetime as dt
 

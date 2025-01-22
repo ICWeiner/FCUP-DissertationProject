@@ -6,7 +6,7 @@ from nornir.core.filter import F
 from nornir_lib.utils.gns3_api import get_project_id, get_project_nodes, start_project, gns3_to_yaml
 from nornir_lib.modules.ping import PingLibrary
 from nornir_lib.modules.traceroute import TracerouteLibrary 
-from ..vm.routes import get_vm_ip, get_vm_hostname
+from ..vm.services import get_vm_ip, get_vm_hostname
 
 
 #TODO: FIX ABOVE IMPORTS
