@@ -1,5 +1,6 @@
 from nornir import InitNornir
-from utils.gns3_api import get_project_id, get_project_nodes, start_project, gns3_to_yaml
+from gns3_api import gns3_actions
+from gns3_api.utils import gns3_parser
 from modules.traceroute import TracerouteLibrary
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
@@ -24,13 +25,13 @@ for i in linux_hosts.inventory.hosts.items():
     node_name = i[0] 
     print(f'student mec number is : {node_name}')
 
-    project_id = get_project_id(node_ip, project_name)
+    project_id = gns3_actions.get_project_id(node_ip, project_name)
 
-    nodes = get_project_nodes(node_ip, project_id) #Get info on given project's nodes
+    nodes = gns3_actions.get_project_nodes(node_ip, project_id) #Get info on given project's nodes
 
-    gns3_to_yaml(node_ip, node_name, nodes) #Convert info into a format readable by nornir
+    gns3_parser.gns3_to_yaml(node_ip, node_name, nodes) #Convert info into a format readable by nornir
 
-    start_project(node_ip, project_id)
+    gns3_actions.start_project(node_ip, project_id)
 
     config = f'{node_name}.yaml'
     trace_lib = TracerouteLibrary(config)

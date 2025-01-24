@@ -3,7 +3,8 @@ from flask import current_app as app
 from flask_login import current_user, login_required
 from nornir import InitNornir
 from nornir.core.filter import F
-from nornir_lib.utils.gns3_api import get_project_id, get_project_nodes, start_project, gns3_to_yaml
+from gns3_api import gns3_actions
+from Code.gns3_api.utils.gns3_parser import gns3_nodes_to_yaml
 from nornir_lib.modules.ping import PingLibrary
 from nornir_lib.modules.traceroute import TracerouteLibrary 
 from ..vm.services import get_vm_ip, get_vm_hostname
@@ -33,14 +34,14 @@ def ping(vm_id):#TODO: FINISH IMPLEMENTING PING TEST
     vm_hostname = get_vm_hostname(vm_id)
     print(f'student vm hostname is : {vm_hostname}')
 
-    project_id = get_project_id(vm_ip, gns3_filename)
+    project_id = gns3_actions.get_project_id(vm_ip, gns3_filename)
     print(f'project id is : {project_id}')
 
-    nodes = get_project_nodes(vm_ip, project_id) #Get info on given project's nodes
+    nodes = gns3_actions.get_project_nodes(vm_ip, project_id) #Get info on given project's nodes
 
-    gns3_to_yaml(vm_ip, vm_hostname, nodes) #Convert info into a format readable by nornir
+    gns3_nodes_to_yaml(vm_ip, vm_hostname, nodes) #Convert info into a format readable by nornir
 
-    start_project(vm_ip, project_id)
+    gns3_actions.start_project(vm_ip, project_id)
     print('project started')
 
     config = f'{vm_hostname}.yaml'
@@ -69,14 +70,14 @@ def traceroute(vm_id):#TODO: FINISH IMPLEMENTING TRACEROUTE TEST
     vm_hostname = get_vm_hostname(vm_id)
     print(f'student vm hostname is : {vm_hostname}')
 
-    project_id = get_project_id(vm_ip, gns3_filename)
+    project_id = gns3_actions.get_project_id(vm_ip, gns3_filename)
     print(f'project id is : {project_id}')
 
-    nodes = get_project_nodes(vm_ip, project_id) #Get info on given project's nodes
+    nodes = gns3_actions.get_project_nodes(vm_ip, project_id) #Get info on given project's nodes
 
     gns3_to_yaml(vm_ip, vm_hostname, nodes) #Convert info into a format readable by nornir
 
-    start_project(vm_ip, project_id)
+    gns3_actions.start_project(vm_ip, project_id)
     print('project started')
 
     config = f'{vm_hostname}.yaml'

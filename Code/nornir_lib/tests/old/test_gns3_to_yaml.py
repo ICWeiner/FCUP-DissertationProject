@@ -1,7 +1,7 @@
 import json
 from nornir import InitNornir
 from nornir.core.filter import F
-from utils.gns3_to_yaml import parse_gns3_to_yaml
+from Code.gns3_api.utils.gns3_parser import parse_gns3_to_yaml
 
 # Initialize Nornir
 try:

@@ -1,8 +1,11 @@
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
 from flask import current_app as app
 from flask_login import current_user, login_required
+from werkzeug.utils import secure_filename
 from datetime import datetime as dt
+import os.path
 from .forms import CreateExerciseForm
+from .utils import generate_unique_filename
 from ..vm.services import clone_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
@@ -52,7 +55,11 @@ def exercise_create():
 
     form = CreateExerciseForm()
     if form.validate_on_submit():#Verifies if method is POST
+        filename = generate_unique_filename(form.gns3_file.data.filename)
+        path_to_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        form.gns3_file.data.save(path_to_file)
         try:
+            '''
             with db.session.begin_nested():
 
                 new_templatevm = TemplateVm(templatevm_proxmox_id = form.templatevm_proxmox_id.data,
@@ -84,6 +91,7 @@ def exercise_create():
                     db.session.add(workvm)
             
                 db.session.commit()
+                '''
         except Exception as e:
             db.session.rollback()
             flash(f'Error: {str(e)}')

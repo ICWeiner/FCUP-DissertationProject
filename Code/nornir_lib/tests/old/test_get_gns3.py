@@ -1,6 +1,6 @@
 from nornir import InitNornir
 from nornir_utils.plugins.functions import print_result
-from utils.file_transfer import transfer_file
+from nornir_lib.utils.file_transfer import transfer_file
 from nornir.core.filter import F
 
 # Initialize Nornir

@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, IntegerField, FileField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from wtforms import StringField, SubmitField, TextAreaField, IntegerField
 from wtforms.validators import (
     DataRequired,
     Email,
     EqualTo,
     Length,
-    Optional
+    Optional,
 )
 
 
@@ -32,7 +33,8 @@ class CreateExerciseForm(FlaskForm):
     gns3_file = FileField(
         'GNS3 File',
         validators=[
-            Optional(),
+            FileRequired(),
+            FileAllowed(['gns3'], 'GNS3 project files only!')
         ]
     )
     commands = TextAreaField(

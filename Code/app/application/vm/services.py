@@ -1,7 +1,7 @@
-import utils
-import proxmox_session
-import proxmox.proxmox_vm_actions as proxmox_vm_actions 
-from proxmox.utils.proxmox_vm_ip_fetcher import get_ip, get_hostname
+import proxmox_api.proxmox_vm_actions as proxmox_vm_actions 
+from proxmox_api.utils.proxmox_vm_ip_fetcher import get_ip, get_hostname
+from . import utils
+from . import proxmox_session
 
 
 def get_vm_ip(vm_proxmox_id):
@@ -22,3 +22,7 @@ def clone_vm(templatevm_proxmox_id, hostname):
     proxmox_vm_actions.create( utils._get_proxmox_host(), session, templatevm_proxmox_id, clone_id, hostname)
 
     return clone_id
+
+def upload_file_to_vm(vm_proxmox_id, filename):
+    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials())
+    proxmox_vm_actions.upload_file( utils._get_proxmox_host(), session, vm_proxmox_id, filename)

@@ -8,7 +8,7 @@
         
             <h1>New Exercise</h1>
         
-            <form method="POST" action="{{ url_for('exercise_bp.exercise_create') }}">
+            <form method="POST" action="{{ url_for('exercise_bp.exercise_create') }}" enctype='multipart/form-data'>
               {{ form.csrf_token }}
         
               <fieldset class="title">

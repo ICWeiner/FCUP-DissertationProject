@@ -1,7 +1,7 @@
 import time
 from threading import Lock
 from flask import current_app as app
-from proxmox.utils.connection import proxmox_connect
+from proxmox_api.utils.connection import proxmox_connect
 
 proxmox_session_cache = {
     "session": None,

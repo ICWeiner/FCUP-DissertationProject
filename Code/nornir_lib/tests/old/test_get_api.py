@@ -1,5 +1,5 @@
 from nornir import InitNornir
-from utils.gns3_api import get_project, gns3_to_yaml
+from gns3_api.gns3_actions import get_project, gns3_to_yaml
 from nornir.core.filter import F
 
 # Initialize Nornir
