@@ -15,49 +15,25 @@ vm_bp = Blueprint(
     static_folder='static'
 )
 
-
-@vm_bp.route('/vm/<int:template_vm_id>/clone', methods=['POST'])#TODO: do i need this endpoint?
-def create_vm(template_vm_id:int):
-
-    data = request.get_json()
-
-    if 'hostname' not in data:
-        return jsonify(response = "Error: Missing hostname data.", status = 400)
-
-
-    session = get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
-
-    clone_id = proxmox_vm_actions.get_free_id( utils._get_proxmox_host, session)
-    
-    hostname = data["hostname"]
-
-    proxmox_vm_actions.create( utils._get_proxmox_host, session, template_vm_id,clone_id, hostname)
-
-    response = {'vm_id': clone_id,
-                'hostname': hostname}
-
-    return jsonify(response), 201
-
 @vm_bp.route('/vm/<int:vm_id>/start', methods=['POST'])
 @login_required
 def start_vm(vm_id:int):
-    session = get_proxmox_session( *utils._get_proxmox_host_and_credentials())
-    proxmox_vm_actions.start( utils._get_proxmox_host, session, vm_id)
-    return jsonify(), 200
+    if services.start_vm(vm_id): return jsonify(), 200
+    else: return jsonify(), 500
 
 @vm_bp.route('/vm/<int:vm_id>/stop', methods=['POST'])
 @login_required
 def stop_vm(vm_id:int):
     session = get_proxmox_session( *utils._get_proxmox_host_and_credentials())
-    proxmox_vm_actions.stop( utils._get_proxmox_host, session, vm_id)
-    return jsonify(), 200
+    if proxmox_vm_actions.stop( utils._get_proxmox_host, session, vm_id): return jsonify(), 200 
+    else: return jsonify(), 500
 
 @vm_bp.route('/vm/<int:vm_id>/delete', methods=['POST'])
 @login_required
 def delete_vm(vm_id:int):
     session = get_proxmox_session( *utils._get_proxmox_host_and_credentials())
-    proxmox_vm_actions.destroy( utils._get_proxmox_host, session, vm_id)
-    return jsonify(), 200
+    if proxmox_vm_actions.destroy( utils._get_proxmox_host, session, vm_id): return jsonify(), 200
+    else: return jsonify(), 500
 
 @vm_bp.route('/vm/<int:vm_id>/connect', methods=['POST'])
 @login_required

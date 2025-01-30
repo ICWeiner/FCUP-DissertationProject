@@ -60,9 +60,9 @@ def signup():
                     for exercise in existing_exercises: 
                             hostname = 'uservm'#'f'{new_user.username}{exercise.name}'#TODO: this needs to be a valid DNS name
 
-                            clone_id = clone_vm(exercise.templatevm.templatevm_proxmox_id, hostname)
+                            clone_id = clone_vm(exercise.templatevm.proxmox_id, hostname)
 
-                            workvm = WorkVm(workvm_proxmox_id = clone_id,
+                            workvm = WorkVm(proxmox_id = clone_id,
                                 user = new_user,
                                 templatevm = exercise.templatevm,
                                 created_on = dt.now(),

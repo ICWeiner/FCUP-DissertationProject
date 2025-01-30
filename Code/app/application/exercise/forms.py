@@ -24,7 +24,7 @@ class CreateExerciseForm(FlaskForm):
             DataRequired(),
         ]
     )
-    templatevm_proxmox_id = IntegerField(
+    proxmox_id = IntegerField(
         'Template VM Proxmox ID',
         validators=[
             DataRequired(),

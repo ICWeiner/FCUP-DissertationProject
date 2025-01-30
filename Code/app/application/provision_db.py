@@ -12,7 +12,7 @@ def provision_data(): #creates 20 users and 1 exercise
         ]
 
         #insert templatevm
-        templatevm = TemplateVm(templatevm_proxmox_id=10000,
+        templatevm = TemplateVm(proxmox_id=10000,
                                 created_on = dt.now())
         db.session.add(templatevm)
         #insert exercise
@@ -34,7 +34,7 @@ def provision_data(): #creates 20 users and 1 exercise
             user.set_password('123123')
             db.session.add(user)
 
-            workvm = WorkVm(workvm_proxmox_id = i,
+            workvm = WorkVm(proxmox_id = i,
                             user = user,
                             templatevm = templatevm,
                             created_on = dt.now()

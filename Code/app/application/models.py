@@ -78,7 +78,7 @@ class WorkVm(db.Model):
         unique = True
     )
 
-    workvm_proxmox_id = db.Column(
+    proxmox_id = db.Column(
         db.Integer,
         unique = True,
         nullable = False
@@ -117,7 +117,7 @@ class TemplateVm(db.Model):
         unique = True
     )
 
-    templatevm_proxmox_id = db.Column(
+    proxmox_id = db.Column(
         db.Integer,
         #unique = True,TODO:Reenable this later
         nullable = False

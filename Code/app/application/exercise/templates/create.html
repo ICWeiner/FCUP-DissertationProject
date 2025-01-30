@@ -33,12 +33,12 @@
                 {% endif %}
               </fieldset>
 
-              <fieldset class="templatevm_proxmox_id">
-                {{ form.templatevm_proxmox_id.label }}
-                {{ form.templatevm_proxmox_id(placeholder='Proxmox ID') }}
-                {% if form.templatevm_proxmox_id.errors %}
+              <fieldset class="proxmox_id">
+                {{ form.proxmox_id.label }}
+                {{ form.proxmox_id(placeholder='Proxmox ID') }}
+                {% if form.proxmox_id.errors %}
                   <ul class="errors">
-                    {% for error in form.templatevm_proxmox_id.errors %}
+                    {% for error in form.proxmox_id.errors %}
                       <li>{{ error }}</li>{% endfor %}
                   </ul>
                 {% endif %}

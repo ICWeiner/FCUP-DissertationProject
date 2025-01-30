@@ -1,13 +1,16 @@
 import os.path
+from time import sleep
 from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
 from flask import current_app as app
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
+from gns3_api import gns3_actions
 from .forms import CreateExerciseForm
 from .utils import generate_unique_filename
-from ..vm.services import clone_vm
+from ..vm.services import clone_vm, start_vm, get_vm_ip
 from ..models import Exercise, User, TemplateVm, WorkVm, db
+
 
 
 
@@ -25,7 +28,7 @@ def exercise(id):
     current_templatevm_id = Exercise.query.get(id).templatevm_id #get id of the templatevm of the exercise
 
     #get the id of the workvm of the current user and the current exercise
-    current_user_workvm_id = WorkVm.query.filter_by(user_id = user_id, templatevm_id = current_templatevm_id).first().workvm_proxmox_id
+    current_user_workvm_id = WorkVm.query.filter_by(user_id = user_id, templatevm_id = current_templatevm_id).first().proxmox_id
 
     return render_template(
         'exercise.html',
@@ -60,14 +63,21 @@ def exercise_create():
         form.gns3_file.data.save(path_to_gns3project)
 
         try:
-            '''
             with db.session.begin_nested():
 
-                new_templatevm = TemplateVm(templatevm_proxmox_id = form.templatevm_proxmox_id.data,
+                template_id = clone_vm(form.proxmox_id.data, hostname = 'uservm')
+
+                while not start_vm(template_id): sleep(5)#TODO: figure out a better way to wait for the vm to start
+
+                node_ip = get_vm_ip(template_id)
+
+                gns3_actions.import_project(node_ip, path_to_gns3project)
+
+                new_templatevm = TemplateVm(proxmox_id = template_id,#form.proxmox_id.data,
                                             created_on = dt.now())
 
                 db.session.add(new_templatevm)
-
+                
                 new_exercise = Exercise(name = form.title.data,
                                         description = form.body.data,
                                         templatevm = new_templatevm,
@@ -81,9 +91,9 @@ def exercise_create():
                 for user in existing_users: 
                     hostname = 'uservm'#f'{user.username}{new_exercise.name}'#TODO: this needs to be a valid DNS name
 
-                    clone_id = clone_vm(new_exercise.templatevm.templatevm_proxmox_id, hostname)
+                    clone_id = clone_vm(new_exercise.templatevm.proxmox_id, hostname)
 
-                    workvm = WorkVm(workvm_proxmox_id = clone_id,
+                    workvm = WorkVm(proxmox_id = clone_id,
                         user = user,
                         templatevm = new_exercise.templatevm,
                         created_on = dt.now(),
@@ -92,7 +102,7 @@ def exercise_create():
                     db.session.add(workvm)
             
                 db.session.commit()
-                '''
+                
         except Exception as e:
             db.session.rollback()
             flash(f'Error: {str(e)}')

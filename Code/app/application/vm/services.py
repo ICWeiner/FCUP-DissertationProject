@@ -5,24 +5,24 @@ from . import proxmox_session
 
 
 def get_vm_ip(vm_proxmox_id):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials())
+    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
     vm_ip = get_ip( utils._get_proxmox_host(), session, vm_proxmox_id)
     return vm_ip
 
 def get_vm_hostname(vm_proxmox_id):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials())
+    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
     vm_ip = get_hostname( utils._get_proxmox_host(), session, vm_proxmox_id)
     return vm_ip
 
-def clone_vm(templatevm_proxmox_id, hostname):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials())
+def start_vm(vm_id):
+    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    return proxmox_vm_actions.start( utils._get_proxmox_host(), session, vm_id)
+
+def clone_vm(template_proxmox_id, hostname):
+    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
 
     clone_id = proxmox_vm_actions.get_free_id( utils._get_proxmox_host(), session)
 
-    proxmox_vm_actions.create( utils._get_proxmox_host(), session, templatevm_proxmox_id, clone_id, hostname)
+    proxmox_vm_actions.create( utils._get_proxmox_host(), session, template_proxmox_id, clone_id, hostname)
 
     return clone_id
-
-def upload_file_to_vm(vm_proxmox_id, filename):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials())
-    proxmox_vm_actions.upload_file( utils._get_proxmox_host(), session, vm_proxmox_id, filename)
