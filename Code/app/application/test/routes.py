@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from nornir import InitNornir
 from nornir.core.filter import F
 from gns3_api import gns3_actions
-from Code.gns3_api.utils.gns3_parser import gns3_nodes_to_yaml
+from gns3_api.utils.gns3_parser import gns3_nodes_to_yaml
 from nornir_lib.modules.ping import PingLibrary
 from nornir_lib.modules.traceroute import TracerouteLibrary 
 from ..vm.services import get_vm_ip, get_vm_hostname

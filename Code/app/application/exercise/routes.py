@@ -1,9 +1,9 @@
+import os.path
+from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
 from flask import current_app as app
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
-from datetime import datetime as dt
-import os.path
 from .forms import CreateExerciseForm
 from .utils import generate_unique_filename
 from ..vm.services import clone_vm
@@ -56,8 +56,9 @@ def exercise_create():
     form = CreateExerciseForm()
     if form.validate_on_submit():#Verifies if method is POST
         filename = generate_unique_filename(form.gns3_file.data.filename)
-        path_to_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        form.gns3_file.data.save(path_to_file)
+        path_to_gns3project = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        form.gns3_file.data.save(path_to_gns3project)
+
         try:
             '''
             with db.session.begin_nested():

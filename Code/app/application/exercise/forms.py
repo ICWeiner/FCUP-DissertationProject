@@ -31,10 +31,10 @@ class CreateExerciseForm(FlaskForm):
         ]
     )
     gns3_file = FileField(
-        'GNS3 File',
+        'gns3project File',
         validators=[
             FileRequired(),
-            FileAllowed(['gns3'], 'GNS3 project files only!')
+            FileAllowed(['gns3project'], 'GNS3 project files only!')
         ]
     )
     commands = TextAreaField(

@@ -1,6 +1,6 @@
 from nornir import InitNornir
 from gns3_api import gns3_actions
-from Code.gns3_api.utils.gns3_parser import gns3_nodes_to_yaml
+from gns3_api.utils.gns3_parser import gns3_nodes_to_yaml
 from nornir_lib.modules.ping import PingLibrary
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
