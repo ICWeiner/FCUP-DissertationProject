@@ -1,14 +1,11 @@
 import os.path
-from time import sleep
 from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
 from flask import current_app as app
 from flask_login import current_user, login_required
-from werkzeug.utils import secure_filename
-from gns3_api import gns3_actions
 from .forms import CreateExerciseForm
 from .utils import generate_unique_filename
-from ..vm.services import clone_vm, start_vm, get_vm_ip, vm_status
+from ..vm.services import clone_vm, create_new_template_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 
@@ -37,7 +34,7 @@ def exercise(id):
         template='exercise-template',
         exercise=id,
         current_user_id = user_id,
-        vm_id = current_user_workvm_id,
+        vm_proxmox_id = current_user_workvm_id,
         exercise_title="Sample Exercise")
 
 @exercise_bp.route('/exercises', methods = ['GET'])
@@ -65,18 +62,11 @@ def exercise_create():
         try:
             with db.session.begin_nested():
 
-                template_id = clone_vm(form.proxmox_id.data, hostname = 'uservm')
+                template_id = create_new_template_vm(form.proxmox_id.data, 'uservm', path_to_gns3project)
 
-                while not vm_status(template_id):
-                    sleep(30)#TODO: figure out a better way to wait for the vm to start
-                    start_vm(template_id)
-
-                node_ip = get_vm_ip(template_id)
-
-                gns3_actions.import_project(node_ip, path_to_gns3project)
-
-                new_templatevm = TemplateVm(proxmox_id = template_id,#form.proxmox_id.data,
-                                            created_on = dt.now())
+                new_templatevm = TemplateVm(proxmox_id = template_id,
+                                            created_on = dt.now()
+                                            )
 
                 db.session.add(new_templatevm)
                 
@@ -90,7 +80,7 @@ def exercise_create():
 
                 existing_users = User.query.all()
 
-                for user in existing_users: 
+                for user in existing_users:#TODO: this and the similar loop in auth should be refactored into a function, probably in vm.services
                     hostname = 'uservm'#f'{user.username}{new_exercise.name}'#TODO: this needs to be a valid DNS name
 
                     clone_id = clone_vm(new_exercise.templatevm.proxmox_id, hostname)

@@ -46,74 +46,89 @@ def create(proxmox_host, session, template_id, clone_id, hostname):
     return True
 
 #Internal use only
-def _check_status(proxmox_host, session, vm_id):
-    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/status/current')
+def _check_status(proxmox_host, session, vm_proxmox_id):
+    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/current')
     return response
     
-def status(proxmox_host, session, vm_id):
-    response = _check_status(proxmox_host, session, vm_id)
+def status(proxmox_host, session, vm_proxmox_id):
+    response = _check_status(proxmox_host, session, vm_proxmox_id)
     if response.json()["data"]['qmpstatus'] == 'running': return True
     return False
     
-def start(proxmox_host, session, vm_id):
+def start(proxmox_host, session, vm_proxmox_id):
 
     #Check VM status
-    response = _check_status(proxmox_host, session, vm_id)
+    response = _check_status(proxmox_host, session, vm_proxmox_id)
 
     if response.json()["data"]['qmpstatus'] == 'running':
-        print(f'VM {vm_id} is already running.\n')
+        print(f'VM {vm_proxmox_id} is already running.\n')
     elif response.status_code == 200:
-        print(f"Starting virtual machine with ID {vm_id}\n")
-        session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/status/start')
+        print(f"Starting virtual machine with ID {vm_proxmox_id}\n")
+        session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/start')
     else:
         print(f'Unexpected HTTP status code {response.status_code}')
-        print(f'Error: Could not start VM {vm_id}')
+        print(f'Error: Could not start VM {vm_proxmox_id}')
         return False
 
     return True
 
-def stop(proxmox_host, session, vm_id):
+def stop(proxmox_host, session, vm_proxmox_id):
 
     #Check VM status
-    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/status/current')
+    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/current')
 
     if response.json()["data"]['qmpstatus'] == 'stopped':
-        print(f'VM {vm_id} is already stopped.\n')
+        print(f'VM {vm_proxmox_id} is already stopped.\n')
     elif response.status_code == 200:
-        print(f"Stopping virtual machine with ID {vm_id}\n")
-        session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/status/stop')
+        print(f"Stopping virtual machine with ID {vm_proxmox_id}\n")
+        session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/stop')
     else: 
         print(f'Unexpected HTTP status code {response.status_code}')
-        print(f'Error: Could not stop VM {vm_id}\n')
+        print(f'Error: Could not stop VM {vm_proxmox_id}\n')
         return False
 
 
     return True
 
-def destroy(proxmox_host, session, vm_id):
+def template(proxmox_host, session, vm_proxmox_id):
 
     #Check VM status
-    response = session.delete(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}')
+    response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/template')
 
     if response.status_code == 200:
-        print(f"Destroying virtual machine with ID {vm_id}\n")
+        print(f"Templating virtual machine with ID {vm_proxmox_id}\n")
     else:
         print(f'Unexpected HTTP status code {response.status_code}')
-        print(f'Error: Could not destroy VM {vm_id}\n')
+        print(f'Error: Could not template VM {vm_proxmox_id}\n')
         return False
 
 
     return True
 
-def rollback(proxmox_host, session, vm_id):
-    
-    response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/snapshot/initial_snap_{vm_id}/rollback')
+def destroy(proxmox_host, session, vm_proxmox_id):
+
+    #Check VM status
+    response = session.delete(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}')
 
     if response.status_code == 200:
-        print(f"Rolling back virtual machine with ID {vm_id}\n")
+        print(f"Destroying virtual machine with ID {vm_proxmox_id}\n")
     else:
         print(f'Unexpected HTTP status code {response.status_code}')
-        print(f'Error: Could not destroy VM {vm_id}\n')
+        print(f'Error: Could not destroy VM {vm_proxmox_id}\n')
+        return False
+
+
+    return True
+
+def rollback(proxmox_host, session, vm_proxmox_id):
+    
+    response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/snapshot/initial_snap_{vm_proxmox_id}/rollback')
+
+    if response.status_code == 200:
+        print(f"Rolling back virtual machine with ID {vm_proxmox_id}\n")
+    else:
+        print(f'Unexpected HTTP status code {response.status_code}')
+        print(f'Error: Could not destroy VM {vm_proxmox_id}\n')
         return False
     
     return True

@@ -19,19 +19,19 @@ test_bp = Blueprint(
 )
 
 
-@test_bp.route('/vm/<int:vm_id>/test/ping', methods=['POST'])
+@test_bp.route('/vm/<int:vm_proxmox_id>/test/ping', methods=['POST'])
 @login_required
-def ping(vm_id):#TODO: FINISH IMPLEMENTING PING TEST
+def ping(vm_proxmox_id):#TODO: FINISH IMPLEMENTING PING TEST
 
     hostname = request.form.get('hostname')#TODO: not the best way of getting this info
     target = request.form.get('ip_address')
 
     gns3_filename = 'test' #TODO: pass this as an argument
         
-    vm_ip = get_vm_ip(vm_id)
+    vm_ip = get_vm_ip(vm_proxmox_id)
     print(f'student ip is : {vm_ip}')
 
-    vm_hostname = get_vm_hostname(vm_id)
+    vm_hostname = get_vm_hostname(vm_proxmox_id)
     print(f'student vm hostname is : {vm_hostname}')
 
     project_id = gns3_actions.get_project_id(vm_ip, gns3_filename)
@@ -55,19 +55,19 @@ def ping(vm_id):#TODO: FINISH IMPLEMENTING PING TEST
 
     return f'<p>TEST RESULTS: <br> {results} </p>'
 
-@test_bp.route('/vm/<int:vm_id>/test/traceroute', methods=['POST'])
+@test_bp.route('/vm/<int:vm_proxmox_id>/test/traceroute', methods=['POST'])
 @login_required
-def traceroute(vm_id):#TODO: FINISH IMPLEMENTING TRACEROUTE TEST
+def traceroute(vm_proxmox_id):#TODO: FINISH IMPLEMENTING TRACEROUTE TEST
 
     hostname = request.form.get('hostname')#TODO: not the best way of getting this info
     target = request.form.get('ip_address')
 
     gns3_filename = 'test' #TODO: pass this as an argument
         
-    vm_ip = get_vm_ip(vm_id)
+    vm_ip = get_vm_ip(vm_proxmox_id)
     print(f'student ip is : {vm_ip}')
 
-    vm_hostname = get_vm_hostname(vm_id)
+    vm_hostname = get_vm_hostname(vm_proxmox_id)
     print(f'student vm hostname is : {vm_hostname}')
 
     project_id = gns3_actions.get_project_id(vm_ip, gns3_filename)
