@@ -39,17 +39,26 @@ def create(proxmox_host, session, template_id, clone_id, hostname):
         'description': f'Initial snapshot of VM {clone_id}',
     }
 
-    response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{clone_id}/snapshot', data = data)
+    #response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{clone_id}/snapshot', data = data)
 
-    response.raise_for_status()
+    #response.raise_for_status()
 
     return True
+
+#Internal use only
+def _check_status(proxmox_host, session, vm_id):
+    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/status/current')
+    return response
     
+def status(proxmox_host, session, vm_id):
+    response = _check_status(proxmox_host, session, vm_id)
+    if response.json()["data"]['qmpstatus'] == 'running': return True
+    return False
     
 def start(proxmox_host, session, vm_id):
 
     #Check VM status
-    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/status/current')
+    response = _check_status(proxmox_host, session, vm_id)
 
     if response.json()["data"]['qmpstatus'] == 'running':
         print(f'VM {vm_id} is already running.\n')
@@ -67,7 +76,6 @@ def stop(proxmox_host, session, vm_id):
 
     #Check VM status
     response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/status/current')
-
 
     if response.json()["data"]['qmpstatus'] == 'stopped':
         print(f'VM {vm_id} is already stopped.\n')
@@ -99,7 +107,6 @@ def destroy(proxmox_host, session, vm_id):
 
 def rollback(proxmox_host, session, vm_id):
     
-    #Check VM status
     response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_id}/snapshot/initial_snap_{vm_id}/rollback')
 
     if response.status_code == 200:

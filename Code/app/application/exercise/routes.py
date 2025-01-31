@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from gns3_api import gns3_actions
 from .forms import CreateExerciseForm
 from .utils import generate_unique_filename
-from ..vm.services import clone_vm, start_vm, get_vm_ip
+from ..vm.services import clone_vm, start_vm, get_vm_ip, vm_status
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 
@@ -67,7 +67,9 @@ def exercise_create():
 
                 template_id = clone_vm(form.proxmox_id.data, hostname = 'uservm')
 
-                while not start_vm(template_id): sleep(5)#TODO: figure out a better way to wait for the vm to start
+                while not vm_status(template_id):
+                    sleep(30)#TODO: figure out a better way to wait for the vm to start
+                    start_vm(template_id)
 
                 node_ip = get_vm_ip(template_id)
 
