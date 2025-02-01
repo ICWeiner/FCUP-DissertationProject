@@ -46,19 +46,23 @@ def create(proxmox_host, session, template_id, clone_id, hostname):
     return True
 
 #Internal use only
-def _check_status(proxmox_host, session, vm_proxmox_id):
+def _get_status(proxmox_host, session, vm_proxmox_id):
     response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/current')
     return response
     
-def status(proxmox_host, session, vm_proxmox_id):
-    response = _check_status(proxmox_host, session, vm_proxmox_id)
-    if response.json()["data"]['qmpstatus'] == 'running': return True
+def check_vm_status(proxmox_host, session, vm_proxmox_id):
+    response = _get_status(proxmox_host, session, vm_proxmox_id)
+    if response.json()["data"]['qmpstatus'] == 'running':
+        #This checks if vm is running and qemu-agent is responding
+        response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/agent/ping')
+        if response.json()['data'] != None:
+            return True
     return False
     
 def start(proxmox_host, session, vm_proxmox_id):
 
     #Check VM status
-    response = _check_status(proxmox_host, session, vm_proxmox_id)
+    response = _get_status(proxmox_host, session, vm_proxmox_id)
 
     if response.json()["data"]['qmpstatus'] == 'running':
         print(f'VM {vm_proxmox_id} is already running.\n')

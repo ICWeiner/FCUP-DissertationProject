@@ -3,6 +3,27 @@ import json
 import zipfile
 import uuid
 
+def check_project(node_ip, project_id):
+    try:
+        #GET request to get the project ID
+        project_url = f'http://{node_ip}:3080/v2/projects/{project_id}'
+        headers = {'accept': 'application/json'}
+        response = requests.get(project_url, headers=headers)
+
+        response.raise_for_status()
+
+        if response.status_code == 404:
+            print(f'No projects found for IP {node_ip} with project ID {project_id}')
+            return False
+        
+        return True
+    
+    except requests.exceptions.RequestException as e:
+        print(f'Error with IP {node_ip}: {e}')
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+    return False
+
 def get_project_id(node_ip, project_name):
     try:
         #GET request to get the project ID
@@ -20,8 +41,6 @@ def get_project_id(node_ip, project_name):
         for project in projects:
             if project['name'] == project_name:
                 return project['project_id']
-
-        return False
     
     except requests.exceptions.RequestException as e:
         print(f'Error with IP {node_ip}: {e}')
@@ -111,7 +130,7 @@ def import_project(node_ip, filepath):
 
         response.raise_for_status()
 
-        return True
+        return project_id
     
     except OSError as e:
         print(f"File error: {e}")
@@ -119,4 +138,4 @@ def import_project(node_ip, filepath):
         print("Invalid response object: 'content' attribute missing")
     except requests.exceptions.RequestException as e:
         print(f'Error with IP {node_ip}: {e}')
-    return False
+    return None

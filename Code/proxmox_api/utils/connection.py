@@ -1,5 +1,5 @@
 import requests
-from proxmox_api.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
+from proxmox_api.utils.proxmox_base_uri_generator import proxmox_base_uri
 import proxmox_api.utils.constants as constants
 
 
