@@ -12,7 +12,7 @@ def check_project(node_ip, project_id):
 
         response.raise_for_status()
 
-        if response.status_code == 404:
+        if response.status_code != 200:
             print(f'No projects found for IP {node_ip} with project ID {project_id}')
             return False
         

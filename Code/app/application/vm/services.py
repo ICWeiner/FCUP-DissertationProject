@@ -51,8 +51,9 @@ def create_new_template_vm(template_proxmox_id, hostname, path_to_gns3project):#
     node_ip = get_vm_ip(new_template_vm_proxmox_id)
 
     gns3_project_id = gns3_actions.import_project(node_ip, path_to_gns3project)
-    while not gns3_actions.check_project(node_ip, gns3_project_id):
-        sleep(5) #need to give a little time for gns3 to import the project
+    sleep(10)# the below code does not function as expected
+    #while not gns3_actions.check_project(node_ip, gns3_project_id):
+    #    sleep(5) #need to give a little time for gns3 to import the project
 
     while vm_status(new_template_vm_proxmox_id):#poll vm to make sure it is down and ready to convert into template
         sleep(5)
@@ -60,6 +61,6 @@ def create_new_template_vm(template_proxmox_id, hostname, path_to_gns3project):#
 
     template_vm(new_template_vm_proxmox_id)
 
-    sleep(30) #TODO:how to wait in a smarter way for the template to be created?
+    sleep(5) #TODO:how to wait in a smarter way for the template to be created?
 
     return new_template_vm_proxmox_id

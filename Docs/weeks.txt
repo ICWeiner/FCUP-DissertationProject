@@ -124,3 +124,14 @@ Listen for the error, stop and continue when one or more jobs are completed
 
 21/01:
 figure out configuration of template VM (base gns3-vm -> provision with gns3-topology -> run provided commands -> convert into template -> clone for use)
+
+automated the following steps:
+- Create new vm from base gns3-server vm
+- import gns3 project into new vm
+- transform new vm into a template
+- record new template data into db
+- create the necessary work vms with the new template vm as base
+
+in a first iteration, sleep() was used to give some time to proxmox/gns3 between steps
+aftewards checks were implemented using proxmox and gns3 API, this not only makes sure that we can proceed forward but also makes for less time idling uncessarily
+however, the checks done using the gns3 api are not reliable, for example when checking if project is imported sucessfully it will claim yes, even if its still ongoing
