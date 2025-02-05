@@ -20,3 +20,5 @@ test time to vm creation with a larger amount
 Separate back-end from front-end (CSR and backend json replies)
 
 Make database more complete in terms of evaluation
+
+integrate generic module

@@ -135,3 +135,12 @@ automated the following steps:
 in a first iteration, sleep() was used to give some time to proxmox/gns3 between steps
 aftewards checks were implemented using proxmox and gns3 API, this not only makes sure that we can proceed forward but also makes for less time idling uncessarily
 however, the checks done using the gns3 api are not reliable, for example when checking if project is imported sucessfully it will claim yes, even if its still ongoing
+
+04/02:
+
+implement nornir commands in form
+start writing
+
+convert proxmox_api and gns3_api into nornir
+- in the case of gns3_api there isnt much gain in converting to nornir, as the main benefit would be paralelization and calls to gns3 are sequential in nature.
+- in the case of proxmox_api at first glance there would be benefit in paralelizing however, we need to obtain id for each clone, and proxmox only returns the first free id, making the process also mostly sequential
