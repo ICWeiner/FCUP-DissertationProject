@@ -1,6 +1,4 @@
 import requests
-import json
-import zipfile
 import uuid
 
 def check_project(node_ip, project_id):
