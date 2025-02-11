@@ -1,3 +1,4 @@
+import uuid
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
 from flask_login import login_required, logout_user, current_user, login_user
 from .forms import LoginForm, SignupForm
@@ -58,7 +59,7 @@ def signup():
                     existing_exercises = Exercise.query.all()
                     
                     for exercise in existing_exercises: 
-                            hostname = 'uservm'#'f'{new_user.username}{exercise.name}'#TODO: this needs to be a valid DNS name
+                            hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
 
                             clone_id = clone_vm(exercise.templatevm.proxmox_id, hostname)
 

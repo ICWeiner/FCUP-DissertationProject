@@ -1,3 +1,4 @@
+import uuid
 import os.path
 from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
@@ -57,12 +58,22 @@ def exercise_create():
     if form.validate_on_submit():#Verifies if method is POST
         filename = generate_unique_filename(form.gns3_file.data.filename)
         path_to_gns3project = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        form.gns3_file.data.save(path_to_gns3project)
+        form.gns3_file.data.save(path_to_gns3project) #saves the gns3project file locally
 
         try:
             with db.session.begin_nested():
 
-                template_id = create_new_template_vm(form.proxmox_id.data, 'uservm', path_to_gns3project)
+                user_input = form.commands.data #This contains the commands input by the user, careful with this
+
+                commands = [cmd.strip() for cmd in user_input.splitlines() if cmd.strip()]
+
+                template_hostname = f'template-vm-{uuid.uuid4().hex[:12]}'
+
+                template_id = create_new_template_vm(form.proxmox_id.data, template_hostname , path_to_gns3project, commands)
+
+                user_input = None
+
+                commands = None
 
                 new_templatevm = TemplateVm(proxmox_id = template_id,
                                             created_on = dt.now()
@@ -81,7 +92,8 @@ def exercise_create():
                 existing_users = User.query.all()
 
                 for user in existing_users:#TODO: this and the similar loop in auth should be refactored into a function, probably in vm.services
-                    hostname = 'uservm'#f'{user.username}{new_exercise.name}'#TODO: this needs to be a valid DNS name
+                    hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
+
 
                     clone_id = clone_vm(new_exercise.templatevm.proxmox_id, hostname)
 
