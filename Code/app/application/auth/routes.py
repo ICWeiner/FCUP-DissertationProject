@@ -59,7 +59,7 @@ def signup():
                     existing_exercises = Exercise.query.all()
                     
                     for exercise in existing_exercises: 
-                            hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
+                            hostname = f'vm-{uuid.uuid4().hex[:18]}' #the length of this hostname can be extended up to 63 characters if more uniqueness is required
 
                             clone_id = clone_vm(exercise.templatevm.proxmox_id, hostname)
 

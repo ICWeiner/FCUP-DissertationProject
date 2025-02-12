@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import StringField, SubmitField, TextAreaField, IntegerField
+from wtforms import StringField, SubmitField, TextAreaField, IntegerField, FieldList, FormField
 from wtforms.validators import (
     DataRequired,
     Email,
@@ -8,6 +8,16 @@ from wtforms.validators import (
     Length,
     Optional,
 )
+
+class HostnameForm(FlaskForm):
+    hostname = StringField("Hostname", validators=[Optional()])
+    commands = FieldList(StringField('Command'))
+    class Meta:
+        csrf = False  # Disable CSRF for nested form
+
+class BaseForm(FlaskForm):
+    hostnames = FieldList(FormField(HostnameForm))
+    submit = SubmitField('Submit')
 
 
 
@@ -37,11 +47,7 @@ class CreateExerciseForm(FlaskForm):
             FileAllowed(['gns3project'], 'GNS3 project files only!')
         ]
     )
-    commands = TextAreaField(
-        'Commands',
-        validators=[
-            Optional(),
-        ]
-    )
+
+    hostnames = FieldList(FormField(HostnameForm))
     
     submit = SubmitField('Create')

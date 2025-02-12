@@ -1,6 +1,65 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+    <script>
+      let hostnameIndex = 0; // Track number of hostname tables
+
+      function addHostname() {
+          let container = document.getElementById("hostnames-container");
+
+          let newTable = document.createElement("table");
+          newTable.id = `hostnames-${hostnameIndex}`;
+          newTable.innerHTML = `
+              <tbody>
+                  <tr>
+                      <th><label for="hostnames-${hostnameIndex}-hostname">Hostname</label></th>
+                      <td>
+                          <input id="hostnames-${hostnameIndex}-hostname" name="hostnames-${hostnameIndex}-hostname" type="text">
+                          <button type="button" onclick="removeElement('${newTable.id}')">Remove Hostname</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th><label for="hostnames-${hostnameIndex}-commands">Commands</label></th>
+                      <td>
+                          <ul id="hostnames-${hostnameIndex}-commands">
+                              <li>
+                                  <label for="hostnames-${hostnameIndex}-commands-0">Command</label>
+                                  <input id="hostnames-${hostnameIndex}-commands-0" name="hostnames-${hostnameIndex}-commands-0" type="text">
+                                  <button type="button" onclick="removeElement(this.parentNode)">Remove Command</button>
+                              </li>
+                          </ul>
+                          <button type="button" onclick="addCommand(${hostnameIndex})">Add Command</button>
+                      </td>
+                  </tr>
+              </tbody>
+          `;
+
+          container.appendChild(newTable);
+          hostnameIndex++;
+      }
+
+      function addCommand(hostIndex) {
+          let commandsList = document.getElementById(`hostnames-${hostIndex}-commands`);
+          let commandIndex = commandsList.children.length; // Get next command index
+
+          let newCommand = document.createElement("li");
+          newCommand.innerHTML = `
+              <label for="hostnames-${hostIndex}-commands-${commandIndex}">Command</label>
+              <input id="hostnames-${hostIndex}-commands-${commandIndex}" name="hostnames-${hostIndex}-commands-${commandIndex}" type="text">
+              <button type="button" onclick="removeElement(this.parentNode)">Remove Command</button>
+          `;
+
+          commandsList.appendChild(newCommand);
+      }
+
+      function removeElement(element) {
+          if (typeof element === "string") {
+              document.getElementById(element).remove(); // Remove hostname table
+          } else {
+              element.remove(); // Remove command input field
+          }
+      }
+    </script>
     <div class="container">
         <h1>{{title}}</h1>
         <p>{{description}}</p>
@@ -55,15 +114,12 @@
                 {% endif %}
               </fieldset>
 
-              <fieldset class="commands">
-                {{ form.commands.label }}
-                {{ form.commands(placeholder='Commands to run on template VM') }}
-                {% if form.commands.errors %}
-                  <ul class="errors">
-                    {% for error in form.commands.errors %}
-                      <li>{{ error }}</li>{% endfor %}
-                  </ul>
-                {% endif %}
+              <fieldset class="hostnames">
+              <div id="hostnames-container">
+                  <!-- Hostname tables will be added here dynamically -->
+              </div>
+      
+              <button type="button" onclick="addHostname()">Add Hostname</button>
               </fieldset>
         
               <div class="submit-button">

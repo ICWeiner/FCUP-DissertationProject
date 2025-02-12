@@ -148,4 +148,5 @@ convert proxmox_api and gns3_api into nornir
 
 11/02:
 generic module finish
+make vm cloning non sequential and paralelizable
 gunicorn workers test with varying types

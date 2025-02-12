@@ -4,7 +4,7 @@ from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
 from flask import current_app as app
 from flask_login import current_user, login_required
-from .forms import CreateExerciseForm
+from .forms import CreateExerciseForm, BaseForm, HostnameForm
 from .utils import generate_unique_filename
 from ..vm.services import clone_vm, create_new_template_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
@@ -50,6 +50,45 @@ def exercises():
         template='exercises-template',
         exercises= exercises)
 
+@exercise_bp.route('/exercise/test', methods = ['GET', 'POST'])
+@login_required
+def test():
+    print('#########################')
+    print('OLA')
+    print('#########################')
+
+    form = BaseForm()
+    if form.validate_on_submit():
+        commands_by_hostname = []
+        print('#########################')
+        print('OLA 2')
+        print('#########################')
+        
+        for hostname_form in form.hostnames:
+            hostname_data = {
+                "hostname": hostname_form.hostname.data,
+                "commands": [command_form.data for command_form in hostname_form.commands]
+            }
+            commands_by_hostname.append(hostname_data)
+
+        print('#########################')
+        print("Form Data:")
+        for entry in commands_by_hostname:  # Iterate over the list of dictionaries
+            hostname = entry['hostname']  # Extract hostname
+            print(hostname)
+            for command in entry['commands']:  # Iterate over commands for the hostname
+                print(command)
+        print('#########################')
+        return f'<p> {commands_by_hostname} </p>'
+
+    return render_template(
+        'test.html',
+        title="Exercise creation",
+        form=form,
+        description="Here you can create a new exercise.",
+        template='test-template'
+        )
+
 @exercise_bp.route('/exercise/create', methods = ['GET', 'POST'])
 @login_required
 def exercise_create():
@@ -63,17 +102,19 @@ def exercise_create():
         try:
             with db.session.begin_nested():
 
-                user_input = form.commands.data #This contains the commands input by the user, careful with this
+                template_hostname = f'tvm-{uuid.uuid4().hex[:18]}'#the length of this hostname can be extended up to 63 characters if more uniqueness is required
 
-                commands = [cmd.strip() for cmd in user_input.splitlines() if cmd.strip()]
+                commands_by_hostname = []
 
-                template_hostname = f'template-vm-{uuid.uuid4().hex[:12]}'
+                #formats data in this manner [{'hostname': 'r1', 'commands': ['show version', 'ping 8.8.8.8']}, {'hostname': 'pc1', 'commands': ['traceroute 8.8.4.4']}] 
+                for hostname_form in form.hostnames:
+                    hostname_data = {
+                        "hostname": hostname_form.hostname.data,
+                        "commands": [command_form.data for command_form in hostname_form.commands]
+                    }
+                    commands_by_hostname.append(hostname_data)
 
-                template_id = create_new_template_vm(form.proxmox_id.data, template_hostname , path_to_gns3project, commands)
-
-                user_input = None
-
-                commands = None
+                template_id = create_new_template_vm(form.proxmox_id.data, template_hostname , path_to_gns3project, commands_by_hostname)
 
                 new_templatevm = TemplateVm(proxmox_id = template_id,
                                             created_on = dt.now()

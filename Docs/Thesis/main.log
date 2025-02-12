@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  6 FEB 2025 18:22
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  7 FEB 2025 14:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1624,13 +1624,13 @@ Overfull \hbox (5.475pt too wide) detected at line 17
  []
 
 
-Overfull \hbox (6.08987pt too wide) detected at line 19
- \TU/Arial(0)/m/n/10.95 1
+Overfull \hbox (7.90773pt too wide) detected at line 18
+ \TU/Arial(0)/m/n/10.95 vi
  []
 
 
 Overfull \hbox (6.08987pt too wide) detected at line 20
- \TU/Arial(0)/m/n/10.95 2
+ \TU/Arial(0)/m/n/10.95 1
  []
 
 
@@ -1645,7 +1645,7 @@ Overfull \hbox (6.08987pt too wide) detected at line 22
 
 
 Overfull \hbox (6.08987pt too wide) detected at line 23
- \TU/Arial(0)/m/n/10.95 4
+ \TU/Arial(0)/m/n/10.95 2
  []
 
 
@@ -1655,16 +1655,21 @@ Overfull \hbox (6.08987pt too wide) detected at line 24
 
 
 Overfull \hbox (6.08987pt too wide) detected at line 25
- \TU/Arial(0)/m/n/10.95 5
+ \TU/Arial(0)/m/n/10.95 4
  []
 
 
 Overfull \hbox (6.08987pt too wide) detected at line 26
+ \TU/Arial(0)/m/n/10.95 5
+ []
+
+
+Overfull \hbox (6.08987pt too wide) detected at line 27
  \TU/Arial(0)/m/n/10.95 6
  []
 
 
-Overfull \hbox (6.08987pt too wide) detected at line 28
+Overfull \hbox (6.08987pt too wide) detected at line 29
  \TU/Arial(0)/m/n/10.95 6
  []
 
@@ -1758,6 +1763,8 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [6
 
+
+
 ] (./Chapters/Introduction.tex
 Chapter 1.
 ) (./Chapters/ChapterTemplate.tex
@@ -1785,14 +1792,6 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 
 LaTeX Font Warning: Font shape `TU/Arial(0)/m/sc' undefined
 (Font)              using `TU/Arial(0)/m/n' instead on input line 23.
-
-
-Package natbib Warning: Citation `Fienup1982' on page 2 undefined on input line
- 25.
-
-
-Package natbib Warning: Citation `Fienup1982' on page 2 undefined on input line
- 26.
 
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
 ine 27.
@@ -1919,9 +1918,12 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [6]
-
-Package natbib Warning: Empty `thebibliography' environment on input line 25.
-
+** WARNING: IEEEtranN.bst: No hyphenation pattern has been
+** loaded for the language `EN'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtranN.bst: No hyphenation pattern has been
+** loaded for the language `EN'. Using the pattern for
+** the default language instead.
 ) (./Appendices/AppendixTemplate.tex
 
 
@@ -1944,11 +1946,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [8
 
-]
-
-Package natbib Warning: There were undefined citations.
-
-(./main.aux)
+] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1957,16 +1955,24 @@ L3 programming layer <2025-01-18>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2AAFF3CD8C3C0CA2FE8C28F226A3B3D9;1680.
-Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: 265ADFE6DFDBA05970187EE5A8F47162;1836.
+
+Package rerunfilecheck Warning: File `main.brf' has changed.
+(rerunfilecheck)                Rerun to get bibliographical references right.
+
+Package rerunfilecheck Info: Checksums for `main.brf':
+(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
+(rerunfilecheck)             After:  227A5435CEE000962F1046522ED21A4B;92.
  ) 
 Here is how much of TeX's memory you used:
- 43810 strings out of 473840
- 907692 string characters out of 5729725
- 1557087 words of memory out of 5000000
- 66067 multiletter control sequences out of 15000+600000
+ 43823 strings out of 473840
+ 907957 string characters out of 5729725
+ 1557106 words of memory out of 5000000
+ 66080 multiletter control sequences out of 15000+600000
  574729 words of font info for 108 fonts, out of 8000000 for 9000
  1351 hyphenation exceptions out of 8191
  108i,19n,129p,2378b,1317s stack positions out of 10000i,1000n,20000p,200000b,200000s
