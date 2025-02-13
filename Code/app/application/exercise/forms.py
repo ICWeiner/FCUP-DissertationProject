@@ -13,13 +13,7 @@ class HostnameForm(FlaskForm):
     hostname = StringField("Hostname", validators=[Optional()])
     commands = FieldList(StringField('Command'))
     class Meta:
-        csrf = False  # Disable CSRF for nested form
-
-class BaseForm(FlaskForm):
-    hostnames = FieldList(FormField(HostnameForm))
-    submit = SubmitField('Submit')
-
-
+        csrf = False  # Disable CSRF for nested forms
 
 class CreateExerciseForm(FlaskForm):
     title = StringField(

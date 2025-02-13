@@ -4,9 +4,9 @@ from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for
 from flask import current_app as app
 from flask_login import current_user, login_required
-from .forms import CreateExerciseForm, BaseForm, HostnameForm
+from .forms import CreateExerciseForm
 from .utils import generate_unique_filename
-from ..vm.services import clone_vm, create_new_template_vm
+from ..vm.services import clone_vm, create_new_template_vm, destroy_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 
@@ -33,7 +33,7 @@ def exercise(id):
         title="Exercise",
         description="Here you can see the details of a selected available exercises.",
         template='exercise-template',
-        exercise=id,
+        exercise_id=id,
         current_user_id = user_id,
         vm_proxmox_id = current_user_workvm_id,
         exercise_title="Sample Exercise")
@@ -50,44 +50,6 @@ def exercises():
         template='exercises-template',
         exercises= exercises)
 
-@exercise_bp.route('/exercise/test', methods = ['GET', 'POST'])
-@login_required
-def test():
-    print('#########################')
-    print('OLA')
-    print('#########################')
-
-    form = BaseForm()
-    if form.validate_on_submit():
-        commands_by_hostname = []
-        print('#########################')
-        print('OLA 2')
-        print('#########################')
-        
-        for hostname_form in form.hostnames:
-            hostname_data = {
-                "hostname": hostname_form.hostname.data,
-                "commands": [command_form.data for command_form in hostname_form.commands]
-            }
-            commands_by_hostname.append(hostname_data)
-
-        print('#########################')
-        print("Form Data:")
-        for entry in commands_by_hostname:  # Iterate over the list of dictionaries
-            hostname = entry['hostname']  # Extract hostname
-            print(hostname)
-            for command in entry['commands']:  # Iterate over commands for the hostname
-                print(command)
-        print('#########################')
-        return f'<p> {commands_by_hostname} </p>'
-
-    return render_template(
-        'test.html',
-        title="Exercise creation",
-        form=form,
-        description="Here you can create a new exercise.",
-        template='test-template'
-        )
 
 @exercise_bp.route('/exercise/create', methods = ['GET', 'POST'])
 @login_required
@@ -96,7 +58,9 @@ def exercise_create():
     form = CreateExerciseForm()
     if form.validate_on_submit():#Verifies if method is POST
         filename = generate_unique_filename(form.gns3_file.data.filename)
+
         path_to_gns3project = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
         form.gns3_file.data.save(path_to_gns3project) #saves the gns3project file locally
 
         try:
@@ -161,3 +125,28 @@ def exercise_create():
         description="Here you can create a new exercise.",
         template='create-template'
         )
+
+@exercise_bp.route('/exercise/<int:exercise_id>/delete', methods = ['POST']) #At this point in time this is only here deleting vms created for test purposes, not intended for real use
+@login_required
+def exercise_delete(exercise_id:int):
+    try:
+        exercise = Exercise.query.get(exercise_id)
+
+        templatevm = exercise.templatevm
+
+        workvms = templatevm.workvms
+
+        with db.session.begin_nested():
+            for workvm in workvms:
+                destroy_vm(workvm.proxmox_id)
+                db.session.delete(workvm)
+            destroy_vm(templatevm.proxmox_id)
+            db.session.delete(templatevm)
+            db.session.delete(exercise)
+            db.session.commit()
+
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error: {str(e)}')
+        return redirect(request.referrer)#redirect back to the previous page
+    return redirect(url_for('exercise_bp.exercises'))

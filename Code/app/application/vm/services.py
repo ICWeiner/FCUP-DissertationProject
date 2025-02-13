@@ -7,31 +7,37 @@ from gns3_api import gns3_actions
 from gns3_api.utils import gns3_parser
 from nornir_lib.modules.generic import GenericLibrary 
 
+def _get_proxmox_session():
+    return proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
 
 def get_vm_ip(vm_proxmox_id):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    session = _get_proxmox_session()
     vm_ip = get_ip( utils._get_proxmox_host(), session, vm_proxmox_id)
     return vm_ip
 
 def get_vm_hostname(vm_proxmox_id):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    session = _get_proxmox_session()
     vm_ip = get_hostname( utils._get_proxmox_host(), session, vm_proxmox_id)
     return vm_ip
 
 def vm_status(vm_proxmox_id):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    session = _get_proxmox_session()
     return proxmox_vm_actions.check_vm_status( utils._get_proxmox_host(), session, vm_proxmox_id)
 
 def start_vm(vm_proxmox_id):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    session = _get_proxmox_session()
     return proxmox_vm_actions.start( utils._get_proxmox_host(), session, vm_proxmox_id)
 
 def stop_vm(vm_proxmox_id):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    session = _get_proxmox_session()
     return proxmox_vm_actions.stop( utils._get_proxmox_host(), session, vm_proxmox_id)
 
+def destroy_vm(vm_proxmox_id):
+    session = _get_proxmox_session()
+    return proxmox_vm_actions.destroy( utils._get_proxmox_host(), session, vm_proxmox_id)
+
 def clone_vm(template_proxmox_id, hostname):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    session = _get_proxmox_session()
 
     clone_id = proxmox_vm_actions.get_free_id( utils._get_proxmox_host(), session)
 
@@ -40,7 +46,7 @@ def clone_vm(template_proxmox_id, hostname):
     return clone_id
 
 def template_vm(vm_proxmox_id):
-    session = proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    session = _get_proxmox_session()
     return proxmox_vm_actions.template( utils._get_proxmox_host(), session, vm_proxmox_id)
 
 def create_new_template_vm(template_proxmox_id, hostname, path_to_gns3project, commands_by_hostname):#TODO: change sleep() to something more intelligent

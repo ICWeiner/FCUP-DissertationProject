@@ -144,9 +144,12 @@ started writing
 
 convert proxmox_api and gns3_api into nornir
 - in the case of gns3_api there isnt much gain in converting to nornir, as the main benefit would be paralelization and calls to gns3 are sequential in nature.
-- in the case of proxmox_api at first glance there would be benefit in paralelizing however, we need to obtain id for each clone, and proxmox only returns the first free id, making the process also mostly sequential
+- in the case of proxmox_api at first glance there would be benefit in paralelizing vm cloning
 
 11/02:
-generic module finish
-make vm cloning non sequential and paralelizable
+work generic module - flask app now can sucessfully use module for multiple hosts with multiple commands 
+make vm cloning non sequential and paralelizable: 
+BEFORE tho, have to make call to delete all vms related to an exercise, so i dont
+have to manually delete the 1000 vms created with random ids...
+
 gunicorn workers test with varying types
