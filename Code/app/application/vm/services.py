@@ -53,8 +53,8 @@ def create_new_template_vm(template_proxmox_id, hostname, path_to_gns3project, c
     new_template_vm_proxmox_id = clone_vm(template_proxmox_id, hostname)
 
     while not vm_status(new_template_vm_proxmox_id):#poll vm until qemu-guest-agent is up
-        sleep(5)
         start_vm(new_template_vm_proxmox_id)
+        sleep(5)
 
     node_ip = get_vm_ip(new_template_vm_proxmox_id)
 
@@ -88,8 +88,8 @@ def create_new_template_vm(template_proxmox_id, hostname, path_to_gns3project, c
 
 
     while vm_status(new_template_vm_proxmox_id):#poll vm to make sure it is down and ready to convert into template
-        sleep(5)
         stop_vm(new_template_vm_proxmox_id)
+        sleep(5)
 
     template_vm(new_template_vm_proxmox_id)
 

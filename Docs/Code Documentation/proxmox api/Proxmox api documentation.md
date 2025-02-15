@@ -1,12 +1,26 @@
-# Nornir_lib - System for pratical evaluation of network administration 
+# Proxmox API - System for pratical evaluation of network administration 
 
-This library is responsible for interacting with the proxmoxVE API automating some steps of managing proxmoxVE such as turning on/off VM/container
+This library is responsible for interacting with the proxmoxVE API automating some steps of managing proxmoxVE such as turning on/off VM/container.
+Returns boolean unless specified otherwise.
+All of these will return False when boolean is expected and None when something else is expected in case of network errors.
+Any other exceptions will be propagated and should be caught and treated by the caller.
 
 ```proxmox_vm_actions``` - contains the following methods:
 
+        _get_status <proxmox_host> <session> <vm-id> 
+        Queries the state of a VM.
+        Does not do any check whatsoever, only returns the response.
+        Mostly for DRY reasons as it is used a lot, should only be used by the functions in the same file.
+
+        get_free_id <proxmox_host> <session>
+        Returns a VM/CT ID not currently in use.
+        Does not reserve the ID so its only useful if ID is used right away.
+
         create <proxmox_host> <session> <template-id> <clone-id> <hostnames>    
         Clones the specified template VM with the given hostname.
-        It then configures memory, CPU, disk size, enables QEMU guest agent and takes a snapshot.
+
+        check_vm_status <proxmox_host> <session> <vm-id> 
+        Checks if VM is up and qemu guest-agent is running.
 
         start <proxmox_host> <session> <vm-id> 
         Starts the specified VM.
@@ -14,13 +28,15 @@ This library is responsible for interacting with the proxmoxVE API automating so
         stop <proxmox_host> <session> <vm-id> 
         Stops the specified VM.
 
+        template <proxmox_host> <session> <vm-id> 
+        Transforms the specified VM into a template
+
         destroy <proxmox_host> <session> <vm-id> 
         Destroys the specified VM.
 
-        rollback <proxmox_host> <session> <vm-id> 
-        Rolls back the specified VM to the initial snapshot taken after VM creation.
-
         <session> is created with the help of "connection" in utils/ 
+        It must contain appropriate credentials for the proxmox cluster
+
 
 ```proxmox_vm_firewall``` - contains the following methods:
 
