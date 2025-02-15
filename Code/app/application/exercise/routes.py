@@ -9,6 +9,8 @@ from .utils import generate_unique_filename
 from ..vm.services import clone_vm, create_new_template_vm, destroy_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
+import time
+
 
 
 
@@ -78,7 +80,13 @@ def exercise_create():
                     }
                     commands_by_hostname.append(hostname_data)
 
+                start_time = time.perf_counter()
+
                 template_id = create_new_template_vm(form.proxmox_id.data, template_hostname , path_to_gns3project, commands_by_hostname)
+
+                end_time = time.perf_counter() 
+
+                print(f"Template VM creation time: {end_time - start_time:.6f} seconds")
 
                 new_templatevm = TemplateVm(proxmox_id = template_id,
                                             created_on = dt.now()
@@ -96,6 +104,8 @@ def exercise_create():
 
                 existing_users = User.query.all()
 
+                start_time = time.perf_counter()
+
                 for user in existing_users:#TODO: this and the similar loop in auth should be refactored into a function, probably in vm.services
                     hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
 
@@ -109,7 +119,11 @@ def exercise_create():
                         )
             
                     db.session.add(workvm)
-            
+
+                end_time = time.perf_counter() 
+
+                print(f"VM Cloning process time: {end_time - start_time:.6f} seconds")
+
                 db.session.commit()
                 
         except Exception as e:

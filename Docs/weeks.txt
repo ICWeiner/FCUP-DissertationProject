@@ -147,9 +147,10 @@ convert proxmox_api and gns3_api into nornir
 - in the case of proxmox_api at first glance there would be benefit in paralelizing vm cloning
 
 11/02:
-work generic module - flask app now can sucessfully use module for multiple hosts with multiple commands 
+work generic module - flask app now can sucessfully use module for multiple hosts with multiple commands
+make a delete exercise function that deletes an exercise and all related work vms and template vm
+test vm cloning with different vm quantities and measure time 
 make vm cloning non sequential and paralelizable: 
-BEFORE tho, have to make call to delete all vms related to an exercise, so i dont
-have to manually delete the 1000 vms created with random ids...
+
 
 gunicorn workers test with varying types
