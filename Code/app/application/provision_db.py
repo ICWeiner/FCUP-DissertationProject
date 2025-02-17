@@ -2,13 +2,13 @@ from . import db
 from .models import User, Exercise, TemplateVm, WorkVm
 from datetime import datetime as dt
 
-def provision_data(): #creates 20 users and 1 exercise
-    # Provides the database with a small amount of data if empty
+def provision_data(): #creates 10 users and 1 exercise
+    # Creates a database with a small amount of data if empty
     user1 = User.query.filter_by(username='user1').first()
     if not user1:
         users_data = [#generate user data
             {"username": f'user{i}', "email": f'user{i}@mail.com'}
-            for i in range(1, 21)
+            for i in range(1, 11)
         ]
 
         #insert templatevm

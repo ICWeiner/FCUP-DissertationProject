@@ -80,7 +80,7 @@ class WorkVm(db.Model):
 
     proxmox_id = db.Column(
         db.Integer,
-        unique = True,
+        #unique = True,
         nullable = False
     )
 
@@ -103,7 +103,7 @@ class WorkVm(db.Model):
         nullable = False
     )
 
-    db.UniqueConstraint('user_id', 'templatevm_id')#Disallow duplicate user/templatevm(exercise) combos 
+    #db.UniqueConstraint('user_id', 'templatevm_id')#Disallow duplicate user/templatevm(exercise) combos 
 
     submissions  = db.relationship('Submission', backref='workvm')
 

@@ -10,8 +10,16 @@ from ..vm.services import clone_vm, create_new_template_vm, destroy_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 import time
+import logging
 
-
+logging.basicConfig(
+    level=logging.INFO,  # Change to DEBUG for more details
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("app.log"),  # Log to a file
+        logging.StreamHandler()  # Also log to the console
+    ]
+)
 
 
 exercise_bp = Blueprint(
@@ -86,7 +94,7 @@ def exercise_create():
 
                 end_time = time.perf_counter() 
 
-                print(f"Template VM creation time: {end_time - start_time:.6f} seconds")
+                logging.info(f"Template VM creation time: {end_time - start_time:.6f} seconds")
 
                 new_templatevm = TemplateVm(proxmox_id = template_id,
                                             created_on = dt.now()
@@ -122,7 +130,7 @@ def exercise_create():
 
                 end_time = time.perf_counter() 
 
-                print(f"VM Cloning process time: {end_time - start_time:.6f} seconds")
+                logging.info(f"VM Cloning process time: {end_time - start_time:.6f} seconds")
 
                 db.session.commit()
                 
@@ -151,12 +159,16 @@ def exercise_delete(exercise_id:int):
         workvms = templatevm.workvms
 
         with db.session.begin_nested():
+            start_time = time.perf_counter()
             for workvm in workvms:
                 destroy_vm(workvm.proxmox_id)
                 db.session.delete(workvm)
             destroy_vm(templatevm.proxmox_id)
             db.session.delete(templatevm)
             db.session.delete(exercise)
+            end_time = time.perf_counter() 
+
+            logging.info(f"VM deleting process time: {end_time - start_time:.6f} seconds")
             db.session.commit()
 
     except Exception as e:
