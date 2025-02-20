@@ -21,7 +21,7 @@ Contains the initial pages of the app.
 - ```profile```:
 Contains the various profile pages and functions.
 
-- ```tests```:
+- ```test```:
 Contains the methods that interface with nornir_lib to perform tests on the exercices.
 
 - ```vm```:
@@ -48,7 +48,8 @@ Lastly you will find __config.py__ which is responsible for loading a .env locat
 - ```PROXMOX_HOST``` - The name or ip address of a ProxmoxVE node #NOTE: at this stage this project only supports working with a single node.
 - ```PROXMOX_USER``` - A valid username to login on the specificied node e.g "exampleuser@pvenodename".
 - ```PROXMOX_PASSWORD``` - The corresponding password for the given user.
-- ```SECRET_KEY``` - Necessary for cryptography reasons. The longer it is, the better and ideally not even you should know its value
+- ```SECRET_KEY``` - Necessary for cryptography reasons. The longer it is, the better and ideally not even you should know its value.
+- ```SQLALCHEMY_DATABASE_URI``` - URI pointing to the database
 
-## PLEASE MAKE SURE .env FILE IS NOT UPLOADED ANYWHERE, NOT EVEN GIT
+## PLEASE MAKE SURE .env FILE IS NOT UPLOADED ANYWHERE, NOT EVEN STORED IN GIT
 

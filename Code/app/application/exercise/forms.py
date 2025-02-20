@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import StringField, SubmitField, TextAreaField, IntegerField, FieldList, FormField
+from wtforms import StringField, SubmitField, TextAreaField, IntegerField, FieldList, FormField, SelectField
 from wtforms.validators import (
     DataRequired,
     Email,
@@ -10,7 +10,7 @@ from wtforms.validators import (
 )
 
 class HostnameForm(FlaskForm):
-    hostname = StringField("Hostname", validators=[Optional()])
+    hostname = SelectField("Hostname", validators=[Optional()])
     commands = FieldList(StringField('Command'))
     class Meta:
         csrf = False  # Disable CSRF for nested forms

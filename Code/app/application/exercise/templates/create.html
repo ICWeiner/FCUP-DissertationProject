@@ -3,6 +3,7 @@
 {% block content %}
     <script>
       let hostnameIndex = 0; // Track number of hostname tables
+      let hostnamesList = []; // List of hostnames
 
       function addHostname() {
           let container = document.getElementById("hostnames-container");
@@ -14,7 +15,11 @@
                   <tr>
                       <th><label for="hostnames-${hostnameIndex}-hostname">Hostname</label></th>
                       <td>
-                          <input id="hostnames-${hostnameIndex}-hostname" name="hostnames-${hostnameIndex}-hostname" type="text">
+                          <select id="hostnames-${hostnameIndex}-hostname" name="hostnames-${hostnameIndex}-hostname">
+                              ${hostnamesList.map(hostname => 
+                                  `<option value="${hostname}">${hostname}</option>`
+                              ).join('')}
+                          </select>
                           <button type="button" onclick="removeElement('${newTable.id}')">Remove Hostname</button>
                       </td>
                   </tr>
@@ -59,6 +64,38 @@
               element.remove(); // Remove command input field
           }
       }
+
+      function uploadHostnames() {
+        const fileInput = document.getElementById('gns3_file');
+        const file = fileInput.files[0];
+        
+        if (!file || !file.name.endsWith('.gns3project')) {
+            alert('Please upload a valid .gns3project file.');
+            fileInput.value = '';
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('{{ url_for("exercise_bp.retrieve_hostnames") }}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const container = document.getElementById('hostnames-container');
+                container.innerHTML = '';   
+                hostnamesList = data.hostnamesList;           
+            } else {
+                alert('Error processing file: ' + data.error);
+            }
+        })
+        .catch(error => {
+            alert('Error uploading file.');
+        });
+    }
     </script>
     <div class="container">
         <h1>{{title}}</h1>
@@ -105,7 +142,7 @@
 
               <fieldset class="gns3_file">
                 {{ form.gns3_file.label }}
-                {{ form.gns3_file(placeholder='GNS3 Project File') }}
+                {{ form.gns3_file(placeholder='GNS3 Project File', onchange="uploadHostnames()") }}
                 {% if form.gns3_file.errors %}
                   <ul class="errors">
                     {% for error in form.gns3_file.errors %}

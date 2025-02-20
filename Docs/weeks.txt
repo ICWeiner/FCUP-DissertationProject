@@ -148,10 +148,13 @@ convert proxmox_api and gns3_api into nornir
 
 11/02:
 work on generic module - flask app now can sucessfully use module for multiple hosts with multiple commands
+added logging and cleaned code of gns3_api and proxmox_api
 make a delete exercise function that deletes an exercise and all related work vms and template vm
 test vm cloning with different vm quantities and measure time 
-make vm cloning non sequential and paralelizable 
 
 
 18/02:
+exercise create get hostnames from gns3project file
+make vm cloning non sequential and paralelizable -celery proxmox got no worker upid
+(also explain other approaches and why i chose the one i did)
 gunicorn workers test with varying types

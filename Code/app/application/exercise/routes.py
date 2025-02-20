@@ -1,11 +1,12 @@
 import uuid
 import os.path
+import json
 from datetime import datetime as dt
-from flask import Blueprint, redirect, render_template, flash, request, session, url_for
+from flask import Blueprint, redirect, render_template, flash, request, session, url_for, jsonify
 from flask import current_app as app
 from flask_login import current_user, login_required
+from . import utils
 from .forms import CreateExerciseForm
-from .utils import generate_unique_filename
 from ..vm.services import clone_vm, create_new_template_vm, destroy_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
@@ -60,6 +61,26 @@ def exercises():
         template='exercises-template',
         exercises= exercises)
 
+@exercise_bp.route('/exercise/retrieve-hostnames', methods = ['POST'])
+def retrieve_hostnames():
+    if 'file' not in request.files:
+        logging.warning('No file sent in the request for retrieve-hostnames')
+        return jsonify({'error': 'No file part'}), 400
+
+    uploaded_file = request.files['file']
+    if uploaded_file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+    
+
+    if not uploaded_file.filename.lower().endswith('.gns3project'):
+        logging.warning('No file sent in the request for retrieve-hostnames')
+        return jsonify({'error': 'Invalid file type. Only .gns3project files are allowed'}), 400
+
+    try:
+        nodes = utils.extract_node_names(uploaded_file)
+        return jsonify(hostnamesList = nodes, success = True), 200
+    except Exception as e:
+        return jsonify({'error': f'Invalid JSON format: {str(e)}'}), 400
 
 @exercise_bp.route('/exercise/create', methods = ['GET', 'POST'])
 @login_required
@@ -67,11 +88,12 @@ def exercise_create():
 
     form = CreateExerciseForm()
     if form.validate_on_submit():#Verifies if method is POST
-        filename = generate_unique_filename(form.gns3_file.data.filename)
+        filename = utils.generate_unique_filename(form.gns3_file.data.filename)
 
         path_to_gns3project = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
         form.gns3_file.data.save(path_to_gns3project) #saves the gns3project file locally
+
 
         try:
             with db.session.begin_nested():
