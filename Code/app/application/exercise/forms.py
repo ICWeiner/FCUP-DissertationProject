@@ -10,7 +10,7 @@ from wtforms.validators import (
 )
 
 class HostnameForm(FlaskForm):
-    hostname = SelectField("Hostname", validators=[Optional()])
+    hostname = SelectField("Hostname", validate_choice = False, validators = [Optional()])#validate_choice = False is used because the choices are populated dynamically
     commands = FieldList(StringField('Command'))
     class Meta:
         csrf = False  # Disable CSRF for nested forms
