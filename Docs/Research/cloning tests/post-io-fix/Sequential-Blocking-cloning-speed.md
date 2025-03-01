@@ -1,5 +1,22 @@
 # Base version (Sequential) POST-IO FIX
 
+for 1 VM:
+Template VM creation time: 34.364366 seconds
+VM Cloning process time: 0.380165 seconds
+VM deleting process time: 0.026455 seconds
+Final CPU usage: 6.4%
+
+Template VM creation time: 34.170579 seconds
+VM Cloning process time: 0.380566 seconds
+VM deleting process time: 0.026917 seconds
+Final CPU usage: 7.2%
+
+Template VM creation time: 34.233161 seconds
+VM Cloning process time: 0.345339 seconds
+VM deleting process time: 0.027174 seconds
+Final CPU usage: 8.6%
+
+
 for 10 VMs:
 Template VM creation time: 34.373219 seconds
 VM Cloning process time: 3.167172 seconds
