@@ -8,7 +8,7 @@ from gns3_api.utils import gns3_parser
 from nornir_lib.modules.generic import GenericLibrary 
 
 def _get_proxmox_session():
-    return proxmox_session.get_proxmox_session( *utils._get_proxmox_host_and_credentials() )
+    return proxmox_session.get_flask_proxmox_session( *utils._get_proxmox_host_and_credentials() )
 
 def get_vm_ip(vm_proxmox_id):
     session = _get_proxmox_session()

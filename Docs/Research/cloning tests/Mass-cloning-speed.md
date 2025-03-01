@@ -14,10 +14,7 @@ VM Cloning process time: 3.786976 seconds
 VM deleting process time: 0.151536 seconds
 
 for 20 VMs:
-Template VM creation time: 34.365774 seconds
-VM Cloning process time: 7.291478 seconds
-VM deleting process time: 0.305623 seconds
-
+Template VM creation time: 34.365774 secondsdata
 Template VM creation time: 34.230818 seconds
 VM Cloning process time: 7.397062 seconds
 VM deleting process time: 0.305318 seconds
@@ -59,3 +56,8 @@ VM deleting FAILED, An ambiguous exception occurred: 500 Server Error: got no wo
 Template VM creation time: 34.571404 seconds
 VM Cloning process time: 152.185856 seconds
 VM deleting process time: 7.089865 seconds
+
+
+Final CPU usage: 10.5%, proving we are IO-bound and may benefit from async work
+
+

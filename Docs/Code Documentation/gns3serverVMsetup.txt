@@ -22,7 +22,7 @@ sudo bash gns3-remote-install.sh --with-iou --with-i386-repository
 
 https://github.com/pmsantos29/network-automation/tree/main/gns3server
 
-#read Environment for Practical Evaluations in Network Administration for more details
+#read "Environment for Practical Evaluations in Network Administration" for more details
 
 
 

@@ -173,7 +173,10 @@ def template(proxmox_host, session, vm_proxmox_id):
 def destroy(proxmox_host, session, vm_proxmox_id):
     try:
         response = session.delete(
-            f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}'
+            f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}',
+            params = {
+                'destroy-unreferenced-disks': 1,
+                }
             )
         response.raise_for_status()
         logging.info(f"Sent destroy request for VM ID {vm_proxmox_id}")

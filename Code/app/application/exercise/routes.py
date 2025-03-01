@@ -10,8 +10,12 @@ from .forms import CreateExerciseForm
 from ..vm.services import clone_vm, create_new_template_vm, destroy_vm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
+import requests
+
 import time
 import logging
+
+import psutil
 
 logging.basicConfig(
     level=logging.INFO,  # Change to DEBUG for more details
@@ -135,6 +139,10 @@ def exercise_create():
                 existing_users = User.query.all()
 
                 start_time = time.perf_counter()
+                    
+                logging.info(f"Initial CPU usage: {psutil.cpu_percent()}%")
+                
+                logging.info(f"Cloning VMs for {len(existing_users)} users")
 
                 for user in existing_users:#TODO: this and the similar loop in auth should be refactored into a function, probably in vm.services
                     hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
@@ -152,6 +160,7 @@ def exercise_create():
 
                 end_time = time.perf_counter() 
 
+                logging.info(f"Final CPU usage: {psutil.cpu_percent()}%")
                 logging.info(f"VM Cloning process time: {end_time - start_time:.6f} seconds")
 
                 db.session.commit()
@@ -183,8 +192,11 @@ def exercise_delete(exercise_id:int):
         with db.session.begin_nested():
             start_time = time.perf_counter()
             for workvm in workvms:
-                destroy_vm(workvm.proxmox_id)
-                db.session.delete(workvm)
+                try:
+                    destroy_vm(workvm.proxmox_id)
+                    db.session.delete(workvm)
+                except requests.exceptions.RequestException as err:
+                    continue
             destroy_vm(templatevm.proxmox_id)
             db.session.delete(templatevm)
             db.session.delete(exercise)

@@ -1,6 +1,6 @@
 import requests
-from proxmox_api.utils.proxmox_base_uri_generator import proxmox_base_uri
-import proxmox_api.utils.constants as constants
+from .proxmox_base_uri_generator import proxmox_base_uri
+from .constants import proxmox_node_name
 
 
 def proxmox_connect(proxmox_host, username, password):
@@ -36,7 +36,7 @@ def proxmox_connect(proxmox_host, username, password):
 
     session.headers.update({"CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]})  
 
-    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}')
+    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{proxmox_node_name}')
 
     response.raise_for_status()
 

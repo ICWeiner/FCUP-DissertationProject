@@ -9,7 +9,7 @@ proxmox_session_cache = {
 }
 session_lock = Lock()
 
-def get_proxmox_session(proxmox_host, username, password):
+def get_flask_proxmox_session(proxmox_host, username, password):
     with session_lock:#lock for thread safety
         if proxmox_session_cache["session"] and proxmox_session_cache["expires_at"] > time.time():
             return proxmox_session_cache["session"]

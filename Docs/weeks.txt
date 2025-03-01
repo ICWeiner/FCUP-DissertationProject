@@ -155,6 +155,10 @@ test vm cloning with different vm quantities and measure time
 
 18/02:
 exercise create get hostnames from gns3project file
-make vm cloning non sequential and paralelizable -celery proxmox got no worker upid
-(also explain other approaches and why i chose the one i did)
+make vm cloning non sequential and paralelizable -celery
+
+25/02:
+io problems? disks were not being properly removed and eventually filesystem started becoming clogged
+YEP, now vm cloning with celery seems to be much faster 
+make vm cloning non sequential and paralelizable -celery proxmox got no worker upid (also explain other approaches and why i chose the one i did)
 gunicorn workers test with varying types

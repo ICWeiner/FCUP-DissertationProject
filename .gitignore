@@ -1,2 +1,5 @@
 .vscode
 app.zip
+/Code/__pycache__
+/Code/tasks.py
+/Code/test.py

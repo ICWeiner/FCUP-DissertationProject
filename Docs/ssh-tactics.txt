@@ -8,4 +8,4 @@ ssh up202007895@ssh.alunos.dcc.fc.up.pt -L8006:192.168.57.22:8006 -L3128:192.168
 
 # and SSH into VM
 
-ssh -f -L 9990:192.168.57.161:22 up202007895@ssh.alunos.dcc.fc.up.pt "sleep 10" && ssh -p 9990 up@localhost
+ssh -f -L 9990:192.168.57.172:22 up202007895@ssh.alunos.dcc.fc.up.pt "sleep 10" && ssh -p 9990 up@localhost
