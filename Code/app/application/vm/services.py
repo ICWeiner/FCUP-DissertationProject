@@ -1,4 +1,5 @@
 from time import sleep
+import random
 import proxmox_api.proxmox_vm_actions as proxmox_vm_actions 
 from proxmox_api.utils.proxmox_vm_ip_fetcher import get_ip, get_hostname
 from . import utils
@@ -6,6 +7,7 @@ from . import proxmox_session
 from gns3_api import gns3_actions
 from gns3_api.utils import gns3_parser
 from nornir_lib.modules.generic import GenericLibrary 
+from celery import shared_task
 
 def _get_proxmox_session():
     return proxmox_session.get_flask_proxmox_session( *utils._get_proxmox_host_and_credentials() )
@@ -44,6 +46,24 @@ def clone_vm(template_proxmox_id, hostname):
     proxmox_vm_actions.create( utils._get_proxmox_host(), session, template_proxmox_id, clone_id, hostname)
 
     return clone_id
+
+@shared_task
+def celery_clone_vm_task(template_proxmox_id, hostname):
+    session = _get_proxmox_session()
+
+    clone_id = None
+
+    while clone_id is None:
+        id = random.randint(100, 999999999)
+        if proxmox_vm_actions.check_free_id( utils._get_proxmox_host(), session, id): clone_id = id
+
+    proxmox_vm_actions.create( utils._get_proxmox_host(), session, template_proxmox_id, clone_id, hostname)
+
+    return clone_id
+
+@shared_task
+def dummy_function():
+    return 'dummy'
 
 def template_vm(vm_proxmox_id):
     session = _get_proxmox_session()

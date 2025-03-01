@@ -1,13 +1,13 @@
 import uuid
 import os.path
-import json
 from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for, jsonify
 from flask import current_app as app
 from flask_login import current_user, login_required
+from celery.result import AsyncResult
 from . import utils
 from .forms import CreateExerciseForm
-from ..vm.services import clone_vm, create_new_template_vm, destroy_vm
+from ..vm.services import clone_vm, create_new_template_vm, destroy_vm, celery_clone_vm_task, dummy_function
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 import requests
@@ -85,6 +85,24 @@ def retrieve_hostnames():
         return jsonify(hostnamesList = nodes, success = True), 200
     except Exception as e:
         return jsonify({'error': f'Invalid JSON format: {str(e)}'}), 400
+    
+@exercise_bp.route('/dummy')
+def dummy():
+    task_results = []
+    existing_users = User.query.all()
+    for user in existing_users:
+        result = dummy_function.apply_async()
+
+        task_results.append((user, result))
+
+    logging.info(f"Waiting for {len(task_results)} tasks to complete")
+    
+    for user, result in task_results:
+        try:
+            print(result.get(timeout=10))
+        except Exception as e:
+            print(f"Error processing task result for {user}: {e}")
+
 
 @exercise_bp.route('/exercise/create', methods = ['GET', 'POST'])
 @login_required
@@ -98,10 +116,8 @@ def exercise_create():
 
         form.gns3_file.data.save(path_to_gns3project) #saves the gns3project file locally
 
-
         try:
             with db.session.begin_nested():
-
                 template_hostname = f'tvm-{uuid.uuid4().hex[:18]}'#the length of this hostname can be extended up to 63 characters if more uniqueness is required
 
                 commands_by_hostname = []
@@ -144,21 +160,38 @@ def exercise_create():
                 
                 logging.info(f"Cloning VMs for {len(existing_users)} users")
 
+                task_results = []
+
                 for user in existing_users:#TODO: this and the similar loop in auth should be refactored into a function, probably in vm.services
                     hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
 
+                    result = celery_clone_vm_task.apply_async(args=[new_exercise.templatevm.proxmox_id, hostname])
 
-                    clone_id = clone_vm(new_exercise.templatevm.proxmox_id, hostname)
+                    # Store the task result for later processing
+                    task_results.append((user, result))
 
-                    workvm = WorkVm(proxmox_id = clone_id,
-                        user = user,
-                        templatevm = new_exercise.templatevm,
-                        created_on = dt.now(),
-                        )
-            
-                    db.session.add(workvm)
+                logging.info(f"Waiting for {len(task_results)} tasks to complete")
+                
+                for user, result in task_results:
+                    try:
+                        # Get the result from the task (blocking for completion)
+                        clone_id = result.get(timeout=300)  # You can adjust the timeout as needed
+                        
+                        # Now create the WorkVm entry for this user
+                        workvm = WorkVm(
+                            proxmox_id = clone_id,
+                            user = user,
+                            templatevm = new_exercise.templatevm,
+                            created_on = dt.now(),
+                            )
+                        db.session.add(workvm)
 
-                end_time = time.perf_counter() 
+                    except Exception as e:
+                        print(f"Error processing task result for {user}: {e}")
+
+                logging.info("Done waiting for tasks to complete")
+                
+                end_time = time.perf_counter()
 
                 logging.info(f"Final CPU usage: {psutil.cpu_percent()}%")
                 logging.info(f"VM Cloning process time: {end_time - start_time:.6f} seconds")
