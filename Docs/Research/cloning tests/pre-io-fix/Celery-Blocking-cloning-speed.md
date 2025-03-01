@@ -1,4 +1,4 @@
-Async version (Celery based)
+# Async version (Celery based) PRE-IO FIX
 
 for 10 VMs:
 Template VM creation time: 34.961728 seconds
@@ -116,10 +116,3 @@ Template VM creation time: 35.237862 seconds
 VM Cloning process time: 129.823284 seconds
 VM deleting process time: 0.762131 seconds
 Final CPU usage: 23.7%
-
--AFTER IO CLEANUP
-(only 2 cores)
-VM Cloning process time: 44.905797 seconds
-
-(only 8 cores)
-VM Cloning process time: 33.338705

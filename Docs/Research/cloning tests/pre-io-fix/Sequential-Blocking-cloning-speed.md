@@ -1,4 +1,4 @@
-Base version (Sequential)
+# Base version (Sequential) PRE-IO FIX
 
 for 10 VMs:
 Template VM creation time: 34.373105 seconds
@@ -14,7 +14,10 @@ VM Cloning process time: 3.786976 seconds
 VM deleting process time: 0.151536 seconds
 
 for 20 VMs:
-Template VM creation time: 34.365774 secondsdata
+Template VM creation time: 34.365774 seconds
+VM Cloning process time: 7.291478 seconds
+VM deleting process time: 0.305623 seconds
+
 Template VM creation time: 34.230818 seconds
 VM Cloning process time: 7.397062 seconds
 VM deleting process time: 0.305318 seconds
