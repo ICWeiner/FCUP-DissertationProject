@@ -8,7 +8,7 @@ def provision_data(): #creates 10 users and 1 exercise
     if not user1:
         users_data = [#generate user data
             {"username": f'user{i}', "email": f'user{i}@mail.com'}
-            for i in range(1, 201)
+            for i in range(1, 11)
         ]
 
         #insert templatevm
