@@ -7,7 +7,7 @@ from flask_login import current_user, login_required
 from celery.result import AsyncResult
 from . import utils
 from .forms import CreateExerciseForm
-from ..vm.services import clone_vm, create_new_template_vm, destroy_vm, celery_clone_vm_task, dummy_function
+from ..vm.services import create_new_template_vm, celery_clone_vm_task, celery_destroy_vm_task
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 import requests
@@ -85,23 +85,6 @@ def retrieve_hostnames():
         return jsonify(hostnamesList = nodes, success = True), 200
     except Exception as e:
         return jsonify({'error': f'Invalid JSON format: {str(e)}'}), 400
-    
-@exercise_bp.route('/dummy')
-def dummy():
-    task_results = []
-    existing_users = User.query.all()
-    for user in existing_users:
-        result = dummy_function.apply_async()
-
-        task_results.append((user, result))
-
-    logging.info(f"Waiting for {len(task_results)} tasks to complete")
-    
-    for user, result in task_results:
-        try:
-            print(result.get(timeout=10))
-        except Exception as e:
-            print(f"Error processing task result for {user}: {e}")
 
 
 @exercise_bp.route('/exercise/create', methods = ['GET', 'POST'])
@@ -222,17 +205,30 @@ def exercise_delete(exercise_id:int):
 
         workvms = templatevm.workvms
 
+        task_results = []
+
         with db.session.begin_nested():
             start_time = time.perf_counter()
             for workvm in workvms:
+                result = celery_destroy_vm_task.apply_async(args=[workvm.proxmox_id])
+                task_results.append((workvm, result))
+            for workvm, result in task_results:
                 try:
-                    destroy_vm(workvm.proxmox_id)
-                    db.session.delete(workvm)
-                except requests.exceptions.RequestException as err:
-                    continue
-            destroy_vm(templatevm.proxmox_id)
-            db.session.delete(templatevm)
-            db.session.delete(exercise)
+                    vm_deletion_status = result.get(timeout=300) 
+                    if vm_deletion_status:
+                        db.session.delete(workvm)
+                    else:
+                        logging.error(f"Error deleting VM {workvm.proxmox_id}")
+                except Exception as e:
+                    print(f"Error processing task result for {workvm}: {e}")
+            result =  celery_destroy_vm_task.apply_async(args=[templatevm.proxmox_id])
+
+            tvm_deletion_status = result.get(timeout=300)
+            if tvm_deletion_status:
+                db.session.delete(templatevm)
+                db.session.delete(exercise)
+            else:
+                logging.error(f"Error deleting Template VM {templatevm.proxmox_id}")
             end_time = time.perf_counter() 
 
             logging.info(f"VM deleting process time: {end_time - start_time:.6f} seconds")

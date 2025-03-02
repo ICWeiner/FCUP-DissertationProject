@@ -3,11 +3,20 @@ from flask import Blueprint, redirect, render_template, flash, request, session,
 from flask_login import login_required, logout_user, current_user, login_user
 from .forms import LoginForm, SignupForm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
-from ..vm.services import clone_vm
+from ..vm.services import celery_clone_vm_task
 from .. import login_manager
 from datetime import datetime as dt
 
+import logging
 
+logging.basicConfig(
+    level=logging.INFO,  # Change to DEBUG for more details
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("app.log"),  # Log to a file
+        logging.StreamHandler()  # Also log to the console
+    ]
+)
 
 auth_bp = Blueprint(
     'auth_bp', __name__,
@@ -57,20 +66,35 @@ def signup():
                     db.session.add(new_user)
 
                     existing_exercises = Exercise.query.all()
+
+                    task_results = []
+
+                    for exercise in existing_exercises:#TODO: this and the similar loop in auth should be refactored into a function, probably in vm.services
+                        hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
+
+                        result = celery_clone_vm_task.apply_async(args=[exercise.templatevm.proxmox_id, hostname])
+
+                        # Store the task result for later processing
+                        task_results.append((exercise, result))
+
+                    logging.info(f"Waiting for {len(task_results)} tasks to complete")
                     
-                    for exercise in existing_exercises: 
-                            hostname = f'vm-{uuid.uuid4().hex[:18]}' #the length of this hostname can be extended up to 63 characters if more uniqueness is required
-
-                            clone_id = clone_vm(exercise.templatevm.proxmox_id, hostname)
-
-                            workvm = WorkVm(proxmox_id = clone_id,
+                    for exercise, result in task_results:
+                        try:
+                            # Get the result from the task (blocking for completion)
+                            clone_id = result.get(timeout=300)  # You can adjust the timeout as needed
+                            
+                            # Now create the WorkVm entry for this user
+                            workvm = WorkVm(
+                                proxmox_id = clone_id,
                                 user = new_user,
                                 templatevm = exercise.templatevm,
                                 created_on = dt.now(),
                                 )
-                    
                             db.session.add(workvm)
 
+                        except Exception as e:
+                            print(f"Error processing task result for {exercise}: {e}")
                     db.session.commit()
             except Exception as e:
                 db.session.rollback()
