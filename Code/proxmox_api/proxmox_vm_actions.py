@@ -42,6 +42,33 @@ def get_free_id(proxmox_host, session):
     except requests.exceptions.RequestException as err:
         logging.error(f"An ambiguous exception occurred: {err}")
         raise
+
+def check_free_id(proxmox_host, session, id):
+    try:
+        response = session.get(
+            f'{proxmox_base_uri(proxmox_host)}/cluster/nextid',
+            params = {
+                'vmid': f'{id}'
+                }
+            )
+
+        if response.status_code == 200:
+            logging.info(f"Verified that VM ID {id} is free.")
+            return True
+        else:
+            try:#Because the API returns 400 if the ID is not free
+                response.raise_for_status()
+            except requests.exceptions.HTTPError as err:
+                if response.status_code == 400:
+                    logging.info(f"VM ID {id} is not free.")
+                    return False
+                raise
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+        logging.error(f"Network error: {err}")
+        return None
+    except requests.exceptions.RequestException as err:
+        logging.error(f"An ambiguous exception occurred: {err}")
+        raise
     
 
 def create(proxmox_host, session, template_id, clone_id, hostname):
