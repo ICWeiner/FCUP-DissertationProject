@@ -162,3 +162,8 @@ io problems? disks were not being properly removed and eventually filesystem sta
 YEP, now vm cloning with celery seems to be much faster 
 make vm cloning non sequential and paralelizable -celery proxmox got no worker upid (also explain other approaches and why i chose the one i did)
 gunicorn workers test with varying types
+
+05/03:
+finish celery
+document the need to delete files in archive of pve and how disk removal sometimes fails silently
+httpx

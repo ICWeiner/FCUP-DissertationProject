@@ -3,7 +3,7 @@ from flask import Blueprint, redirect, render_template, flash, request, session,
 from flask_login import login_required, logout_user, current_user, login_user
 from .forms import LoginForm, SignupForm
 from ..models import Exercise, User, TemplateVm, WorkVm, db
-from ..vm.services import celery_clone_vm_task
+from ..tasks import celery_clone_vm
 from .. import login_manager
 from datetime import datetime as dt
 
@@ -72,7 +72,7 @@ def signup():
                     for exercise in existing_exercises:#TODO: this and the similar loop in auth should be refactored into a function, probably in vm.services
                         hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
 
-                        result = celery_clone_vm_task.apply_async(args=[exercise.templatevm.proxmox_id, hostname])
+                        result = celery_clone_vm.apply_async(args=[exercise.templatevm.proxmox_id, hostname])
 
                         # Store the task result for later processing
                         task_results.append((exercise, result))

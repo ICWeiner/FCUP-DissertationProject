@@ -18,16 +18,13 @@ logging.basicConfig(
 #Internal use only
 def _get_status(proxmox_host, session, vm_proxmox_id):
     response = session.get(
-        f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/current'
-        )
+        f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/current')
     return response
 
 
 def get_free_id(proxmox_host, session):
     try:
-        response = session.get(
-            f'{proxmox_base_uri(proxmox_host)}/cluster/nextid'
-            )
+        response = session.get(f'{proxmox_base_uri(proxmox_host)}/cluster/nextid')
 
         response.raise_for_status()
 
@@ -148,12 +145,28 @@ def check_vm_status(proxmox_host, session, vm_proxmox_id):
         logging.error(f"An ambiguous exception occurred: {err}")
         raise
 
+def check_vm_is_template(proxmox_host, session, vm_proxmox_id):
+    try:
+        response = _get_status(proxmox_host, session, vm_proxmox_id)
+        response.raise_for_status()
+        if "template" in response.json()["data"] and response.json()["data"]['template'] == 1:
+            #This checks if vm is running and qemu-agent is responding
+            logging.info(f"VM ID {vm_proxmox_id} is a template VM.")
+            return True
+        else:
+            logging.info(f"VM ID {vm_proxmox_id} is not a template VM.")
+        return False
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+        logging.error(f"Network error: {err}")
+        return False
+    except requests.exceptions.RequestException as err:
+        logging.error(f"An ambiguous exception occurred: {err}")
+        raise
     
 def start(proxmox_host, session, vm_proxmox_id):
     try:
         response = session.post(
-            f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/start'
-            )
+            f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/start')
         response.raise_for_status()
         logging.info(f"Sent start request for VM ID {vm_proxmox_id}")
         return True
@@ -168,8 +181,7 @@ def start(proxmox_host, session, vm_proxmox_id):
 def stop(proxmox_host, session, vm_proxmox_id):
     try:
         response = session.post(
-            f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/stop'
-            )
+            f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/status/stop')
         response.raise_for_status()
         logging.info(f"Sent stop request for VM ID {vm_proxmox_id}")
         return True
@@ -184,8 +196,7 @@ def stop(proxmox_host, session, vm_proxmox_id):
 def template(proxmox_host, session, vm_proxmox_id):
     try:
         response = session.post(
-            f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/template'
-            )
+            f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/template')
         response.raise_for_status()
         logging.info(f"Sent template request for VM ID {vm_proxmox_id}")
         return True

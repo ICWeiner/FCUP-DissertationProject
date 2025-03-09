@@ -4,10 +4,10 @@ from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for, jsonify
 from flask import current_app as app
 from flask_login import current_user, login_required
-from celery.result import AsyncResult
+import celery
 from . import utils
 from .forms import CreateExerciseForm
-from ..vm.services import create_new_template_vm, celery_clone_vm_task, celery_destroy_vm_task
+from ..tasks import celery_template_vm, celery_clone_vm, celery_destroy_vm, celery_set_vm_status, celery_import_gns3_project, celery_run_gns3_commands
 from ..models import Exercise, User, TemplateVm, WorkVm, db
 
 import requests
@@ -115,17 +115,38 @@ def exercise_create():
 
                 start_time = time.perf_counter()
 
-                template_id = create_new_template_vm(form.proxmox_id.data, template_hostname , path_to_gns3project, commands_by_hostname)
+                tasks = []
+                
+                #Step 1: Clone base template VM needs base template ID and hostname returns cloned vm ID
+                vm_proxmox_id = celery_clone_vm.delay(form.proxmox_id.data, template_hostname).get()
+
+                # Step 2: Start VM needs vm ID returns true if successful
+                tasks.append( celery_set_vm_status.si(vm_proxmox_id ,True) )
+
+                # Step 3: Import GNS3 Project needs vm ID returns GNS3 project ID
+                tasks.append( celery_import_gns3_project.si(vm_proxmox_id, path_to_gns3project) )
+
+                # Step 4: Run Commands on GNS3 (this is highly specific to this workflow) needs vm id
+                if commands_by_hostname:
+                    tasks.append( celery_run_gns3_commands.s(vm_proxmox_id, template_hostname, commands_by_hostname) )
+
+                # Step 5: Stop VM needs VM ID returns true if successful
+                tasks.append( celery_set_vm_status.si(vm_proxmox_id, False) )
+
+                # Step 6: Convert to Template needs VM id returns true if successful
+                tasks.append( celery_template_vm.si(vm_proxmox_id) )
+
+
+                celery.chain(*tasks).delay().get()
 
                 end_time = time.perf_counter() 
 
                 logging.info(f"Template VM creation time: {end_time - start_time:.6f} seconds")
 
-                new_templatevm = TemplateVm(proxmox_id = template_id,
+                new_templatevm = TemplateVm(proxmox_id = vm_proxmox_id,
                                             created_on = dt.now()
                                             )
 
-                db.session.add(new_templatevm)
                 
                 new_exercise = Exercise(name = form.title.data,
                                         description = form.body.data,
@@ -133,9 +154,11 @@ def exercise_create():
                                         created_on = dt.now()
                                         )
                 
-                db.session.add(new_exercise)
 
                 existing_users = User.query.all()
+
+                db.session.add(new_templatevm)
+                db.session.add(new_exercise)
 
                 start_time = time.perf_counter()
                     
@@ -143,34 +166,29 @@ def exercise_create():
                 
                 logging.info(f"Cloning VMs for {len(existing_users)} users")
 
-                task_results = []
+                num_vms = len(existing_users)
 
-                for user in existing_users:#TODO: this and the similar loop in auth should be refactored into a function, probably in vm.services
-                    hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
+                # Create N VM clone tasks with random hostnames
+                clone_tasks = [
+                    celery_clone_vm.s(new_exercise.templatevm.proxmox_id, f'vm-{uuid.uuid4().hex[:12]}')
+                    for _ in range(num_vms)
+                ]
 
-                    result = celery_clone_vm_task.apply_async(args=[new_exercise.templatevm.proxmox_id, hostname])
+                logging.info(f"Waiting for {num_vms} tasks to complete")
 
-                    # Store the task result for later processing
-                    task_results.append((user, result))
+                result_group = celery.group(clone_tasks).apply_async()# Start VM cloning process
 
-                logging.info(f"Waiting for {len(task_results)} tasks to complete")
-                
-                for user, result in task_results:
-                    try:
-                        # Get the result from the task (blocking for completion)
-                        clone_id = result.get(timeout=300)  # You can adjust the timeout as needed
-                        
-                        # Now create the WorkVm entry for this user
-                        workvm = WorkVm(
-                            proxmox_id = clone_id,
+                vm_ids = result_group.get(timeout=300)
+
+                # Assign VMs to users in any order
+                for user, vm_id in zip(existing_users, vm_ids):
+                    workvm = WorkVm(
+                            proxmox_id = vm_id,
                             user = user,
                             templatevm = new_exercise.templatevm,
                             created_on = dt.now(),
                             )
-                        db.session.add(workvm)
-
-                    except Exception as e:
-                        print(f"Error processing task result for {user}: {e}")
+                    db.session.add(workvm)
 
                 logging.info("Done waiting for tasks to complete")
                 
@@ -210,7 +228,7 @@ def exercise_delete(exercise_id:int):
         with db.session.begin_nested():
             start_time = time.perf_counter()
             for workvm in workvms:
-                result = celery_destroy_vm_task.apply_async(args=[workvm.proxmox_id])
+                result = celery_destroy_vm.apply_async(args=[workvm.proxmox_id])
                 task_results.append((workvm, result))
             for workvm, result in task_results:
                 try:
@@ -221,7 +239,7 @@ def exercise_delete(exercise_id:int):
                         logging.error(f"Error deleting VM {workvm.proxmox_id}")
                 except Exception as e:
                     print(f"Error processing task result for {workvm}: {e}")
-            result =  celery_destroy_vm_task.apply_async(args=[templatevm.proxmox_id])
+            result =  celery_destroy_vm.apply_async(args=[templatevm.proxmox_id])
 
             tvm_deletion_status = result.get(timeout=300)
             if tvm_deletion_status:

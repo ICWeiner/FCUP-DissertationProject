@@ -7,7 +7,7 @@ from gns3_api import gns3_actions
 from gns3_api.utils.gns3_parser import gns3_nodes_to_yaml
 from nornir_lib.modules.ping import PingLibrary
 from nornir_lib.modules.traceroute import TracerouteLibrary 
-from ..vm.services import get_vm_ip, get_vm_hostname
+from ..vm.utils import get_vm_ip, get_vm_hostname
 
 
 #TODO: FIX ABOVE IMPORTS
