@@ -165,5 +165,9 @@ gunicorn workers test with varying types
 
 05/03:
 finish celery
+
+11/03:
 document the need to delete files in archive of pve and how disk removal sometimes fails silently
+vg files politic
+disks try to replicate and eventually report and research
 httpx
