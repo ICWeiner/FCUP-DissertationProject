@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2025.2.6)  14 MAR 2025 18:27
+This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2025.2.6)  14 MAR 2025 19:19
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -1672,12 +1672,12 @@ an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to
 loading the todonotes package. on input line 35.
 
 (./main.glsdefs)
-<Front/main.pdf, id=51, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=63, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf>
 Package luatex.def Info: Front/main.pdf  used on input line 42.
 (luatex.def)             Requested size: 597.51083pt x 845.04503pt.
-<Front/main.pdf, id=53, page=1, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=65, page=1, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf, page 1>
 Package luatex.def Info: Front/main.pdf , page1 used on input line 42.
@@ -1710,7 +1710,7 @@ File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf>
 Package luatex.def Info: Front/main.pdf  used on input line 44.
 (luatex.def)             Requested size: 597.51083pt x 845.04503pt.
-<Front/main.pdf, id=76, page=2, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=88, page=2, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf, page 2>
 Package luatex.def Info: Front/main.pdf , page2 used on input line 44.
@@ -1851,8 +1851,23 @@ Overfull \hbox (6.08986pt too wide) detected at line 23
  []
 
 
+Overfull \hbox (6.08986pt too wide) detected at line 24
+ \TU/Arial(0)/m/n/10.95 4
+ []
+
+
 Overfull \hbox (6.08986pt too wide) detected at line 25
- \TU/Arial(0)/m/n/10.95 3
+ \TU/Arial(0)/m/n/10.95 4
+ []
+
+
+Overfull \hbox (6.08986pt too wide) detected at line 26
+ \TU/Arial(0)/m/n/10.95 4
+ []
+
+
+Overfull \hbox (6.08986pt too wide) detected at line 28
+ \TU/Arial(0)/m/n/10.95 4
  []
 
 )
@@ -1910,10 +1925,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 ] (./Chapters/Introduction.tex
 Chapter 1.
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 36.
-
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
 (Font)              scaled to size 11.40997pt on input line 50.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
@@ -1941,8 +1952,95 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [2]
 Chapter 2.
-) (./Chapters/SystemDesignArchitecture.tex
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[3
+
+]) (./main.bbl (./main.brf)
+\tf@brf=\write12
+
+\openout12 = main.brf
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[4]
+
+Package natbib Warning: Empty `thebibliography' environment on input line 25.
+
+) (./Appendices/AppendixTemplate.tex
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[5
+
+])
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[6
+
+] (./main.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+ ***********
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 07C1E26380132C021BD57DB12D64BBBE;1772
+(rerunfilecheck)             After:  08492E53621E2FA586391C6A70E7602A;1757.
+Package rerunfilecheck Info: File `main.brf' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+)
+
+Here is how much of LuaTeX's memory you used:
+ 44695 strings out of 475512
+ 125126,1648299 words of node,token memory allocated
+ 771 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 5 glue, 4 kern, 1 glyph, 16 attribute, 96 glue_spec
+, 10 attribute_list, 3 write, 1 close nodes
+   avail lists: 1:1,2:811,3:180,4:92,5:91,6:44,7:6182,8:2,9:366,10:17,11:541
+ 66340 multiletter control sequences out of 65536+600000
+ 102 fonts using 8097855 bytes
+ 108i,18n,125p,2381b,1234s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+warning  (pdf backend): unreferenced destination with name 'glo:dcc'
+
+warning  (pdf backend): unreferenced destination with name 'subsection.1.0.1'
+</usr/share/fonts/truetype/msttcorefonts/arialbd.ttf></usr/share/fonts/truetype/
+msttcorefonts/arial.ttf></usr/local/texlive/2024/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb>
+Output written on main.pdf (14 pages, 128294 bytes).
+
+PDF statistics: 208 PDF objects out of 1000 (max. 8388607)
+ 160 compressed objects within 2 object streams
+ 38 named destinations out of 1000 (max. 131072)
+ 128 words of extra memory for PDF output out of 10000 (max. 100000000)
+

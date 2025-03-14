@@ -18,9 +18,9 @@ This chapters main focus is to provide the reader with the necessary background 
 this project. The main goal of this project is to provide a system capable of automatically evaluating network topologies 
 by validating configurations and running tests on different devices in the network. Analogue systems exist in the market,
 primarily focused in programming. These systems receive code from students and subsequently run tests on it against 
-multiples test cases. These systems are already widely deployed in universities and other educational institutions. 
-Shifting from programming to network topologies appears simple but comes with a particular 
-set of challenges not present in programming evaluations. Each student will require an individual network topology to work 
+multiples test cases and are already widely deployed in educational environments. 
+Shifting from programming to network topologies appears simple at first glance but comes with a particular set of 
+challenges not present in programming evaluations. Each student will require an individual network topology to work 
 on, which can be addressed by using virtualization platforms. There is also the matter of communicating with the devices 
 in the network, which can be addressed by using network automation tools. Finally there is the matter of combining these 
 technologies to create a system capable of automatically evaluating network topologies.
@@ -28,10 +28,29 @@ technologies to create a system capable of automatically evaluating network topo
 \section{Programming Evaluation Systems}
 While not directly related, they are the main inspiration for this project. Programming evaluation systems are widely
 deployed in universities and other educational institutions. These systems receive code from students and subsequently run
-tests on it against multiples test cases, outputting a score and even being configurable to provide students the first test
-case that they failed in, guiding students to the solution without handing it out. In the context of the\ac{dcc}, Mooshak and Codex are commonly deployed to be used in the context of classes and even 
-exams and programming contests.l
+tests on it, outputting a score and even being configurable to provide students the first test case that they failed in, 
+guiding students to the solution without handing it out.
 
+These tools typically provide a structured approach to test coding and problem solving skills. They begin by offering a
+problem statement coupled with an optional image and an example test case, normally in the form of input and expected output.
+Users can interact with the system by use of an online code editor, where they can write their solution and submit it for
+evaluation, or by uploading a file with their solution. The system then evaluates the provided solution against multiple
+pre-defined test cases, and validating the output agaisnt the know-good output, outputting a score based on the number of 
+test cases passed. The system may also be configured to have time and/or memory constraints, to ensure that temporal and
+spatial complexity are also taken into account.
+
+All of these, serve to provide a thorough evaluation of the student's solution, which can help guide a student to better
+their coding and problem solving skills.
+
+In the context of the\ac{dcc}, Mooshak and Codex are commonly deployed to be used in the context of classes and 
+even exams and programming contests.
+
+
+\section{ProxmoVE}
+
+\section{Nornir}
+
+\section{Python?}
 
 
 --- Main technologies used to talk about ---
