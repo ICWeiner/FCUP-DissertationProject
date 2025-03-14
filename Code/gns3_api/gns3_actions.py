@@ -1,4 +1,4 @@
-import requests
+import httpx
 import uuid
 import logging
 
@@ -18,7 +18,7 @@ def check_project(node_ip, project_id):
     try:
         #GET request to get the project ID
 
-        response = requests.get(
+        response = httpx.get(
             f'{_gns3_base_uri(node_ip)}/projects/{project_id}',
             headers = {'accept': 'application/json'}
             )
@@ -29,16 +29,16 @@ def check_project(node_ip, project_id):
         
         return True
     
-    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+    except (httpx.ConnectError, httpx.TimeoutException) as err:
         logging.error(f"Network error: {err}")
         return False
-    except requests.exceptions.HTTPError as err:
+    except httpx.HTTPStatusError as err:
         if response.status_code == 404:
             logging.info(f"GNS3 Project {project_id} not found on {node_ip}.")
             return False
         logging.error(f"HTTP error for IP {node_ip}: {err}")
         raise
-    except requests.exceptions.RequestException as err:
+    except httpx.RequestError as err:
         logging.error(f"An ambiguous exception occurred: {err}")
         raise
 
@@ -46,7 +46,7 @@ def get_project_id(node_ip, project_name):
     try:
         #GET request to get the project ID
 
-        response = requests.get(
+        response = httpx.get(
             f'{_gns3_base_uri(node_ip)}/projects',
             headers = {'accept': 'application/json'}
             )
@@ -64,23 +64,23 @@ def get_project_id(node_ip, project_name):
             if project['name'] == project_name:
                 return project['project_id']
     
-    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+    except (httpx.ConnectError, httpx.TimeoutException) as err:
         logging.error(f"Network error: {err}")
         return None
-    except requests.exceptions.HTTPError as err:
+    except httpx.HTTPStatusError as err:
         if response.status_code == 404:
             logging.info(f"No GNS3 projects found on {node_ip}.")
             return None  
         logging.error(f"HTTP error for IP {node_ip}: {err}")
         raise  # Re-raise for other HTTP errors (500, etc.)
-    except requests.exceptions.RequestException as err:
+    except httpx.RequestError as err:
         logging.error(f"An ambiguous exception occurred: {err}")
         raise
 
 def get_project_nodes(node_ip, project_id):    
     try:
         # GET request to get the project's related nodes parameters
-        response = requests.get(
+        response = httpx.get(
             f'{_gns3_base_uri(node_ip)}/projects/{project_id}/nodes',
             headers = {'accept': 'application/json'}
             )
@@ -96,22 +96,22 @@ def get_project_nodes(node_ip, project_id):
             
         return nodes
 
-    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+    except (httpx.ConnectError, httpx.TimeoutException) as err:
         logging.error(f"Network error: {err}")
         return None
-    except requests.exceptions.HTTPError as err:
+    except httpx.HTTPStatusError as err:
         if response.status_code == 404:
             logging.info(f"GNS3 project {project_id} not found on {node_ip}.")
             return None
         logging.error(f"HTTP error for IP {node_ip}: {err}")
         raise
-    except requests.exceptions.RequestException as err:
+    except httpx.RequestError as err:
         logging.error(f"An ambiguous exception occurred: {err}")
         raise
 
 def start_project(node_ip, project_id):
     try:
-        response = requests.post(
+        response = httpx.post(
             f'{_gns3_base_uri(node_ip)}/projects/{project_id}/open',
             headers = {'accept': 'application/json'}
             )
@@ -120,7 +120,7 @@ def start_project(node_ip, project_id):
 
         response.raise_for_status()
 
-        response = requests.post(
+        response = httpx.post(
             f'{_gns3_base_uri(node_ip)}/projects/{project_id}/nodes/start',
             headers = {'accept': 'application/json'}
             )
@@ -130,22 +130,22 @@ def start_project(node_ip, project_id):
         response.raise_for_status()
 
         return True
-    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+    except (httpx.ConnectError, httpx.TimeoutException) as err:
         logging.error(f"Network error: {err}")
         return False
-    except requests.exceptions.HTTPError as err:
+    except httpx.HTTPStatusError as err:
         if response.status_code == 404:
             logging.info(f"GNS3 instance {project_id} not found on {node_ip}.")
             return False
         logging.error(f"HTTP error for IP {node_ip}: {err}")
         raise
-    except requests.exceptions.RequestException as err:
+    except httpx.RequestError as err:
         logging.error(f"An ambiguous exception occurred: {err}")
         raise
 
 def export_project(node_ip, project_id, filename): #Filename is the name of the file obtained from the response
     try:
-        response = requests.get(
+        response = httpx.get(
             f'{_gns3_base_uri(node_ip)}/projects/{project_id}/export',
             headers = {'accept': 'application/json'}
             )
@@ -165,16 +165,16 @@ def export_project(node_ip, project_id, filename): #Filename is the name of the 
             return False
         return True
 
-    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+    except (httpx.ConnectError, httpx.TimeoutException) as err:
         logging.error(f"Network error: {err}")
         return False
-    except requests.exceptions.HTTPError as err:
+    except httpx.HTTPStatusError as err:
         if response.status_code == 404:
             logging.info(f"GNS3 project {project_id} not found on {node_ip}.")
             return False
         logging.error(f"HTTP error for IP {node_ip}: {err}")
         raise
-    except requests.exceptions.RequestException as err:
+    except httpx.RequestError as err:
         logging.error(f"An ambiguous exception occurred: {err}")
         raise
 
@@ -186,7 +186,7 @@ def import_project(node_ip, filepath):
 
         filename = filepath.split("/")[-1] #Get the filename from the full path
 
-        response = requests.post(
+        response = httpx.post(
             f'{_gns3_base_uri(node_ip)}/projects/{project_id}/import',
             headers = {'accept': 'application/json'},
             files = {"archive": (filename, fileobj)}
@@ -202,16 +202,16 @@ def import_project(node_ip, filepath):
         logging.error(f"OSError: {err}")
     except AttributeError as err:
         logging.error(f"Attribute error: {err}")
-    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+    except (httpx.ConnectError, httpx.TimeoutException) as err:
         logging.error(f"Network error: {err}")
         return False
-    except requests.exceptions.HTTPError as err:
+    except httpx.HTTPStatusError as err:
         if response.status_code == 404:
             logging.info(f"GNS3 project {project_id} not found on {node_ip}.")
             return False
         logging.error(f"HTTP error for IP {node_ip}: {err}")
         raise
-    except requests.exceptions.RequestException as err:
+    except httpx.RequestError as err:
         logging.error(f"An ambiguous exception occurred: {err}")
         raise
     return None

@@ -10,10 +10,10 @@ def _get_firewall_uri_list(proxmox_host):    #Get list of all firewall activatio
     return uri_list
 
 
-def create_proxmox_vm_isolation_rules(proxmox_host, vm_proxmox_id, allowed_vm_ip, session):
+async def acreate_proxmox_vm_isolation_rules(proxmox_host, session, vm_proxmox_id, allowed_vm_ip):
 
     for uri in _get_firewall_uri_list(proxmox_host):
-        response = session.put(uri, data = {'enable':1})
+        response = await session.put(uri, data = {'enable':1})
         response.raise_for_status()
 
     firewall_rule_0 = {    
@@ -47,36 +47,38 @@ def create_proxmox_vm_isolation_rules(proxmox_host, vm_proxmox_id, allowed_vm_ip
             } 
 
     
-    response = session.put(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/options',
+    response = await session.put(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/options',
                         data = {'enable':1})
     response.raise_for_status()
 
     firewall_rules = [firewall_rule_3, firewall_rule_2, firewall_rule_1, firewall_rule_0]
 
     for rule in firewall_rules:
-        response = session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/rules',
+        response = await session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/rules',
                                 data = rule)
         response.raise_for_status()
 
-    print(response)
+    return True
     
-def delete_proxmox_vm_isolation_rules(proxmox_host, vm_proxmox_id, session):
+async def adelete_proxmox_vm_isolation_rules(proxmox_host, session, vm_proxmox_id):
 
     for uri in _get_firewall_uri_list(proxmox_host):
-        response = session.put(uri, data = {'enable':0})
+        response = await session.put(uri, data = {'enable':0})
         response.raise_for_status()
 
-    response = session.put(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/options',
+    response = await session.put(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/options',
                         data = {'enable':0})
     response.raise_for_status()
 
 
-    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/rules')
+    response = await session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/rules')
     response.raise_for_status()
 
     number_of_rules = len(response.json()['data'])
 
     for i in range(number_of_rules): #Since the number of higher position rules changes when deleting, we can always delete rules in position 0, assuming we dont have a need for any other rules
-        response = session.delete(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/rules/0')
+        response = await session.delete(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/rules/0')
         response.raise_for_status()
+
+    return True
         

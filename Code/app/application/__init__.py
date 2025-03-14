@@ -1,7 +1,6 @@
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from celery import Celery, Task
 import os
 
 
@@ -20,7 +19,6 @@ def init_app():
     db.init_app(app)
     login_manager.init_app(app)
 
-    celery_init_app(app)
 
     with app.app_context():
         # Include our Routes
@@ -49,14 +47,3 @@ def init_app():
 
         return app  
     
-def celery_init_app(app: Flask) -> Celery:
-    class FlaskTask(Task):
-        def __call__(self, *args: object, **kwargs: object) -> object:
-            with app.app_context():
-                return self.run(*args, **kwargs)
-
-    celery = Celery(app.name, task_cls=FlaskTask)
-    celery.config_from_object(app.config['CELERY_CONFIG'])
-    celery.set_default()
-    app.extensions["celery"] = celery
-    return celery

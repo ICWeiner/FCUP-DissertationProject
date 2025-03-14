@@ -1,16 +1,15 @@
 import uuid
+import asyncio
 import os.path
 from datetime import datetime as dt
 from flask import Blueprint, redirect, render_template, flash, request, session, url_for, jsonify
 from flask import current_app as app
 from flask_login import current_user, login_required
-import celery
-from . import utils
 from .forms import CreateExerciseForm
-from ..tasks import celery_template_vm, celery_clone_vm, celery_destroy_vm, celery_set_vm_status, celery_import_gns3_project, celery_run_gns3_commands
+from . import utils
+from .. import gns3_tasks
+from .. import proxmox_tasks
 from ..models import Exercise, User, TemplateVm, WorkVm, db
-
-import requests
 
 import time
 import logging
@@ -89,7 +88,7 @@ def retrieve_hostnames():
 
 @exercise_bp.route('/exercise/create', methods = ['GET', 'POST'])
 @login_required
-def exercise_create():
+async def exercise_create():
 
     form = CreateExerciseForm()
     if form.validate_on_submit():#Verifies if method is POST
@@ -113,35 +112,30 @@ def exercise_create():
                     }
                     commands_by_hostname.append(hostname_data)
 
-                start_time = time.perf_counter()
-
-                tasks = []
+                start_time_template_vm = time.perf_counter()
                 
                 #Step 1: Clone base template VM needs base template ID and hostname returns cloned vm ID
-                vm_proxmox_id = celery_clone_vm.delay(form.proxmox_id.data, template_hostname).get()
+                vm_proxmox_id = await proxmox_tasks.aclone_vm(form.proxmox_id.data, template_hostname)
 
                 # Step 2: Start VM needs vm ID returns true if successful
-                tasks.append( celery_set_vm_status.si(vm_proxmox_id ,True) )
+                await proxmox_tasks.aset_vm_status(vm_proxmox_id ,True)
 
-                # Step 3: Import GNS3 Project needs vm ID returns GNS3 project ID
-                tasks.append( celery_import_gns3_project.si(vm_proxmox_id, path_to_gns3project) )
+                node_ip = await proxmox_tasks.aget_vm_ip(vm_proxmox_id)
 
-                # Step 4: Run Commands on GNS3 (this is highly specific to this workflow) needs vm id
+                # Step 3: Import GNS3 Project needs vm IP returns GNS3 project ID
+                gns3_project_id = gns3_tasks.import_gns3_project(node_ip, path_to_gns3project) 
+
+                # Step 4: Run Commands on GNS3 (this is highly specific to this workflow) needs vm IP
                 if commands_by_hostname:
-                    tasks.append( celery_run_gns3_commands.s(vm_proxmox_id, template_hostname, commands_by_hostname) )
+                    gns3_tasks.run_gns3_commands(node_ip, gns3_project_id, template_hostname, commands_by_hostname) 
 
                 # Step 5: Stop VM needs VM ID returns true if successful
-                tasks.append( celery_set_vm_status.si(vm_proxmox_id, False) )
+                await proxmox_tasks.aset_vm_status(vm_proxmox_id, False)
 
                 # Step 6: Convert to Template needs VM id returns true if successful
-                tasks.append( celery_template_vm.si(vm_proxmox_id) )
+                await proxmox_tasks.atemplate_vm(vm_proxmox_id) 
 
-
-                celery.chain(*tasks).delay().get()
-
-                end_time = time.perf_counter() 
-
-                logging.info(f"Template VM creation time: {end_time - start_time:.6f} seconds")
+                end_time_template_vm = time.perf_counter() 
 
                 new_templatevm = TemplateVm(proxmox_id = vm_proxmox_id,
                                             created_on = dt.now()
@@ -160,27 +154,19 @@ def exercise_create():
                 db.session.add(new_templatevm)
                 db.session.add(new_exercise)
 
-                start_time = time.perf_counter()
+                start_time_clone_vms = time.perf_counter()
                     
                 logging.info(f"Initial CPU usage: {psutil.cpu_percent()}%")
                 
                 logging.info(f"Cloning VMs for {len(existing_users)} users")
 
-                num_vms = len(existing_users)
+                tasks = []
 
-                # Create N VM clone tasks with random hostnames
-                clone_tasks = [
-                    celery_clone_vm.s(new_exercise.templatevm.proxmox_id, f'vm-{uuid.uuid4().hex[:12]}')
-                    for _ in range(num_vms)
-                ]
+                for _ in range(len(existing_users)):
+                    hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
+                    tasks.append(proxmox_tasks.aclone_vm(new_exercise.templatevm.proxmox_id, hostname))
+                vm_ids = await asyncio.gather(*tasks)
 
-                logging.info(f"Waiting for {num_vms} tasks to complete")
-
-                result_group = celery.group(clone_tasks).apply_async()# Start VM cloning process
-
-                vm_ids = result_group.get(timeout=300)
-
-                # Assign VMs to users in any order
                 for user, vm_id in zip(existing_users, vm_ids):
                     workvm = WorkVm(
                             proxmox_id = vm_id,
@@ -192,10 +178,11 @@ def exercise_create():
 
                 logging.info("Done waiting for tasks to complete")
                 
-                end_time = time.perf_counter()
+                end_time_clone_vms = time.perf_counter()
 
+                logging.info(f"Template VM creation time: {end_time_template_vm - start_time_template_vm:.6f} seconds")
+                logging.info(f"VM Cloning process time: {end_time_clone_vms - start_time_clone_vms:.6f} seconds")
                 logging.info(f"Final CPU usage: {psutil.cpu_percent()}%")
-                logging.info(f"VM Cloning process time: {end_time - start_time:.6f} seconds")
 
                 db.session.commit()
                 
@@ -215,7 +202,7 @@ def exercise_create():
 
 @exercise_bp.route('/exercise/<int:exercise_id>/delete', methods = ['POST']) #At this point in time this is only here deleting vms created for test purposes, not intended for real use
 @login_required
-def exercise_delete(exercise_id:int):
+async def exercise_delete(exercise_id:int):#TODO: make async
     try:
         exercise = Exercise.query.get(exercise_id)
 
@@ -223,33 +210,35 @@ def exercise_delete(exercise_id:int):
 
         workvms = templatevm.workvms
 
-        task_results = []
+        tasks = []
 
         with db.session.begin_nested():
-            start_time = time.perf_counter()
-            for workvm in workvms:
-                result = celery_destroy_vm.apply_async(args=[workvm.proxmox_id])
-                task_results.append((workvm, result))
-            for workvm, result in task_results:
-                try:
-                    vm_deletion_status = result.get(timeout=300) 
-                    if vm_deletion_status:
-                        db.session.delete(workvm)
-                    else:
-                        logging.error(f"Error deleting VM {workvm.proxmox_id}")
-                except Exception as e:
-                    print(f"Error processing task result for {workvm}: {e}")
-            result =  celery_destroy_vm.apply_async(args=[templatevm.proxmox_id])
+            start_time_delete_vms = time.perf_counter()
 
-            tvm_deletion_status = result.get(timeout=300)
-            if tvm_deletion_status:
+            tasks = [proxmox_tasks.adestroy_vm(workvm.proxmox_id) for workvm in workvms]
+
+            results = await asyncio.gather(*tasks)
+
+            for workvm, result in zip(workvms, results):
+                if isinstance(result, Exception):
+                    logging.error(f"Error processing task result for {workvm}: {result}")
+                elif result:
+                    db.session.delete(workvm)
+                else:
+                    logging.error(f"Error deleting VM {workvm.proxmox_id}")
+                    
+            result = await proxmox_tasks.adestroy_vm(templatevm.proxmox_id)
+
+            if isinstance(result, Exception):#TODO: DRY
+                logging.error(f"Error processing task result for {workvm}: {result}")
+            elif result:
                 db.session.delete(templatevm)
                 db.session.delete(exercise)
             else:
-                logging.error(f"Error deleting Template VM {templatevm.proxmox_id}")
-            end_time = time.perf_counter() 
+                logging.error(f"Error deleting VM {workvm.proxmox_id}")
+            end_time_delete_vms = time.perf_counter() 
 
-            logging.info(f"VM deleting process time: {end_time - start_time:.6f} seconds")
+            logging.info(f"VM deleting process time: {end_time_delete_vms - start_time_delete_vms:.6f} seconds")
             db.session.commit()
 
     except Exception as e:

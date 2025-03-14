@@ -1,26 +1,42 @@
 import time
-from threading import Lock
-from flask import current_app as app
-from proxmox_api.utils.connection import proxmox_connect
+import asyncio
+import httpx
+from proxmox_api.utils.connection import aproxmox_get_auth_cookie
 
-proxmox_session_cache = {
-    "session": None,
-    "expires_at": 0
+CONCURRENT_LIMIT = 1
+semaphore = asyncio.Semaphore(CONCURRENT_LIMIT)
+
+_proxmox_auth_cache = {
+    "cookie": None,
+    "csrf": None,
+    "expires_at": 0,
 }
-session_lock = Lock()
 
-def get_flask_proxmox_session(proxmox_host, username, password):
-    with session_lock:#lock for thread safety
-        if proxmox_session_cache["session"] and proxmox_session_cache["expires_at"] > time.time():
-            return proxmox_session_cache["session"]
+_auth_lock = asyncio.Lock()
 
-        # If expired or missing, use the provided session creation function
-        session = proxmox_connect(proxmox_host, username, password)
+def _build_session(cookie,csrf):
+    session = httpx.AsyncClient(verify=False)
+
+    session.cookies.set("PVEAuthCookie", cookie)
+
+    session.headers.update({"CSRFPreventionToken": csrf})  
+    
+    return session
+
+async def aget_flask_proxmox_session(proxmox_host, username, password):
+    async with _auth_lock, semaphore:#lock for thread safety and semaphore for limiting concurrent requests
+        now = time.time()
+        if _proxmox_auth_cache["cookie"] and _proxmox_auth_cache["expires_at"] > now:
+            return _build_session(_proxmox_auth_cache["cookie"], _proxmox_auth_cache["csrf"])
+
+        # If expired or missing, use the provided function to fetch new tokens
+        cookie, csrf = await aproxmox_get_auth_cookie(proxmox_host, username, password)
         print("#######################")
         print("New session created")
         print("#######################")
-        proxmox_session_cache.update({
-            "session": session,
-            "expires_at": time.time() + 2 * 3500  # 2 hours from now(a bit less for safety)
+        _proxmox_auth_cache.update({
+            "cookie": cookie,
+            "csrf": csrf,
+            "expires_at": now + 2 * 3500,
         })
-        return session
+        return _build_session(cookie, csrf)

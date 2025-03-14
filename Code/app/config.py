@@ -27,16 +27,3 @@ class Config:
     PROXMOX_USER =  environ.get('PROXMOX_USER')
     PROXMOX_PASSWORD =  environ.get('PROXMOX_PASSWORD')
     PROXMOX_HOST =  environ.get('PROXMOX_HOST')
-
-    # Celery
-    CELERY_CONFIG = 'config.CeleryConfig'
-
-    
-
-class CeleryConfig:
-    # Celery
-    CELERY_BROKER_URL = environ.get('CELERY_BROKER_URL')
-    CELERY_RESULT_BACKEND = environ.get('CELERY_RESULT_BACKEND')
-    #CELERY_TASK_ACKS_LATE = True TODO:still need to decide on this one
-    #CELERY_WORKER_PREFETCH_MULTIPLIER = 1
-    #CELERY_WORKER_CONCURRENCY = 4 by defaults this uses all available cores
