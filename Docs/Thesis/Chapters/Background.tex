@@ -1,0 +1,47 @@
+% Chapter Template
+
+% Main chapter title
+%\chapter[toc version]{doc version}
+\chapter{Background}
+
+% Short version of the title for the header
+%\chaptermark{version for header}
+
+% Chapter Label
+% For referencing this chapter elsewhere, use \ref{ChapterTemplate}
+\label{ChapterBackground}
+
+% Write text in here
+% Use \subsection and \subsubsection to organize text
+
+This chapters main focus is to provide the reader with the necessary background information to understand the context of
+this project. The main goal of this project is to provide a system capable of automatically evaluating network topologies 
+by validating configurations and running tests on different devices in the network. Analogue systems exist in the market,
+primarily focused in programming. These systems receive code from students and subsequently run tests on it against 
+multiples test cases. These systems are already widely deployed in universities and other educational institutions. 
+Shifting from programming to network topologies appears simple but comes with a particular 
+set of challenges not present in programming evaluations. Each student will require an individual network topology to work 
+on, which can be addressed by using virtualization platforms. There is also the matter of communicating with the devices 
+in the network, which can be addressed by using network automation tools. Finally there is the matter of combining these 
+technologies to create a system capable of automatically evaluating network topologies.
+
+\section{Programming Evaluation Systems}
+While not directly related, they are the main inspiration for this project. Programming evaluation systems are widely
+deployed in universities and other educational institutions. These systems receive code from students and subsequently run
+tests on it against multiples test cases, outputting a score and even being configurable to provide students the first test
+case that they failed in, guiding students to the solution without handing it out. In the context of the\ac{dcc}, Mooshak and Codex are commonly deployed to be used in the context of classes and even 
+exams and programming contests.l
+
+
+
+--- Main technologies used to talk about ---
+Python
+Nornir
+GNS3
+ProxmoxVE
+Flask
+Requests -> celery -> HTTPX
+WSGI -> Gunicorn
+Linux
+NGINX?
+Gunicorn?
