@@ -20,10 +20,10 @@ by validating configurations and running tests on different devices in the netwo
 primarily focused in programming. These systems receive code from students and subsequently run tests on it against 
 multiples test cases and are already widely deployed in educational environments. 
 Shifting from programming to network topologies appears simple at first glance but comes with a particular set of 
-challenges not present in programming evaluations. Each student will require an individual network topology to work 
-on, which can be addressed by using virtualization platforms. There is also the matter of communicating with the devices 
-in the network, which can be addressed by using network automation tools. Finally there is the matter of combining these 
-technologies to create a system capable of automatically evaluating network topologies.
+challenges not present in programming evaluations. Each student will require an individual working environment, which can 
+be addressed by using virtualization platforms. There is also the matter of communicating with the devices in the network, 
+which can be addressed by using network automation tools. Finally there is the matter of combining these technologies to 
+create a system capable of automatically evaluating network topologies.
 
 \section{Programming Evaluation Systems}
 While not directly related, they are the main inspiration for this project. Programming evaluation systems are widely
@@ -35,7 +35,7 @@ These tools typically provide a structured approach to test coding and problem s
 problem statement coupled with an optional image and an example test case, normally in the form of input and expected output.
 Users can interact with the system by use of an online code editor, where they can write their solution and submit it for
 evaluation, or by uploading a file with their solution. The system then evaluates the provided solution against multiple
-pre-defined test cases, and validating the output agaisnt the know-good output, outputting a score based on the number of 
+pre-defined test cases, and validating the output against the know-good output, outputting a score based on the number of 
 test cases passed. The system may also be configured to have time and/or memory constraints, to ensure that temporal and
 spatial complexity are also taken into account.
 
@@ -45,15 +45,87 @@ their coding and problem solving skills.
 In the context of the\ac{dcc}, Mooshak and Codex are commonly deployed to be used in the context of classes and 
 even exams and programming contests.
 
+The main differentiator between these systems and the one proposed in this project is the ability to solve a network 
+exercise using multiple configurations across multiple devices, while programming evaluation systems will expect
+the same output every time, given the same input.
+Another key difference is the fact that programming evaluation systems dont always provide a working environment for the 
+students to test their code, owing to the fact that students might prefer to user their own development environment for 
+initial development and testing. This project aims to provide a working environment for students to work on for a few
+reasons that will be discussed later on \unsure{DISCUSS REASONS WHY LATER}
 
-\section{ProxmoVE}
+\subsection{Mooshak}
+Mooshak is a web-based system for managing programming contests and also to act as an automatic judge of programming 
+contests \cite{Leal2003567}. It supports a variety of programming languages like Java, C, etc. Under each contest students will find one more 
+problem definitions each containing varying sets of test cases in input-output pairs. After submiting their solution, 
+the system will compile and run the code against the test cases giving a score based on the the amount of test cases passed.
+The system can also differentiate between differing types of errors, such as not giving the expected output, poorly 
+formatted output, failure to compile or even exceeding the time limits.
+Mooshak also includes some features designed to drive competition between students, like a real time leaderboard and
+the ability to have more than 100\% of the score for a given contest.
+
+The system however is not without its limitations as it uses plain text files for its test cases and validates the output 
+of student's code character by character, which can lead to false negatives if the output is not formatted exactly as
+expected.
+
+\section{GNS3}
+\ac{gns3} is an open-source graphical network emulator software that allows the user to create complex network topologies and interact with 
+the various devices in it. It is widely used for educational purposes and is often used in preparation for professionals 
+network certifications like the Cisco Certified Network Associate (CCNA).
+
+\ac{gns3} employs a simple drag and drop interface to allow users to add new devices, make links between them 
+and even add textual annotations. The software allows users to interact with the devices by way of a console or even a GUI
+if the device supports it. The software also allows users to export their topologies to be shared with others, which can
+be useful for teachers to provide students with a pre-configured topology to work on.
+
+Additionally, the software supports packet capturing which is essential for students to develop their debugging and 
+troubleshoting skills. Finally the software can also be interacted with via a\ac{rest}\ac{api} which can be of particular interest
+for this project.
+
+\subsection{Architecture}
+The software can be employed in a variety of ways due to its architecture \cite{GNS3Architecture} that separates the user interfaces that it offers,
+namely the locally installed gns3-gui as well as the browser accessible gns3-web, from the gns3-server that runs the emulations
+and the controller who orchestrates everything. \info{add image about gns3 architecture}
+
+\subsubsection{Controller}
+The controller is integrated in the gns3-server project and is responsible for communicating with all the other components 
+of the software. The controller is a singleton, meaning there should only be one instance of it running at any given time, 
+and it does not support concurrent requests. It is able to control multiple compute instances if so desired, each capable 
+of hosting one or more emulator instances, varying depending on their complexity. The controller also exposes the 
+\ac{rest}\ac{api} allowing the ability to interact with the software programatically. All communication is done over
+\ac{http} in\ac{json} format and there is support for basic\ac{http} authentication as well as notifications via websockets.
+
+\subsubsection{Compute}
+The compute is also integrated in the gns3-server project and controls the various emulators required to run the nodes 
+in the topology.
+The list of currently supported emulators is:
+
+\begin{itemize}
+    \item Dynamips - Used to emulate Cisco routers and basic switching.
+    \item \ac{iou} - Used to emulate Cisco\ac{ios} devices.
+    \item \ac{qemu} - Used to emulate a wide variety of devices.
+    \item \ac{vpcs} - A basic program meant to simulate a basic PC
+    \item VMware/VirtualBox - Used to run virtual machines with nested virtualization support
+    \item Docker - Used to run containers
+  \end{itemize}
+
+\subsubsection{GUI}
+The GUI is composed of two separate but with mostly identical functionality, namely the gns3-gui and the gns3-web projects.
+The gns3-gui project is a desktop application that is used to to interact with a local or remote gns3-server instance. It 
+is written in Python and uses the Qt framework for the graphical interface. The gns3-web is a web application that is 
+accessed via a web browser it is still in a beta stage but is already capable enough to be used as a substitute for the 
+gns3-gui.
+\info{add image of gns3-web}
+
+
+\section{ProxmoxVE}
 
 \section{Nornir}
 
 \section{Python?}
 
 
---- Main technologies used to talk about ---
+
+\info{ Main technologies used to talk about
 Python
 Nornir
 GNS3
@@ -64,3 +136,4 @@ WSGI -> Gunicorn
 Linux
 NGINX?
 Gunicorn?
+}

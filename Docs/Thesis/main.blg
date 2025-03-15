@@ -2,7 +2,6 @@ This is BibTeX, Version 0.99d (TeX Live 2024)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: IEEEtranN.bst
-I found no \citation commands---while reading file main.aux
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -18,45 +17,44 @@ Reallocated global_strs (elt_size=200001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 
 Done.
-You've used 0 entries,
+You've used 2 entries,
             4855 wiz_defined-function locations,
-            945 strings with 8144 characters,
-and the built_in function-call counts, 113 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 19
-:= -- 31
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
-chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 3
+            961 strings with 8442 characters,
+and the built_in function-call counts, 1675 in all, are:
+= -- 151
+> -- 30
+< -- 12
++ -- 17
+- -- 6
+* -- 100
+:= -- 283
+add.period$ -- 4
+call.type$ -- 2
+change.case$ -- 5
+chr.to.int$ -- 23
+cite$ -- 2
+duplicate$ -- 107
+empty$ -- 110
+format.name$ -- 11
+if$ -- 353
 int.to.chr$ -- 1
-int.to.str$ -- 1
-missing$ -- 0
-newline$ -- 24
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 3
+missing$ -- 17
+newline$ -- 32
+num.names$ -- 6
+pop$ -- 42
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 2
 quote$ -- 2
-skip$ -- 1
+skip$ -- 120
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 57
+swap$ -- 80
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 6
-type$ -- 0
+type$ -- 31
 warning$ -- 0
-while$ -- 0
+while$ -- 7
 width$ -- 0
-write$ -- 23
-(There was 1 error message)
+write$ -- 49
