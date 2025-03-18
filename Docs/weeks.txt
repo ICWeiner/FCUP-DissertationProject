@@ -170,4 +170,8 @@ finish celery
 document the need to delete files in archive of pve and how disk removal sometimes fails silently
 vg files politic
 disks try to replicate and eventually report and research
-httpx
+httpx async isolated test
+integrate httpx into flask, removing celery
+
+18/03:
+Quart migration

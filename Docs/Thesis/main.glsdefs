@@ -362,3 +362,115 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{wsgi}%
+{%
+name={\acronymfont {\glsentryshort {wsgi}}},%
+sort={WSGI},%
+type={acronym},%
+first={WSGI},%
+firstplural={WSGIs},%
+text={WSGI},%
+plural={WSGIs},%
+description={Web Server Gateway Interface},%
+descriptionplural={Web Server Gateway Interface},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Web Server Gateway Interface},%
+longplural={Web Server Gateway Interfaces},%
+short={WSGI},%
+shortplural={WSGIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{pve}%
+{%
+name={\acronymfont {\glsentryshort {pve}}},%
+sort={Proxmox VE},%
+type={acronym},%
+first={Proxmox VE},%
+firstplural={Proxmox VEs},%
+text={Proxmox VE},%
+plural={Proxmox VEs},%
+description={Proxmox Virtual Environment},%
+descriptionplural={Proxmox Virtual Environment},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Proxmox Virtual Environment},%
+longplural={Proxmox Virtual Environments},%
+short={Proxmox VE},%
+shortplural={Proxmox VEs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{kvm}%
+{%
+name={\acronymfont {\glsentryshort {kvm}}},%
+sort={KVM},%
+type={acronym},%
+first={KVM},%
+firstplural={KVMs},%
+text={KVM},%
+plural={KVMs},%
+description={Kernel-based Virtual Machine},%
+descriptionplural={Kernel-based Virtual Machine},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Kernel-based Virtual Machine},%
+longplural={Kernel-based Virtual Machines},%
+short={KVM},%
+shortplural={KVMs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{lxc}%
+{%
+name={\acronymfont {\glsentryshort {lxc}}},%
+sort={LXC},%
+type={acronym},%
+first={LXC},%
+firstplural={LXCs},%
+text={LXC},%
+plural={LXCs},%
+description={Linux Containers},%
+descriptionplural={Linux Containers},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Linux Containers},%
+longplural={Linux Containerss},%
+short={LXC},%
+shortplural={LXCs},%
+counter={page},%
+parent={},%
+%
+}%
+

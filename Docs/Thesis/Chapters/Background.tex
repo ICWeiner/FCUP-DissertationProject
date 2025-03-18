@@ -67,10 +67,32 @@ The system however is not without its limitations as it uses plain text files fo
 of student's code character by character, which can lead to false negatives if the output is not formatted exactly as
 expected.
 
+\section{Virtualization}
+Virtualization is the process of creating a virtual version of physical resources, such as routers, switches, or even
+entire computers. In the context of this project, it is used to create virtual machines to provide students with a 
+work environment and virtual networks, comprised of various types of virtualized devices. This approach enhances scalability 
+and reduces costs, as it allows multiple virtual machines to be run on a single physical machine.
+
+Virtualization can be categorized into \textbf{emulation} and \textbf{simulation}. 
+
+\begin{itemize}
+  \item Emulation is the process of creating a virtual version of a physical device in software, replicating its 
+  behavior exactly—including any bugs and limitations. This is useful for various things like testing software on 
+  different platforms, running legacy software on modern hardware and even running potentially harmful software in a safe 
+  isolated environment.
+  Emulation will be used to provide students with a work environment to test their network configurations,
+  as well as to emulate certain network devices.
+  \item Simulation models the behaviour of a device, without replicating the underlying hardware or software.
+  This results in a simpler less resource intensive model, though it may not fully capture the real device's behavior.
+  Simulation will be used to simulate the behaviour of certain, simpler and generic, network devices.
+
+\end{itemize}
+
+
 \section{GNS3}
-\ac{gns3} is an open-source graphical network emulator software that allows the user to create complex network topologies and interact with 
-the various devices in it. It is widely used for educational purposes and is often used in preparation for professionals 
-network certifications like the Cisco Certified Network Associate (CCNA).
+\ac{gns3} is an open-source graphical network emulator software that allows the user to create complex network topologies 
+and interact with the various devices in it. It is widely used for educational purposes and is often used in preparation 
+for professional network certifications like the Cisco Certified Network Associate (CCNA).
 
 \ac{gns3} employs a simple drag and drop interface to allow users to add new devices, make links between them 
 and even add textual annotations. The software allows users to interact with the devices by way of a console or even a GUI
@@ -78,13 +100,13 @@ if the device supports it. The software also allows users to export their topolo
 be useful for teachers to provide students with a pre-configured topology to work on.
 
 Additionally, the software supports packet capturing which is essential for students to develop their debugging and 
-troubleshoting skills. Finally the software can also be interacted with via a\ac{rest}\ac{api} which can be of particular interest
+troubleshoting skills. Finally it can also be interacted with via a\ac{rest}\ac{api} which is of particular interest
 for this project.
 
 \subsection{Architecture}
-The software can be employed in a variety of ways due to its architecture \cite{GNS3Architecture} that separates the user interfaces that it offers,
-namely the locally installed gns3-gui as well as the browser accessible gns3-web, from the gns3-server that runs the emulations
-and the controller who orchestrates everything. \info{add image about gns3 architecture}
+The software can be employed in a variety of ways due to its architecture \cite{GNS3Architecture} that separates the user 
+interfaces that it offers, namely the locally installed gns3-gui as well as the browser accessible gns3-web, from the 
+gns3-server that runs the emulations and the controller who orchestrates everything. \info{add image about gns3 architecture}
 
 \subsubsection{Controller}
 The controller is integrated in the gns3-server project and is responsible for communicating with all the other components 
@@ -100,12 +122,12 @@ in the topology.
 The list of currently supported emulators is:
 
 \begin{itemize}
-    \item Dynamips - Used to emulate Cisco routers and basic switching.
-    \item \ac{iou} - Used to emulate Cisco\ac{ios} devices.
-    \item \ac{qemu} - Used to emulate a wide variety of devices.
-    \item \ac{vpcs} - A basic program meant to simulate a basic PC
-    \item VMware/VirtualBox - Used to run virtual machines with nested virtualization support
-    \item Docker - Used to run containers
+    \item \textbf{Dynamips} - Used to emulate Cisco routers and basic switching.
+    \item \textbf{\ac{iou}} - Used to emulate Cisco\ac{ios} devices.
+    \item \textbf{\ac{qemu}} - Used to emulate a wide variety of devices.
+    \item \textbf{\ac{vpcs}} - A basic program meant to simulate a basic PC
+    \item \textbf{VMware/VirtualBox} - Used to run virtual machines with nested virtualization support
+    \item \textbf{Docker} - Used to run containers
   \end{itemize}
 
 \subsubsection{GUI}
@@ -114,10 +136,60 @@ The gns3-gui project is a desktop application that is used to to interact with a
 is written in Python and uses the Qt framework for the graphical interface. The gns3-web is a web application that is 
 accessed via a web browser it is still in a beta stage but is already capable enough to be used as a substitute for the 
 gns3-gui.
-\info{add image of gns3-web}
+
+\begin{figure}
+    \centering
+      \includegraphics[width=.95\linewidth]
+        {Background/gns3-web.png}
+    \caption{A simple network topology example in the GNS3 Web UI}
+	\hfill
+\end{figure}
 
 
-\section{ProxmoxVE}
+\section{Proxmox Virtual Environment} 
+\ac{pve} is an open-source platform designed for enterprise-level virtualization. It is based on the Debian
+distribution of Linux and provides a web-based interface for managing virtual machines and containers. It is widely used
+in data centers and cloud environments, as it provides a scalable and reliable solution for virtualization.
+
+\ac{pve} bundles several core services that can be interacted with via shell commands, a web interface or even by using
+the \ac{pve}\ac{rest}\ac{api}.
+These allow the user to interact with every service provided by \ac{pve}, in a plethora of ways, depending on the user's
+needs, skills and preferences. The web interface is the most user-friendly way to interact with the platform, as it
+provides a graphical interface for managing the cluster. The shell commands provide a more direct way to interact with the
+platform, allowing for more complex operations to be performed and opening the doors to scripting and automation. Finally,
+the \ac{pve}\ac{rest}\ac{api} allows for programmatic interaction with the platform, enabling users to create custom
+applications that can interact with the platform.
+
+
+\subsection{Virtualization Technologies}
+\ac{pve} supports the the deployment and management of two distinct types of virtualization, namely, \ac{kvm}- 
+based\ac{vm}s and\ac{lxc}-based containers.
+
+Users can interact with these virtualized environments via NoVNC, a simple web-based VNC client or SPICE which is a more
+feature-rich protocol that provides better performance and more features than VNC.
+Both of these protocols support the use of a console-based interface, aswell as a full desktop graphical interface.
+
+
+\subsubsection{\ac{kvm}}
+\ac{kvm} is a virtualization solution provided by the Linux kernel. It leverages the hardware virtualization extensions 
+of modern processors to provide a full virtualization experience at near-native speeds. Supports a wide range of guest 
+operating systems making it a good choice for general purpose virtualization.
+
+In \ac{pve},\ac{kvm} is used as the core component for running virtual machines and is used alongside \ac{qemu}.
+
+\subsubsection{\ac{lxc}}
+Containerization is an operating system-level virtualization method that packages an application and its dependencies
+together into an isolated environment. Contrary to tradional\ac{vm}s, containers dont emulate hardware or require a 
+guest operating system relying instead on the host's kernel. This approach leads to a faster and more lightweight 
+virtualization solution, as they consume less memory and cpu resources.
+
+\ac{lxc} creates full system containers, capable of simulating a complete Linux distribution providing users with an 
+environment that behaves like a traditional\ac{vm} but with the speed and efficiency of a container. \ac{lxc} start 
+much faster than \ac{vm}s making them ideal for scenarios requiring rapid deployment and/or scaling.
+
+However, it's important to note that while containers offer a degree of isolation, they do not provide the same level of
+security as\ac{vm}s. This means that while they may not always be a suitable replacement for\ac{vm}s.
+
 
 \section{Nornir}
 
