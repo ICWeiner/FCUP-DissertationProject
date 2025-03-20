@@ -2,14 +2,15 @@ import uuid
 import asyncio
 import os.path
 from datetime import datetime as dt
-from flask import Blueprint, redirect, render_template, flash, request, session, url_for, jsonify
-from flask import current_app as app
-from flask_login import current_user, login_required
+from quart import Blueprint, redirect, render_template, flash, request, session, url_for, jsonify
+from quart import current_app as app
+from quart_login import current_user, login_required
 from .forms import CreateExerciseForm
 from . import utils
 from .. import gns3_tasks
 from .. import proxmox_tasks
-from ..models import Exercise, User, TemplateVm, WorkVm, db
+from ..models import Exercise, User, TemplateVm, WorkVm
+from .. import db
 
 import time
 import logging
@@ -34,7 +35,7 @@ exercise_bp = Blueprint(
 
 @exercise_bp.route('/exercise/<int:id>', methods = ['GET'])
 @login_required
-def exercise(id):
+async def exercise(id):
     user_id = current_user.get_id() #get id of current user
 
     current_templatevm_id = Exercise.query.get(id).templatevm_id #get id of the templatevm of the exercise
@@ -42,7 +43,7 @@ def exercise(id):
     #get the id of the workvm of the current user and the current exercise
     current_user_workvm_id = WorkVm.query.filter_by(user_id = user_id, templatevm_id = current_templatevm_id).first().proxmox_id
 
-    return render_template(
+    return await render_template(
         'exercise.html',
         title="Exercise",
         description="Here you can see the details of a selected available exercises.",
@@ -54,10 +55,10 @@ def exercise(id):
 
 @exercise_bp.route('/exercises', methods = ['GET'])
 @login_required
-def exercises():
+async def exercises():
     exercises = {exercise.id: exercise.name for exercise in Exercise.query.all()}
 
-    return render_template(
+    return await render_template(
         'exercises.html',
         title="Exercises",
         description="Here you can see the list of available exercises.",
@@ -192,7 +193,7 @@ async def exercise_create():
             return redirect(url_for('exercise_bp.exercise_create'))
         return redirect(url_for('exercise_bp.exercises'))
 
-    return render_template(
+    return await render_template(
         'create.html',
         title="Exercise creation",
         form=form,

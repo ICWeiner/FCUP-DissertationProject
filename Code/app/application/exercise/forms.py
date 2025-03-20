@@ -1,5 +1,5 @@
-from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileRequired, FileAllowed
+from quart_wtf import QuartForm
+from quart_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField, SubmitField, TextAreaField, IntegerField, FieldList, FormField, SelectField
 from wtforms.validators import (
     DataRequired,
@@ -9,13 +9,13 @@ from wtforms.validators import (
     Optional,
 )
 
-class HostnameForm(FlaskForm):
+class HostnameForm(QuartForm):
     hostname = SelectField("Hostname", validate_choice = False, validators = [Optional()])#validate_choice = False is used because the choices are populated dynamically
     commands = FieldList(StringField('Command'))
     class Meta:
         csrf = False  # Disable CSRF for nested forms
 
-class CreateExerciseForm(FlaskForm):
+class CreateExerciseForm(QuartForm):
     title = StringField(
         'Title',
         validators=[

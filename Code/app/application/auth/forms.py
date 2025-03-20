@@ -1,4 +1,4 @@
-from flask_wtf import FlaskForm
+from quart_wtf import QuartForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import (
     DataRequired,
@@ -9,7 +9,7 @@ from wtforms.validators import (
 )
 
 
-class SignupForm(FlaskForm):
+class SignupForm(QuartForm):
     """User Sign-up Form."""
     username = StringField(
         'Username',
@@ -40,7 +40,7 @@ class SignupForm(FlaskForm):
     submit = SubmitField('Register')
 
 
-class LoginForm(FlaskForm):
+class LoginForm(QuartForm):
     """User Log-in Form."""
     email = StringField(
         'Email',

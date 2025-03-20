@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request
-from flask import current_app as app
-from flask_login import current_user, login_required
+from quart import Blueprint, render_template, request
+from quart import current_app as app
+from quart_login import current_user, login_required
 from nornir import InitNornir
 from nornir.core.filter import F
 from gns3_api import gns3_actions

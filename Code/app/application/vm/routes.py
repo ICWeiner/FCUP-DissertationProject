@@ -1,6 +1,6 @@
-from flask import Blueprint, redirect, request, jsonify
-from flask import current_app as app
-from flask_login import login_required
+from quart import Blueprint, redirect, request, jsonify
+from quart import current_app as app
+from quart_login import login_required
 from .. import proxmox_tasks #because this is a package, we need to use .. to go up one level
 
 

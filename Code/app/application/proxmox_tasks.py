@@ -8,7 +8,7 @@ import proxmox_api.utils.proxmox_vm_ip_fetcher as proxmox_vm_ip_fetcher
 import functools
 from . import proxmox_session
 from time import sleep
-from flask import current_app as app
+from quart import current_app as app
 
 
 CONCURRENT_LIMIT = 1
