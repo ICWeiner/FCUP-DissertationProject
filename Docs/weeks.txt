@@ -174,4 +174,5 @@ httpx async isolated test
 integrate httpx into flask, removing celery
 
 18/03:
-Quart migration
+Quart migration ? quart migration by itself is easy, quart-extensions (quart-sqlalchemy, quart-auth) are a PITA
+fast-api evaluation?
