@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2025.2.6)  18 MAR 2025 14:04
+This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2025.2.6)  21 MAR 2025 12:55
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -1038,12 +1038,22 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \c@ALG@storecount=\count373
 \c@ALG@tmpcounter=\count374
 \ALG@tmplength=\skip96
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks62
+\c@algorithm=\count375
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+Document Style - pseudocode environments for use with the `algorithmicx' style
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/backref.sty
 Package: backref 2023-11-26 v1.44 Bibliographical back referencing
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 154.
-Package hyperref Info: Option `breaklinks' set `true' on input line 154.
-Package hyperref Info: Option `hypertexnames' set `true' on input line 154.
+Package hyperref Info: Option `colorlinks' set `true' on input line 156.
+Package hyperref Info: Option `breaklinks' set `true' on input line 156.
+Package hyperref Info: Option `hypertexnames' set `true' on input line 156.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fancybox/fancybox.sty
 Package: fancybox 2010/05/15 1.4
@@ -1052,10 +1062,10 @@ Style option: `fancybox' v1.4 <2010/05/15> (tvz)
 \@fancybox=\box85
 \shadowsize=\dimen295
 \@Sbox=\box86
-\do@VerbBox=\toks62
-\the@fancyput=\toks63
-\this@fancyput=\toks64
-\EndVerbatimTokens=\toks65
+\do@VerbBox=\toks63
+\the@fancyput=\toks64
+\this@fancyput=\toks65
+\EndVerbatimTokens=\toks66
 \Verbatim@Outfile=\write4
 \Verbatim@Infile=\read5
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/ragged2e/ragged2e.sty
@@ -1078,7 +1088,7 @@ Package: ragged2e 2023/06/22 v3.6 ragged2e Package
 (/usr/local/texlive/2024/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip111
-\multirow@cntb=\count375
+\multirow@cntb=\count376
 \multirow@dima=\skip112
 \bigstrutjot=\dimen296
 )
@@ -1106,11 +1116,11 @@ Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen297
-\pgfmath@count=\count376
+\pgfmath@count=\count377
 \pgfmath@box=\box87
-\pgfmath@toks=\toks66
-\pgfmath@stack@operand=\toks67
-\pgfmath@stack@operation=\toks68
+\pgfmath@toks=\toks67
+\pgfmath@stack@operand=\toks68
+\pgfmath@stack@operation=\toks69
 )
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
 tex)
@@ -1132,7 +1142,7 @@ code.tex)
 erarithmetics.code.tex)
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count377
+\c@pgfmathroundto@lastzeros=\count378
 )) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
 de.tex
@@ -1170,7 +1180,7 @@ File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfpic=\box88
 \pgf@hbox=\box89
 \pgf@layerbox@main=\box90
-\pgf@picture@serial@count=\count378
+\pgf@picture@serial@count=\count379
 )
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
 ate.code.tex
@@ -1205,8 +1215,8 @@ File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 e.tex
 File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@max=\dimen321
-\pgf@sys@shading@range@num=\count379
-\pgf@shadingcount=\count380
+\pgf@sys@shading@range@num=\count380
+\pgf@shadingcount=\count381
 )
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
 e.tex
@@ -1261,8 +1271,8 @@ Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
 \pgffor@iter=\dimen324
 \pgffor@skip=\dimen325
-\pgffor@stack=\toks69
-\pgffor@toks=\toks70
+\pgffor@stack=\toks70
+\pgffor@toks=\toks71
 ))
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
 e.tex
@@ -1271,7 +1281,7 @@ Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
 dlers.code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count381
+\pgf@plot@mark@count=\count382
 \pgfplotmarksize=\dimen326
 )
 \tikz@lastx=\dimen327
@@ -1286,19 +1296,19 @@ File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \tikz@figbox@bg=\box94
 \tikz@tempbox=\box95
 \tikz@tempbox@bg=\box96
-\tikztreelevel=\count382
-\tikznumberofchildren=\count383
-\tikznumberofcurrentchild=\count384
-\tikz@fig@count=\count385
+\tikztreelevel=\count383
+\tikznumberofchildren=\count384
+\tikznumberofcurrentchild=\count385
+\tikz@fig@count=\count386
 
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
 e.tex
 File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count386
-\pgfmatrixcurrentcolumn=\count387
-\pgf@matrix@numberofcolumns=\count388
+\pgfmatrixcurrentrow=\count387
+\pgfmatrixcurrentcolumn=\count388
+\pgf@matrix@numberofcolumns=\count389
 )
-\tikz@expandcount=\count389
+\tikz@expandcount=\count390
 
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarytopaths.code.tex
@@ -1308,7 +1318,7 @@ File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 s/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-\c@@todonotes@numberoftodonotes=\count390
+\c@@todonotes@numberoftodonotes=\count391
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fontspec/fontspec.sty
 Package: fontspec 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
@@ -1316,17 +1326,17 @@ Lua module: fontspec 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
 Package: fontspec-luatex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaT
 eX
-\l__fontspec_script_int=\count391
-\l__fontspec_language_int=\count392
-\l__fontspec_strnum_int=\count393
-\l__fontspec_tmp_int=\count394
-\l__fontspec_tmpa_int=\count395
-\l__fontspec_tmpb_int=\count396
-\l__fontspec_tmpc_int=\count397
-\l__fontspec_em_int=\count398
-\l__fontspec_emdef_int=\count399
-\l__fontspec_strong_int=\count400
-\l__fontspec_strongdef_int=\count401
+\l__fontspec_script_int=\count392
+\l__fontspec_language_int=\count393
+\l__fontspec_strnum_int=\count394
+\l__fontspec_tmp_int=\count395
+\l__fontspec_tmpa_int=\count396
+\l__fontspec_tmpb_int=\count397
+\l__fontspec_tmpc_int=\count398
+\l__fontspec_em_int=\count399
+\l__fontspec_emdef_int=\count400
+\l__fontspec_strong_int=\count401
+\l__fontspec_strongdef_int=\count402
 \l__fontspec_tmpa_dim=\dimen335
 \l__fontspec_tmpb_dim=\dimen336
 \l__fontspec_tmpc_dim=\dimen337
@@ -1394,8 +1404,8 @@ Package: glossaries 2024/11/01 v4.55 (NLCT)
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/mfirstuc/mfirstuc.sty
 Package: mfirstuc 2022/10/14 v2.08 (NLCT)
-\@glsmfirst=\toks71
-\@glsmrest=\toks72
+\@glsmfirst=\toks72
+\@glsmrest=\toks73
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/xfor/xfor.sty
 Package: xfor 2009/02/05 v1.05 (NLCT)
@@ -1422,7 +1432,7 @@ Package: datatool-base 2019/09/27 v2.32 (NLCT)
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/substr/substr.sty
 Package: substr 2009/10/20 v1.2 Handle substrings
-\c@su@anzahl=\count402
+\c@su@anzahl=\count403
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/datatool/datatool-fp.sty
 Package: datatool-fp 2019/09/27 v2.32 (NLCT)
@@ -1433,19 +1443,19 @@ Package: fp 1995/04/02
 `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/defpattern.sty
 Package: defpattern 1994/10/12
-\actioncount=\count403
+\actioncount=\count404
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-basic.sty
 Package: fp-basic 1996/05/13
-\FP@xs=\count404
-\FP@xia=\count405
-\FP@xib=\count406
-\FP@xfa=\count407
-\FP@xfb=\count408
-\FP@rega=\count409
-\FP@regb=\count410
-\FP@regs=\count411
-\FP@times=\count412
+\FP@xs=\count405
+\FP@xia=\count406
+\FP@xib=\count407
+\FP@xfa=\count408
+\FP@xfb=\count409
+\FP@rega=\count410
+\FP@regb=\count411
+\FP@regs=\count412
+\FP@times=\count413
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-addons.sty
 Package: fp-addons 1995/03/15
@@ -1464,7 +1474,7 @@ Package: fp-pas 1994/08/29
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-random.sty
 Package: fp-random 1995/02/23
-\FPseed=\count413
+\FPseed=\count414
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-eqn.sty
 Package: fp-eqn 1995/04/03
@@ -1475,23 +1485,23 @@ Package: fp-upn 1996/10/21
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-eval.sty
 Package: fp-eval 1995/04/03
 )))
-\@dtl@toks=\toks73
-\@dtl@tmpcount=\count414
+\@dtl@toks=\toks74
+\@dtl@tmpcount=\count415
 \dtl@tmplength=\skip113
-\dtl@sortresult=\count415
-\@dtl@numgrpsepcount=\count416
-\@dtl@datatype=\count417
-\dtl@codeA=\count418
-\dtl@codeB=\count419
-\@dtl@foreach@level=\count420
+\dtl@sortresult=\count416
+\@dtl@numgrpsepcount=\count417
+\@dtl@datatype=\count418
+\dtl@codeA=\count419
+\dtl@codeB=\count420
+\@dtl@foreach@level=\count421
 )
-\gls@level=\count421
-\@gls@tmpb=\toks74
+\gls@level=\count422
+\@gls@tmpb=\toks75
 \gls@tmplen=\skip114
-\glskeylisttok=\toks75
-\glslabeltok=\toks76
-\glsshorttok=\toks77
-\glslongtok=\toks78
+\glskeylisttok=\toks76
+\glslabeltok=\toks77
+\glsshorttok=\toks78
+\glslongtok=\toks79
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/glossaries/styles/glossary-hypern
 av.sty
@@ -1513,7 +1523,7 @@ sty
 Package: glossary-super 2024/11/01 v4.55 (NLCT)
  (/usr/local/texlive/2024/texmf-dist/tex/latex/supertabular/supertabular.sty
 Package: supertabular 2024/07/20 v4.2c the supertabular environment
-\c@tracingst=\count422
+\c@tracingst=\count423
 \ST@wd=\dimen338
 \ST@rightskip=\skip118
 \ST@leftskip=\skip119
@@ -1538,11 +1548,11 @@ Package: glossary-tree 2024/11/01 v4.55 (NLCT)
 \glo@main@file=\write6
 
 \openout6 = main.glo
-Package glossaries Info: Writing glossary file main.glo on input line 223.
+Package glossaries Info: Writing glossary file main.glo on input line 225.
 \glo@acronym@file=\write7
 
 \openout7 = main.acn
-Package glossaries Info: Writing glossary file main.acn on input line 223.
+Package glossaries Info: Writing glossary file main.acn on input line 225.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/titlesec/titletoc.sty
 Package: titletoc 2025/01/04 v2.17 TOC entries
 \ttl@leftsep=\dimen348
@@ -1623,19 +1633,19 @@ Package caption Info: End \AtBeginDocument code.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count423
+\scratchcounter=\count424
 \scratchdimen=\dimen349
 \scratchbox=\box98
-\nofMPsegments=\count424
-\nofMParguments=\count425
-\everyMPshowfont=\toks79
-\MPscratchCnt=\count426
+\nofMPsegments=\count425
+\nofMParguments=\count426
+\everyMPshowfont=\toks80
+\MPscratchCnt=\count427
 \MPscratchDim=\dimen350
-\MPnumerator=\count427
-\makeMPintoPDFobject=\count428
-\everyMPtoPDFconversion=\toks80
+\MPnumerator=\count428
+\makeMPintoPDFobject=\count429
+\everyMPtoPDFconversion=\toks81
 )
-\c@lstlisting=\count429
+\c@lstlisting=\count430
 Package hyperref Info: Link coloring ON on input line 35.
  (./main.out) (./main.out)
 \@outlinefile=\write8
@@ -1672,12 +1682,12 @@ an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to
 loading the todonotes package. on input line 35.
 
 (./main.glsdefs)
-<Front/main.pdf, id=103, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=123, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf>
 Package luatex.def Info: Front/main.pdf  used on input line 42.
 (luatex.def)             Requested size: 597.51083pt x 845.04503pt.
-<Front/main.pdf, id=105, page=1, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=125, page=1, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf, page 1>
 Package luatex.def Info: Front/main.pdf , page1 used on input line 42.
@@ -1710,7 +1720,7 @@ File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf>
 Package luatex.def Info: Front/main.pdf  used on input line 44.
 (luatex.def)             Requested size: 597.51083pt x 845.04503pt.
-<Front/main.pdf, id=128, page=2, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=148, page=2, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf, page 2>
 Package luatex.def Info: Front/main.pdf , page2 used on input line 44.
@@ -1912,12 +1922,37 @@ Overfull \hbox (6.08986pt too wide) detected at line 35
 
 
 Overfull \hbox (6.08986pt too wide) detected at line 36
- \TU/Arial(0)/m/n/10.95 8
+ \TU/Arial(0)/m/n/10.95 9
  []
 
 
-Overfull \hbox (6.08986pt too wide) detected at line 38
- \TU/Arial(0)/m/n/10.95 8
+Overfull \hbox (6.08986pt too wide) detected at line 37
+ \TU/Arial(0)/m/n/10.95 9
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 38
+ \TU/Arial(0)/m/n/10.95 10
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 39
+ \TU/Arial(0)/m/n/10.95 11
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 40
+ \TU/Arial(0)/m/n/10.95 11
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 41
+ \TU/Arial(0)/m/n/10.95 12
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 43
+ \TU/Arial(0)/m/n/10.95 12
  []
 
 )
@@ -2050,16 +2085,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [4]
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 109--109
-[][][] 
- []
-
-
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 109--109
-[][][] 
- []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2069,7 +2094,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [5]
-<Figures/Background/gns3-web.png, id=273, 1408.51219pt x 579.66562pt>
+<Figures/Background/gns3-web.png, id=302, 1408.51219pt x 579.66562pt>
 File: Figures/Background/gns3-web.png Graphic file (type png)
 <use Figures/Background/gns3-web.png>
 Package luatex.def Info: Figures/Background/gns3-web.png  used on input line 14
@@ -2090,6 +2115,16 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [6]
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 152--152
+[][][] 
+ []
+
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 152--152
+[][][] 
+ []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2101,19 +2136,80 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 [7<./Figures/Background/gns3-web.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\ac' on input line 173.
+(hyperref)                removing `\ac' on input line 188.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\ac' on input line 180.
+(hyperref)                removing `\ac' on input line 195.
 
 
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 211--211
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[8]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[9]
+Overfull \hbox (5.52144pt too wide) in paragraph at lines 237--238
+[]\TU/Arial(0)/b/n/10.95 Ap-pli-ca-tion \TU/Arial(0)/m/n/10.95 - The Py-thon ap-
+pli-ca-tion that pro-cesses re-quests and re-turns re-sponses. 
+ []
+
+
+Overfull \hbox (1.09578pt too wide) in paragraph at lines 247--251
+[]\TU/Arial(0)/m/n/10.95 Dur-ing de-vel-op-ment, Py-thon web ap-pli-ca-tions of-
+ten use built-in servers pro-vided by frame-
+ []
+
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 262--262
 [][][] 
  []
 
 
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 211--211
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 262--262
+[][][] 
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[10]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 268.
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[11]
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 325--325
+[][][] 
+ []
+
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 325--325
 [][][] 
  []
 
@@ -2130,7 +2226,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[8]) (./Appendices/AppendixTemplate.tex
+[12]) (./Appendices/AppendixTemplate.tex
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2139,7 +2235,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[9
+[13
 
 ])
 
@@ -2150,7 +2246,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[10
+[14
 
 ] (./main.aux)
  ***********
@@ -2162,27 +2258,33 @@ L3 programming layer <2025-01-18>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 7AD598D08DCF98F368A87EF3F8C1151B;3327.
-Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: 554C587B68F24DDFF659FBF9C072ECA5;113.
+(rerunfilecheck)             Checksum: FA2A3312D0574292140006F4E213F205;3980.
+
+Package rerunfilecheck Warning: File `main.brf' has changed.
+(rerunfilecheck)                Rerun to get bibliographical references right.
+
+Package rerunfilecheck Info: Checksums for `main.brf':
+(rerunfilecheck)             Before: C6EE7D01206B1DC3497D499F67A6CAD0;323
+(rerunfilecheck)             After:  612A688B9D49248F515557606BBED259;366.
 )
 
 Here is how much of LuaTeX's memory you used:
- 45346 strings out of 475512
+ 45728 strings out of 475512
  125126,1648299 words of node,token memory allocated
- 8706 words of node memory still in use:
-   133 hlist, 14 vlist, 2 rule, 20 disc, 8 local_par, 202 glue, 4 kern, 14 penal
-ty, 209 glyph, 900 attribute, 96 glue_spec, 452 attribute_list, 11 write, 1 clos
-e, 8 save_pos, 268 pdf_literal, 2 pdf_action, 8 pdf_colorstack nodes
-   avail lists: 1:2,2:1124,3:407,4:179,5:134,6:66,7:6618,8:58,9:459,10:17,11:597
+ 10534 words of node memory still in use:
+   164 hlist, 17 vlist, 2 rule, 18 disc, 10 local_par, 252 glue, 4 kern, 20 pena
+lty, 246 glyph, 1124 attribute, 96 glue_spec, 564 attribute_list, 13 write, 1 cl
+ose, 10 save_pos, 335 pdf_literal, 4 pdf_action, 10 pdf_colorstack nodes
+   avail lists: 1:1,2:886,3:275,4:217,5:157,6:77,7:6280,8:58,9:535,10:17,11:587
+ 67310 multiletter control sequences out of 65536+600000
+ 106 fonts using 8915871 bytes
+ 108i,19n,125p,2381b,1234s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
- 66955 multiletter control sequences out of 65536+600000
- 105 fonts using 8694903 bytes
- 108i,18n,125p,2381b,1234s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-warning  (pdf backend): unreferenced destination with name 'glo:vm'
+warning  (pdf backend): unreferenced destination with name 'glo:wsgi'
 
 warning  (pdf backend): unreferenced destination with name 'glo:pve'
+
+warning  (pdf backend): unreferenced destination with name 'glo:vm'
 
 warning  (pdf backend): unreferenced destination with name 'glo:vpcs'
 
@@ -2210,10 +2312,10 @@ warning  (pdf backend): unreferenced destination with name 'glo:kvm'
 </usr/share/fonts/truetype/msttcorefonts/ariali.ttf></usr/share/fonts/truetype/m
 sttcorefonts/arialbd.ttf></usr/share/fonts/truetype/msttcorefonts/arial.ttf></us
 r/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on main.pdf (18 pages, 265676 bytes).
+Output written on main.pdf (22 pages, 288349 bytes).
 
-PDF statistics: 372 PDF objects out of 1000 (max. 8388607)
- 301 compressed objects within 4 object streams
- 71 named destinations out of 1000 (max. 131072)
- 208 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 465 PDF objects out of 1000 (max. 8388607)
+ 385 compressed objects within 4 object streams
+ 88 named destinations out of 1000 (max. 131072)
+ 248 words of extra memory for PDF output out of 10000 (max. 100000000)
 

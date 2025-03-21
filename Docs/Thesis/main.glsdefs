@@ -390,6 +390,34 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{asgi}%
+{%
+name={\acronymfont {\glsentryshort {asgi}}},%
+sort={aSGI},%
+type={acronym},%
+first={aSGI},%
+firstplural={aSGIs},%
+text={aSGI},%
+plural={aSGIs},%
+description={Asynchronous Server Gateway Interface},%
+descriptionplural={Asynchronous Server Gateway Interface},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Asynchronous Server Gateway Interface},%
+longplural={Asynchronous Server Gateway Interfaces},%
+short={aSGI},%
+shortplural={aSGIs},%
+counter={page},%
+parent={},%
+%
+}%
+
 \glsdefs@newdocentry{pve}%
 {%
 name={\acronymfont {\glsentryshort {pve}}},%

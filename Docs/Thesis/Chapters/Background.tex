@@ -106,7 +106,7 @@ for this project.
 \subsection{Architecture}
 The software can be employed in a variety of ways due to its architecture \cite{GNS3Architecture} that separates the user 
 interfaces that it offers, namely the locally installed gns3-gui as well as the browser accessible gns3-web, from the 
-gns3-server that runs the emulations and the controller who orchestrates everything. \info{add image about gns3 architecture}
+gns3-server that runs the emulations and the controller who orchestrates everything.
 
 \subsubsection{Controller}
 The controller is integrated in the gns3-server project and is responsible for communicating with all the other components 
@@ -125,9 +125,9 @@ The list of currently supported emulators is:
     \item \textbf{Dynamips} - Used to emulate Cisco routers and basic switching.
     \item \textbf{\ac{iou}} - Used to emulate Cisco\ac{ios} devices.
     \item \textbf{\ac{qemu}} - Used to emulate a wide variety of devices.
-    \item \textbf{\ac{vpcs}} - A basic program meant to simulate a basic PC
-    \item \textbf{VMware/VirtualBox} - Used to run virtual machines with nested virtualization support
-    \item \textbf{Docker} - Used to run containers
+    \item \textbf{\ac{vpcs}} - A basic program meant to simulate a basic PC.
+    \item \textbf{VMware/VirtualBox} - Used to run virtual machines with nested virtualization support.
+    \item \textbf{Docker} - Used to run docker containers.
   \end{itemize}
 
 \subsubsection{GUI}
@@ -145,9 +145,24 @@ gns3-gui.
 	\hfill
 \end{figure}
 
+\section{Linux}
+Linux is a core component of this project, as it is the operating system used to host all the services provided.
+
+\begin{itemize}
+  \item \textbf{Containerized Flask Application} \info{"Flask" subject to change} - The Flask web application runs inside 
+  an LXC container on Proxmox. Since LXC containers share the host kernel, the containerized Flask app benefits from 
+  efficient resource usage while maintaining isolation from the host system.
+  \item \textbf{Virtual Machines hosting GNS3} Proxmox also hosts virtual machines running Linux-based Ubuntu GNS3 servers. 
+  These VMs provide students with isolated environments to configure and test network topologies, benefiting from the 
+  flexibility of full virtualization through KVM, giving them the ability to virtualize any type of network device.
+  Students only interact with these \ac{vm}s via the GNS3 web Interface.
+  \item \textbf{\ac{pve}} - Proxmox is a Linux-based open-source platform for enterprise-level virtualization. It is based
+  on the Debian Linux distribution.
+\end{itemize}
+
 
 \section{Proxmox Virtual Environment} 
-\ac{pve} is an open-source platform designed for enterprise-level virtualization. It is based on the Debian
+\ac{pve} is an open-source platform designed for enterprise-level virtualization \cite{proxmox2025}. It is based on the Debian
 distribution of Linux and provides a web-based interface for managing virtual machines and containers. It is widely used
 in data centers and cloud environments, as it provides a scalable and reliable solution for virtualization.
 
@@ -190,10 +205,109 @@ much faster than \ac{vm}s making them ideal for scenarios requiring rapid deploy
 However, it's important to note that while containers offer a degree of isolation, they do not provide the same level of
 security as\ac{vm}s. This means that while they may not always be a suitable replacement for\ac{vm}s.
 
+\section{Python}
+Python is a high-level, interpreted programming language renowned for its readability and versatility. It supports 
+multiple programming paradigms, including procedural, object-oriented, and functional programming, making it suitable 
+for a wide array of applications.
+In the context of this project, Python serves as the primary programming language as its extensive standard library 
+and supportive community contribute to efficient development and maintenance of the project's codebase.
 
-\section{Nornir}
+\section{WSGI}
+The\ac{wsgi} is a pivotal standard for Python web application deployment, defining a consistent interface between web 
+servers and Python applications or frameworks.
 
-\section{Python?}
+Prior to \ac{wsgi}'s introduction, Python web frameworks were typically written against various server-specific APIs such as 
+CGI, FastCGI, or mod\_python. This diversity led to compatibility issues, limiting developers' choices of web servers and 
+frameworks, as not all frameworks supported all web servers and vice-versa. To address this fragmentation, \ac{wsgi} was 
+created as a standardized interface, promoting portability and flexibility in deploying Python web applications. 
+
+\ac{wsgi} serves as a bridge, enabling web servers to communicate with Python applications. It specifies a simple and universal 
+interface for web servers to forward requests to Python applications and for those applications to return responses. 
+This standardization allows developers to choose from a variety of web servers and Python frameworks without compatibility 
+concerns\cite{pep333}.
+
+Introduced in 2003 as PEP 333, \ac{wsgi} was later updated to PEP 3333 in 2010 to accommodate Python 3. These specifications 
+outline how web servers and Python applications should interact, ensuring a consistent and reliable deployment environment 
+across different platforms.
+
+The \ac{wsgi} standard consists of two main components:
+\begin{itemize}
+  \item \textbf{Server/Gateway Side} - Responsible for receiving\ac{http} requests from clients and passing them to the 
+  Python application. Then receives the response from the application and forwards it to the client. 
+  \item \textbf{Application} - The Python application that processes requests and returns responses.
+\end{itemize}
+
+Additionally \ac{wsgi} has support for middleware components. \ac{wsgi} middleware is a Python callable that wraps another 
+\ac{wsgi} application to observe or modify its behavior. Middleware can perform various functions, including request 
+preprocessing, response postprocessing, session management, and security checks. This modularity allows developers to 
+add functionality to their applications in a reusable and maintainable manner.
+
+The separation defined by \ac{wsgi} allows for flexibility and scalability in deploying Python web applications.
+
+During development, Python web applications often use built-in servers provided by frameworks like Flask. 
+However, these servers are not suitable for production environments. In production, WSGI servers act as intermediaries 
+between web servers (e.g., NGINX or Apache) and Python applications, handling incoming requests and serving responses 
+efficiently.
+
+\subsection{Flask}
+Flask is a web application micro framework written in Python, adhering to the \ac{wsgi} standard, designed to 
+facilitate the development of web applications by providing essential tools and features. Classified as a microframework, 
+Flask does not require particular tools or libraries, instead choosing to focus on simplicity and extensibility\cite{flask2025}.
+
+Here, Flask serves as the backbone for the entire project, providing the necessary infrastructure to handle HTTP 
+requests, render templates, and manage application routing. Its flexibility and minimalistic approach allow for the 
+integration of various extensions and libraries as needed, ensuring the application remains lightweight yet functional. 
+Flask's comprehensive documentation and supportive community further enhance its suitability by the creation and support
+of community-driven extensions speeding up development and reducing the need to reinvent the wheel.
+\unsure{flask might be changed to Quart of FastAPI}
+
+An example of how easy it is to develop a basic web application with flask is provided in the following small 
+piece of code.
+
+\begin{algorithm}
+  \caption{Flask Hello World}\label{flask-hello-world}
+  \begin{algorithmic}[1]
+    \State \textbf{from} flask \textbf{import} Flask
+    \State \textbf{app} = Flask(\_\_name\_\_)
+    \State
+    \State \textbf{@app.route('/')}
+    \State \textbf{def} hello\_world():
+    \State \hspace{1em} \textbf{return} 'Hello, World!'
+    \State
+    \State \textbf{if} \_\_name\_\_ == '\_\_main\_\_':
+    \State \hspace{1em} app.run()
+  \end{algorithmic}
+\end{algorithm}
+
+
+\subsubsection{Asynchronicity}
+
+\subsection{Nornir}
+Nornir is an open-source automation framework written in Python, designed to provide a flexible and efficient 
+approach to network automation tasks\cite{nornir2025}. Unlike other automation tools that utilize customized pseudo-languages, Nornir 
+leverages pure Python code, offering developers the full power and versatility of the Python ecosystem.
+
+Nornir supports multi-threaded task execution, allowing operations to run parallel across multiple devices.
+This capability enhances efficiency and reduces the time required enabling easy scaling to a large number of devices.
+
+The framework provides a robust inventory management system, enabling the organization of devices into groups and the 
+assignment of specific tasks to these groups. This structure facilitates targeted automation and simplifies complex 
+network operations.
+
+Finally, thanks to nornir's architecture, it is highly extensible through its plugin system, allowing users to create 
+custom plugins for inventory management, task execution, and result processing. This modularity ensures that Nornir can 
+adapt to a wide range of network automation scenarios.
+
+Nornir is particularly well-suited for tasks such as configuration management and state validation which makes it 
+highly desirable in the context of this project. Its ability to handle concurrent operations will also ensure it can scale 
+alongside the rest of the project.
+
+\subsection{Requests}
+The requests\cite{requests2025} library is a popular and user-friendly\ac{http} library for Python, used to send\ac{http} requests to web 
+services. It simplifies interactions with APIs by simple to use methods for the various\ac{http} verbs, as well as
+providing support for cookies, sessions, authentication, \ac{json} and exception handling for network failures and 
+invalid responses.
+
 
 
 
@@ -202,9 +316,9 @@ Python
 Nornir
 GNS3
 ProxmoxVE
-Flask
+Flask -> quart/fastapi
 Requests -> celery -> HTTPX
-WSGI -> Gunicorn
+WSGI -> ASGI
 Linux
 NGINX?
 Gunicorn?

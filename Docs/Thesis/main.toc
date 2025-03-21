@@ -28,12 +28,17 @@
 \contentsline {subsubsection}{\numberline {2.3.1.1}Controller}{6}{subsubsection.2.3.1.1}%
 \contentsline {subsubsection}{\numberline {2.3.1.2}Compute}{6}{subsubsection.2.3.1.2}%
 \contentsline {subsubsection}{\numberline {2.3.1.3}GUI}{6}{subsubsection.2.3.1.3}%
-\contentsline {section}{\numberline {2.4}Proxmox Virtual Environment}{7}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Virtualization Technologies}{7}{subsection.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.4.1.1}\ac {kvm}}{8}{subsubsection.2.4.1.1}%
-\contentsline {subsubsection}{\numberline {2.4.1.2}\ac {lxc}}{8}{subsubsection.2.4.1.2}%
-\contentsline {section}{\numberline {2.5}Nornir}{8}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Python?}{8}{section.2.6}%
+\contentsline {section}{\numberline {2.4}Linux}{7}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Proxmox Virtual Environment}{7}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Virtualization Technologies}{8}{subsection.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.5.1.1}\ac {kvm}}{8}{subsubsection.2.5.1.1}%
+\contentsline {subsubsection}{\numberline {2.5.1.2}\ac {lxc}}{8}{subsubsection.2.5.1.2}%
+\contentsline {section}{\numberline {2.6}Python}{9}{section.2.6}%
+\contentsline {section}{\numberline {2.7}WSGI}{9}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Flask}{10}{subsection.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.7.1.1}Asynchronicity}{11}{subsubsection.2.7.1.1}%
+\contentsline {subsection}{\numberline {2.7.2}Nornir}{11}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Requests}{12}{subsection.2.7.3}%
 \vspace {0.5cm}
-\contentsline {chapter}{Bibliography}{8}{dummy.6}%
+\contentsline {chapter}{Bibliography}{12}{dummy.6}%
 \contentsfinish 
