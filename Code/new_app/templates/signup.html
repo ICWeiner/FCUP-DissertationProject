@@ -6,7 +6,7 @@
 
     <h1>Sign Up</h1>
 
-    <form method="POST" action=" {{ url_for( 'create_user' )}}">
+    <form method="POST" action=" {{ url_for( 'create_user' )}} ">
 
       <fieldset class="username">
         <label for="username">Username</label>
@@ -37,7 +37,7 @@
     <div class="login-signup">
       <div>
         <span>Already have an account?</span>
-        <a href="">Log in.</a>
+        <a href=" {{ url_for( 'login_user_form' ) }} ">Log in.</a>
       </div>
     </div>
   </div>

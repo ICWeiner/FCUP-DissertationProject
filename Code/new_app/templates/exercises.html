@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+        <a href=" ">Create exercise</a><br>
+        {% for id, name in exercises.items() %}
+            <a href=" ">{{ name }}</a><br>
+        {% endfor %}
+
+    </div>
+{% endblock %}

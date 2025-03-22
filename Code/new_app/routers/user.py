@@ -25,8 +25,8 @@ class LoginFormData(BaseModel):
 @router.get("/register", response_class=HTMLResponse)
 async def create_user_form(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request,
-                                                     "title": "Create an Account.",
-                                                     "body": "Sign up for a user account."})
+                                                     "title": "Create an Account",
+                                                     "body": "Sign up for a user account"})
 
 @router.post("/register")
 async def create_user(data: Annotated[RegisterFormData, Form()], session = Depends(get_session)):
@@ -38,3 +38,13 @@ async def create_user(data: Annotated[RegisterFormData, Form()], session = Depen
     session.commit()
     session.refresh(db_user)
     return db_user
+
+@router.get("/login", response_class=HTMLResponse)
+async def login_user_form(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request,
+                                                     "title": "Log in",
+                                                     "body": "Log in with your User account"})
+
+@router.post("/login")
+async def login_user(data: Annotated[RegisterFormData, Form()], session = Depends(get_session)):
+    pass #TODO: implement login

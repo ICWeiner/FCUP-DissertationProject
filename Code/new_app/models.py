@@ -26,6 +26,17 @@ class UserUpdate(UserBase):
     email: str | None = None
     password: str | None = None
 
+
+class Exercise(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True, unique=True)
+    name: str = Field(nullable=False, max_length=64)
+    description: str = Field(nullable=False, max_length=255)
+    created_on: datetime = Field(nullable=False, default=datetime.now())
+    templatevm_id: Optional[int] = Field(default=None, foreign_key="templatevm.id", nullable=True)
+
+    #submissions: List["Submission"] = Relationship(back_populates="exercise")
+    #templatevm: Optional["TemplateVm"] = Relationship(back_populates="exercise")  # One-to-One
+
 '''
 class WorkVm(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, unique=True)
@@ -48,16 +59,6 @@ class TemplateVm(SQLModel, table=True):
 
     exercise: Optional["Exercise"] = Relationship(back_populates="templatevm")  # One-to-One
     workvms: List["WorkVm"] = Relationship(back_populates="templatevm")  # One-to-Many
-
-class Exercise(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True, unique=True)
-    name: str = Field(nullable=False, max_length=64)
-    description: str = Field(nullable=False, max_length=255)
-    created_on: datetime = Field(nullable=False, default=datetime.now())
-    templatevm_id: Optional[int] = Field(default=None, foreign_key="templatevm.id", nullable=True)
-
-    submissions: List["Submission"] = Relationship(back_populates="exercise")
-    templatevm: Optional["TemplateVm"] = Relationship(back_populates="exercise")  # One-to-One
 
 class Submission(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)

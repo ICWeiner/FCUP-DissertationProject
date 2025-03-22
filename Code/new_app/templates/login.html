@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+  <div class="form-wrapper">
+
+    <h1>Log In</h1>
+
+    <form method="POST" action=" {{ url_for( 'login_user' )}} ">
+
+      <fieldset class="email">
+        <label for="email">Email</label>
+        <input id="email" name="email" placeholder="youremail@example.com" required="" type="text" value="">
+      </fieldset>
+
+      <fieldset class="password">
+        <label for="password">Password</label>
+        <input id="password" name="password" required="" type="password" value="">
+      </fieldset>
+
+      <div class="submit-button">
+        <input id="submit" name="submit" type="submit" value="Log In">
+      </div>
+
+      <div class="login-signup">
+        <span>Don't have an account?</span>
+        <a href="{{ url_for('create_user_form') }}">Sign up.</a>
+      </div>
+
+    </form>
+  </div>
+
+{% endblock %}
