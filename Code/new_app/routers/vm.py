@@ -3,13 +3,12 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.exceptions import HTTPException
 from fastapi.templating import Jinja2Templates
 from ..services import proxmox as proxmox_services
+
 router = APIRouter(prefix="/vm",
                     tags=["vms"],
                     responses={404: {"description": "Not found"}})
 
 templates = Jinja2Templates(directory="templates")
-
-
 
 @router.post("/{vm_proxmox_id}/start")
 async def start_vm(vm_proxmox_id: int):

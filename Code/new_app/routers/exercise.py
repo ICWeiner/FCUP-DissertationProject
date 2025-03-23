@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from typing import Annotated, List
 from ..models import Exercise
-from ..dependencies import SessionDep
+from ..dependencies.database import SessionDep
 
 router = APIRouter(prefix="/exercises",
                     tags=["exercises"],
