@@ -11,7 +11,7 @@ from typing import Annotated
 from fastapi import  Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
-from ..dependencies.auth import UserRepositoryDep
+from ..dependencies.repositories import UserRepositoryDep
 
 
 load_dotenv()

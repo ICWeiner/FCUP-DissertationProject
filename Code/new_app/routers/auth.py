@@ -11,7 +11,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordRequestForm
 
 from ..models import UserCreate, UserPublic, User
-from ..dependencies.auth import UserRepositoryDep
+from ..dependencies.repositories import UserRepositoryDep
 from ..services import auth as auth_services
 
 router = APIRouter(tags=["users"],
@@ -47,8 +47,11 @@ async def create_user(
                       email = data.email,
                       hashed_password = auth_services.get_password_hash(data.password),
                       admin = False)
+    
     db_user = User.model_validate(user)
+
     user_repository.save(db_user)
+
     return db_user
 
 @router.get("/login", response_class=HTMLResponse)
