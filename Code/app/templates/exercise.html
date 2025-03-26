@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{body}}</p>
+        <form action=" {{ url_for( 'start_vm', vm_proxmox_id = 101 ) }} " method="POST">
+            <button type="submit">Start work environment</button>
+        </form>
+
+        <form action=" {{ url_for( 'stop_vm', vm_proxmox_id = 101 ) }} " method="POST">
+            <button type="submit">Stop work environment</button>
+        </form>
+
+        <form action=" {{ url_for( 'connect_vm', vm_proxmox_id = 101 ) }} " method="POST">
+            <button type="submit">Connect to work environment</button>
+        </form>
+
+        <form action=" {{ url_for( 'start_vm_firewall', vm_proxmox_id = 101 ) }} " method="POST">
+            <button type="submit">Turn on exam mode</button>
+        </form>
+
+        <form action=" {{ url_for( 'stop_vm_firewall', vm_proxmox_id = 101 ) }} " method="POST">
+            <button type="submit">Turn off exam mode</button>
+        </form>
+
+        <form action="" method="POST">
+            <button type="submit">Delete exercise and all associated VMs</button>
+        </form>
+
+        <form action="" method="POST">
+            <label for="hostname">Hostname:</label>
+            <input type="text" id="hostname" name="hostname" required>
+
+            <label for="ip_address">IP Address:</label>
+            <input type="text" id="ip_address" name="ip_address" required>
+
+            <button type="submit">Check exercise results</button>
+        </form>
+
+        <form action="" method="POST">
+            <label for="hostname">Hostname:</label>
+            <input type="text" id="hostname" name="hostname" required>
+
+            <label for="ip_address">IP Address:</label>
+            <input type="text" id="ip_address" name="ip_address" required>
+
+            <button type="submit">Check exercise results</button>
+        </form>
+
+    </div>
+{% endblock %}
