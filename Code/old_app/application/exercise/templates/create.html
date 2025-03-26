@@ -1,0 +1,169 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <script>
+      let hostnameIndex = 0; // Track number of hostname tables
+      let hostnamesList = []; // List of hostnames
+
+      function addHostname() {
+          let container = document.getElementById("hostnames-container");
+
+          let newTable = document.createElement("table");
+          newTable.id = `hostnames-${hostnameIndex}`;
+          newTable.innerHTML = `
+              <tbody>
+                  <tr>
+                      <th><label for="hostnames-${hostnameIndex}-hostname">Hostname</label></th>
+                      <td>
+                          <select id="hostnames-${hostnameIndex}-hostname" name="hostnames-${hostnameIndex}-hostname">
+                              ${hostnamesList.map(hostname => 
+                                  `<option value="${hostname}">${hostname}</option>`
+                              ).join('')}
+                          </select>
+                          <button type="button" onclick="removeElement('${newTable.id}')">Remove Hostname</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th><label for="hostnames-${hostnameIndex}-commands">Commands</label></th>
+                      <td>
+                          <ul id="hostnames-${hostnameIndex}-commands">
+                              <li>
+                                  <label for="hostnames-${hostnameIndex}-commands-0">Command</label>
+                                  <input id="hostnames-${hostnameIndex}-commands-0" name="hostnames-${hostnameIndex}-commands-0" type="text">
+                                  <button type="button" onclick="removeElement(this.parentNode)">Remove Command</button>
+                              </li>
+                          </ul>
+                          <button type="button" onclick="addCommand(${hostnameIndex})">Add Command</button>
+                      </td>
+                  </tr>
+              </tbody>
+          `;
+
+          container.appendChild(newTable);
+          hostnameIndex++;
+      }
+
+      function addCommand(hostIndex) {
+          let commandsList = document.getElementById(`hostnames-${hostIndex}-commands`);
+          let commandIndex = commandsList.children.length; // Get next command index
+
+          let newCommand = document.createElement("li");
+          newCommand.innerHTML = `
+              <label for="hostnames-${hostIndex}-commands-${commandIndex}">Command</label>
+              <input id="hostnames-${hostIndex}-commands-${commandIndex}" name="hostnames-${hostIndex}-commands-${commandIndex}" type="text">
+              <button type="button" onclick="removeElement(this.parentNode)">Remove Command</button>
+          `;
+
+          commandsList.appendChild(newCommand);
+      }
+
+      function removeElement(element) {
+          if (typeof element === "string") {
+              document.getElementById(element).remove(); // Remove hostname table
+          } else {
+              element.remove(); // Remove command input field
+          }
+      }
+
+      function uploadHostnames() {
+        const fileInput = document.getElementById('gns3_file');
+        const file = fileInput.files[0];
+        
+        if (!file || !file.name.endsWith('.gns3project')) {
+            alert('Please upload a valid .gns3project file.');
+            fileInput.value = '';
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('{{ url_for("exercise_bp.retrieve_hostnames") }}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const container = document.getElementById('hostnames-container');
+                container.innerHTML = '';   
+                hostnamesList = data.hostnamesList;           
+            } else {
+                alert('Error processing file: ' + data.error);
+            }
+        })
+        .catch(error => {
+            alert('Error uploading file.');
+        });
+    }
+    </script>
+    <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+        <div class="form-wrapper">
+        
+            <h1>New Exercise</h1>
+        
+            <form method="POST" action="{{ url_for('exercise_bp.exercise_create') }}" enctype='multipart/form-data'>
+              {{ form.csrf_token }}
+        
+              <fieldset class="title">
+                {{ form.title.label }}
+                {{ form.title(placeholder='Title') }}
+                {% if form.title.errors %}
+                  <ul class="errors">
+                    {% for error in form.title.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
+        
+              <fieldset class="body">
+                {{ form.body.label }}
+                {{ form.body(placeholder='Body') }}
+                {% if form.body.errors %}
+                  <ul class="errors">
+                    {% for error in form.body.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
+
+              <fieldset class="proxmox_id">
+                {{ form.proxmox_id.label }}
+                {{ form.proxmox_id(placeholder='Proxmox ID') }}
+                {% if form.proxmox_id.errors %}
+                  <ul class="errors">
+                    {% for error in form.proxmox_id.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
+
+              <fieldset class="gns3_file">
+                {{ form.gns3_file.label }}
+                {{ form.gns3_file(placeholder='GNS3 Project File', onchange="uploadHostnames()") }}
+                {% if form.gns3_file.errors %}
+                  <ul class="errors">
+                    {% for error in form.gns3_file.errors %}
+                      <li>{{ error }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+              </fieldset>
+
+              <fieldset class="hostnames">
+              <div id="hostnames-container">
+                  <!-- Hostname tables will be added here dynamically -->
+              </div>
+      
+              <button type="button" onclick="addHostname()">Add Hostname</button>
+              </fieldset>
+        
+              <div class="submit-button">
+                {{ form.submit }}
+              </div>
+        
+            </form>
+          </div>
+    </div>
+{% endblock %}
