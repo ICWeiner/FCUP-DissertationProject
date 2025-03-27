@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from app.routers import auth, home, exercise, vm
 from app.database import create_db_and_tables
 
-app = FastAPI()
+app = FastAPI(debug=True)
 
 app.include_router(home.router)
 app.include_router(auth.router)

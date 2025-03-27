@@ -1,7 +1,7 @@
 from gns3_api import gns3_actions
 from gns3_api.utils import gns3_parser
 from nornir_lib.modules.generic import GenericLibrary 
-from time import sleep
+from time import sleep #TODO, change to async?
 
 def import_gns3_project(node_ip, path_to_gns3project):#TODO: decide if async or not 
     gns3_project_id = gns3_actions.import_project(node_ip, path_to_gns3project)

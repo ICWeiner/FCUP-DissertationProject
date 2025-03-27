@@ -35,18 +35,19 @@ def upgrade() -> None:
     submission = sa.Table('submission', metadata, autoload_with=bind)
 
 
-    op.bulk_insert(user, [
-        {
+    op.bulk_insert(user, 
+                   [
+                {
                 "created_on": datetime.datetime(2023, 1, 1, 12, 0, 0),
                 "username": "johndoe",
                 "email": "johndoe@mail.com",
                 "id": 1,
                 "hashed_password": "$2b$12$Ytt6KbdiTJaB5KxleeEtUOj1.ev2Bu13Us8Kvz86.pdorVwQpbsVu",
                 "last_login": datetime.datetime(2023, 5, 10, 14, 30, 0),
-                "admin": True}
+                "admin": True
+                },
         ]
-    )
-    
+    )   
 
     # Insert data into the 'templatevm' table
     op.bulk_insert(templatevm,

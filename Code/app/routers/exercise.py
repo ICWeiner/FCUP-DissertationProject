@@ -1,12 +1,13 @@
 import uuid
 import time
 import os
+import shutil
 
 import asyncio
 
 from pydantic import BaseModel
-from fastapi import APIRouter, Request, Form, UploadFile, File
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Request, Form, UploadFile, File, HTTPException
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from typing import Annotated, List
 
@@ -16,7 +17,6 @@ from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryD
 from app.services import proxmox as proxmox_tasks
 from app.services import gns3 as gns3_tasks
 from app.utils import gns3 as gns3_utils
-from app.config import settings
 
 import logging
 import psutil
@@ -41,21 +41,20 @@ router = APIRouter(prefix="/exercises",
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates/"))
 
 class HostnameModel(BaseModel):
-    hostname: str
-    commands: List[str]
+    hostname: str | None
+    commands: List[str] | None
 
 class CreateExerciseFormData(BaseModel):
     title: str
     body: str
     proxmox_id: int
-    #hostnames: List[HostnameModel]
-
+    gns3_file: UploadFile = File(...)
+    #hostnames: List[HostnameModel] | None
 
 @router.get('/', response_class=HTMLResponse)
 async def check_list_exercises(request: Request,
                             exercise_repository: ExerciseRepositoryDep,
                             current_user: CurrentUserDep,
-
 ):
     exercises = exercise_repository.find_all()
 
@@ -63,6 +62,28 @@ async def check_list_exercises(request: Request,
                                                         "title" : "Exercises",
                                                         "description" : "Here you can see the list of available exercises",
                                                         "exercises" : exercises})
+
+@router.get('/create', response_class=HTMLResponse)
+async def create_exercise_form(request: Request,
+                            #current_user: CurrentUserDep,
+):
+    return templates.TemplateResponse('create_exercise.html', {"request": request })
+
+@router.post("/retrieve-hostnames")
+async def retrieve_hostnames(gns3_file: UploadFile = File(...)):
+    if not gns3_file.filename:
+        logging.warning("No file sent in the request for retrieve-hostnames")
+        raise HTTPException(status_code=400, detail="No file part")
+
+    if not gns3_file.filename.lower().endswith(".gns3project"):
+        logging.warning("Invalid file type sent in retrieve-hostnames request")
+        raise HTTPException(status_code=400, detail="Invalid file type. Only .gns3project files are allowed")
+
+    try:
+        nodes = gns3_utils.extract_node_names(gns3_file.file)
+        return JSONResponse(content={"hostnamesList": nodes, "success": True}, status_code=200)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON format: {str(e)}")
 
 
 @router.get("/{exercise_id}", response_class=HTMLResponse)#TODO: implement finding user's id and related vm
@@ -84,36 +105,36 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
                         user_repository: UserRepositoryDep,
                         templatevm_repository: TemplateVmRepositoryDep,
                         workvm_repository: WorkVmRepositoryDep,
-                        current_user: CurrentUserDep,
+                        #current_user: CurrentUserDep,
                         data: Annotated[CreateExerciseFormData, Form()],
-                        gns3_file: UploadFile = File(...),
-
-):
+):  
     exercise = Exercise (name = data.title,
                          description = data.body,
                          templatevm_id = data.proxmox_id)
-    
     
     db_exercise = Exercise.model_validate(exercise)
     
     exercise_repository.save(db_exercise)
 
-    filename = gns3_utils.generate_unique_filename(gns3_file.data.filename)
+    filename = gns3_utils.generate_unique_filename(data.gns3_file.filename)
 
-    path_to_gns3project = os.path.join(settings.UPLOAD_FOLDER, filename)
+    path_to_gns3project = os.path.join(str(BASE_DIR / "uploads"), filename)
+
+    with open(path_to_gns3project, "wb") as buffer:
+        shutil.copyfileobj(data.gns3_file.file, buffer)
 
     template_hostname = f'tvm-{uuid.uuid4().hex[:18]}'#the length of this hostname can be extended up to 63 characters if more uniqueness is required
 
     commands_by_hostname = []
     
     #formats data in this manner [{'hostname': 'r1', 'commands': ['show version', 'ping 8.8.8.8']}, {'hostname': 'pc1', 'commands': ['traceroute 8.8.4.4']}] 
-    for hostname_form in data.hostnames:
+    '''for hostname_form in data.hostnames:
         hostname_data = {
-            "hostname": hostname_form.hostnames.data,
-            "commands": [command_form.data for command_form in hostname_form.commands]
+            "hostname": hostname_form.hostnames,
+            #"commands": [command_form.data for command_form in hostname_form.commands]#TODO this isnt right
         }
         commands_by_hostname.append(hostname_data)
-    
+    '''
     start_time_template_vm = time.perf_counter()
     
     #Step 1: Clone base template VM needs base template ID and hostname returns cloned vm ID
