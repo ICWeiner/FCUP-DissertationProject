@@ -2,16 +2,16 @@ import random
 import httpx
 import asyncio
 import logging
+import functools
+
+from time import sleep #this should probably be asyncio sleep not time sleep, but weird things happens when i change
+
 import proxmox_api.proxmox_vm_actions as proxmox_vm_actions 
 import proxmox_api.proxmox_vm_firewall as proxmox_vm_firewall
 import proxmox_api.utils.proxmox_vm_ip_fetcher as proxmox_vm_ip_fetcher
-import functools
+
 from . import proxmox_session
-from time import sleep #this should probably be asyncio sleep not time sleep, but weird things happens when i change
-
 from ..config import settings
-
-CONCURRENT_LIMIT = settings.CONCURRENT_LIMIT
 
 class SemaphoreManager:
     _semaphore = None
@@ -19,8 +19,7 @@ class SemaphoreManager:
     @classmethod
     def get_semaphore(cls):
         if cls._semaphore is None:
-            #loop = asyncio.get_running_loop()  # Ensure we're using the correct event loop
-            cls._semaphore = asyncio.Semaphore(1)
+            cls._semaphore = asyncio.Semaphore(settings.CONCURRENT_LIMIT)
         return cls._semaphore
     
 logging.basicConfig(
@@ -35,15 +34,15 @@ logging.basicConfig(
 def with_proxmox_session(func):
     @functools.wraps(func)
     async def wrapper(*args, **kwargs):
-        #async with SemaphoreManager.get_semaphore():
-        session = await proxmox_session.aget_proxmox_session( *_get_proxmox_host_and_credentials() )
-        try:
-            return await func(session, *args, **kwargs)
-        except httpx.RequestError as err:
-            logging.error(f"Error in {func.__name__}: {err}")
-            return False
-        finally:
-            await session.aclose()
+        async with SemaphoreManager.get_semaphore():
+            session = await proxmox_session.aget_proxmox_session( *_get_proxmox_host_and_credentials() )
+            try:
+                return await func(session, *args, **kwargs)
+            except httpx.RequestError as err:
+                logging.error(f"Error in {func.__name__}: {err}")
+                return False
+            finally:
+                await session.aclose()
     return wrapper
 
 def _get_proxmox_host():
@@ -102,6 +101,10 @@ async def atemplate_vm(session, vm_proxmox_id, max_retries=10, interval=5):
 @with_proxmox_session
 async def aget_vm_ip(session, vm_proxmox_id):
     return await proxmox_vm_ip_fetcher.get_ip( _get_proxmox_host(), session, vm_proxmox_id)
+
+@with_proxmox_session
+async def aget_vm_hostname(session, vm_proxmox_id):
+    return await proxmox_vm_ip_fetcher.get_hostname( _get_proxmox_host(), session, vm_proxmox_id)
 
 @with_proxmox_session
 async def acreate_firewall_rules(session, vm_proxmox_id, teacher_vm_proxmox_id):

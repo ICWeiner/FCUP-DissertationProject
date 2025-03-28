@@ -9,9 +9,9 @@ from pydantic import BaseModel
 from fastapi import APIRouter, Request, Form, UploadFile, File, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
-from typing import Annotated, List
+from typing import Annotated, List, Optional
 
-from app.models import Exercise, User, WorkVm, TemplateVm
+from app.models import Exercise, WorkVm, TemplateVm
 from app.dependencies.auth import CurrentUserDep
 from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryDep, WorkVmRepositoryDep, TemplateVmRepositoryDep
 from app.services import proxmox as proxmox_tasks
@@ -41,15 +41,15 @@ router = APIRouter(prefix="/exercises",
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates/"))
 
 class HostnameModel(BaseModel):
-    hostname: str | None
-    commands: List[str] | None
+    hostname: str 
+    commands: List[str] 
 
 class CreateExerciseFormData(BaseModel):
     title: str
     body: str
     proxmox_id: int
     gns3_file: UploadFile = File(...)
-    #hostnames: List[HostnameModel] | None
+    hostnames: Optional[List[HostnameModel]] = None
 
 @router.get('/', response_class=HTMLResponse)
 async def check_list_exercises(request: Request,
@@ -90,7 +90,7 @@ async def retrieve_hostnames(gns3_file: UploadFile = File(...)):
 async def check_exercise(request: Request,
                         exercise_repository: ExerciseRepositoryDep,
                         exercise_id: int,
-                        current_user: CurrentUserDep,
+                        #current_user: CurrentUserDep,
 
 ):
     exercise = exercise_repository.find_by_id(exercise_id)
@@ -98,6 +98,7 @@ async def check_exercise(request: Request,
     return templates.TemplateResponse("exercise.html", {"request": request,
                                                      "title": exercise.name,
                                                      "body": exercise.description,
+                                                     "exercise_id": exercise_id,
                                                      })
 
 @router.post("/create")
@@ -108,14 +109,6 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
                         #current_user: CurrentUserDep,
                         data: Annotated[CreateExerciseFormData, Form()],
 ):  
-    exercise = Exercise (name = data.title,
-                         description = data.body,
-                         templatevm_id = data.proxmox_id)
-    
-    db_exercise = Exercise.model_validate(exercise)
-    
-    exercise_repository.save(db_exercise)
-
     filename = gns3_utils.generate_unique_filename(data.gns3_file.filename)
 
     path_to_gns3project = os.path.join(str(BASE_DIR / "uploads"), filename)
@@ -128,13 +121,14 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
     commands_by_hostname = []
     
     #formats data in this manner [{'hostname': 'r1', 'commands': ['show version', 'ping 8.8.8.8']}, {'hostname': 'pc1', 'commands': ['traceroute 8.8.4.4']}] 
-    '''for hostname_form in data.hostnames:
-        hostname_data = {
-            "hostname": hostname_form.hostnames,
-            #"commands": [command_form.data for command_form in hostname_form.commands]#TODO this isnt right
-        }
-        commands_by_hostname.append(hostname_data)
-    '''
+    if data.hostnames:
+        for hostname_form in data.hostnames:
+            hostname_data = {
+                "hostname": hostname_form.hostnames,
+                "commands": [command_form.data for command_form in hostname_form.commands]#TODO this isnt right
+            }
+            commands_by_hostname.append(hostname_data)
+    
     start_time_template_vm = time.perf_counter()
     
     #Step 1: Clone base template VM needs base template ID and hostname returns cloned vm ID
@@ -169,6 +163,7 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
 
     existing_users = user_repository.find_all()
 
+    exercise_repository.save(new_exercise)
     templatevm_repository.save(new_templatevm)#TODO: validate with pydantic
     exercise_repository.save(new_exercise)
 
@@ -202,4 +197,45 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
     logging.info(f"Final CPU usage: {psutil.cpu_percent()}%")
 
 
-    return db_exercise
+    return
+
+@router.post("/exercise/{exercise_id}/delete")
+async def exercise_delete(exercise_id: int,
+                        exercise_repository: ExerciseRepositoryDep,
+                        #current_user: CurrentUserDep,
+):
+    try:
+        exercise = exercise_repository.find_by_id(exercise_id)
+
+        if not exercise:
+            raise HTTPException(status_code=404, detail="Exercise not found")
+
+        templatevm = exercise.templatevm
+
+        workvms = templatevm.workvms
+
+        start_time = time.perf_counter()
+
+        tasks = [proxmox_tasks.adestroy_vm(workvm.proxmox_id) for workvm in workvms]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        for workvm, result in zip(workvms, results):
+            if isinstance(result, Exception):
+                logging.error(f"Error deleting VM {workvm.proxmox_id}: {result}")
+
+        # Delete the template VM
+        template_result = await proxmox_tasks.adestroy_vm(templatevm.proxmox_id)
+
+        if isinstance(template_result, Exception):
+            logging.error(f"Error deleting template VM {templatevm.proxmox_id}: {template_result}")
+
+        end_time = time.perf_counter()
+        logging.info(f"VM deletion process time: {end_time - start_time:.6f} seconds")
+
+        exercise_repository.delete_by_id(exercise.id) #SQLmodel will delete the associated templateVM and workVMs
+
+        return {"message": "Exercise deleted successfully"}
+
+    except Exception as e:
+        logging.error(f"Error: {str(e)}")
+        raise HTTPException(status_code=500, detail="An error occurred while deleting the exercise")

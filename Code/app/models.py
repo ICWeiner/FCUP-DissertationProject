@@ -37,8 +37,9 @@ class Exercise(CustomBase, table=True):
     templatevm_id: Optional[int] = Field(default=None, foreign_key="templatevm.id", nullable=True)
 
     submissions: List["Submission"] = Relationship(back_populates="exercise")
-    templatevm: Optional["TemplateVm"] = Relationship(back_populates="exercise")  # One-to-One
-
+    templatevm: Optional["TemplateVm"] = Relationship(back_populates="exercise",
+                                                    cascade_delete=True,
+                                                    sa_relationship_kwargs={"single_parent": True})# One-to-One 
 
 class VmBase(CustomBase):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -58,7 +59,8 @@ class TemplateVm(VmBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     
     exercise: Optional["Exercise"] = Relationship(back_populates="templatevm")  # One-to-One
-    workvms: List["WorkVm"] = Relationship(back_populates="templatevm")  # One-to-Many
+    workvms: List["WorkVm"] = Relationship(back_populates="templatevm",
+                                        cascade_delete=True)  # One-to-Many
 
 
 class Submission(CustomBase, table=True):
