@@ -11,11 +11,12 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from typing import Annotated, List, Optional
 
-from app.models import Exercise, WorkVm, TemplateVm
+from app.models import Exercise, TemplateVm
 from app.dependencies.auth import CurrentUserDep
 from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryDep, WorkVmRepositoryDep, TemplateVmRepositoryDep
-from app.services import proxmox as proxmox_tasks
-from app.services import gns3 as gns3_tasks
+from app.services import vm as vm_services
+from app.services import proxmox as proxmox_services
+from app.services import gns3 as gns3_services
 from app.utils import gns3 as gns3_utils
 
 import logging
@@ -132,25 +133,25 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
     start_time_template_vm = time.perf_counter()
     
     #Step 1: Clone base template VM needs base template ID and hostname returns cloned vm ID
-    vm_proxmox_id = await proxmox_tasks.aclone_vm(data.proxmox_id, template_hostname)
+    vm_proxmox_id = await proxmox_services.aclone_vm(data.proxmox_id, template_hostname)
 
     # Step 2: Start VM needs vm ID returns true if successful
-    await proxmox_tasks.aset_vm_status(vm_proxmox_id ,True)
+    await proxmox_services.aset_vm_status(vm_proxmox_id ,True)
 
-    node_ip = await proxmox_tasks.aget_vm_ip(vm_proxmox_id)
+    node_ip = await proxmox_services.aget_vm_ip(vm_proxmox_id)
 
     # Step 3: Import GNS3 Project needs vm IP returns GNS3 project ID
-    gns3_project_id = gns3_tasks.import_gns3_project(node_ip, path_to_gns3project) 
+    gns3_project_id = gns3_services.import_gns3_project(node_ip, path_to_gns3project) 
 
     # Step 4: Run Commands on GNS3 (this is highly specific to this workflow) needs vm IP
     if commands_by_hostname:
-        gns3_tasks.run_gns3_commands(node_ip, gns3_project_id, template_hostname, commands_by_hostname) 
+        gns3_services.run_gns3_commands(node_ip, gns3_project_id, template_hostname, commands_by_hostname) 
 
     # Step 5: Stop VM needs VM ID returns true if successful
-    await proxmox_tasks.aset_vm_status(vm_proxmox_id, False)
+    await proxmox_services.aset_vm_status(vm_proxmox_id, False)
 
     # Step 6: Convert to Template needs VM id returns true if successful
-    await proxmox_tasks.atemplate_vm(vm_proxmox_id) 
+    await proxmox_services.atemplate_vm(vm_proxmox_id) 
 
     end_time_template_vm = time.perf_counter() 
 
@@ -165,7 +166,6 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
 
     exercise_repository.save(new_exercise)
     templatevm_repository.save(new_templatevm)#TODO: validate with pydantic
-    exercise_repository.save(new_exercise)
 
     start_time_clone_vms = time.perf_counter()
         
@@ -173,20 +173,9 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
     
     logging.info(f"Cloning VMs for {len(existing_users)} users")
 
-    tasks = []
+    workvms = await vm_services.create_users_work_vms(existing_users, [new_exercise])
 
-    for _ in range(len(existing_users)):
-        hostname = f'vm-{uuid.uuid4().hex[:12]}' #generate a random hostname
-        tasks.append(proxmox_tasks.aclone_vm(new_exercise.templatevm.proxmox_id, hostname))
-    vm_ids = await asyncio.gather(*tasks)
-
-    for user, vm_id in zip(existing_users, vm_ids):
-        workvm = WorkVm(
-                proxmox_id = vm_id,
-                user = user,
-                templatevm = new_exercise.templatevm,
-                )
-        workvm_repository.save(workvm)#TODO:validate with pydantic TODO: instead of saving one by one do by batch
+    workvm_repository.batch_save(workvms)
 
     logging.info("Done waiting for tasks to complete")
     
@@ -216,7 +205,7 @@ async def exercise_delete(exercise_id: int,
 
         start_time = time.perf_counter()
 
-        tasks = [proxmox_tasks.adestroy_vm(workvm.proxmox_id) for workvm in workvms]
+        tasks = [proxmox_services.adestroy_vm(workvm.proxmox_id) for workvm in workvms]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         for workvm, result in zip(workvms, results):
@@ -224,7 +213,7 @@ async def exercise_delete(exercise_id: int,
                 logging.error(f"Error deleting VM {workvm.proxmox_id}: {result}")
 
         # Delete the template VM
-        template_result = await proxmox_tasks.adestroy_vm(templatevm.proxmox_id)
+        template_result = await proxmox_services.adestroy_vm(templatevm.proxmox_id)
 
         if isinstance(template_result, Exception):
             logging.error(f"Error deleting template VM {templatevm.proxmox_id}: {template_result}")

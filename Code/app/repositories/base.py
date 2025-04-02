@@ -1,3 +1,4 @@
+from typing import List
 from sqlmodel import Session, SQLModel
 
 class BaseRepository:
@@ -12,6 +13,7 @@ class BaseRepository:
         self.db.commit()
         self.db.refresh(entity)
         return entity
+    
 
     def find_by_id(self, id_: int):
         """Find an entity by its ID."""
@@ -28,3 +30,24 @@ class BaseRepository:
             self.db.delete(entity)
             self.db.commit()
         return entity
+    
+    def batch_save(self, entities: List[object]):
+        """
+        Save a list of entities to the database in a single batch.
+
+        :param entities: List of entities to be saved.
+        :return: None
+        """
+        if not entities:
+            return  # Early return if no entities are passed
+        
+        try:
+            for entity in entities:
+                self.db.add(entity) 
+            self.db.commit()  # Commit the transaction
+            for entity in entities:
+                self.db.refresh(entity)
+        except Exception as e:
+            self.db.rollback()  # Rollback in case of an error
+            print(f"Error during batch save: {e}")
+            raise  

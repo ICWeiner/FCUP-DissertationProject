@@ -9,9 +9,10 @@ from fastapi.templating import Jinja2Templates
 
 from app.config import settings
 from app.models import UserCreate, UserPublic, User
-from app.dependencies.repositories import UserRepositoryDep
+from app.dependencies.repositories import UserRepositoryDep, ExerciseRepositoryDep, WorkVmRepositoryDep
 from app.dependencies.auth import CurrentUserDep
 from app.services import auth as auth_services
+from app.services import vm as vm_services
 
 from pathlib import Path
 
@@ -44,6 +45,10 @@ async def create_user_form(request: Request):
 async def create_user(
     data: Annotated[RegisterFormData, Form()], 
     user_repository: UserRepositoryDep,
+    exercise_repository: ExerciseRepositoryDep,
+    workvm_repository: WorkVmRepositoryDep,
+
+
 ):
     user = UserCreate(username = data.username,
                       email = data.email,
@@ -53,6 +58,10 @@ async def create_user(
     db_user = User.model_validate(user)
 
     user_repository.save(db_user)
+
+    workvms = await vm_services.create_users_work_vms( [db_user], exercise_repository.find_all() )
+
+    workvm_repository.batch_save(workvms)
 
     return db_user
 
