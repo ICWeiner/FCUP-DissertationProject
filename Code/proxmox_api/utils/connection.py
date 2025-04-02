@@ -1,43 +1,26 @@
-import requests
+import httpx
 from .proxmox_base_uri_generator import proxmox_base_uri
-from .constants import proxmox_node_name
 
-
-def proxmox_connect(proxmox_host, username, password):
+async def aproxmox_get_auth_cookie(proxmox_host, username, password):#Fetches cookie and csrf tokens
     uri = f'{proxmox_base_uri(proxmox_host)}/access/ticket'
-    
-    headers = { "Content-Type": "application/x-www-form-urlencoded"}
-
-    auth =   {
-        "username": username,
-        "password": password
-    }
-
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
+    auth_data = {"username": username, "password": password}
     try:
-        response = requests.post(uri, headers=headers , data=auth, verify=False)  #TODO:proxmox node currently has a bad cert
-    except:
-        print("Error: Failure during ticket request")
+        async with httpx.AsyncClient(verify=False) as client:
+            response = await client.post(uri, headers=headers, data=auth_data)
+    except Exception as err:
+        print("Error: Failure during ticket request", err)
         exit(1)
-
 
     response.raise_for_status()
 
     try:
-        response_data=response.json()
+        response_data = response.json()
     except ValueError:
         print("Error: Failure during JSON parsing")
         exit(1)
-        
-    session = requests.Session()
 
-    session.verify = False
+    cookie = response_data["data"]["ticket"]
+    csrf = response_data["data"]["CSRFPreventionToken"]
 
-    session.cookies.set("PVEAuthCookie", response_data["data"]["ticket"])
-
-    session.headers.update({"CSRFPreventionToken": response_data["data"]["CSRFPreventionToken"]})  
-
-    response = session.get(f'{proxmox_base_uri(proxmox_host)}/nodes/{proxmox_node_name}')
-
-    response.raise_for_status()
-
-    return session
+    return cookie, csrf

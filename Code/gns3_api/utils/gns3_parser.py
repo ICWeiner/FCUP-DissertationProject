@@ -1,10 +1,11 @@
 import json
 import yaml
-import os.path
+import os
 
 def gns3_nodes_to_yaml(node_ip, node_name, gns3_devices):
     hosts = {}
-    destination_folder = 'inventory'
+    python_path = os.getenv("PYTHONPATH","../..")
+    destination_folder = os.path.join(python_path, "inventory")
     for device in gns3_devices:
         # cloud, nat, ethernet_hub, ethernet_switch,
         # frame_relay_switch, atm_switch, docker, dynamips,

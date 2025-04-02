@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+  <head>
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <meta name="description" content={{description}}>
+    <link rel="shortcut icon" href="/favicon.ico">
+  </head>
+
+  <body>
+
+    {% include 'navigation.html' %}
+    {% block content %}{% endblock %}
+  </body>
+
+
+  <script>
+    // Function to get the token from cookies
+    function getCookie(name) {
+        let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
+        return null;
+    }
+
+    // Extract the token from the cookies (access_token)
+    const accessToken = getCookie("access_token");
+
+    // If the token exists, include it in the Authorization header
+    if (accessToken) {
+        fetch("/users/me", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);  // Handle the data
+        })
+        .catch(error => console.error('Error:', error));
+    } else {
+        console.error('No access token found');
+    }
+  </script>
+
+  {% block scripts %}{% endblock %}
+</html>

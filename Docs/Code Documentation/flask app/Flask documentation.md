@@ -2,6 +2,8 @@
 
 Inside the folder containing the python code for the flask app you will find various folders.
 
+export PYTHONPATH=$PWD, use this in folder above main.py
+
 ```inventory```:
 This folder contains various files pertinent to the functionality of the evaluation module __nornir_lib__ see its documentation for more details.  
 

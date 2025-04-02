@@ -1,4 +1,4 @@
-Containers instead of full QEMU VMs (this is trivial if you dont require the use of linux machine in your gns3-server instances)
+Containers instead of full QEMU VMs (this is trivial if you dont require the use of emulated linux machines in your gns3-server instances)
 
 Switch to GNS3VM deplyoment instead of doing our manual setup which isnt much more than Ubuntu + gns3-server (Althought there doesnt seem to be much to benefit from this, apart from a bit of standartization)
 
@@ -11,3 +11,5 @@ Research and implement integration with existing LDAP/Active directory instances
 mark exercises or even students as active/inactive? (to reduce number of existing VMs, as storage may be cheap but not infinite)
 
 add HTTPS capabilites
+
+optimize DB usage, (exercise creation and deletion), look into making async db operations
