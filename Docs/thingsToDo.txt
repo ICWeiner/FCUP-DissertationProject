@@ -9,13 +9,11 @@ Regular Expression traceroute
 
 Insert authentication(jwt) in endpoints that should be protected, such as creation and starting, stoping of VMs
 
-make vm creation logic more scalable (asynchronous calls to proxmox's API) (test with gunicorn asynchronous workers) (celery might be good option)
+make calls to proxmox api more resilient and resistant to errors such as "no worker upid"
 
 switch from sqlite3 to a "real" DB system like PostgreSQL
 
-templates de templates, varios exs com uma topologia
-
-test time to vm creation with a larger amount
+multiple steps in exercise (sub-alineas, fazer templatevms de uma templatevm com varias pre configurações)
 
 Separate back-end from front-end (CSR and backend json replies)
 

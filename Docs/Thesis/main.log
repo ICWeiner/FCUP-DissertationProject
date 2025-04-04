@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2025.2.6)  21 MAR 2025 16:19
+This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2025.2.6)  4 APR 2025 17:28
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -1682,12 +1682,12 @@ an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to
 loading the todonotes package. on input line 35.
 
 (./main.glsdefs)
-<Front/main.pdf, id=123, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=143, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf>
 Package luatex.def Info: Front/main.pdf  used on input line 42.
 (luatex.def)             Requested size: 597.51083pt x 845.04503pt.
-<Front/main.pdf, id=125, page=1, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=145, page=1, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf, page 1>
 Package luatex.def Info: Front/main.pdf , page1 used on input line 42.
@@ -1720,7 +1720,7 @@ File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf>
 Package luatex.def Info: Front/main.pdf  used on input line 44.
 (luatex.def)             Requested size: 597.51083pt x 845.04503pt.
-<Front/main.pdf, id=148, page=2, 597.5123pt x 845.04709pt>
+<Front/main.pdf, id=168, page=2, 597.5123pt x 845.04709pt>
 File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf, page 2>
 Package luatex.def Info: Front/main.pdf , page2 used on input line 44.
@@ -1877,7 +1877,7 @@ Overfull \hbox (6.08986pt too wide) detected at line 26
 
 
 Overfull \hbox (6.08986pt too wide) detected at line 27
- \TU/Arial(0)/m/n/10.95 5
+ \TU/Arial(0)/m/n/10.95 6
  []
 
 
@@ -1892,7 +1892,7 @@ Overfull \hbox (6.08986pt too wide) detected at line 29
 
 
 Overfull \hbox (6.08986pt too wide) detected at line 30
- \TU/Arial(0)/m/n/10.95 6
+ \TU/Arial(0)/m/n/10.95 7
  []
 
 
@@ -1902,7 +1902,7 @@ Overfull \hbox (6.08986pt too wide) detected at line 31
 
 
 Overfull \hbox (6.08986pt too wide) detected at line 32
- \TU/Arial(0)/m/n/10.95 7
+ \TU/Arial(0)/m/n/10.95 8
  []
 
 
@@ -1912,12 +1912,12 @@ Overfull \hbox (6.08986pt too wide) detected at line 33
 
 
 Overfull \hbox (6.08986pt too wide) detected at line 34
- \TU/Arial(0)/m/n/10.95 8
+ \TU/Arial(0)/m/n/10.95 9
  []
 
 
 Overfull \hbox (6.08986pt too wide) detected at line 35
- \TU/Arial(0)/m/n/10.95 8
+ \TU/Arial(0)/m/n/10.95 9
  []
 
 
@@ -1926,8 +1926,8 @@ Overfull \hbox (6.08986pt too wide) detected at line 36
  []
 
 
-Overfull \hbox (6.08986pt too wide) detected at line 37
- \TU/Arial(0)/m/n/10.95 9
+Overfull \hbox (12.17972pt too wide) detected at line 37
+ \TU/Arial(0)/m/n/10.95 10
  []
 
 
@@ -1942,17 +1942,42 @@ Overfull \hbox (12.17972pt too wide) detected at line 39
 
 
 Overfull \hbox (12.17972pt too wide) detected at line 40
- \TU/Arial(0)/m/n/10.95 11
+ \TU/Arial(0)/m/n/10.95 12
  []
 
 
 Overfull \hbox (12.17972pt too wide) detected at line 41
- \TU/Arial(0)/m/n/10.95 12
+ \TU/Arial(0)/m/n/10.95 13
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 42
+ \TU/Arial(0)/m/n/10.95 14
  []
 
 
 Overfull \hbox (12.17972pt too wide) detected at line 43
- \TU/Arial(0)/m/n/10.95 12
+ \TU/Arial(0)/m/n/10.95 15
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 44
+ \TU/Arial(0)/m/n/10.95 16
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 45
+ \TU/Arial(0)/m/n/10.95 17
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 46
+ \TU/Arial(0)/m/n/10.95 18
+ []
+
+
+Overfull \hbox (12.17972pt too wide) detected at line 48
+ \TU/Arial(0)/m/n/10.95 18
  []
 
 )
@@ -2027,6 +2052,19 @@ Overfull \hbox (3.40549pt too wide) in paragraph at lines 45--45
 [][][] 
  []
 
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 47--47
+[][][] 
+ []
+
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 47--47
+[][][] 
+ []
+
+
+LaTeX Warning: Marginpar on page 1 moved.
+
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
 (Font)              scaled to size 11.40997pt on input line 50.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
@@ -2094,18 +2132,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [5]
-<Figures/Background/gns3-web.png, id=304, 1408.51219pt x 579.66562pt>
-File: Figures/Background/gns3-web.png Graphic file (type png)
-<use Figures/Background/gns3-web.png>
-Package luatex.def Info: Figures/Background/gns3-web.png  used on input line 14
-3.
-(luatex.def)             Requested size: 405.45047pt x 166.86043pt.
-
-
-LaTeX Font Warning: Font shape `TU/Arial(0)/m/sc' undefined
-(Font)              using `TU/Arial(0)/m/n' instead on input line 144.
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2115,14 +2141,16 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [6]
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 152--152
-[][][] 
- []
+<Figures/Background/gns3-web.png, id=401, 1408.51219pt x 579.66562pt>
+File: Figures/Background/gns3-web.png Graphic file (type png)
+<use Figures/Background/gns3-web.png>
+Package luatex.def Info: Figures/Background/gns3-web.png  used on input line 16
+2.
+(luatex.def)             Requested size: 405.45047pt x 166.86043pt.
 
 
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 152--152
-[][][] 
- []
+LaTeX Font Warning: Font shape `TU/Arial(0)/m/sc' undefined
+(Font)              using `TU/Arial(0)/m/n' instead on input line 163.
 
 
 
@@ -2135,15 +2163,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [7<./Figures/Background/gns3-web.png>]
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\ac' on input line 188.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\ac' on input line 195.
-
-
-
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
 (fancyhdr)                Make it at least 18.99997pt, for example:
@@ -2153,6 +2172,15 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [8]
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\ac' on input line 207.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\ac' on input line 214.
+
+
+
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
 (fancyhdr)                Make it at least 18.99997pt, for example:
@@ -2161,25 +2189,9 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [9]
-Overfull \hbox (5.52144pt too wide) in paragraph at lines 237--238
+Overfull \hbox (5.52144pt too wide) in paragraph at lines 256--257
 []\TU/Arial(0)/b/n/10.95 Ap-pli-ca-tion \TU/Arial(0)/m/n/10.95 - The Py-thon ap-
 pli-ca-tion that pro-cesses re-quests and re-turns re-sponses. 
- []
-
-
-Overfull \hbox (1.09578pt too wide) in paragraph at lines 247--251
-[]\TU/Arial(0)/m/n/10.95 Dur-ing de-vel-op-ment, Py-thon web ap-pli-ca-tions of-
-ten use built-in servers pro-vided by frame-
- []
-
-
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 262--262
-[][][] 
- []
-
-
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 262--262
-[][][] 
  []
 
 
@@ -2192,8 +2204,13 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [10]
+Overfull \hbox (1.09578pt too wide) in paragraph at lines 266--270
+[]\TU/Arial(0)/m/n/10.95 Dur-ing de-vel-op-ment, Py-thon web ap-pli-ca-tions of-
+ten use built-in servers pro-vided by frame-
+ []
+
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 268.
+put line 286.
 
 
 
@@ -2204,16 +2221,72 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [11]
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 325--325
-[][][] 
+Underfull \hbox (badness 10000) in paragraph at lines 321--322
+[]\TU/Arial(0)/b/n/10.95 app \TU/Arial(0)/m/n/10.95 = Cel-ery(’tasks’, bro-k
+er=’re-dis://lo-cal-host:6379/0’, back-end=’re-dis://lo-cal-
  []
 
 
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 325--325
-[][][] 
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[12]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[13]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[14]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[15]
+Overfull \hbox (1.52383pt too wide) in paragraph at lines 449--452
+[]\TU/Arial(0)/m/n/10.95 This change laid the ground-work for more ef-fi-cient 
+han-dling of I/O-bound op-er-a-tions—such
  []
 
-) (./main.bbl (./main.brf)
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[16]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[17]) (./main.bbl (./main.brf)
 \tf@brf=\write12
 
 \openout12 = main.brf
@@ -2226,7 +2299,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[12]) (./Appendices/AppendixTemplate.tex
+[18]) (./Appendices/AppendixTemplate.tex
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2235,7 +2308,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[13
+[19
 
 ])
 
@@ -2246,7 +2319,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[14
+[20
 
 ] (./main.aux)
  ***********
@@ -2258,64 +2331,31 @@ L3 programming layer <2025-01-18>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FA2A3312D0574292140006F4E213F205;3980.
-
-Package rerunfilecheck Warning: File `main.brf' has changed.
-(rerunfilecheck)                Rerun to get bibliographical references right.
-
-Package rerunfilecheck Info: Checksums for `main.brf':
-(rerunfilecheck)             Before: 612A688B9D49248F515557606BBED259;366
-(rerunfilecheck)             After:  7248D217C754A01B59F0CAB1E0C2CA53;412.
+(rerunfilecheck)             Checksum: E3FF5AAD36606796434E2F6890395CFD;4688.
+Package rerunfilecheck Info: File `main.brf' has not changed.
+(rerunfilecheck)             Checksum: DB81B7A5190AECD233E2E0EE2A9E28F6;479.
 )
 
 Here is how much of LuaTeX's memory you used:
- 45737 strings out of 475512
+ 45791 strings out of 475512
  125126,1648299 words of node,token memory allocated
- 10546 words of node memory still in use:
-   164 hlist, 17 vlist, 2 rule, 18 disc, 10 local_par, 252 glue, 4 kern, 20 pena
-lty, 246 glyph, 1126 attribute, 96 glue_spec, 565 attribute_list, 13 write, 1 cl
-ose, 10 save_pos, 335 pdf_literal, 5 pdf_action, 10 pdf_colorstack nodes
-   avail lists: 1:1,2:883,3:309,4:217,5:157,6:76,7:6280,8:58,9:535,10:17,11:587
- 67318 multiletter control sequences out of 65536+600000
- 106 fonts using 8915871 bytes
+ 6320 words of node memory still in use:
+   98 hlist, 11 vlist, 2 rule, 5 disc, 6 local_par, 146 glue, 4 kern, 12 penalty
+, 113 glyph, 694 attribute, 96 glue_spec, 349 attribute_list, 9 write, 1 close, 
+6 save_pos, 201 pdf_literal, 9 pdf_action, 6 pdf_colorstack nodes
+   avail lists: 1:1,2:1189,3:414,4:261,5:180,6:91,7:6278,8:58,9:717,10:17,11:608
+
+ 67358 multiletter control sequences out of 65536+600000
+ 107 fonts using 9041959 bytes
  108i,19n,125p,2381b,1234s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/fonts/truetype/msttcorefonts/ariali.ttf></usr/local/texlive/2024/tex
+mf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/fonts/truetype
+/msttcorefonts/arialbd.ttf></usr/share/fonts/truetype/msttcorefonts/arial.ttf></
+usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on main.pdf (28 pages, 318135 bytes).
 
-warning  (pdf backend): unreferenced destination with name 'glo:wsgi'
-
-warning  (pdf backend): unreferenced destination with name 'glo:pve'
-
-warning  (pdf backend): unreferenced destination with name 'glo:vm'
-
-warning  (pdf backend): unreferenced destination with name 'glo:vpcs'
-
-warning  (pdf backend): unreferenced destination with name 'glo:qemu'
-
-warning  (pdf backend): unreferenced destination with name 'glo:ios'
-
-warning  (pdf backend): unreferenced destination with name 'glo:iou'
-
-warning  (pdf backend): unreferenced destination with name 'glo:json'
-
-warning  (pdf backend): unreferenced destination with name 'glo:http'
-
-warning  (pdf backend): unreferenced destination with name 'glo:api'
-
-warning  (pdf backend): unreferenced destination with name 'glo:rest'
-
-warning  (pdf backend): unreferenced destination with name 'glo:gns3'
-
-warning  (pdf backend): unreferenced destination with name 'glo:dcc'
-
-warning  (pdf backend): unreferenced destination with name 'glo:lxc'
-
-warning  (pdf backend): unreferenced destination with name 'glo:kvm'
-</usr/share/fonts/truetype/msttcorefonts/ariali.ttf></usr/share/fonts/truetype/m
-sttcorefonts/arialbd.ttf></usr/share/fonts/truetype/msttcorefonts/arial.ttf></us
-r/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on main.pdf (22 pages, 288955 bytes).
-
-PDF statistics: 470 PDF objects out of 1000 (max. 8388607)
- 390 compressed objects within 4 object streams
- 89 named destinations out of 1000 (max. 131072)
- 248 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 627 PDF objects out of 1000 (max. 8388607)
+ 531 compressed objects within 6 object streams
+ 103 named destinations out of 1000 (max. 131072)
+ 288 words of extra memory for PDF output out of 10000 (max. 100000000)
 

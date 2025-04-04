@@ -393,12 +393,12 @@ parent={},%
 \glsdefs@newdocentry{asgi}%
 {%
 name={\acronymfont {\glsentryshort {asgi}}},%
-sort={aSGI},%
+sort={ASGI},%
 type={acronym},%
-first={aSGI},%
-firstplural={aSGIs},%
-text={aSGI},%
-plural={aSGIs},%
+first={ASGI},%
+firstplural={ASGIs},%
+text={ASGI},%
+plural={ASGIs},%
 description={Asynchronous Server Gateway Interface},%
 descriptionplural={Asynchronous Server Gateway Interface},%
 symbol={\relax },%
@@ -411,8 +411,36 @@ user5={},%
 user6={},%
 long={Asynchronous Server Gateway Interface},%
 longplural={Asynchronous Server Gateway Interfaces},%
-short={aSGI},%
-shortplural={aSGIs},%
+short={ASGI},%
+shortplural={ASGIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{oas}%
+{%
+name={\acronymfont {\glsentryshort {oas}}},%
+sort={OAS},%
+type={acronym},%
+first={OAS},%
+firstplural={OASs},%
+text={OAS},%
+plural={OASs},%
+description={OpenAPI Specification},%
+descriptionplural={OpenAPI Specification},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={OpenAPI Specification},%
+longplural={OpenAPI Specifications},%
+short={OAS},%
+shortplural={OASs},%
 counter={page},%
 parent={},%
 %

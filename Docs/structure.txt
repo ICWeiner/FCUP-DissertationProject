@@ -1,0 +1,176 @@
+1️⃣ Introduction
+
+    Problem Statement:
+
+        Explain the need for a system to automate network administration evaluations.
+
+        Why existing solutions are insufficient (e.g., manual evaluation, scalability issues).
+
+    Objectives:
+
+        Develop an automated environment for evaluating network administration exercises.
+
+        Integrate GNS3 virtual networks with a back-end service.
+
+        Enable scalable and efficient evaluation of exercises.
+
+    Key Innovations:
+
+        Web-based system for students/teachers to interact with exercises.
+
+    Document Structure: Overview of dissertation chapters.
+
+2️⃣ Background & Related Work
+
+    Network Administration Training Systems:
+
+        Overview of traditional methods vs. modern solutions (e.g., Packet Tracer, NetLab).
+
+    Virtualized Lab Environments:
+
+        Benefits of using GNS3 and Proxmox for VM-based exercises.
+
+    Web Frameworks for API-Based Systems:
+
+        Comparison of WSGI (Flask) vs. ASGI (FastAPI, Quart).
+
+        The need for asynchronous processing in API-heavy applications.
+
+    Task Processing Approaches:
+
+        Celery for background jobs.
+
+        FastAPI async tasks as an alternative.
+
+    Related Work & Existing Solutions:
+
+        Similar projects and how yours differs.
+
+3️⃣ System Architecture & Design
+3.1. High-Level Architecture
+
+    Overview of the system components:
+
+        User interface (web-based, Flask/FastAPI).
+
+        API Layer (originally Flask + Celery, later migrated to FastAPI).
+
+        Virtualization Layer (Proxmox + GNS3).
+
+        Storage & Evaluation Component (database, exercise results).
+
+    Architecture Diagram.
+
+3.2. Migration from Flask + Celery to FastAPI
+
+    Initial Setup: Flask + Celery
+
+        Flask for API + Celery for async tasks.
+
+        Issues: Complexity, overhead, debugging difficulties.
+
+    Evaluation of Quart (ASGI-compliant Flask)
+
+        Why it was considered.
+
+        Problems found: Incomplete ecosystem, limited adoption.
+
+    Final Decision: FastAPI Migration
+
+        Built-in async support.
+
+        Type hinting for request validation.
+
+        Better performance under high concurrency.
+
+    Comparison Table: Flask vs. Celery vs. Quart vs. FastAPI.
+
+3.3. Proxmox + GNS3 Integration
+
+    Why Proxmox? VM-based approach vs. containerized solutions.
+
+    Why GNS3? Emulating network devices.
+
+    Challenges & Solutions in managing VMs dynamically.
+
+    Diagram: Proxmox + GNS3 interaction flow.
+
+4️⃣ Implementation
+4.1. Setting Up the Development Environment
+
+    Technologies used: FastAPI, Proxmox API, GNS3 API, SQLAlchemy.
+
+    Project Folder Structure (app/, nornir_lib/, proxmox_api/, gns3_api/).
+
+4.2. API Development
+
+    Exercise Management Endpoints (create, delete, update exercises).
+
+    VM Handling Endpoints (start, stop, clone, template conversion).
+
+4.3. Asynchronous Processing with FastAPI
+
+    How API requests are handled asynchronously.
+
+    Replacing Celery Tasks with FastAPI Background Tasks.
+
+4.4. Proxmox & GNS3 API Calls
+
+    How VMs are created/cloned via Proxmox API.
+
+    How network simulations are deployed in GNS3.
+
+5️⃣ Testing & Evaluation
+5.1. Functional Testing
+
+    Unit tests for API endpoints.
+
+    Integration tests with Proxmox/GNS3.
+
+5.2. Performance Evaluation
+
+    Before vs. After FastAPI Migration
+
+        API Response times.
+
+        Concurrent request handling.
+
+        Resource consumption.
+
+5.3. Usability Testing
+
+    Feedback from users (e.g., students, teachers).
+
+    Improvements based on usability tests.
+
+6️⃣ Conclusion & Future Work
+
+    Summary of Contributions
+
+        Automated environment for evaluating network exercises.
+
+        Proxmox + GNS3 integration.
+
+        FastAPI migration for performance improvement.
+
+    Limitations & Challenges
+
+        Potential scaling challenges.
+
+        Future enhancements (e.g., better VM snapshot management).
+
+    Future Work
+
+        UI improvements.
+
+        More sophisticated evaluation criteria for exercises.
+
+        Further optimizations in async request handling.
+
+Appendices
+
+    API Documentation.
+
+    Configuration files.
+
+    Example JSON requests/responses.

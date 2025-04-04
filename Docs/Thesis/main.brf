@@ -1,8 +1,9 @@
 \backcite {santos2024}{{1}{1.1}{section.1.1}}
 \backcite {Leal2003567}{{4}{2.1.1}{subsection.2.1.1}}
-\backcite {GNS3Architecture}{{5}{2.3.1}{subsection.2.3.1}}
-\backcite {proxmox2025}{{7}{2.5}{section.2.5}}
-\backcite {pep333}{{10}{2.7}{section.2.7}}
-\backcite {flask2025}{{10}{2.7.1}{subsection.2.7.1}}
-\backcite {nornir2025}{{11}{2.7.2}{subsection.2.7.2}}
-\backcite {requests2025}{{12}{2.7.3}{subsection.2.7.3}}
+\backcite {GNS3Architecture}{{6}{2.3.1}{subsection.2.3.1}}
+\backcite {proxmox2025}{{8}{2.5}{section.2.5}}
+\backcite {pep333}{{10}{2.6.1}{subsection.2.6.1}}
+\backcite {flask2025}{{11}{2.6.1.1}{subsubsection.2.6.1.1}}
+\backcite {nornir2025}{{16}{2.6.4}{subsection.2.6.4}}
+\backcite {requests2025}{{17}{2.6.5}{subsection.2.6.5}}
+\backcite {httpx2025}{{18}{2.6.6}{subsection.2.6.6}}
