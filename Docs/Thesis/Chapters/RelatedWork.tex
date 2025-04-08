@@ -1,0 +1,94 @@
+% Chapter Template
+
+% Main chapter title
+%\chapter[toc version]{doc version}
+\chapter{Related Work}
+
+% Short version of the title for the header
+%\chaptermark{version for header}
+
+% Chapter Label
+% For referencing this chapter elsewhere, use \ref{ChapterTemplate}
+\label{ChapterRelatedWork}
+
+% Write text in here
+% Use \subsection and \subsubsection to organize text
+
+This chapter focuses on placing the current project within the context of existing solutions and related work. The primary 
+goal of this project is to develop a system capable of automatically evaluating network topologies by validating device 
+configurations and executing tests across a virtual network.
+
+While automated assessment systems are well established in the field of programming education—receiving student-submitted 
+code and running it against predefined test cases—equivalent systems for network exercises are far less common. Tools like 
+Mooshak and similar platforms have proven effective for evaluating programming assignments and are widely adopted in academic 
+settings.
+
+At first glance, adapting these approaches to network topologies might seem straightforward. However, network evaluation 
+introduces unique challenges such as the need for per-student virtual environments, real-time communication with multiple 
+devices, and stateful, distributed configurations. This chapter explores existing tools like Mooshak and Packet Tracer, 
+highlighting their capabilities, limitations, and how this project builds upon or diverges from them.
+
+\section{Programming Evaluation Systems}
+While not directly related, they are the main inspiration for this project. Programming evaluation systems are widely
+deployed in universities and other educational institutions. These systems receive as input code from students and 
+subsequently run tests on it, outputting a score and even being configurable to provide students the first test case that 
+they failed in, guiding students to the solution without handing it out.
+
+These tools typically provide a structured approach to test coding and problem solving skills. They begin by offering a
+problem statement coupled with an optional image and an example test case, normally in the form of input and expected output.
+Users can interact with the system by use of an online code editor, where they can write their solution and submit it for
+evaluation, or by uploading a file with their solution. The system then evaluates the provided solution against multiple
+pre-defined test cases, and validating the output against the know-good output, outputting a score based on the number of 
+test cases passed. The system may also be configured to have time and/or memory constraints, to ensure that temporal and
+spatial complexity are also taken into account.
+
+All of these, serve to provide a thorough evaluation of the student's solution, which can help guide a student to better
+their coding and problem solving skills.
+
+In the context of the\ac{dcc}, Mooshak and Codex are commonly deployed to be used in the context of classes and 
+even exams and programming contests.
+
+The main differentiator between these systems and the one proposed in this project is the ability to solve a network 
+exercise using multiple configurations across multiple devices, while programming evaluation systems will expect
+the same output every time, given the same input.
+Another key difference is the fact that programming evaluation systems dont always provide a working environment for the 
+students to test their code, owing to the fact that students might prefer to user their own development environment for 
+initial development and testing. This project aims to provide a working environment for students, as setting up a 
+networking lab can be a daunting task for students, especially when they are just starting out. By providing a pre-configured
+environment, students can focus on learning the concepts and skills they need to succeed in their studies, rather than
+spending time troubleshooting their setup.
+
+\subsection{Mooshak}
+Mooshak is a web-based system for managing programming contests and also to act as an automatic judge of programming 
+contests \cite{Leal2003567}. It supports a variety of programming languages like Java, C, etc. Under each contest students 
+will find one more problem definitions each containing varying sets of test cases in input-output pairs. After submiting 
+their solution, the system will compile and run the code against the test cases giving a score based on the the amount of 
+test cases passed.
+
+The system can also differentiate between differing types of errors, such as not giving the expected output, poorly 
+formatted output, failure to compile or even exceeding the time limits.
+Mooshak also includes some features designed to drive competition between students, like a real time leaderboard and
+the ability to have more than 100\% of the score for a given contest.
+
+The system however is not without its limitations as it uses plain text files for its test cases and validates the output 
+of student's code character by character, which can lead to false negatives if the output is not formatted exactly as
+expected.
+
+\section{Cisco Packet Tracer}
+
+Cisco Packet Tracer is a network \textbf{simulation} tool developed by Cisco Systems, widely used in academic environments 
+to teach networking concepts and prepare students for certifications such as the Cisco Certified Network Associate (CCNA). 
+It offers a visual interface for building and simulating virtual network topologies using a variety of Cisco devices, 
+including routers, switches, and end devices.
+
+While Packet Tracer is highly accessible and effective for introducing networking fundamentals, it is a closed-source, 
+proprietary tool limited to simulating Cisco hardware and IOS features. Its functionality is optimized for teaching 
+purposes rather than for flexibility, extensibility, or integration into larger automated workflows.
+
+In contrast, this project aim to allow for a more realistic and extensible lab environment. The use of real operating 
+systems and support of a wide range of vendor platforms for routers and switches, aswell as Linux-based virtual machines 
+is highly desirable. This allows for a more realistic experience, as students will be able to work with the same tools and 
+operating systems that they will encounter in real-world scenarios.
+
+Therefore, while Cisco Packet Tracer remains a valuable educational tool, the needs of this project called for a more 
+flexible and open architecture, which is better addressed by other tools.

@@ -1,0 +1,123 @@
+% Chapter Template
+
+% Main chapter title
+%\chapter[toc version]{doc version}
+\chapter{System Architecture \& Design}
+
+% Short version of the title for the header
+%\chaptermark{version for header}
+
+% Chapter Label
+% For referencing this chapter elsewhere, use \ref{ChapterTemplate}
+\label{ChapterSystemArchitectureDesign}
+
+% Write text in here
+% Use \subsection and \subsubsection to organize text
+
+Delivering reliable, scalable automated assessment of virtualized networks requires a system built on solid principles of 
+virtualization and automation. This chapter outlines the architecture of the proposed system, detailing the key components 
+and how they interact to enable seamless evaluation of student-submitted network exercises.
+
+The system is designed to provide each student with a working environment where custom network topologies can be 
+deployed, configured, and tested. To achieve this, the platform integrates several technologies—such as \ac{gns3} for network 
+emulation, \ac{pve} for virtualization, and Nornir for configuration testing—alongside an asynchronous web-based \ac{api} layer for 
+user interaction and system communications.
+
+This section provides a high-level overview of the system, the rationale behind its design choices, and the fundamental 
+components that make up its architecture.
+
+\section{System Architecture Overview}
+The system architecture is designed to provide a robust and scalable solution for the automated assessment of network
+topologies. The architecture is divided into several key components, each responsible for a specific aspect of the system's
+functionality. The main components of the system architecture are as follows:
+
+\begin{itemize}
+    \item \textbf{Web App:} The web app serves as the main interface for users to interact with the system. It provides 
+    endpoints for evaluation, creation  and viewing available exercises. The app is designed to be asynchronous where possible, 
+    allowing for efficient handling of multiple requests simultaneously.
+    
+    \item \textbf{Proxmox VE:} \ac{pve} is responsible for creating and managing \ac{vm}s that host the network devices used in 
+    the exercises. This layer interacts with the web app to create and manage the \ac{vm}s based on the creation of new 
+    exercises or students. All communication with \ac{pve} is done asynchronously through the Proxmox \ac{rest} \ac{api}, 
+    which allows for efficient communication, keeping the web app responsive, while also keeping the components decoupled. 
+    
+    \item \textbf{GNS3:} \ac{gns3} is used to emulate all the components of the virtual networks to be configured by students, 
+    using various types of virtualization detailed earlier. Communication with \ac{gns3} is done through the \ac{gns3} 
+    \ac{rest} \ac{api} \unsure{synchronously (will it stay this way)} by the web app, due to a lack of robustness of the \ac{gns3} \ac{api}.
+
+    \item \textbf{Nornir:} This automation framework is used for validating device configurations. It connects to the 
+    virtualized devices, executes commands, and compares the output to expected results to determine correctness.
+\end{itemize}
+
+\section{Component Breakdown}
+
+\subsection{Web Application}
+The web application serves as the primary interface through which users interact with the system. It is built using the FastAPI 
+framework and follows an asynchronous-first, modular architecture that scalable interactions with other system components.
+
+The application exposes a \ac{rest} \ac{api} that supports endpoints for user authentication, exercise creation, virtual 
+machine management, and configuration validation. It acts as the coordinator for the entire system, triggering operations in 
+\ac{pve}, \ac{pve}, and Nornir based on user actions.
+
+Wherever possible, asynchronous I/O is employed to prevent blocking during operations such as \ac{api} calls to Proxmox.
+Multiprocessing is also utilized to handle configuration validation. This keeps the system responsive and performant, 
+especially when handling multiple simultaneous requests from different users.
+
+Internally, the application is designed to be stateless and maintain minimal runtime state.  Most essential information—such 
+as user accounts, defined exercises, and student-to-VM mappings—is persisted in a relational database rather than stored in 
+memory. Configuration values such as API tokens, base URLs, and database credentials are injected via environment variables 
+to decouple deployment-specific settings from the application code. This design improves reliability, supports concurrent 
+usage, and enables horizontal scalability if deployed across multiple instances. 
+
+To ensure maintainability and modularity, interactions with external services like \ac{pve} and \ac{gns3} are isolated in 
+dedicated modules. These serve as abstraction layers between the application logic and third-party \ac{api}s, exposing clean, 
+reusable interfaces while hiding low-level implementation details. For example, Proxmox-related operations such as \ac{vm} 
+creation and deletion are handled in a separate module (e.g services/proxmox.py), as are all \ac{gns3}-related tasks. This 
+separation of concerns improves the structure of the codebase and simplifies future maintainability by being more readable.
+
+To help with development and testing, the application automatically generates OpenAPI-compliant documentation, allowing 
+developers to explore and interact with available endpoints. This self-documenting behavior streamlines integration 
+testing and encourages a more agile development process.
+
+Finally, to safeguard user data and infrastructure control points, the application enforces secure authentication mechanisms 
+using \ac{jwt} ensuring that only authorized users can trigger actions on shared resources. \unsure{JWT doesnt quite work yet}
+
+\subsection{Proxmox Virtual Environment}
+\ac{pve} functions as the virtualization backbone of the system, enabling the creation and management of Linux-based \ac{vm}s 
+used in the automated assessment workflow. Each \ac{vm} runs a lightweight Linux operating system with a dedicated 
+\ac{gns3}-server instance, providing a self-contained environment for deploying and configuring virtual networks and their 
+components.
+
+The lifecycle of a \ac{vm} in the system begins when a new exercise is created. At this point, the platform clones a 
+pre-configured base template \ac{vm} available in \ac{pve}. This \ac{vm} is then started and automatically configured: the 
+provided \ac{gns3} project file is imported, and a sequence of user-defined commands is executed within the \ac{gns3} 
+environment. Once the setup is finalized, the configured \ac{vm} is converted into a new template \ac{vm} that is tailored to 
+that exercise.
+
+From this template, a “work” \ac{vm} is created for every active student. These \ac{vm}s are exact clones of the configured 
+template and serve as the student's personal lab environment for a given exercise. Each student thus receives a consistent 
+starting point for the exercise while working within an private instance of the network topology.
+
+By default, these \ac{vm}s are not strictly isolated from each other at the network level. However, isolation can be 
+enforced by dynamically applying firewall rules that restrict each student \ac{vm}'s network access to a single designated 
+validation host—the same host that also runs the web application at the current stage of development. This approach ensures 
+a secure and controlled assessment environment while retaining the flexibility to scale or adjust network policies as needed.
+
+The \ac{pve} infrastructure is utilized with scalability in mind. The use of linked clones and storage-efficient backing 
+filesystems, in this case LVM-thin, allows the system to rapidly provision VMs while minimizing storage usage. Load 
+balancing across multiple \ac{pve} nodes is also possible, although the current implementation assumes a single-node 
+deployment for simplicity.
+
+All \ac{pve}-related operations—such as cloning, starting, templating, and deletion—are fully automated and triggered by the 
+web application. Under normal operation, no manual intervention using the \ac{pve} web UI or shell utilities is required; 
+such intervention is only necessary when the system's error handling mechanisms detect failures that cannot be automatically 
+resolved. To securely execute these operations, the application authenticates to the \ac{pve} \ac{api} using token-based 
+authentication. The required credentials and configuration parameters are securely injected via environment variables, while 
+the time limited token is stored in memory, ensuring that only authorized and properly configured processes can interact 
+with the \ac{pve} infrastructure.
+\subsection{GNS3 Network Emulator}
+
+\subsection{Nornir Automation Framework}
+
+\subsection{Storage and Data Model (Maybe)}
+% If your architecture has a DB or persistent state model, a section here works great

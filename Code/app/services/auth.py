@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
+from ldap3 import Server, Connection, ALL, SIMPLE, SUBTREE, ANONYMOUS
+
 import jwt
 from jwt.exceptions import InvalidTokenError
 
@@ -11,7 +13,8 @@ from passlib.context import CryptContext
 from app.config import settings
 from app.dependencies.repositories import UserRepositoryDep
 
-
+LDAP_SERVER = settings.LDAP_SERVER
+LDAP_BASE_DN = settings.LDAP_BASE_DN
 SECRET_KEY = settings.SECRET_KEY
 ALGORITHM  = settings.ALGORITHM
 
@@ -21,6 +24,30 @@ class TokenData(BaseModel):
     username: str | None = None
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def ldap_authenticate(username: str, password: str) -> bool:
+    # Step 1: Anonymous bind to search for the user
+    server = Server(LDAP_SERVER, get_info=ALL)
+    conn = Connection(server, authentication=ANONYMOUS)
+    conn.open()
+    conn.bind()
+
+    search_filter = f"(uid={username})"
+    conn.search(search_base=LDAP_BASE_DN,
+                search_filter=search_filter,
+                search_scope=SUBTREE,
+                )
+
+    if not conn.entries:
+        return False  # User not found
+
+    user_dn = conn.entries[0].entry_dn
+
+    # Step 2: Try binding as the user with the password
+    user_conn = Connection(server, user=user_dn, password=password, authentication=SIMPLE)
+    if user_conn.bind():
+        return True
+    return False
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)

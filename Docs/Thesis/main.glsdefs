@@ -1,31 +1,3 @@
-\glsdefs@newdocentry{ann}%
-{%
-name={\acronymfont {\glsentryshort {ann}}},%
-sort={ANN},%
-type={acronym},%
-first={ANN},%
-firstplural={ANNs},%
-text={ANN},%
-plural={ANNs},%
-description={Artificial Neural Network},%
-descriptionplural={Artificial Neural Network},%
-symbol={\relax },%
-symbolplural={\relax },%
-user1={},%
-user2={},%
-user3={},%
-user4={},%
-user5={},%
-user6={},%
-long={Artificial Neural Network},%
-longplural={Artificial Neural Networks},%
-short={ANN},%
-shortplural={ANNs},%
-counter={page},%
-parent={},%
-%
-}%
-
 \glsdefs@newdocentry{cs}%
 {%
 name={\acronymfont {\glsentryshort {cs}}},%

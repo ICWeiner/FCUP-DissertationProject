@@ -14,77 +14,17 @@
 % Write text in here
 % Use \subsection and \subsubsection to organize text
 
-This chapters main focus is to provide the reader with the necessary background information to understand the context of
-this project. The main goal of this project is to provide a system capable of automatically evaluating network topologies 
-by validating configurations and running tests on different devices in the network. Analogue systems exist in the market,
-primarily focused in programming. These systems receive code from students and subsequently run tests on it against 
-multiples test cases and are already widely deployed in educational environments. 
-Shifting from programming to network topologies appears simple at first glance but comes with a particular set of 
-challenges not present in programming evaluations. Each student will require an individual working environment, which can 
-be addressed by using virtualization platforms. There is also the matter of communicating with the devices in the network, 
-which can be addressed by using network automation tools. Finally there is the matter of combining these technologies to 
-create a system capable of automatically evaluating network topologies.
+The main focus of this chapter is to provide the reader with the necessary background to understand the context and technical 
+foundations of this project. The goal of the system is to automatically evaluate network topologies by validating 
+configurations and executing tests across various devices within a virtual network.
 
-\section{Programming Evaluation Systems}
-While not directly related, they are the main inspiration for this project. Programming evaluation systems are widely
-deployed in universities and other educational institutions. These systems receive code from students and subsequently run
-tests on it, outputting a score and even being configurable to provide students the first test case that they failed in, 
-guiding students to the solution without handing it out.
+Achieving this requires the integration of multiple technologies, as the system must support a wide range of features to 
+deliver a fully automated, end-to-end solution. Key concerns include not only functionality but also scalability, since 
+multiple students may interact with the platform concurrently, each requiring an isolated working environment.
 
-These tools typically provide a structured approach to test coding and problem solving skills. They begin by offering a
-problem statement coupled with an optional image and an example test case, normally in the form of input and expected output.
-Users can interact with the system by use of an online code editor, where they can write their solution and submit it for
-evaluation, or by uploading a file with their solution. The system then evaluates the provided solution against multiple
-pre-defined test cases, and validating the output against the know-good output, outputting a score based on the number of 
-test cases passed. The system may also be configured to have time and/or memory constraints, to ensure that temporal and
-spatial complexity are also taken into account.
+To support these requirements, this chapter introduces core concepts and tools such as virtualization, network automation, 
+web frameworks and task processing. These components form the foundation upon which the system is built.
 
-All of these, serve to provide a thorough evaluation of the student's solution, which can help guide a student to better
-their coding and problem solving skills.
-
-In the context of the\ac{dcc}, Mooshak and Codex are commonly deployed to be used in the context of classes and 
-even exams and programming contests.
-
-The main differentiator between these systems and the one proposed in this project is the ability to solve a network 
-exercise using multiple configurations across multiple devices, while programming evaluation systems will expect
-the same output every time, given the same input.
-Another key difference is the fact that programming evaluation systems dont always provide a working environment for the 
-students to test their code, owing to the fact that students might prefer to user their own development environment for 
-initial development and testing. This project aims to provide a working environment for students to work on for a few
-reasons that will be discussed later on. \unsure{DISCUSS REASONS WHY LATER}
-
-\subsection{Mooshak}
-Mooshak is a web-based system for managing programming contests and also to act as an automatic judge of programming 
-contests \cite{Leal2003567}. It supports a variety of programming languages like Java, C, etc. Under each contest students will find one more 
-problem definitions each containing varying sets of test cases in input-output pairs. After submiting their solution, 
-the system will compile and run the code against the test cases giving a score based on the the amount of test cases passed.
-The system can also differentiate between differing types of errors, such as not giving the expected output, poorly 
-formatted output, failure to compile or even exceeding the time limits.
-Mooshak also includes some features designed to drive competition between students, like a real time leaderboard and
-the ability to have more than 100\% of the score for a given contest.
-
-The system however is not without its limitations as it uses plain text files for its test cases and validates the output 
-of student's code character by character, which can lead to false negatives if the output is not formatted exactly as
-expected.
-
-\subsection{Cisco Packet Tracer}
-
-Cisco Packet Tracer is a network \textbf{simulation} tool developed by Cisco Systems, widely used in academic environments 
-to teach networking concepts and prepare students for certifications such as the Cisco Certified Network Associate (CCNA). 
-It offers a visual interface for building and simulating virtual network topologies using a variety of Cisco devices, 
-including routers, switches, and end devices.
-
-While Packet Tracer is highly accessible and effective for introducing networking fundamentals, it is a closed-source, 
-proprietary tool limited to simulating Cisco hardware and IOS features. Its functionality is optimized for teaching 
-purposes rather than for flexibility, extensibility, or integration into larger automated workflows.
-
-In contrast, this project aim to allow for a more realistic and extensible lab environment. The use of real operating 
-systems and support of a wide range of vendor platforms for routers and switches, aswell as Linux-based virtual machines 
-is highly desirable. This allows for a more realistic experience, as students will be able to work with the same tools and 
-operating systems that they will encounter in real-world scenarios.
-
-Therefore, while Cisco Packet Tracer remains a valuable educational tool, the needs of this project called for a more 
-flexible and open architecture, which is better addressed by other tools.
 
 \section{Virtualization}
 Virtualization is the process of creating a virtual version of physical resources, such as routers, switches, or even
@@ -165,7 +105,7 @@ gns3-gui.
 \end{figure}
 
 \section{Linux}
-Linux is a core component of this project, as it is the operating system used to host all the services provided.
+Linux is a core component of this project, as it is the kernel of all operating systems used to host all the services provided.
 
 \begin{itemize}
   \item \textbf{Containerized Web Application} - The web application runs inside an LXC container on Proxmox. Since LXC 
@@ -174,7 +114,10 @@ Linux is a core component of this project, as it is the operating system used to
   \item \textbf{Virtual Machines hosting GNS3} Proxmox also hosts virtual machines running Linux-based Ubuntu GNS3 servers. 
   These VMs provide students with isolated environments to configure and test network topologies, benefiting from the 
   flexibility of full virtualization through KVM, giving them the ability to virtualize any type of network device.
-  Students only interact with these \ac{vm}s via the GNS3 web Interface.
+  Students only interact with these \ac{vm}s via the GNS3 web Interface. Students interact with these VMs using a browser, 
+  accessing the gns3-server instance running on them. Thus the students never have to interact with the underlying 
+  operating system, and so these machines do not require a desktop environment, which helps freeing up resources leading to
+  better scalability.
   \item \textbf{\ac{pve}} - Proxmox is a Linux-based open-source platform for enterprise-level virtualization. It is based
   on the Debian Linux distribution.
 \end{itemize}
@@ -263,10 +206,10 @@ add functionality to their applications in a reusable and maintainable manner.
 
 The separation defined by \ac{wsgi} allows for flexibility and scalability in deploying Python web applications.
 
-During development, Python web applications often use built-in servers provided by frameworks like Flask. 
-However, these servers are not suitable for production environments. In production, WSGI servers act as intermediaries 
-between web servers (e.g., NGINX or Apache) and Python applications, handling incoming requests and serving responses 
-efficiently.
+During development, Python \ac{wsgi} applications often use built-in servers provided by frameworks like Flask. 
+However, these servers typically aren't fully featured and aren't suitable for production environments. In production, WSGI 
+servers act as intermediaries between web servers (e.g., NGINX or Apache) and Python applications, handling incoming requests 
+and serving responses efficiently.
 
 \subsubsection{Flask}
 Flask is a web application micro framework written in Python, adhering to the \ac{wsgi} standard, designed to 
@@ -463,7 +406,7 @@ The framework provides a robust inventory management system, enabling the organi
 assignment of specific tasks to these groups. This structure facilitates targeted automation and simplifies complex 
 network operations.
 
-Finally, thanks to nornir's architecture, it is highly extensible through its plugin system, allowing users to create 
+Finally, thanks to Nornir's architecture, it is highly extensible through its plugin system, allowing users to create 
 custom plugins for inventory management, task execution, and result processing. This modularity ensures that Nornir can 
 adapt to a wide range of network automation scenarios.
 
@@ -539,3 +482,4 @@ improved the application's throughput under concurrent workloads.
 Overall, HTTPX provides a robust and flexible foundation for asynchronous networking in Python, making it an ideal 
 fit for the needs of this project.
 
+\unsure{Maybe talk about the choosen asgi server}

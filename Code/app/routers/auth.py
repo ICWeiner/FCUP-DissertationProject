@@ -76,6 +76,7 @@ async def login_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     user_repository: UserRepositoryDep,
 ) -> Token:
+    '''
     user = user_repository.find_by_username(form_data.username)
 
     if not user:
@@ -85,10 +86,17 @@ async def login_user(
 
     if not success:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
+    '''
+
+    success = auth_services.ldap_authenticate(form_data.username, form_data.password)
+    if not success:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    
+    #user = user_repository.find_by_username(form_data.username)
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = auth_services.create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": "test"}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type="bearer")
 

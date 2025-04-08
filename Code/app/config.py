@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     CONCURRENT_LIMIT: int
+    LDAP_SERVER: str
+    LDAP_BASE_DN: str
     DEBUG: bool = False  # Default value
 
     class Config:

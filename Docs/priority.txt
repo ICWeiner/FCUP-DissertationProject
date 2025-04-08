@@ -1,0 +1,4 @@
+LDAP
+Teacher student priviledges
+showcase full exercise creation and completion by a student (video backup)
+various configuration validations
