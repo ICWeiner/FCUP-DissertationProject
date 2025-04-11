@@ -7,6 +7,7 @@ class GenericLibrary(CommandLibrary):
         self.input_command = None
         super().__init__(file)
 
+    #To use this library, you need to set the command first e.g. set_command("show version")
     def set_command(self, command):
         self.input_command = command
 

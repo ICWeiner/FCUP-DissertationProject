@@ -2,6 +2,7 @@ import uuid
 import time
 import os
 import shutil
+import json
 
 import asyncio
 
@@ -41,16 +42,22 @@ router = APIRouter(prefix="/exercises",
 
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates/"))
 
-class HostnameModel(BaseModel):
+class ValidationModel(BaseModel):
+    command: str 
+    target: str 
+
+class ConfigurationModel(BaseModel):
     hostname: str 
     commands: List[str] 
 
 class CreateExerciseFormData(BaseModel):
-    title: str
+    title: str #all fields mandatory
     body: str
     proxmox_id: int
-    gns3_file: UploadFile = File(...)
-    hostnames: Optional[List[HostnameModel]] = None
+    #gns3_file: UploadFile = File(...)
+    validations: str#List[ValidationModel] 
+    configurations: Optional[str] = None#List[ConfigurationModel]
+    #configurations: Optional[List[ExerciseConfigurationModel]] = None #except this one
 
 @router.get('/', response_class=HTMLResponse)
 async def check_list_exercises(request: Request,
@@ -102,6 +109,32 @@ async def check_exercise(request: Request,
                                                      "exercise_id": exercise_id,
                                                      })
 
+@router.post("/test")
+async def test_exercise_endpoint(exercise_repository: ExerciseRepositoryDep,
+                        user_repository: UserRepositoryDep,
+                        templatevm_repository: TemplateVmRepositoryDep,
+                        workvm_repository: WorkVmRepositoryDep,
+                        #current_user: CurrentUserDep,
+                        data: Annotated[CreateExerciseFormData, Form()],
+):
+    
+    parsed_validations = json.loads(data.validations)
+
+    parsed_configurations = None
+    if data.configurations:
+        parsed_configurations = json.loads(data.configurations)
+
+
+    # Parse the data into Pydantic models
+
+
+    return {
+        "validations": parsed_validations,
+        "configurations": parsed_configurations,
+        #"file_name": gns3_file.filename
+    }
+    
+
 @router.post("/create")
 async def create_exercise(exercise_repository: ExerciseRepositoryDep,
                         user_repository: UserRepositoryDep,
@@ -122,14 +155,14 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
     commands_by_hostname = []
     
     #formats data in this manner [{'hostname': 'r1', 'commands': ['show version', 'ping 8.8.8.8']}, {'hostname': 'pc1', 'commands': ['traceroute 8.8.4.4']}] 
-    if data.hostnames:
-        for hostname_form in data.hostnames:
-            hostname_data = {
-                "hostname": hostname_form.hostnames,
-                "commands": [command_form.data for command_form in hostname_form.commands]#TODO this isnt right
+    if data.configurations:
+        for configuration_form in data.configurations:
+            configuration_data = {
+                "hostname": configuration_form.hostname,
+                "commands": configuration_form.commands
             }
-            commands_by_hostname.append(hostname_data)
-    
+            commands_by_hostname.append(configuration_data)
+        
     start_time_template_vm = time.perf_counter()
     
     #Step 1: Clone base template VM needs base template ID and hostname returns cloned vm ID
