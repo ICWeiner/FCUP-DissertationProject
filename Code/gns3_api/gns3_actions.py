@@ -186,13 +186,13 @@ def import_project(node_ip, filepath):
 
         filename = filepath.split("/")[-1] #Get the filename from the full path
 
+        logging.info(f"Importing project {project_id} on {node_ip}")
+
         response = httpx.post(
             f'{_gns3_base_uri(node_ip)}/projects/{project_id}/import',
             headers = {'accept': 'application/json'},
             files = {"archive": (filename, fileobj)}
             )
-
-        logging.info(f"Importing project {project_id} on {node_ip}.")
 
         response.raise_for_status()
 
@@ -204,11 +204,11 @@ def import_project(node_ip, filepath):
         logging.error(f"Attribute error: {err}")
     except (httpx.ConnectError, httpx.TimeoutException) as err:
         logging.error(f"Network error: {err}")
-        return False
+        return None
     except httpx.HTTPStatusError as err:
         if response.status_code == 404:
             logging.info(f"GNS3 project {project_id} not found on {node_ip}.")
-            return False
+            return None
         logging.error(f"HTTP error for IP {node_ip}: {err}")
         raise
     except httpx.RequestError as err:

@@ -15,6 +15,7 @@ class CommandLibrary:
     
     def command(self, source, destination):
         # Get the platform group of the source
+        source = source.lower()
         platform = self._get_platform(source)
 
         if platform == "cisco_router":

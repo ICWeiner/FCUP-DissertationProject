@@ -35,15 +35,16 @@ async def create_users_work_vms(users, exercises):
         for user in users:
             hostname = f'vm-{uuid.uuid4().hex[:12]}'  # Generate a random hostname
             tasks.append(proxmox_services.aclone_vm(exercise.templatevm.proxmox_id, hostname))
-            assignments.append((user, exercise)) 
+            assignments.append((user, exercise, hostname)) 
 
     vm_ids = await asyncio.gather(*tasks)
 
-    for (user, exercise), vm_id in zip(assignments, vm_ids):
+    for (user, exercise, hostname), vm_id in zip(assignments, vm_ids):
         workvm = WorkVm(
                 proxmox_id=vm_id,
                 user=user,
                 templatevm=exercise.templatevm,
+                hostname = hostname
             )
         created_vms.append(workvm)
 

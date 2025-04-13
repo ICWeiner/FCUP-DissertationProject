@@ -6,7 +6,7 @@ import json
 
 import asyncio
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError, parse_obj_as
 from fastapi import APIRouter, Request, Form, UploadFile, File, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
@@ -18,6 +18,7 @@ from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryD
 from app.services import vm as vm_services
 from app.services import proxmox as proxmox_services
 from app.services import gns3 as gns3_services
+from app.services import nornir as nornir_services
 from app.utils import gns3 as gns3_utils
 
 import logging
@@ -43,6 +44,7 @@ router = APIRouter(prefix="/exercises",
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates/"))
 
 class ValidationModel(BaseModel):
+    hostname: str
     command: str 
     target: str 
 
@@ -51,13 +53,13 @@ class ConfigurationModel(BaseModel):
     commands: List[str] 
 
 class CreateExerciseFormData(BaseModel):
-    title: str #all fields mandatory
+    title: str 
     body: str
     proxmox_id: int
-    #gns3_file: UploadFile = File(...)
-    validations: str#List[ValidationModel] 
-    configurations: Optional[str] = None#List[ConfigurationModel]
-    #configurations: Optional[List[ExerciseConfigurationModel]] = None #except this one
+    gns3_file: UploadFile = File(...)
+    validations: str
+    configurations: Optional[str] = None
+
 
 @router.get('/', response_class=HTMLResponse)
 async def check_list_exercises(request: Request,
@@ -109,29 +111,81 @@ async def check_exercise(request: Request,
                                                      "exercise_id": exercise_id,
                                                      })
 
-@router.post("/test")
-async def test_exercise_endpoint(exercise_repository: ExerciseRepositoryDep,
+@router.post("/test_input")
+async def test_input(exercise_repository: ExerciseRepositoryDep,
+                     templatevm_repository: TemplateVmRepositoryDep,
+                     data: Annotated[CreateExerciseFormData, Form()]):
+    
+    validations = json.loads(data.validations)
+    configurations = json.loads(data.configurations)
+
+
+    new_templatevm = TemplateVm(proxmox_id = data.proxmox_id)
+
+    new_exercise = Exercise(name = data.title,
+                description = data.body,
+                templatevm = new_templatevm,
+                validations = json.dumps(validations),
+                configurations = json.dumps(configurations)
+    )
+    
+    exercise_repository.save(new_exercise)
+    templatevm_repository.save(new_templatevm)
+
+    print("##### Validations")
+    print(validations)
+    for validation in validations:
+        print(validation)
+        print(validation['hostname'])
+        print(validation['command'])
+        print(validation['target'])
+
+    print("##### Configurations")
+    print(configurations)
+    if configurations:
+        for configuration in configurations:
+            print(configuration['hostname'])
+            for command in configuration['commands']:
+                #here its intended to use our developed Generic Module for nornir hence the "" as this parameter isnt used by this module 
+                print(command)
+
+    return {
+        "validations": new_exercise.validations,
+        "configurations": new_exercise.configurations,
+    }
+
+@router.post("/{exercise_id}/test")
+async def evaluate_exercise(exercise_repository: ExerciseRepositoryDep,
                         user_repository: UserRepositoryDep,
                         templatevm_repository: TemplateVmRepositoryDep,
                         workvm_repository: WorkVmRepositoryDep,
                         #current_user: CurrentUserDep,
-                        data: Annotated[CreateExerciseFormData, Form()],
-):
-    
-    parsed_validations = json.loads(data.validations)
+                        exercise_id: int,
+):  
+    exercise = exercise_repository.find_by_id(exercise_id)
 
-    parsed_configurations = None
-    if data.configurations:
-        parsed_configurations = json.loads(data.configurations)
+    gns3_project_id = exercise.templatevm.gns3_project_id
 
+    validations = json.loads(exercise.validations)
 
-    # Parse the data into Pydantic models
+    results = []
 
+    await proxmox_services.aset_vm_status(926342727, True)
+
+    node_ip = await proxmox_services.aget_vm_ip(926342727)#hardcoded for now
+
+    await asyncio.sleep(3)
+
+    gns3_config_filename = gns3_services.setup_gns3_project(node_ip, gns3_project_id, "test")#test hostname needs to be replaced by vm hostname
+
+    for validation in validations:    
+        result = nornir_services.run_command(validation['hostname'], validation['command'], validation['target'], gns3_config_filename)
+        results.append(result)
 
     return {
-        "validations": parsed_validations,
-        "configurations": parsed_configurations,
-        #"file_name": gns3_file.filename
+        "validations": exercise.validations,
+        "configurations": exercise.configurations,
+        "results": results,
     }
     
 
@@ -143,6 +197,13 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
                         #current_user: CurrentUserDep,
                         data: Annotated[CreateExerciseFormData, Form()],
 ):  
+    
+    validations = json.loads(data.validations)
+    configurations = (
+        json.loads(data.configurations)
+        if data.configurations else None
+    )
+
     filename = gns3_utils.generate_unique_filename(data.gns3_file.filename)
 
     path_to_gns3project = os.path.join(str(BASE_DIR / "uploads"), filename)
@@ -152,33 +213,28 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
 
     template_hostname = f'tvm-{uuid.uuid4().hex[:18]}'#the length of this hostname can be extended up to 63 characters if more uniqueness is required
 
-    commands_by_hostname = []
-    
-    #formats data in this manner [{'hostname': 'r1', 'commands': ['show version', 'ping 8.8.8.8']}, {'hostname': 'pc1', 'commands': ['traceroute 8.8.4.4']}] 
-    if data.configurations:
-        for configuration_form in data.configurations:
-            configuration_data = {
-                "hostname": configuration_form.hostname,
-                "commands": configuration_form.commands
-            }
-            commands_by_hostname.append(configuration_data)
-        
     start_time_template_vm = time.perf_counter()
     
     #Step 1: Clone base template VM needs base template ID and hostname returns cloned vm ID
     vm_proxmox_id = await proxmox_services.aclone_vm(data.proxmox_id, template_hostname)
 
     # Step 2: Start VM needs vm ID returns true if successful
-    await proxmox_services.aset_vm_status(vm_proxmox_id ,True)
+    await proxmox_services.aset_vm_status(vm_proxmox_id, True)
 
     node_ip = await proxmox_services.aget_vm_ip(vm_proxmox_id)
+
+    await asyncio.sleep(3)
 
     # Step 3: Import GNS3 Project needs vm IP returns GNS3 project ID
     gns3_project_id = gns3_services.import_gns3_project(node_ip, path_to_gns3project) 
 
     # Step 4: Run Commands on GNS3 (this is highly specific to this workflow) needs vm IP
-    if commands_by_hostname:
-        gns3_services.run_gns3_commands(node_ip, gns3_project_id, template_hostname, commands_by_hostname) 
+    if configurations:
+        gns3_config_filename= gns3_services.setup_gns3_project(node_ip, gns3_project_id, template_hostname)
+        for configuration in configurations:
+            for command in configuration['commands']:
+                #here its intended to use our developed Generic Module for nornir hence the "" as this parameter isnt used by this module 
+                nornir_services.run_command(configuration['hostname'], command, "", gns3_config_filename)
 
     # Step 5: Stop VM needs VM ID returns true if successful
     await proxmox_services.aset_vm_status(vm_proxmox_id, False)
@@ -188,11 +244,15 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
 
     end_time_template_vm = time.perf_counter() 
 
-    new_templatevm = TemplateVm(proxmox_id = vm_proxmox_id)
-    
+    new_templatevm = TemplateVm(proxmox_id = vm_proxmox_id,
+                                gns3_project_id = str(gns3_project_id),
+                                hostname = template_hostname)
+
     new_exercise = Exercise(name = data.title,
                             description = data.body,
                             templatevm = new_templatevm,
+                            validations = json.dumps(validations),
+                            configurations = json.dumps(configurations)
                             )
 
     existing_users = user_repository.find_all()
@@ -217,7 +277,6 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
     logging.info(f"Template VM creation time: {end_time_template_vm - start_time_template_vm:.6f} seconds")
     logging.info(f"VM Cloning process time: {end_time_clone_vms - start_time_clone_vms:.6f} seconds")
     logging.info(f"Final CPU usage: {psutil.cpu_percent()}%")
-
 
     return
 

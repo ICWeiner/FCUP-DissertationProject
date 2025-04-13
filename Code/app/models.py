@@ -1,6 +1,7 @@
 from typing import List, Optional
 from datetime import datetime
 from sqlmodel import Field, Relationship, SQLModel
+import json
 
 class CustomBase(SQLModel):
     created_on: datetime = Field(nullable=False, default=datetime.now())
@@ -36,6 +37,9 @@ class Exercise(CustomBase, table=True):
     description: str = Field(nullable=False, max_length=255)
     templatevm_id: Optional[int] = Field(default=None, foreign_key="templatevm.id", nullable=True)
 
+    validations: Optional[str] = Field(default=None)  # will store a stringified JSON of the validations as sqlite does not support json type 
+    configurations: Optional[str] = Field(default=None)  # also a stringified JSON 
+
     submissions: List["Submission"] = Relationship(back_populates="exercise")
     templatevm: Optional["TemplateVm"] = Relationship(back_populates="exercise",
                                                     cascade_delete=True,
@@ -44,6 +48,7 @@ class Exercise(CustomBase, table=True):
 class VmBase(CustomBase):
     id: Optional[int] = Field(default=None, primary_key=True)
     proxmox_id: int = Field(nullable=False)
+    hostname: str 
     
 class WorkVm(VmBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -57,6 +62,7 @@ class WorkVm(VmBase, table=True):
 
 class TemplateVm(VmBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    gns3_project_id: str
     
     exercise: Optional["Exercise"] = Relationship(back_populates="templatevm")  # One-to-One
     workvms: List["WorkVm"] = Relationship(back_populates="templatevm",

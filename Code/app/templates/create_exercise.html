@@ -2,38 +2,30 @@
 
 {% block content %}
     <script>
-      let validationIndex = 1; // Track number of validation tables
+      let validationIndex = 0; // Track number of validation tables
       let configurationIndex = 0; // Track number of hostname tables
       let hostnamesList = []; // List of hostnames
 
       function addValidation() {
             let container = document.getElementById("validations-container");
 
-            let newTable = document.createElement("table");
+            let newTable = document.createElement("div");
             newTable.id = `validations-${validationIndex}`;
             newTable.innerHTML = `
-                <tbody>
-                    <tr>
-                        <th>
-                            <label for="validations-${validationIndex}-command">Command</label>
-                        </th>
-                        <td>
-                            <input id="validations-${validationIndex}-command" name="validations-${validationIndex}-command" placeholder="Enter command" required="" type="text">
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="validations-${validationIndex}-target">Target</label>
-                        </th>
-                        <td>
-                            <input id="validations-${validationIndex}-target" name="validations-${validationIndex}-target" placeholder="Enter target" required="" type="text">
-                        </td>
-                    </tr>
-                </tbody>
-                <button type="button" onclick="removeElement('${newTable.id}')">Remove Validation</button>
-            `;
-
+                <label for="validations-${validationIndex}-hostname">Hostname</label>
+                <select id="validations-${validationIndex}-hostname" name="validations-${validationIndex}-hostname">
+                    ${hostnamesList.map(hostname => 
+                    `<option value="${hostname}">${hostname}</option>`
+                    ).join('')}
+                </select>
+                <label for="validations-${validationIndex}-command">Command</label>
+                <select id="validations-${validationIndex}-command" name="validations-${validationIndex}-command">
+                    <option value="ping">Ping</option>
+                    <option value="traceroute">Traceroute</option>
+                </select>
+                <label for="validations-${validationIndex}-target">Target</label>
+                <input id="validations-${validationIndex}-target" name="validations-${validationIndex}-target" placeholder="Enter target" required="" type="text">
+                <button type="button" onclick="removeElement('${newTable.id}')">Remove Validation</button>`;
             container.appendChild(newTable);
             validationIndex++;
         }
@@ -41,36 +33,25 @@
       function addConfiguration() {
           let container = document.getElementById("configurations-container");
 
-          let newTable = document.createElement("table");
+          let newTable = document.createElement("div");
           newTable.id = `configurations-${configurationIndex}`;
           newTable.innerHTML = `
-              <tbody>
-                  <tr>
-                      <th><label for="configurations-${configurationIndex}-hostname">Hostname</label></th>
-                      <td>
-                          <select id="configurations-${configurationIndex}-hostname" name="configurations-${configurationIndex}-hostname">
-                              ${hostnamesList.map(hostname => 
-                                  `<option value="${hostname}">${hostname}</option>`
-                              ).join('')}
-                          </select>
-                          <button type="button" onclick="removeElement('${newTable.id}')">Remove Hostname</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <th><label for="configurations-${configurationIndex}-commands">Commands</label></th>
-                      <td>
-                          <ul id="configurations-${configurationIndex}-commands">
-                              <li>
-                                  <label for="configurations-${configurationIndex}-commands-0">Command</label>
-                                  <input id="configurations-${configurationIndex}-commands-0" name="configurations-${configurationIndex}-commands-0" type="text">
-                                  <button type="button" onclick="removeElement(this.parentNode)">Remove Command</button>
-                              </li>
-                          </ul>
-                          <button type="button" onclick="addCommand(${configurationIndex})">Add Command</button>
-                      </td>
-                  </tr>
-              </tbody>
-          `;
+            <label for="configurations-${configurationIndex}-hostname">Hostname</label>
+                <select id="configurations-${configurationIndex}-hostname" name="configurations-${configurationIndex}-hostname">
+                    ${hostnamesList.map(hostname => 
+                    `<option value="${hostname}">${hostname}</option>`
+                    ).join('')}
+                </select>
+                <button type="button" onclick="removeElement('${newTable.id}')">Remove Hostname</button>
+                <label for="configurations-${configurationIndex}-commands">Commands</label>
+                <ul id="configurations-${configurationIndex}-commands">
+                    <li>
+                        <label for="configurations-${configurationIndex}-commands-0">Command</label>
+                        <input id="configurations-${configurationIndex}-commands-0" name="configurations-${configurationIndex}-commands-0" type="text">
+                        <button type="button" onclick="removeElement(this.parentNode)">Remove Command</button>
+                    </li>
+                </ul>
+                <button type="button" onclick="addCommand(${configurationIndex})">Add Command</button>`;
 
           container.appendChild(newTable);
           configurationIndex++;
@@ -114,9 +95,12 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const container = document.getElementById('configurations-container');
-                container.innerHTML = '';   
-                hostnamesList = data.hostnamesList;           
+                const containerConfigurations = document.getElementById('configurations-container');
+                containerConfigurations.innerHTML = '';
+                const containerValidations = document.getElementById('validations-container');
+                containerValidations.innerHTML = '';
+                hostnamesList = data.hostnamesList;  
+                addValidation()     
             } else {
                 alert('Error processing file: ' + data.error);
             }
@@ -129,11 +113,12 @@
     function collectValidations() {
         let validations = [];
         for (let i = 0; i < validationIndex; i++) {
+            let hostname = document.querySelector(`[name="validations-${i}-hostname"]`).value;
             let command = document.querySelector(`[name="validations-${i}-command"]`).value;
             let target = document.querySelector(`[name="validations-${i}-target"]`).value;
             
             if (command && target) {
-                validations.push({ command, target });
+                validations.push({hostname, command, target });
             }
         }
         return validations;
@@ -166,7 +151,7 @@
         e.preventDefault(); // prevent default submission for now
 
         const validations = collectValidations();
-        //const configurations = collectConfigurations();
+        const configurations = collectConfigurations();
 
         const form = document.getElementById("theForm");        
         
@@ -175,22 +160,14 @@
         validationsInput.name = "validations";
         validationsInput.value = JSON.stringify(validations);
 
-        /*const configurationsInput = document.createElement("input");
+        const configurationsInput = document.createElement("input");
         configurationsInput.type = "hidden";
         configurationsInput.name = "configurations";
-        configurationsInput.value = JSON.stringify(configurations);*/
+        configurationsInput.value = JSON.stringify(configurations);
 
         form.append(validationsInput);
-        //form.append(configurationsInput);
+        form.append(configurationsInput);
 
-        /*let formData = new FormData();
-
-        formData.append("title",  form.elements["title"].value)
-        formData.append("body",  form.elements["body"].value)
-        formData.append("proxmox_id",  form.elements["proxmox_id"].value)
-        formData.append("validations",  JSON.stringify([{ command: "ping", target: "8.8.8.8" },{command: "traceroute", target: "3.3.3.3"}]))
-        formData.append("configurations",  JSON.stringify([{ hostname: "R1", commands: ["show version", "traceroute 1.1.1.1"] }, {hostname: "SW1", commands: ["ping 2.2.2.2"]}]))
-        */
         // Submit the form 
         form.submit()
     }
@@ -203,7 +180,7 @@
         
             <h1>New Exercise</h1>
             
-            <form id="theForm" method="POST" action="{{ url_for( 'test_exercise_endpoint' ) }}" onsubmit="alterForm(event)" enctype='multipart/form-data'>
+            <form id="theForm" method="POST" action="{{ url_for( 'create_exercise' ) }}" onsubmit="alterForm(event)" enctype='multipart/form-data'>
         
               <fieldset class="title">
                 <label for="title">Title</label>
@@ -213,45 +190,22 @@
               <fieldset class="body">
                 <label for="body">Body Text</label>
                 <textarea id="body" name="body" placeholder="Body" required=""></textarea>
-                
               </fieldset>
+
               <fieldset class="proxmox_id">
                 <label for="proxmox_id">Template VM Proxmox ID</label>
                 <input id="proxmox_id" name="proxmox_id" placeholder="Proxmox ID" required="" type="number">
-                
               </fieldset>
 
-              <!--
               <fieldset class="gns3_file">
                 <label for="gns3_file">gns3project File</label>
-                <input id="gns3_file" name="gns3_file" onchange="uploadHostnames()" placeholder="GNS3 Project File" type="file">
-                
+                <input id="gns3_file" name="gns3_file" onchange="uploadHostnames()" placeholder="GNS3 Project File" type="file">  
               </fieldset>
-              -->
 
               <fieldset class="validations">
                 <h3> Exercise validation</h3>
                 <div id="validations-container">
-                    <tbody>
-                        <tr>
-                            <th>
-                                <label for="validations-0-command">Command</label>
-                            </th>
-                            <td>
-                                <input id="validations-0-command" name="validations-0-command" placeholder="Enter command" required="" type="text">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <label for="validations-0-target">Target</label>
-                            </th>
-                            <td>
-                                <input id="validations-0-target" name="validations-0-target" placeholder="Enter target" required="" type="text">
-                            </td>
-                        </tr>
-                    </tbody>
-                    <button type="button" onclick="removeElement('${newTable.id}')">Remove Validation</button>
-                    <!-- Hostname tables will be added here dynamically -->
+                    <!-- Validation tables will be added here dynamically -->
                 </div>
         
                 <button type="button" onclick="addValidation()">Add Validation</button>

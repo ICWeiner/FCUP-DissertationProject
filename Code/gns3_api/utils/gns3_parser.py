@@ -42,11 +42,12 @@ def gns3_nodes_to_yaml(node_ip, node_name, gns3_devices):
             
             hosts[hostname] = host
 
-        output_file = os.path.join(destination_folder,node_name)
+        output_file_path = os.path.join(destination_folder, f"{node_name}.yaml")
        
-    with open(f'{output_file}.yaml', 'w') as yaml_file:
+    with open(output_file_path, 'w') as yaml_file:
         yaml.dump(hosts, yaml_file, default_flow_style=False)
-    print(f'{output_file}.yaml file has been created successfully.')
+    print(f'{output_file_path} file has been created successfully.')
+    return output_file_path
 
 
 
