@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     PROXMOX_HOST: str
     SECRET_KEY: str
     ALGORITHM: str
-    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    ACCESS_TOKEN_EXPIRE_SECONDS: int
     CONCURRENT_LIMIT: int
     LDAP_SERVER: str
     LDAP_BASE_DN: str

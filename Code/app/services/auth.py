@@ -3,22 +3,23 @@ from datetime import datetime, timedelta, timezone
 from ldap3 import Server, Connection, ALL, SIMPLE, SUBTREE, ANONYMOUS
 
 import jwt
-from jwt.exceptions import InvalidTokenError
 
+from app.dependencies.repositories import UserRepositoryDep
+from app.config import settings
+
+from fastapi import  Depends, HTTPException, status, Cookie
+from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from typing import Annotated
-from fastapi import  Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+
 from passlib.context import CryptContext
-from app.config import settings
-from app.dependencies.repositories import UserRepositoryDep
 
 LDAP_SERVER = settings.LDAP_SERVER
 LDAP_BASE_DN = settings.LDAP_BASE_DN
 SECRET_KEY = settings.SECRET_KEY
 ALGORITHM  = settings.ALGORITHM
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login", auto_error=False)
 
 class TokenData(BaseModel):
     username: str | None = None
@@ -65,9 +66,25 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+async def get_token_from_cookie_or_header(
+    token: str = Depends(oauth2_scheme),
+    cookie_token: str = Cookie(default=None, alias="access_token")
+):
+    if cookie_token:
+        return cookie_token
+    if token:
+        return token
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Not authenticated"
+    )
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)],
-                           user_repository: UserRepositoryDep,):
+
+async def get_current_user(
+        token: Annotated[str, Depends(get_token_from_cookie_or_header)],
+        user_repository: UserRepositoryDep,
+        ):
+    
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -75,13 +92,16 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)],
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username = payload.get("sub")
-        if username is None:
+        
+        id = payload.get("sub")
+        if id is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
-    except InvalidTokenError:
+
+        user = user_repository.find_by_id(id)
+        if user is None:
+            raise credentials_exception
+        
+        return user
+        
+    except  jwt.exceptions.InvalidTokenError:
         raise credentials_exception
-    user = user_repository.find_by_username(token_data.username)
-    if user is None:
-        raise credentials_exception
-    return user

@@ -2,8 +2,8 @@ from datetime import timedelta
 
 from pydantic import BaseModel
 from typing import Annotated
-from fastapi import APIRouter, Request, Form, Depends, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Request, Form, Depends, HTTPException, Response
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
 
@@ -16,6 +16,11 @@ from app.services import vm as vm_services
 
 from pathlib import Path
 
+##TEMP
+import jwt
+SECRET_KEY = settings.SECRET_KEY
+ALGORITHM  = settings.ALGORITHM
+
 BASE_DIR = Path(__file__).parent.parent
 
 router = APIRouter(tags=["users"],
@@ -23,7 +28,7 @@ router = APIRouter(tags=["users"],
 
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates/"))
 
-ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
+ACCESS_TOKEN_EXPIRE_SECONDS = settings.ACCESS_TOKEN_EXPIRE_SECONDS
 
 class RegisterFormData(BaseModel):
     username: str
@@ -47,8 +52,6 @@ async def create_user(
     user_repository: UserRepositoryDep,
     exercise_repository: ExerciseRepositoryDep,
     workvm_repository: WorkVmRepositoryDep,
-
-
 ):
     user = UserCreate(username = data.username,
                       email = data.email,
@@ -73,11 +76,12 @@ async def login_user_form(request: Request):
 
 @router.post("/login")
 async def login_user(
+    response: Response,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     user_repository: UserRepositoryDep,
 ) -> Token:
     
-    user = user_repository.find_by_username(form_data.username)
+    user = user_repository.find_by_username_for_auth(form_data.username)
 
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
@@ -96,14 +100,27 @@ async def login_user(
     #user = user_repository.find_by_username(form_data.username)
     '''
 
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_SECONDS)
     access_token = auth_services.create_access_token(
-        data={"sub": "test"}, expires_delta=access_token_expires
+        data={"sub": str(user.id)}, expires_delta=access_token_expires
     )
-    return Token(access_token=access_token, token_type="bearer")
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        max_age=ACCESS_TOKEN_EXPIRE_SECONDS,
+        secure=False,  # for HTTPS
+        samesite="lax",
+        path="/"
+    )
+
+    return {
+        "access_token": access_token,
+        "token_type": "bearer"
+    }
 
 @router.get("/users/me")#test route to check if user is logged in
 async def read_users_me(
     current_user: CurrentUserDep,
-):
+): 
     return current_user

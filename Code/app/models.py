@@ -1,7 +1,6 @@
 from typing import List, Optional
 from datetime import datetime
 from sqlmodel import Field, Relationship, SQLModel
-import json
 
 class CustomBase(SQLModel):
     created_on: datetime = Field(nullable=False, default=datetime.now())
@@ -21,6 +20,9 @@ class User(UserBase, table=True):
 
 class UserPublic(UserBase):
     id: int
+
+    class Config:
+        from_attributes = True
 
 class UserCreate(UserBase):
     hashed_password: str
