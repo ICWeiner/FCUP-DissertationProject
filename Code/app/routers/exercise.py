@@ -75,7 +75,7 @@ async def check_list_exercises(request: Request,
 
 @router.get('/create', response_class=HTMLResponse)
 async def create_exercise_form(request: Request,
-                            #current_user: CurrentUserDep,
+                            current_user: CurrentUserDep,
 ):
     return templates.TemplateResponse('create_exercise.html', {"request": request })
 
@@ -98,81 +98,44 @@ async def retrieve_hostnames(gns3_file: UploadFile = File(...)):
 
 @router.get("/{exercise_id}", response_class=HTMLResponse)#TODO: implement finding user's id and related vm
 async def check_exercise(request: Request,
-                        exercise_repository: ExerciseRepositoryDep,
                         exercise_id: int,
-                        #current_user: CurrentUserDep,
-
+                        exercise_repository: ExerciseRepositoryDep,
+                        workvm_repository: WorkVmRepositoryDep,
+                        current_user: CurrentUserDep,
 ):
+    
     exercise = exercise_repository.find_by_id(exercise_id)
+
+    work_vm_proxmox_id = workvm_repository.find_by_user_and_exercise(current_user.id, exercise.id)
 
     return templates.TemplateResponse("exercise.html", {"request": request,
                                                      "title": exercise.name,
                                                      "body": exercise.description,
                                                      "exercise_id": exercise_id,
+                                                     "vm_proxmox_id": work_vm_proxmox_id,
                                                      })
-
-@router.post("/test_input")
-async def test_input(exercise_repository: ExerciseRepositoryDep,
-                     templatevm_repository: TemplateVmRepositoryDep,
-                     data: Annotated[CreateExerciseFormData, Form()]):
-    
-    validations = json.loads(data.validations)
-    configurations = json.loads(data.configurations)
-
-
-    new_templatevm = TemplateVm(proxmox_id = data.proxmox_id)
-
-    new_exercise = Exercise(name = data.title,
-                description = data.body,
-                templatevm = new_templatevm,
-                validations = json.dumps(validations),
-                configurations = json.dumps(configurations)
-    )
-    
-    exercise_repository.save(new_exercise)
-    templatevm_repository.save(new_templatevm)
-
-    print("##### Validations")
-    print(validations)
-    for validation in validations:
-        print(validation)
-        print(validation['hostname'])
-        print(validation['command'])
-        print(validation['target'])
-
-    print("##### Configurations")
-    print(configurations)
-    if configurations:
-        for configuration in configurations:
-            print(configuration['hostname'])
-            for command in configuration['commands']:
-                #here its intended to use our developed Generic Module for nornir hence the "" as this parameter isnt used by this module 
-                print(command)
-
-    return {
-        "validations": new_exercise.validations,
-        "configurations": new_exercise.configurations,
-    }
 
 @router.post("/{exercise_id}/test")
 async def evaluate_exercise(exercise_repository: ExerciseRepositoryDep,
                         user_repository: UserRepositoryDep,
                         templatevm_repository: TemplateVmRepositoryDep,
                         workvm_repository: WorkVmRepositoryDep,
-                        #current_user: CurrentUserDep,
+                        current_user: CurrentUserDep,
                         exercise_id: int,
 ):  
     exercise = exercise_repository.find_by_id(exercise_id)
 
     gns3_project_id = exercise.templatevm.gns3_project_id
 
+    work_vm_proxmox_id = workvm_repository.find_by_user_and_exercise(current_user.id, exercise.id)
+
     validations = json.loads(exercise.validations)
 
     results = []
 
-    await proxmox_services.aset_vm_status(926342727, True)
+    await proxmox_services.aset_vm_status(work_vm_proxmox_id, True)
 
-    node_ip = await proxmox_services.aget_vm_ip(926342727)#hardcoded for now
+    node_ip = await proxmox_services.aget_vm_ip(work_vm_proxmox_id)
 
     await asyncio.sleep(3)
 
@@ -194,7 +157,7 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
                         user_repository: UserRepositoryDep,
                         templatevm_repository: TemplateVmRepositoryDep,
                         workvm_repository: WorkVmRepositoryDep,
-                        #current_user: CurrentUserDep,
+                        current_user: CurrentUserDep,
                         data: Annotated[CreateExerciseFormData, Form()],
 ):  
     
@@ -283,7 +246,7 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
 @router.post("/exercise/{exercise_id}/delete")
 async def exercise_delete(exercise_id: int,
                         exercise_repository: ExerciseRepositoryDep,
-                        #current_user: CurrentUserDep,
+                        current_user: CurrentUserDep,
 ):
     try:
         exercise = exercise_repository.find_by_id(exercise_id)

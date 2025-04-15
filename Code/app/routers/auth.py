@@ -81,7 +81,7 @@ async def login_user(
     user_repository: UserRepositoryDep,
 ) -> Token:
     
-    user = user_repository.find_by_username_for_auth(form_data.username)
+    user = user_repository.find_by_username(form_data.username)
 
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
@@ -122,5 +122,7 @@ async def login_user(
 @router.get("/users/me")#test route to check if user is logged in
 async def read_users_me(
     current_user: CurrentUserDep,
+    user_repository: UserRepositoryDep,
 ): 
-    return current_user
+    user_public = user_repository.get_public(current_user)# if you want to return user info, use a UserPublic instance
+    return user_public

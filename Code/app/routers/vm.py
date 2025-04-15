@@ -79,39 +79,3 @@ async def stop_vm_firewall(vm_proxmox_id: int):
         return JSONResponse(content={"message": "VM firewall destroyed successfully"}, status_code=200)
     else:
         raise HTTPException(status_code=500, detail="Failed to destroy VM firewall")
-
-@router.post("/{vm_proxmox_id}/test/ping")
-async def ping(vm_proxmox_id: int,
-                data: Annotated[TestRequest, Form()],
-                #current_user: CurrentUserDep,
-               ):
-    hostname = data.hostname  
-    target = data.ip_address
-
-    gns3_filename = "test"  # TODO: pass this as an argument
-        
-    vm_ip = await proxmox_services.aget_vm_ip(vm_proxmox_id)
-    print(f"Student IP is: {vm_ip}")
-
-    vm_hostname = await proxmox_services.aget_vm_hostname(vm_proxmox_id)
-    print(f"Student VM hostname is: {vm_hostname}")
-
-    project_id = gns3_actions.get_project_id(vm_ip, gns3_filename)
-    print(f"Project ID is: {project_id}")
-
-    nodes = gns3_actions.get_project_nodes(vm_ip, project_id)  # Get project nodes info
-
-    gns3_parser.gns3_nodes_to_yaml(vm_ip, vm_hostname, nodes)  # Convert info for Nornir
-
-    gns3_actions.start_project(vm_ip, project_id)
-    print("Project started")
-
-    config = f"{vm_hostname}.yaml"
-    ping_lib = PingLibrary(config)
-    print("Ping library initialized")
-
-    # Perform ping for a hostname
-    results = ping_lib.command(hostname, target)  # Now using arguments dynamically
-    print("Ping command executed")
-
-    return {"test_results": results}

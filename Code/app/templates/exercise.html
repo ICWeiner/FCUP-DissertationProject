@@ -4,15 +4,15 @@
     <div class="container">
         <h1>{{title}}</h1>
         <p>{{body}}</p>
-        <form action=" {{ url_for( 'start_vm', vm_proxmox_id = 101 ) }} " method="POST">
+        <form action=" {{ url_for( 'start_vm', vm_proxmox_id = vm_proxmox_id ) }} " method="POST">
             <button type="submit">Start work environment</button>
         </form>
 
-        <form action=" {{ url_for( 'stop_vm', vm_proxmox_id = 101 ) }} " method="POST">
+        <form action=" {{ url_for( 'stop_vm', vm_proxmox_id = vm_proxmox_id ) }} " method="POST">
             <button type="submit">Stop work environment</button>
         </form>
 
-        <form action=" {{ url_for( 'connect_vm', vm_proxmox_id = 101 ) }} " method="POST">
+        <form action=" {{ url_for( 'connect_vm', vm_proxmox_id = vm_proxmox_id ) }} " method="POST">
             <button type="submit">Connect to work environment</button>
         </form>
 
@@ -20,11 +20,11 @@
             <button type="submit">Request exercise evaluation</button>
         </form>
 
-        <form action=" {{ url_for( 'start_vm_firewall', vm_proxmox_id = 101 ) }} " method="POST">
+        <form action=" {{ url_for( 'start_vm_firewall', vm_proxmox_id = vm_proxmox_id ) }} " method="POST">
             <button type="submit">Turn on exam mode</button>
         </form>
 
-        <form action=" {{ url_for( 'stop_vm_firewall', vm_proxmox_id = 101 ) }} " method="POST">
+        <form action=" {{ url_for( 'stop_vm_firewall', vm_proxmox_id = vm_proxmox_id ) }} " method="POST">
             <button type="submit">Turn off exam mode</button>
         </form>
 
