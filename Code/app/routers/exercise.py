@@ -13,7 +13,7 @@ from fastapi.templating import Jinja2Templates
 from typing import Annotated, List, Optional
 
 from app.models import Exercise, TemplateVm
-from app.dependencies.auth import CurrentUserDep
+from app.dependencies.auth import CurrentUserDep, AuthorizedUserDep
 from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryDep, WorkVmRepositoryDep, TemplateVmRepositoryDep
 from app.services import vm as vm_services
 from app.services import proxmox as proxmox_services
@@ -69,7 +69,7 @@ async def check_list_exercises(request: Request,
 
 @router.get('/create', response_class=HTMLResponse)
 async def create_exercise_form(request: Request,
-                            current_user: CurrentUserDep,
+                            current_user: AuthorizedUserDep,
 ):
     return templates.TemplateResponse('create_exercise.html', {"request": request })
 
@@ -99,14 +99,19 @@ async def check_exercise(request: Request,
 ):
     
     exercise = exercise_repository.find_by_id(exercise_id)
+    
+    vm_proxmox_id = None
 
-    work_vm_proxmox_id = workvm_repository.find_by_users_and_exercise(current_user.id, exercise.id).proxmox_id
+    work_vms = workvm_repository.find_by_users_and_exercise(current_user.id, exercise.id)
+
+    if work_vms:
+        vm_proxmox_id = work_vms[0].proxmox_id
 
     return templates.TemplateResponse("exercise.html", {"request": request,
                                                      "title": exercise.name,
                                                      "body": exercise.description,
                                                      "exercise_id": exercise_id,
-                                                     "vm_proxmox_id": work_vm_proxmox_id,
+                                                     "vm_proxmox_id": vm_proxmox_id,
                                                      })
 
 @router.get("/{exercise_id}/manage", response_class=HTMLResponse)
@@ -115,7 +120,7 @@ async def manage_exercise(
     exercise_id: int,
     exercise_repository: ExerciseRepositoryDep,
     user_repository: UserRepositoryDep,
-    current_user: CurrentUserDep,
+    current_user: AuthorizedUserDep,
 ):
     # Get the exercise
     exercise = exercise_repository.find_by_id(exercise_id)
@@ -151,7 +156,7 @@ async def update_exercise_enlistment(
     exercise_repository: ExerciseRepositoryDep,
     user_repository: UserRepositoryDep,
     workvm_repository: WorkVmRepositoryDep,
-    current_user: CurrentUserDep,
+    current_user: AuthorizedUserDep,
 ):
     form_data = await request.form()
     action = form_data.get("action")
@@ -166,27 +171,26 @@ async def update_exercise_enlistment(
         raise HTTPException(status_code=404, detail="Exercise not found")
     
     if action == "enlist":
-        for user_id in user_ids:
-            # Get users that don't already have workvms
-            existing_user_ids = user_repository.get_users_for_exercise(exercise_id)
+        # Get users that don't already have workvms
+        existing_user_ids = user_repository.get_users_for_exercise(exercise_id)
+        
+        new_user_ids = [uid for uid in user_ids if uid not in existing_user_ids]
+        
+        if new_user_ids:
+            # Get full user objects
+            users = user_repository.find_by_ids(new_user_ids)
             
-            new_user_ids = [uid for uid in user_ids if uid not in existing_user_ids]
+            # Batch create VMs
+            start_time = time.perf_counter()
+            logger.info(f"Initial CPU usage: {psutil.cpu_percent()}%")
+            logger.info(f"Cloning VMs for {len(users)} users")
             
-            if new_user_ids:
-                # Get full user objects (assuming you have this method)
-                users = user_repository.find_by_ids(new_user_ids)
-                
-                # Batch create VMs
-                start_time = time.perf_counter()
-                logger.info(f"Initial CPU usage: {psutil.cpu_percent()}%")
-                logger.info(f"Cloning VMs for {len(users)} users")
-                
-                workvms = await vm_services.create_users_work_vms(users, [exercise])
-                workvm_repository.batch_save(workvms)
-                
-                end_time = time.perf_counter()
-                logger.info(f"VM Cloning process time: {end_time - start_time:.6f} seconds")
-                logger.info(f"Final CPU usage: {psutil.cpu_percent()}%")
+            workvms = await vm_services.create_users_work_vms(users, [exercise])
+            workvm_repository.batch_save(workvms)
+            
+            end_time = time.perf_counter()
+            logger.info(f"VM Cloning process time: {end_time - start_time:.6f} seconds")
+            logger.info(f"Final CPU usage: {psutil.cpu_percent()}%")
                 
     elif action == "unlist":
         workvms = workvm_repository.find_by_users_and_exercise(
@@ -231,15 +235,20 @@ async def evaluate_exercise(exercise_repository: ExerciseRepositoryDep,
 
     gns3_project_id = exercise.templatevm.gns3_project_id
 
-    work_vm_proxmox_id = workvm_repository.find_by_users_and_exercise(current_user.id, exercise.id).proxmox_id
+    vm_proxmox_id = None
+
+    work_vms = workvm_repository.find_by_users_and_exercise(current_user.id, exercise.id)
+
+    if work_vms:
+        vm_proxmox_id = work_vms[0].proxmox_id
 
     validations = json.loads(exercise.validations)
 
     results = []
 
-    await proxmox_services.aset_vm_status(work_vm_proxmox_id, True)
+    await proxmox_services.aset_vm_status(vm_proxmox_id, True)
 
-    node_ip = await proxmox_services.aget_vm_ip(work_vm_proxmox_id)
+    node_ip = await proxmox_services.aget_vm_ip(vm_proxmox_id)
 
     await asyncio.sleep(3)
 
@@ -259,7 +268,7 @@ async def evaluate_exercise(exercise_repository: ExerciseRepositoryDep,
 @router.post("/create")
 async def create_exercise(exercise_repository: ExerciseRepositoryDep,
                         templatevm_repository: TemplateVmRepositoryDep,
-                        current_user: CurrentUserDep,
+                        current_user: AuthorizedUserDep,
                         data: Annotated[CreateExerciseFormData, Form()],
 ):  
     
@@ -330,7 +339,7 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
 @router.post("/exercise/{exercise_id}/delete")
 async def exercise_delete(exercise_id: int,
                         exercise_repository: ExerciseRepositoryDep,
-                        current_user: CurrentUserDep,
+                        current_user: AuthorizedUserDep,
 ):
     try:
         exercise = exercise_repository.find_by_id(exercise_id)

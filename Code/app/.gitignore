@@ -183,3 +183,4 @@ pyrightconfig.json
 constants.py
 
 /uploads
+database.db

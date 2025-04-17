@@ -6,6 +6,7 @@ import jwt
 
 from app.dependencies.repositories import UserRepositoryDep
 from app.config import settings
+from app.models import UserPublic
 
 from fastapi import  Depends, HTTPException, status, Cookie
 from fastapi.security import OAuth2PasswordBearer
@@ -122,7 +123,7 @@ async def get_token_from_cookie_or_header(
 async def get_current_user(
         token: Annotated[str, Depends(get_token_from_cookie_or_header)],
         user_repository: UserRepositoryDep,
-        ):
+        ) -> UserPublic:
     
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -140,7 +141,17 @@ async def get_current_user(
         if user is None:
             raise credentials_exception
         
-        return user
+        if user:
+            return UserPublic.from_orm(user)
         
     except  jwt.exceptions.InvalidTokenError:
         raise credentials_exception
+
+
+def require_privileged_user(user: Annotated[UserPublic, Depends(get_current_user)]) -> UserPublic:
+    if not user.admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Insufficient privileges"
+        )
+    return user

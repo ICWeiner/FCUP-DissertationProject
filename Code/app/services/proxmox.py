@@ -50,13 +50,13 @@ def _get_proxmox_host_and_credentials():
     return _get_proxmox_host(), *_get_proxmox_credentials()
 
 @with_proxmox_session
-@decorators.with_retry
+@decorators.with_retry()
 async def adestroy_vm(session, vm_proxmox_id):
     return await proxmox_vm_actions.adestroy( _get_proxmox_host(), session, vm_proxmox_id)
 
 
 @with_proxmox_session
-@decorators.with_retry
+@decorators.with_retry()
 async def aclone_vm(session, template_proxmox_id, hostname):
     clone_id = None
 
@@ -69,31 +69,33 @@ async def aclone_vm(session, template_proxmox_id, hostname):
     return clone_id
 
 @with_proxmox_session
-@decorators.with_retry
+@decorators.with_retry()
 async def aset_vm_status(session, vm_proxmox_id, desired_status):
     if desired_status == True:
         await proxmox_vm_actions.astart( _get_proxmox_host(), session, vm_proxmox_id)
+        
     else:
         await proxmox_vm_actions.astop( _get_proxmox_host(), session, vm_proxmox_id)
 
     if await proxmox_vm_actions.acheck_vm_status( _get_proxmox_host(), session, vm_proxmox_id) == desired_status:
         return True
 
-
 @with_proxmox_session
-@decorators.poll_until_complete(max_retries=10, interval=5)
 async def atemplate_vm(session, vm_proxmox_id) -> bool:
-    # First attempt the templating operation
+
+    @decorators.poll_until_complete(max_retries=10, interval=5)
+    async def _poll_template_status() -> bool:
+        return await proxmox_vm_actions.acheck_vm_is_template(
+            _get_proxmox_host(), session, vm_proxmox_id
+        )
+    
     if not await proxmox_vm_actions.atemplate(_get_proxmox_host(), session, vm_proxmox_id):
         return False
     
-    # Then check completion status
-    return await proxmox_vm_actions.acheck_vm_is_template(
-        _get_proxmox_host(), session, vm_proxmox_id
-    )
+    return await _poll_template_status()
 
 @with_proxmox_session
-@decorators.with_retry(allowed_exceptions=(ValueError,) )
+@decorators.with_retry(allowed_exceptions=(ValueError, httpx.HTTPStatusError) )
 async def aget_vm_ip(session, vm_proxmox_id) -> str:
     ip = await proxmox_vm_ip_fetcher.get_ip(_get_proxmox_host(), session, vm_proxmox_id)
     
@@ -107,17 +109,17 @@ async def aget_vm_ip(session, vm_proxmox_id) -> str:
 
 
 @with_proxmox_session
-@decorators.with_retry
+@decorators.with_retry()
 async def aget_vm_hostname(session, vm_proxmox_id) -> str:
     return await proxmox_vm_ip_fetcher.get_hostname( _get_proxmox_host(), session, vm_proxmox_id)
 
 @with_proxmox_session
-@decorators.with_retry
+@decorators.with_retry()
 async def acreate_firewall_rules(session, vm_proxmox_id, teacher_vm_proxmox_id) -> bool:
     teacher_vm_ip = await proxmox_vm_ip_fetcher.get_ip( _get_proxmox_host(), session, teacher_vm_proxmox_id)
     return await proxmox_vm_firewall.acreate_proxmox_vm_isolation_rules( _get_proxmox_host(), session, vm_proxmox_id, teacher_vm_ip)
 
 @with_proxmox_session
-@decorators.with_retry
+@decorators.with_retry()
 async def adestroy_firewall_rules(session, vm_proxmox_id) -> bool:
     return await proxmox_vm_firewall.adelete_proxmox_vm_isolation_rules( _get_proxmox_host(), session, vm_proxmox_id)

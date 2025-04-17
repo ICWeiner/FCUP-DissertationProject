@@ -5,3 +5,5 @@ from app.models import UserPublic
 
 
 CurrentUserDep = Annotated[UserPublic, Depends(auth_services.get_current_user)]
+
+AuthorizedUserDep = Annotated[UserPublic, Depends(auth_services.require_privileged_user)]

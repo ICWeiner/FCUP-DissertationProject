@@ -10,7 +10,7 @@ from fastapi.templating import Jinja2Templates
 from app.config import settings
 from app.models import UserCreate, UserPublic, User
 from app.dependencies.repositories import UserRepositoryDep, ExerciseRepositoryDep, WorkVmRepositoryDep
-from app.dependencies.auth import CurrentUserDep
+from app.dependencies.auth import CurrentUserDep, AuthorizedUserDep
 from app.services import auth as auth_services
 from app.services import vm as vm_services
 
@@ -80,9 +80,9 @@ async def login_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     user_repository: UserRepositoryDep,
 ) -> Token:
-    def _generate_token(response: Response, user: User) -> str:
+    def _generate_token(response: Response, user: User) -> Token:
         """Helper to generate token and set cookie"""
-        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_SECONDS / 60)
+        access_token_expires = timedelta(seconds=ACCESS_TOKEN_EXPIRE_SECONDS)
         access_token = auth_services.create_access_token(
             data={
                 "sub": str(user.id),
@@ -93,7 +93,7 @@ async def login_user(
         
         response.set_cookie(
             key="access_token",
-            value=f"Bearer {access_token}",
+            value=access_token,
             httponly=True,
             max_age=ACCESS_TOKEN_EXPIRE_SECONDS,
             secure=False,  # True in production
@@ -152,3 +152,9 @@ async def read_users_me(
 ): 
     user_public = user_repository.get_public(current_user)# if you want to return user info, use a UserPublic instance
     return user_public
+
+@router.get("/users/me/authorized")#test route to check if user has privileges
+async def read_users_me(
+    current_user: AuthorizedUserDep,
+): 
+    return current_user

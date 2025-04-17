@@ -32,5 +32,9 @@
             <button type="submit">Delete exercise and all associated VMs</button>
         </form>
 
+        <form action=" {{ url_for( 'manage_exercise', exercise_id = exercise_id ) }} " method="GET">
+            <button type="submit">Manage exercise</button>
+        </form>
+        
     </div>
 {% endblock %}
