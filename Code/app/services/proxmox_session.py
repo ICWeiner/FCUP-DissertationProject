@@ -1,7 +1,12 @@
 import time
 import asyncio
 import httpx
+
 from proxmox_api.utils.connection import aproxmox_get_auth_cookie
+
+from logger.logger import get_logger
+
+logger = get_logger(__name__)
 
 _proxmox_auth_cache = {
     "cookie": None,
@@ -28,9 +33,9 @@ async def aget_proxmox_session(proxmox_host, username, password):
     async with _auth_lock:#lock for thread safety on credential update
         # If expired or missing, use the provided function to fetch new tokens
         cookie, csrf = await aproxmox_get_auth_cookie(proxmox_host, username, password)
-        print("#######################")
-        print("New session created")
-        print("#######################")
+        logger.info("#######################")
+        logger.info("New session created")
+        logger.info("#######################")
         _proxmox_auth_cache.update({
             "cookie": cookie,
             "csrf": csrf,

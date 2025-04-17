@@ -4,9 +4,9 @@
     <div class="container">
         <h1>{{title}}</h1>
         <p>{{description}}</p>
-        <a href=" ">Create exercise</a><br>
+        <a href=" {{ url_for( 'create_exercise' ) }}">Create exercise</a><br>
         {% for exercise in exercises %}
-            <a href=" {{ url_for('check_exercise', exercise_id=exercise.id )}} ">{{ exercise.name }}</a><br>
+            <a href=" {{ url_for('check_exercise', exercise_id=exercise.id ) }} ">{{ exercise.name }}</a><br>
         {% endfor %}
 
     </div>

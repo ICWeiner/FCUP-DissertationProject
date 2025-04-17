@@ -1,16 +1,24 @@
+import httpx
+
 import proxmox_api.utils.constants as constants
+
+from proxmox_api import decorators
 from proxmox_api.utils.proxmox_base_uri_generator import proxmox_base_uri as proxmox_base_uri
 
+from logger.logger import get_logger
+
+logger = get_logger(__name__)
+
 #TODO: Make arguments of all function be more in line with vm_actions
-def _get_firewall_uri_list(proxmox_host):    #Get list of all firewall activation uri's
+def _get_firewall_uri_list(proxmox_host: str):    #Get list of all firewall activation uri's
     uri_list = [f'{proxmox_base_uri(proxmox_host)}/cluster/firewall/options',
                 f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/firewall/options']
     #add more if you have more proxmoxhosts
     
     return uri_list
 
-
-async def acreate_proxmox_vm_isolation_rules(proxmox_host, session, vm_proxmox_id, allowed_vm_ip):
+@decorators.handle_network_errors
+async def acreate_proxmox_vm_isolation_rules(proxmox_host: str, session: httpx.Client, vm_proxmox_id: str, allowed_vm_ip: str) -> bool:
 
     for uri in _get_firewall_uri_list(proxmox_host):
         response = await session.put(uri, data = {'enable':1})
@@ -60,7 +68,7 @@ async def acreate_proxmox_vm_isolation_rules(proxmox_host, session, vm_proxmox_i
 
     return True
     
-async def adelete_proxmox_vm_isolation_rules(proxmox_host, session, vm_proxmox_id):
+async def adelete_proxmox_vm_isolation_rules(proxmox_host: str, session: httpx.Client, vm_proxmox_id: str) -> bool:
 
     for uri in _get_firewall_uri_list(proxmox_host):
         response = await session.put(uri, data = {'enable':0})

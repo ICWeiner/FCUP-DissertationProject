@@ -20,3 +20,5 @@ Separate back-end from front-end (CSR and backend json replies)
 Make database more complete in terms of evaluation
 
 separate exercise creation from template vm creation
+
+block vm during evaluation

@@ -50,8 +50,9 @@ async def create_users_work_vms(users, exercises):
 
     return created_vms
 
-async def handle_new_user_workvms(user,
-                                  exercise_repository: ExerciseRepositoryDep):
+async def handle_new_user_workvms(
+        user,
+        exercise_repository: ExerciseRepositoryDep):
     """
     Creates WorkVMs for a new user based on all available TemplateVMs.
     Ensures correct assignment of WorkVMs to the new user.
@@ -59,6 +60,6 @@ async def handle_new_user_workvms(user,
     :param user: The newly registered user.
     :return: result of create_users_work_vms
     """
-    exercises = exercise_repository.get_all_exercises_with_templatevm()
+    exercises = exercise_repository.find_all()
 
     return await create_users_work_vms([user], exercises)

@@ -10,12 +10,17 @@ from app.config import settings
 from fastapi import  Depends, HTTPException, status, Cookie
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
-from typing import Annotated
+from typing import Annotated, Optional, Tuple
 
 from passlib.context import CryptContext
 
+from logger.logger import get_logger
+
+logger = get_logger(__name__)
+
 LDAP_SERVER = settings.LDAP_SERVER
 LDAP_BASE_DN = settings.LDAP_BASE_DN
+LDAP_PRIVILEGED_DN = settings.LDAP_PRIVILEGED_DN
 SECRET_KEY = settings.SECRET_KEY
 ALGORITHM  = settings.ALGORITHM
 
@@ -26,29 +31,63 @@ class TokenData(BaseModel):
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-def ldap_authenticate(username: str, password: str) -> bool:
-    # Step 1: Anonymous bind to search for the user
+def _get_ldap_connection(authentication=ANONYMOUS, user=None, password=None) -> Connection:
+    """Create and return a new LDAP connection"""
     server = Server(LDAP_SERVER, get_info=ALL)
-    conn = Connection(server, authentication=ANONYMOUS)
+    conn = Connection(server, user=user, password=password, authentication=authentication)
     conn.open()
     conn.bind()
+    return conn
 
-    search_filter = f"(uid={username})"
-    conn.search(search_base=LDAP_BASE_DN,
-                search_filter=search_filter,
-                search_scope=SUBTREE,
-                )
+def _find_user_dn(username: str, search_base: str) -> Optional[str]:
+    """
+    Search for a user in the specified base DN
+    Returns distinguished name (DN) if found, None otherwise
+    """
+    try:
+        with _get_ldap_connection() as conn:
+            conn.search(
+                search_base=search_base,
+                search_filter=f"(uid={username})",
+                search_scope=SUBTREE
+            )
+            return conn.entries[0].entry_dn if conn.entries else None
+    except Exception as e:
+        logger.error(f"LDAP search failed in {search_base}: {str(e)}")
+        return None
 
-    if not conn.entries:
-        return False  # User not found
+def _verify_credentials(user_dn: str, password: str) -> bool:
+    """Verify user credentials by attempting to bind"""
+    try:
+        with _get_ldap_connection(user=user_dn, password=password, authentication=SIMPLE) as conn:
+            return conn.bound
+    except Exception as e:
+        logger.error(f"LDAP bind failed for {user_dn}: {str(e)}")
+        return False
 
-    user_dn = conn.entries[0].entry_dn
+def ldap_authenticate(username: str, password: str) -> Tuple[bool, bool]:
+    """
+    Authenticate user against LDAP with privilege check
+    Returns:
+        tuple: (is_authenticated, is_privileged)
+    """
+    if not username or not password:
+        return False, False
 
-    # Step 2: Try binding as the user with the password
-    user_conn = Connection(server, user=user_dn, password=password, authentication=SIMPLE)
-    if user_conn.bind():
-        return True
-    return False
+    # First check privileged DN
+    privileged_dn = _find_user_dn(username, LDAP_PRIVILEGED_DN)
+    if privileged_dn and _verify_credentials(privileged_dn, password):
+        logger.info(f"Privileged user {username} authenticated")
+        return True, True
+
+    # Fall back to base DN
+    base_dn = _find_user_dn(username, LDAP_BASE_DN)
+    if base_dn and _verify_credentials(base_dn, password):
+        logger.info(f"Regular user {username} authenticated")
+        return True, False
+
+    logger.warning(f"Authentication failed for {username}")
+    return False, False
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)

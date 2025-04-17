@@ -5,3 +5,4 @@ app.zip
 /Code/test.py
 /Code/app.log
 ldap.txt
+/Code/logger/__pycache__

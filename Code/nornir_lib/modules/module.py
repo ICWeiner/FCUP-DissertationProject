@@ -5,6 +5,10 @@ from nornir_netmiko.tasks import netmiko_send_command
 from nornir_lib.utils.tools import updated_inventory_host
 import re
 
+from logger.logger import get_logger
+
+logger = get_logger(__name__)
+
 class CommandLibrary:
     def __init__(self, file):
         inventory, runner = updated_inventory_host(file)
@@ -65,7 +69,7 @@ class CommandLibrary:
             read_timeout = 30,#TODO: This is the total time to wait for the command to finish, this value may need fine tuning
             command_string = command
         )
-        print(self.get_result_strings(results))
+        logger.info(self.get_result_strings(results))
         return results # returnar tuplo bool, msg
         
     def get_result_strings(self, aggregated_result: AggregatedResult) -> list:

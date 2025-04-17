@@ -1,16 +1,11 @@
 from pydantic import BaseModel
-from typing import Annotated
 
-from fastapi import APIRouter, Form
+from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.exceptions import HTTPException
 from fastapi.templating import Jinja2Templates
 
-from gns3_api import gns3_actions
-from gns3_api.utils import gns3_parser
 from app.services import proxmox as proxmox_services
-from nornir_lib.modules.ping import PingLibrary
-from nornir_lib.modules.traceroute import TracerouteLibrary 
 
 from pathlib import Path
 
@@ -54,11 +49,15 @@ async def destroy_vm(vm_proxmox_id: int):
         raise HTTPException(status_code=500, detail="Failed to destroy VM")
     
 @router.post("/{vm_proxmox_id}/connect")
-async def connect_vm(vm_proxmox_id: int):
+async def connect_vm(vm_proxmox_id: int,
+                     request: Request):
     vm_ip = await proxmox_services.aget_vm_ip(vm_proxmox_id)
     
     if vm_ip:
-        return RedirectResponse(url=f'http://{vm_ip}:3080/')
+        response = RedirectResponse(url=f'http://{vm_ip}:3080/',
+                                status_code=303)
+        response.headers["Access-Control-Allow-Origin"] = str(request.base_url)
+        return response
     else:
         raise HTTPException(status_code=500, detail="Failed to connect to VM")
     

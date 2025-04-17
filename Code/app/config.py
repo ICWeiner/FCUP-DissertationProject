@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     CONCURRENT_LIMIT: int
     LDAP_SERVER: str
     LDAP_BASE_DN: str
+    LDAP_PRIVILEGED_DN: str
     DEBUG: bool = False  # Default value
 
     class Config:

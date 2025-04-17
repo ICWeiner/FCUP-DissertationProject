@@ -80,43 +80,69 @@ async def login_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     user_repository: UserRepositoryDep,
 ) -> Token:
+    def _generate_token(response: Response, user: User) -> str:
+        """Helper to generate token and set cookie"""
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_SECONDS / 60)
+        access_token = auth_services.create_access_token(
+            data={
+                "sub": str(user.id),
+                "is_privileged": user.admin
+            },
+            expires_delta=access_token_expires
+        )
+        
+        response.set_cookie(
+            key="access_token",
+            value=f"Bearer {access_token}",
+            httponly=True,
+            max_age=ACCESS_TOKEN_EXPIRE_SECONDS,
+            secure=False,  # True in production
+            samesite="lax",
+            path="/"
+        )
+        return access_token
     
     user = user_repository.find_by_username(form_data.username)
+    
+    if user:
+        # Verify local password
+        if auth_services.verify_password(form_data.password, user.hashed_password):
+            # Local authentication succeeded
+            access_token = _generate_token(response, user)
+            return {
+                "access_token": access_token,
+                "token_type": "bearer"
+            }
 
+    # Step 2: Local auth failed, try LDAP
+    ldap_success, is_privileged = auth_services.ldap_authenticate(
+        form_data.username,
+        form_data.password
+    )
+    
+    if not ldap_success:
+        raise HTTPException(
+            status_code=400,
+            detail="Incorrect username or password"
+        )
+
+    # Step 3: LDAP succeeded - register local user
     if not user:
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-    
-    success = auth_services.verify_password(form_data.password, user.hashed_password)
+        # Create new user
+        user = User(
+            username=form_data.username,
+            email=f"{form_data.username}@fakedomain.com",  # Adjust as needed
+            hashed_password=auth_services.get_password_hash(form_data.password),
+            admin=is_privileged,
+        )
+        user_repository.save(user)
 
-    if not success:
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-    
-
-    '''#TODO: integrate ldap auth, this code works
-    success = auth_services.ldap_authenticate(form_data.username, form_data.password)
-    if not success:
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-    
-    #user = user_repository.find_by_username(form_data.username)
-    '''
-
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_SECONDS)
-    access_token = auth_services.create_access_token(
-        data={"sub": str(user.id)}, expires_delta=access_token_expires
-    )
-    response.set_cookie(
-        key="access_token",
-        value=access_token,
-        httponly=True,
-        max_age=ACCESS_TOKEN_EXPIRE_SECONDS,
-        secure=False,  # for HTTPS
-        samesite="lax",
-        path="/"
-    )
-
+    # Step 4: Generate token for newly registered/updated user
+    access_token = _generate_token(response, user)
     return {
         "access_token": access_token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "is_privileged": is_privileged  # Optional: Include privilege status
     }
 
 @router.get("/users/me")#test route to check if user is logged in

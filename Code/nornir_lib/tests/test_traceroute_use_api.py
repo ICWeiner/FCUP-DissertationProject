@@ -25,7 +25,7 @@ for i in linux_hosts.inventory.hosts.items():
     node_name = i[0] 
     print(f'student mec number is : {node_name}')
 
-    project_id = gns3_actions.get_project_id(node_ip, project_name)
+    project_id = gns3_actions.aget_project_id(node_ip, project_name)
 
     nodes = gns3_actions.get_project_nodes(node_ip, project_id) #Get info on given project's nodes
 
