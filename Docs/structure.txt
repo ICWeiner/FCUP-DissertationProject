@@ -1,290 +1,147 @@
 1. Introduction
-
     1.1. Problem Statement:
-
         Explain the need for a system to automate network administration evaluations.
-
         Discuss limitations in current tools, such as the reliance on manual evaluation and the lack of support for multi-vendor environments.
-
     1.2. Objectives:
-
         Develop an automated environment for evaluating network administration exercises.
-
         Integrate a back-end service capable of communicating with various components.
-
         Enable scalable and efficient evaluation of exercises.
-
-    1.3. Key Innovations:
-
-        Web-based system for students/teachers to interact with network exercises supporting multiple vendors.
-
+    1.3. Key Innovations: 
+	Showcase what a system supporting network exercises with automatic evaluation could look like
     1.4. Document Structure: Overview of dissertation chapters.
-
 2. Background 
-
     2.1. Overview of Used Technologies
-
         Virtualization
-
             Emulation
-
             Simulation
-
         GNS3
-
-        Linux
-
+        Linux 
+	(why? Linux, may be a pillar of the project right now, but that isn’t necessarily true for the future)
         ProxmoxVE
-
-        sqlite
-
-        Python
-
-            WSGI 
-                
-                Flask
-
-            ASGI 
-                
-                Quart
-
-                FastAPI
-
-            Celery
-
-            Nornir
-
-            HTTPX
-
-            SQLModel  
-
         LDAP
-
     2.2. Virtualized Lab Environments:
-
         Benefits of hosting virtual machines for usage with GNS3 on Proxmox
-
     2.3. Web Frameworks for API-Based Systems:
-
         Comparison of WSGI (Flask) vs. ASGI (FastAPI, Quart).
-
         The need for asynchronous processing in API-heavy applications.
-
     2.4. Long running task processing approaches:
-
         Celery for background jobs.
-
         FastAPI async as an alternative.
-
+    2.5. System administration automation tools
+        Nornir
+        Ansible
 3. Related Work
-
     3.1. Programming Evaluation Systems:
-
         Overview of Mooshak and what it teaches us
-
     3.2. Network Administration Training Systems:
-
         Overview of existing tools (e.g. Packet Tracer ) and their limitations
-
 4. System Architecture & Design
-
-    4.1. High-Level Architecture
-
-        Overview of the system components:
-
-            Hardware available and its limitations
-
-            User interface
-
-                FastAPI server-side rendering with Jinja2
-
-                gns3-web 
-
-            API Layer (Initially Flask, later migrated to FastAPI).
-
-                Examples of some of the created endpoints
-
-                FastAPI automatic endpoint documentation generation 
-
-            Virtualization Layer (Proxmox + GNS3).
-
-                Where containers are used (fastapi host)
-
-                Where vms are used (gns3 instances)
-
-                Usage of thin provisioning and linked clones
-
-            Evaluation (Nornir)
-
-                Modules structure
-
-                How configurations are validated
-
-                Snapshot creation for future validation
-
-            Storage Component
-
-                Database 
-
-                    sqlite  
-
-                lvm-thin
-
-        Architecture Diagram.
-
-    4.2. Migration from Flask to FastAPI
-
-        Initial Setup: Flask
-
-            Flask for API
-
-            Lack of complete async support by flask natively (mainly due to WSGI)
-
-            Issues: Blocking I/O, Time consuming.
-
-        Second setup: Flask + Celery
-            
-            Exploration of Celery as an option for async tasks.
-
-            Issues: Complexity, overhead.
-
-        Evaluation of Quart (ASGI-compliant Flask)
-
-            Why it was considered (the benefits of being ASGI compliant).
-
-            Problems found: Poorly supported ecosystem with limited confidence in its future, limited adoption.
-
-        Final Decision: FastAPI Migration
-
-            Built-in async support.
-
-            Roughly same performance as celery under high concurrency but with less overhead and complexity.
-
-        Comparison Table: Flask (+  Celery) vs. Quart vs. FastAPI.
-
-    4.3. Proxmox 
-
+    4.1 Functional Use Cases
+    4.2. Proxmox 
         Why Proxmox? 
-
             Containers Vs VMs (lack of kvm support for containers)
-            
             Proxmox API limitations 
-                
                 lack of task status monitoring
-                
                 lack of robustness (trivial to get http 500 errors)
-
         Proxmox Firewall for VM isolation
-
             Why? 
-
                 exam mode 
-
             How? 
-                
                 create firewall rules by vm to allow only communication with fastapi host, responsible for doing config validation
-
             Limitations? 
-            
                 e.g an exercise that requires interacting with the internet
-
-    4.4. GNS3
-
+    4.3. GNS3
         Why GNS3? Emulating network devices.
-
         Challenges & Solutions in creating VMs.
+        Diagram: Proxmox + GNS3 interaction flow? 
 
-        Diagram: Proxmox + GNS3 interaction flow?
-
+    4.4. High-Level Architecture
+        Overview of the system components:
+            Architecture Diagram. 
+            Hardware available and its limitations
+            User interface
+	Jinja2
+                gns3-web 
+            API Layer (Initially Flask, later migrated to FastAPI).
+                Examples of some of the created endpoints
+                FastAPI automatic endpoint documentation generation 
+            Virtualization Layer (Proxmox + GNS3).
+                Where containers are used (fastapi host)
+                Where vms are used (gns3 instances)
+                Usage of thin provisioning and linked clones
+            Evaluation (Nornir)
+                Modules structure
+                How configurations are validated
+                Snapshot creation for future validation
+            Storage Component
+                Database 
+                    Sqlite
+	   SQLModel
+                lvm-thin
+    4.5. Early prototyping with Flask  and later shift to FastAPI 
+        Initial Setup: Flask
+            Flask for API
+            Lack of complete async support by flask natively (mainly due to WSGI)
+            Issues: Blocking I/O, Time consuming.
+        Second setup: Flask + Celery
+            Exploration of Celery as an option for async tasks.
+            Issues: Complexity, overhead.
+        Evaluation of Quart (ASGI-compliant Flask)
+            Why it was considered (the benefits of being ASGI compliant).
+            Problems found: Poorly supported ecosystem with limited confidence in its future, limited adoption.
+        Final Decision: FastAPI Migration
+            Built-in async support.
+            Roughly same performance as celery under high concurrency but with less overhead and complexity.
+        Comparison Table: Flask (+  Celery) vs. Quart vs. FastAPI.
 5. Implementation
     5.1. Setting Up the Development Environment
+        sqlite
+        Python
+            Celery
+            HTTPX
+            SQLModel   
 
-        Technologies used: FastAPI, Proxmox API, GNS3 API, SQLModel, Nornir.
-
-            Code snippets where relevant
-
+            Code snippets where relevant (e.g. interaction with , Proxmox API, GNS3 API)
             Examples of interactions between technologies
-
         Project Folder Structure (app/, nornir_lib/, proxmox_api/, gns3_api/).
-
     5.2. API Development
-
         Exercise Management Endpoints (create, delete, manage exercises).
-
         VM Handling Endpoints (start, stop, clone, template conversion).
-
     5.3. Asynchronous Processing with FastAPI
-
         How API requests are handled asynchronously.
-
         Differences between Celery Tasks vs async I/O.
-
             Fully sequential blocking I/O vs celery tasks vs async I/O 
-
     5.4. GNS3 customization and configuration
-
         Configuring a GNS3 host vm.
-
             Installation and configuration of gns3-server
-
                 Instalation of gns3 packages
-
                 Running gns3-server as a daemon
-
             Necessary changes to gns3 code to allow the use of SPICE
-
             Importing gns3 project
-
     5.5. Proxmox API usage
-
             How VMs are managed via Proxmox API.
-
-6. Testing & Evaluation
-
+6. Testing & Evaluation 
     6.1. Performance Evaluation
-
         Before vs. After FastAPI Migration
-
             API Response times.
-
             Concurrent request handling.
-
             Resource consumption.
-
     6.2. Usability Testing
-
         Showcase full exercise cycle (create, assign, solve, evaluate)
-
 7. Conclusion & Future Work
-
     7.1. Summary of Contributions
-
         Automated environment for evaluating network exercises.
-
         FastAPI migration for performance improvement.
-
     7.2. Limitations & Challenges
-
         Potential scaling challenges.
-
         Potential unseen challenges in ProxmoxVE clusters with more than one node.
-
         Future enhancements.
-
     7.3. Future Work
-
         Front-end improvements for usability and client-side rendering.
-
         Usability tests with students.
-
         More sophisticated evaluation criteria for exercises.
-
         and more...
-
 Appendices
-
     Code Documentation.
-
     Configuration files.
-
     Example JSON requests/responses.
