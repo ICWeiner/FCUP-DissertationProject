@@ -3,23 +3,20 @@ from datetime import timedelta
 from pydantic import BaseModel
 from typing import Annotated
 from fastapi import APIRouter, Request, Form, Depends, HTTPException, Response
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
 
 from app.config import settings
-from app.models import UserCreate, UserPublic, User
-from app.dependencies.repositories import UserRepositoryDep, ExerciseRepositoryDep, WorkVmRepositoryDep
-from app.dependencies.auth import CurrentUserDep, AuthorizedUserDep
+from app.models import UserCreate, User
+from app.dependencies.repositories import UserRepositoryDep
+from app.dependencies.auth import CurrentUserDep, PrivilegedUserDep
 from app.services import auth as auth_services
-from app.services import vm as vm_services
+
 
 from pathlib import Path
 
-##TEMP
-import jwt
-SECRET_KEY = settings.SECRET_KEY
-ALGORITHM  = settings.ALGORITHM
+ACCESS_TOKEN_EXPIRE_SECONDS = settings.ACCESS_TOKEN_EXPIRE_SECONDS
 
 BASE_DIR = Path(__file__).parent.parent
 
@@ -27,8 +24,6 @@ router = APIRouter(tags=["users"],
                     responses={404: {"description": "Not found"}})
 
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates/"))
-
-ACCESS_TOKEN_EXPIRE_SECONDS = settings.ACCESS_TOKEN_EXPIRE_SECONDS
 
 class RegisterFormData(BaseModel):
     username: str
@@ -39,6 +34,28 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
+def _generate_and_set_token(response: Response, user: User) -> Token:
+    """Helper to generate token and set cookie"""
+    access_token_expires = timedelta(seconds=ACCESS_TOKEN_EXPIRE_SECONDS)
+    access_token = auth_services.create_access_token(
+        data={
+            "sub": str(user.id),
+            "is_privileged": user.admin
+        },
+        expires_delta=access_token_expires
+    )
+    
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        max_age=ACCESS_TOKEN_EXPIRE_SECONDS,
+        secure=False,  # True in production
+        samesite="lax",
+        path="/"
+    )
+    return access_token
+
 
 @router.get("/register", response_class=HTMLResponse)
 async def create_user_form(request: Request):
@@ -48,10 +65,9 @@ async def create_user_form(request: Request):
 
 @router.post("/register")
 async def create_user(
+    response: Response,
     data: Annotated[RegisterFormData, Form()], 
     user_repository: UserRepositoryDep,
-    exercise_repository: ExerciseRepositoryDep,
-    workvm_repository: WorkVmRepositoryDep,
 ):
     user = UserCreate(username = data.username,
                       email = data.email,
@@ -62,9 +78,7 @@ async def create_user(
 
     user_repository.save(db_user)
 
-    workvms = await vm_services.create_users_work_vms( [db_user], exercise_repository.find_all() )
-
-    workvm_repository.batch_save(workvms)
+    _generate_and_set_token(response, db_user)
 
     return db_user
 
@@ -80,35 +94,14 @@ async def login_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     user_repository: UserRepositoryDep,
 ) -> Token:
-    def _generate_token(response: Response, user: User) -> Token:
-        """Helper to generate token and set cookie"""
-        access_token_expires = timedelta(seconds=ACCESS_TOKEN_EXPIRE_SECONDS)
-        access_token = auth_services.create_access_token(
-            data={
-                "sub": str(user.id),
-                "is_privileged": user.admin
-            },
-            expires_delta=access_token_expires
-        )
-        
-        response.set_cookie(
-            key="access_token",
-            value=access_token,
-            httponly=True,
-            max_age=ACCESS_TOKEN_EXPIRE_SECONDS,
-            secure=False,  # True in production
-            samesite="lax",
-            path="/"
-        )
-        return access_token
-    
+  
     user = user_repository.find_by_username(form_data.username)
     
     if user:
         # Verify local password
         if auth_services.verify_password(form_data.password, user.hashed_password):
             # Local authentication succeeded
-            access_token = _generate_token(response, user)
+            access_token = _generate_and_set_token(response, user)
             return {
                 "access_token": access_token,
                 "token_type": "bearer"
@@ -138,14 +131,13 @@ async def login_user(
         user_repository.save(user)
 
     # Step 4: Generate token for newly registered/updated user
-    access_token = _generate_token(response, user)
+    access_token = _generate_and_set_token(response, user)
     return {
         "access_token": access_token,
-        "token_type": "bearer",
-        "is_privileged": is_privileged  # Optional: Include privilege status
+        "token_type": "bearer"
     }
 
-@router.get("/users/me")#test route to check if user is logged in
+@router.get("/me")#test route to check if user is logged in
 async def read_users_me(
     current_user: CurrentUserDep,
     user_repository: UserRepositoryDep,
@@ -153,8 +145,8 @@ async def read_users_me(
     user_public = user_repository.get_public(current_user)# if you want to return user info, use a UserPublic instance
     return user_public
 
-@router.get("/users/me/authorized")#test route to check if user has privileges
-async def read_users_me(
-    current_user: AuthorizedUserDep,
+@router.get("/auth")#test route to check if user has privileges
+async def read_users_me_auth(
+    current_user: PrivilegedUserDep,
 ): 
     return current_user

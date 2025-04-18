@@ -192,9 +192,8 @@ request validation button in interface and functionality in code
 inlist student in exercise and create vm 
 delist student and delete vm
 
-verify exercises student is inlisted in
-
 15/04:
 more LDAP, create users with or without privileges
 code clean up for gns3 and proxmox api interactions
 implement retrying logic
+verify exercises student is inlisted in

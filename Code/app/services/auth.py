@@ -4,7 +4,7 @@ from ldap3 import Server, Connection, ALL, SIMPLE, SUBTREE, ANONYMOUS
 
 import jwt
 
-from app.dependencies.repositories import UserRepositoryDep
+from app.dependencies.repositories import UserRepositoryDep, WorkVmRepositoryDep
 from app.config import settings
 from app.models import UserPublic
 
@@ -155,3 +155,26 @@ def require_privileged_user(user: Annotated[UserPublic, Depends(get_current_user
             detail="Insufficient privileges"
         )
     return user
+
+async def validate_vm_ownership(
+    vm_proxmox_id: int,
+    workvm_repository: WorkVmRepositoryDep,
+    current_user: Annotated[UserPublic, Depends(get_current_user)],
+    ):
+    
+    # Admins can access any VM
+    if current_user.admin:
+        return True
+    
+    # Check if user owns a WorkVm with this proxmox_id
+    workvm = workvm_repository.check_if_user_owns_workvm_by_proxmox_id(
+        user_id=current_user.id,
+        proxmox_id=vm_proxmox_id
+    )
+    
+    if not workvm:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You don't have permission to access this VM"
+        )
+    return workvm

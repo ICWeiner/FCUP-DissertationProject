@@ -69,16 +69,20 @@ async def aclone_vm(session, template_proxmox_id, hostname):
     return clone_id
 
 @with_proxmox_session
-@decorators.with_retry()
 async def aset_vm_status(session, vm_proxmox_id, desired_status):
+
+    @decorators.poll_until_complete(max_retries=10, interval=5)
+    async def _poll_vm_status() -> bool:
+        if await proxmox_vm_actions.acheck_vm_status( _get_proxmox_host(), session, vm_proxmox_id) == desired_status:
+            return True
+        
     if desired_status == True:
         await proxmox_vm_actions.astart( _get_proxmox_host(), session, vm_proxmox_id)
         
     else:
         await proxmox_vm_actions.astop( _get_proxmox_host(), session, vm_proxmox_id)
-
-    if await proxmox_vm_actions.acheck_vm_status( _get_proxmox_host(), session, vm_proxmox_id) == desired_status:
-        return True
+    
+    return await _poll_vm_status()
 
 @with_proxmox_session
 async def atemplate_vm(session, vm_proxmox_id) -> bool:

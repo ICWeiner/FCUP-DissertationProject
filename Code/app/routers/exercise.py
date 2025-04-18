@@ -13,7 +13,7 @@ from fastapi.templating import Jinja2Templates
 from typing import Annotated, List, Optional
 
 from app.models import Exercise, TemplateVm
-from app.dependencies.auth import CurrentUserDep, AuthorizedUserDep
+from app.dependencies.auth import CurrentUserDep, PrivilegedUserDep
 from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryDep, WorkVmRepositoryDep, TemplateVmRepositoryDep
 from app.services import vm as vm_services
 from app.services import proxmox as proxmox_services
@@ -56,20 +56,31 @@ class CreateExerciseFormData(BaseModel):
 
 
 @router.get('/', response_class=HTMLResponse)
-async def check_list_exercises(request: Request,
-                            exercise_repository: ExerciseRepositoryDep,
-                            current_user: CurrentUserDep,
+async def check_list_exercises(
+    request: Request,
+    exercise_repository: ExerciseRepositoryDep,
+    workvm_repository: WorkVmRepositoryDep,
+    current_user: CurrentUserDep,
 ):
-    exercises = exercise_repository.find_all()
+    if current_user.admin:
+        # Admin users see all exercises
+        exercises = exercise_repository.find_all()
+    else:
+        # Non-admin users only see exercises they have WorkVMs for
+        user_workvms = workvm_repository.find_by_user_id(current_user.id)
+        exercise_ids = {workvm.templatevm.exercise.id for workvm in user_workvms if workvm.templatevm.exercise}
+        exercises = exercise_repository.find_by_ids(list(exercise_ids)) if exercise_ids else []
 
-    return templates.TemplateResponse('exercises.html', {"request": request,
-                                                        "title" : "Exercises",
-                                                        "description" : "Here you can see the list of available exercises",
-                                                        "exercises" : exercises})
+    return templates.TemplateResponse('exercises.html', {
+        "request": request,
+        "title": "Exercises",
+        "description": "Here you can see the list of available exercises",
+        "exercises": exercises,
+    })
 
 @router.get('/create', response_class=HTMLResponse)
 async def create_exercise_form(request: Request,
-                            current_user: AuthorizedUserDep,
+                            current_user: PrivilegedUserDep,
 ):
     return templates.TemplateResponse('create_exercise.html', {"request": request })
 
@@ -120,7 +131,7 @@ async def manage_exercise(
     exercise_id: int,
     exercise_repository: ExerciseRepositoryDep,
     user_repository: UserRepositoryDep,
-    current_user: AuthorizedUserDep,
+    current_user: PrivilegedUserDep,
 ):
     # Get the exercise
     exercise = exercise_repository.find_by_id(exercise_id)
@@ -156,7 +167,7 @@ async def update_exercise_enlistment(
     exercise_repository: ExerciseRepositoryDep,
     user_repository: UserRepositoryDep,
     workvm_repository: WorkVmRepositoryDep,
-    current_user: AuthorizedUserDep,
+    current_user: PrivilegedUserDep,
 ):
     form_data = await request.form()
     action = form_data.get("action")
@@ -268,7 +279,7 @@ async def evaluate_exercise(exercise_repository: ExerciseRepositoryDep,
 @router.post("/create")
 async def create_exercise(exercise_repository: ExerciseRepositoryDep,
                         templatevm_repository: TemplateVmRepositoryDep,
-                        current_user: AuthorizedUserDep,
+                        current_user: PrivilegedUserDep,
                         data: Annotated[CreateExerciseFormData, Form()],
 ):  
     
@@ -339,7 +350,7 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
 @router.post("/exercise/{exercise_id}/delete")
 async def exercise_delete(exercise_id: int,
                         exercise_repository: ExerciseRepositoryDep,
-                        current_user: AuthorizedUserDep,
+                        current_user: PrivilegedUserDep,
 ):
     try:
         exercise = exercise_repository.find_by_id(exercise_id)

@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Type, TypeVar
 from fastapi import  Depends
 from sqlmodel import Session
 from app.repositories.user import UserRepository
@@ -7,24 +7,21 @@ from app.repositories.workvm import WorkVmRepository
 from app.repositories.templatevm import TemplateVmRepository
 from app.database import get_session
 
-def _get_user_repository(db: Session = Depends(get_session)) -> UserRepository:
-    return UserRepository(db)
+T = TypeVar('T')  # Generic type for repositories
 
-UserRepositoryDep = Annotated[UserRepository, Depends(_get_user_repository)]
-
-def _get_exercise_repository(db: Session = Depends(get_session)) -> ExerciseRepository:
-    return ExerciseRepository(db)
-
-ExerciseRepositoryDep = Annotated[ExerciseRepository, Depends(_get_exercise_repository)]
+def get_repository(repo_class: Type[T]) -> T:
+    def _get_repo(db: Session = Depends(get_session)) -> T:
+        return repo_class(db)
+    return Depends(_get_repo)
 
 
+UserRepositoryDep = Annotated[UserRepository, get_repository(UserRepository)]
 
-def _get_workvm_repository(db: Session = Depends(get_session)) -> WorkVmRepository:
-    return WorkVmRepository(db)
 
-WorkVmRepositoryDep = Annotated[WorkVmRepository, Depends(_get_workvm_repository)]
+ExerciseRepositoryDep = Annotated[ExerciseRepository, get_repository(ExerciseRepository)]
 
-def _get_templatevm_repository(db: Session = Depends(get_session)) -> TemplateVmRepository:
-    return TemplateVmRepository(db)
 
-TemplateVmRepositoryDep = Annotated[TemplateVmRepository, Depends(_get_templatevm_repository)]
+WorkVmRepositoryDep = Annotated[WorkVmRepository, get_repository(WorkVmRepository)]
+
+
+TemplateVmRepositoryDep = Annotated[TemplateVmRepository, get_repository(TemplateVmRepository)]
