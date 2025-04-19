@@ -345,7 +345,7 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
     exercise_repository.save(new_exercise)
     templatevm_repository.save(new_templatevm)#TODO: validate with pydantic
 
-    return
+    return {"message": "Exercise created sucessfully"}
 
 @router.post("/exercise/{exercise_id}/delete")
 async def exercise_delete(exercise_id: int,

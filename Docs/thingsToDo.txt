@@ -22,3 +22,5 @@ Make database more complete in terms of evaluation
 separate exercise creation from template vm creation
 
 block vm during evaluation
+
+figure out when gns3 project finished importing

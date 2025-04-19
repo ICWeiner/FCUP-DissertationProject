@@ -13,9 +13,53 @@
     {% include 'navigation.html' %}
     {% block content %}{% endblock %}
   </body>
+    <div id="api-debug" style="position: fixed; bottom: 0; right: 0; width: 300px; height: 200px; 
+                            background: white; border: 1px solid #ccc; padding: 10px;
+                            overflow-y: auto; z-index: 1000; display: none;">
+      <button onclick="document.getElementById('api-debug').style.display='none'">Close</button>
+      <pre id="api-debug-content"></pre>
+  </div>
 
 
   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only intercept forms with specific class
+            document.querySelectorAll('form.api-form').forEach(form => {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    try {
+                        const response = await fetch(form.action, {
+                            method: form.method,
+                            body: form.method.toLowerCase() === 'get' ? null : new FormData(form),
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                        
+                        const result = await response.json();
+                        showDebugOutput(result);
+                        
+                        // Handle successful responses
+                        if (form.dataset.redirect) {
+                            window.location.href = form.dataset.redirect;
+                        }
+                    } catch (error) {
+                        showDebugOutput({ error: error.message });
+                    }
+                });
+            });
+            
+            function showDebugOutput(data) {
+                const debugDiv = document.getElementById('api-debug');
+                const debugContent = document.getElementById('api-debug-content');
+                
+                debugContent.textContent = JSON.stringify(data, null, 2);
+                debugDiv.style.display = 'block';
+            }
+        });
     // Function to get the token from cookies
     function getCookie(name) {
         let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));

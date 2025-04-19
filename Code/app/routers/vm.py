@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 from fastapi import APIRouter, Request
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.responses import RedirectResponse
 from fastapi.exceptions import HTTPException
 from fastapi.templating import Jinja2Templates
 
@@ -31,7 +31,7 @@ async def start_vm(
     success = await proxmox_services.aset_vm_status(vm_proxmox_id, True)
     
     if success:
-        return JSONResponse(content={"message": "VM started successfully"}, status_code=200)
+        return {"message": "VM started successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to start VM")
     
@@ -44,7 +44,7 @@ async def stop_vm(
     success = await proxmox_services.aset_vm_status(vm_proxmox_id, False)
     
     if success:
-        return JSONResponse(content={"message": "VM stopped successfully"}, status_code=200)
+        return {"message": "VM stopped successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to stop VM")
     
@@ -57,7 +57,7 @@ async def destroy_vm(
     success = await proxmox_services.adestroy_vm(vm_proxmox_id)
     
     if success:
-        return JSONResponse(content={"message": "VM destroyed successfully"}, status_code=200)
+        return {"message": "VM destroyed successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to destroy VM")
     
@@ -87,7 +87,7 @@ async def start_vm_firewall(
     success = await proxmox_services.acreate_firewall_rules(vm_proxmox_id, 800)#remove hardcoded 800 id, should be the id of the fastapi host
     
     if success:
-        return JSONResponse(content={"message": "VM firewall created successfully"}, status_code=200)
+        return {"message": "VM firewall created successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to create VM firewall")
     
@@ -100,6 +100,6 @@ async def stop_vm_firewall(
     success = await proxmox_services.adestroy_firewall_rules(vm_proxmox_id)
 
     if success:
-        return JSONResponse(content={"message": "VM firewall destroyed successfully"}, status_code=200)
+        return {"message": "VM firewall destroyed successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to destroy VM firewall")

@@ -80,7 +80,7 @@ async def create_user(
 
     _generate_and_set_token(response, db_user)
 
-    return db_user
+    return db_user.model_dump()
 
 @router.get("/login", response_class=HTMLResponse)
 async def login_user_form(request: Request):
@@ -143,10 +143,10 @@ async def read_users_me(
     user_repository: UserRepositoryDep,
 ): 
     user_public = user_repository.get_public(current_user)# if you want to return user info, use a UserPublic instance
-    return user_public
+    return user_public.model_dump()
 
 @router.get("/auth")#test route to check if user has privileges
 async def read_users_me_auth(
     current_user: PrivilegedUserDep,
 ): 
-    return current_user
+    return current_user.model_dump()
