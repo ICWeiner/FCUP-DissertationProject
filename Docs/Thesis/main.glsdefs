@@ -502,3 +502,87 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{jwt}%
+{%
+name={\acronymfont {\glsentryshort {jwt}}},%
+sort={JWT},%
+type={acronym},%
+first={JWT},%
+firstplural={JWTs},%
+text={JWT},%
+plural={JWTs},%
+description={JSON Web Token},%
+descriptionplural={JSON Web Token},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={JSON Web Token},%
+longplural={JSON Web Tokens},%
+short={JWT},%
+shortplural={JWTs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ldap}%
+{%
+name={\acronymfont {\glsentryshort {ldap}}},%
+sort={LDAP},%
+type={acronym},%
+first={LDAP},%
+firstplural={LDAPs},%
+text={LDAP},%
+plural={LDAPs},%
+description={Lightweight Directory Access Protocol},%
+descriptionplural={Lightweight Directory Access Protocol},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Lightweight Directory Access Protocol},%
+longplural={Lightweight Directory Access Protocol s},%
+short={LDAP},%
+shortplural={LDAPs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ssh}%
+{%
+name={\acronymfont {\glsentryshort {ssh}}},%
+sort={SSH},%
+type={acronym},%
+first={SSH},%
+firstplural={SSHs},%
+text={SSH},%
+plural={SSHs},%
+description={Secure Shell},%
+descriptionplural={Secure Shell},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Secure Shell},%
+longplural={Secure Shells},%
+short={SSH},%
+shortplural={SSHs},%
+counter={page},%
+parent={},%
+%
+}%
+

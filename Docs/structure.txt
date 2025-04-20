@@ -6,9 +6,7 @@
         Develop an automated environment for evaluating network administration exercises.
         Integrate a back-end service capable of communicating with various components.
         Enable scalable and efficient evaluation of exercises.
-    1.3. Key Innovations: 
-	Showcase what a system supporting network exercises with automatic evaluation could look like
-    1.4. Document Structure: Overview of dissertation chapters.
+    1.3. Document Structure: Overview of dissertation chapters.
 2. Background 
     2.1. Overview of Used Technologies
         Virtualization
@@ -23,8 +21,8 @@
         Benefits of hosting virtual machines for usage with GNS3 on Proxmox
     2.3. Web Frameworks for API-Based Systems:
         Comparison of WSGI (Flask) vs. ASGI (FastAPI, Quart).
-        The need for asynchronous processing in API-heavy applications.
     2.4. Long running task processing approaches:
+        The need for asynchronous processing in API-heavy applications.
         Celery for background jobs.
         FastAPI async as an alternative.
     2.5. System administration automation tools
@@ -60,7 +58,7 @@
             Architecture Diagram. 
             Hardware available and its limitations
             User interface
-	Jinja2
+	            Jinja2
                 gns3-web 
             API Layer (Initially Flask, later migrated to FastAPI).
                 Examples of some of the created endpoints
@@ -76,7 +74,7 @@
             Storage Component
                 Database 
                     Sqlite
-	   SQLModel
+	                    SQLModel
                 lvm-thin
     4.5. Early prototyping with Flask  and later shift to FastAPI 
         Initial Setup: Flask

@@ -30,11 +30,6 @@ P.~M.~C. Santos, ``Environment for practical evaluations in network
   \url{https://hdl.handle.net/10216/164899}
 \BIBentrySTDinterwordspacing
 
-\bibitem[Leal and Silva(2003)]{Leal2003567}
-J.~Leal and F.~Silva, ``Mooshak: a web-based multi-site programming contest
-  system,'' \emph{SOFTWARE-PRACTICE \& EXPERIENCE}, vol.~33, no.~6, pp.
-  567--581, MAY 2003.
-
 \bibitem[{GNS3 Documentation}(n.d.)]{GNS3Architecture}
 \BIBentryALTinterwordspacing
 {GNS3 Documentation}, ``Architecture,'' n.d., accessed: March 15, 2025.
@@ -82,5 +77,10 @@ T.~Christie and E.~Contributors, ``Httpx: A next generation http client for
   python,'' Online, 2025, accessed: April 04, 2025. [Online]. Available:
   \url{https://www.python-httpx.org/}
 \BIBentrySTDinterwordspacing
+
+\bibitem[Leal and Silva(2003)]{Leal2003567}
+J.~Leal and F.~Silva, ``Mooshak: a web-based multi-site programming contest
+  system,'' \emph{SOFTWARE-PRACTICE \& EXPERIENCE}, vol.~33, no.~6, pp.
+  567--581, MAY 2003.
 
 \end{thebibliography}
