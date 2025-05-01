@@ -1,0 +1,93 @@
+% Chapter Template
+
+% Main chapter title
+%\chapter[toc version]{doc version}
+\chapter{Introduction}
+
+% Short version of the title for the header
+%\chaptermark{version for header}
+
+% Chapter Label
+% For referencing this chapter elsewhere, use \ref{ChapterTemplate}
+\label{Chapter1Introduction}
+
+% Write text in here
+% Use \subsection and \subsubsection to organize text
+
+This chapter contextualizes challenges, outlining the limitations of current pedagogical tools and processes while framing the necessity 
+for an automated, scalable solution. By dissecting the shortcomings of existing platforms to manual assessment burdens—we lay the groundwork 
+for a system capable of aiding network administration education.
+
+
+\section{Problem Statement}
+
+The digital transformation sweeping across industries has created unprecedented demand for skilled computer science professionals.
+While most, if not all,\ac{cs} specializations face growing needs, network administration remains a foundational requirement. This persistent demand 
+reflects the networks's critical role as infrastructure supporting all digital systems.
+
+Modern organizations require professionals who can design, configure, and troubleshoot increasingly complex network environments. 
+Effective education must therefore bridge theoretical knowledge with practical implementation, particularly through hands-on evaluations 
+that simulate real-world scenarios. Yet current assessment methods fail to meet these needs at scale, creating a growing gap between academic 
+preparation and professional requirements.
+
+\subsection{Need for Automated Evaluation}
+
+Practical evaluations are essential to prepare students for real-world challenges, enabling them to apply 
+theoretical knowledge and develop hands-on skills. However, available evaluation methods face significant limitations.
+
+Creating a physical network environment for practical evaluations is sure to be costly and challenging to scale for 
+large student populations. 
+While emulation and virtualization technologies offer cost-effective alternatives for creating flexible practice environments, 
+they lack built-in automated assessment capabilities. 
+Instructors must manually review each student's network topology configuration—a process that is:
+
+\begin{itemize}
+  \item \textbf{Time-consuming}: Manual checks grow linearly with class size.
+  \item \textbf{Error-prone}: Human reviewers may overlook misconfigurations.
+  \item \textbf{Inconsistent}: Subjective grading criteria lead to unfair assessments.
+\end{itemize}
+
+Automating evaluations would reduce instructor workload, freeing time for student support aswell as ensure consistent, objective grading 
+and simultaneously enable immediate feedback for learners.
+
+\subsection{Limitations of Current Solutions}
+
+Existing approaches to network education suffer from two critical gaps:
+
+\begin{enumerate}
+    \item \textbf{Single-vendor focus}: Most tools (e.g., Cisco's packet tracer) are designed for specific vendor ecosystems, failing 
+    to prepare students for heterogeneous real-world networks where multi-vendor interoperability is essential.
+        \item \textbf{Missing evaluation component}: Some education institutions' curricula, such as our case in\ac{dcc}, forgo practical 
+        assessments entirely, which means:
+    \begin{itemize}
+        \item Students complete exercises without validation
+        \item No measurable feedback on configuration skills
+        \item Graduates enter industry with possible gaps in their knowledge
+    \end{itemize}
+\end{enumerate}
+
+
+\section{Aims and Objectives}
+
+Building upon the foundational work of \citet{santos2024} in automated network topology evaluation, this project has the following technical objectives:
+
+\begin{enumerate}
+    \item \textbf{Develop a prototypical automated evaluation environment}:
+    \begin{itemize}
+        \item Create a system for assessing network administration exercises without manual intervention
+        \item Support multi-vendor device configurations (Cisco, Juniper, Linux-based)
+        \item Validate both connectivity and configuration compliance
+    \end{itemize}
+
+    \item \textbf{Implement a cohesive back-end system}:
+    \begin{itemize}
+        \item Transform loose components from \citet{santos2024} into a unified system
+        \item Develop capabilities to coordinate between:
+        \begin{itemize}
+            \item Infrastructure provisioning
+            \item Network emulation 
+            \item Evaluation automation
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+

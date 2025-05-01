@@ -1,7 +1,7 @@
 from nornir import InitNornir
 from gns3_api import gns3_actions
 from gns3_api.utils.gns3_parser import gns3_nodes_to_yaml
-from nornir_lib.modules.ping import PingLibrary
+from nornir_lib.modules.ping import PingModule
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
 
@@ -34,7 +34,7 @@ def ping(target_vm, gns3_filename, command_host, command_target):
         gns3_actions.start_project(node_ip, project_id)
 
         config = f'{node_name}.yaml'
-        ping_lib = PingLibrary(config)
+        ping_lib = PingModule(config)
 
         # Perform ping for a hostname (the full destination ip must be provided)
         ping_results = ping_lib.command(command_host, command_target)

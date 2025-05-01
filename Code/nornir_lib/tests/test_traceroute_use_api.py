@@ -1,7 +1,7 @@
 from nornir import InitNornir
 from gns3_api import gns3_actions
 from gns3_api.utils import gns3_parser
-from modules.traceroute import TracerouteLibrary
+from modules.traceroute import TracerouteModule
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
 
@@ -34,7 +34,7 @@ for i in linux_hosts.inventory.hosts.items():
     gns3_actions.start_project(node_ip, project_id)
 
     config = f'{node_name}.yaml'
-    trace_lib = TracerouteLibrary(config)
+    trace_lib = TracerouteModule(config)
 
     # Perform ping for a hostname (the full destination ip must be provided)
     trace_results = trace_lib.command('r1', '10.0.1.4')

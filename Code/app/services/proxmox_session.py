@@ -29,7 +29,6 @@ async def aget_proxmox_session(proxmox_host, username, password):
     now = time.time()
     if _proxmox_auth_cache["cookie"] and _proxmox_auth_cache["expires_at"] > now:
         return _build_session(_proxmox_auth_cache["cookie"], _proxmox_auth_cache["csrf"])
-    #TODO: test lock here instead of above
     async with _auth_lock:#lock for thread safety on credential update
         # If expired or missing, use the provided function to fetch new tokens
         cookie, csrf = await aproxmox_get_auth_cookie(proxmox_host, username, password)

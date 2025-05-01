@@ -6,7 +6,7 @@ To use modules, call the respective constructor, passing the already built norni
 
 ## Implementing a new module
 
-To implement a module you may create a new class that inherits the methods in the ```CommandLibrary``` class found in "modules/module.py"
+To implement a module you may create a new class that inherits the methods in the ```CommandModule``` class found in "modules/module.py"
 
 Then you must provide your own implementation of the following methods:
 
@@ -18,7 +18,7 @@ Then you must provide your own implementation of the following methods:
 - ```interpret_linux_response```
 - ```interpret_vpcs_response```
 
-For the "_command*" family of methods, you may look in "PingLibrary" to obtain a skeleton, replacing the command string with your own.
+For the "_command*" family of methods, you may look in "PingModule" to obtain a skeleton, replacing the command string with your own.
 
 For the "interpret*" family of methods, you have to implement code that, given the output of the command ran on the machine, can identify if the result is what is expected or not.
 

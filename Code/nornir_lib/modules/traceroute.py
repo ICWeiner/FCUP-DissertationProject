@@ -1,7 +1,7 @@
-from nornir_lib.modules.module import CommandLibrary
+from nornir_lib.modules.module import CommandModule
 import re
 
-class TracerouteLibrary(CommandLibrary):
+class TracerouteModule(CommandModule):
     def __init__(self,file):
         super().__init__(file)
     

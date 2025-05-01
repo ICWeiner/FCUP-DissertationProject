@@ -34,8 +34,9 @@
     3.2. Network Administration Training Systems:
         Overview of existing tools (e.g. Packet Tracer ) and their limitations
 4. System Architecture & Design
-    4.1 Functional Use Cases
-    4.2. Proxmox 
+    4.1. Functional Use Cases
+    4.2. Overview of the system components:
+    4.3. Proxmox 
         Why Proxmox? 
             Containers Vs VMs (lack of kvm support for containers)
             Proxmox API limitations 
@@ -48,35 +49,34 @@
                 create firewall rules by vm to allow only communication with fastapi host, responsible for doing config validation
             Limitations? 
                 e.g an exercise that requires interacting with the internet
-    4.3. GNS3
+    4.4. GNS3
         Why GNS3? Emulating network devices.
         Challenges & Solutions in creating VMs.
         Diagram: Proxmox + GNS3 interaction flow? 
 
-    4.4. High-Level Architecture
-        Overview of the system components:
-            Architecture Diagram. 
-            Hardware available and its limitations
-            User interface
-	            Jinja2
-                gns3-web 
-            API Layer (Initially Flask, later migrated to FastAPI).
-                Examples of some of the created endpoints
-                FastAPI automatic endpoint documentation generation 
-            Virtualization Layer (Proxmox + GNS3).
-                Where containers are used (fastapi host)
-                Where vms are used (gns3 instances)
-                Usage of thin provisioning and linked clones
-            Evaluation (Nornir)
-                Modules structure
-                How configurations are validated
-                Snapshot creation for future validation
-            Storage Component
-                Database 
-                    Sqlite
-	                    SQLModel
-                lvm-thin
-    4.5. Early prototyping with Flask  and later shift to FastAPI 
+    4.5. High-Level Architecture
+        Architecture Diagram. 
+        Hardware available and its limitations
+        User interface
+            Jinja2
+            gns3-web 
+        API Layer (Initially Flask, later migrated to FastAPI).
+            Examples of some of the created endpoints
+            FastAPI automatic endpoint documentation generation 
+        Virtualization Layer (Proxmox + GNS3).
+            Where containers are used (fastapi host)
+            Where vms are used (gns3 instances)
+            Usage of thin provisioning and linked clones
+        Evaluation (Nornir)
+            Modules structure
+            How configurations are validated
+            Snapshot creation for future validation?
+        Storage Component
+            Database 
+                Sqlite
+                    SQLModel
+            lvm-thin
+    4.6. Early prototyping with Flask  and later shift to FastAPI 
         Initial Setup: Flask
             Flask for API
             Lack of complete async support by flask natively (mainly due to WSGI)
@@ -124,6 +124,7 @@
             API Response times.
             Concurrent request handling.
             Resource consumption.
+            io-problems
     6.2. Usability Testing
         Showcase full exercise cycle (create, assign, solve, evaluate)
 7. Conclusion & Future Work

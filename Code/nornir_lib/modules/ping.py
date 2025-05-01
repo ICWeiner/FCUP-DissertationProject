@@ -1,8 +1,8 @@
-from nornir_lib.modules.module import CommandLibrary
+from nornir_lib.modules.module import CommandModule
 from nornir_lib.utils.constants import TOLERANCE
 import re
 
-class PingLibrary(CommandLibrary):
+class PingModule(CommandModule):
     def __init__(self,file):
         super().__init__(file)
 

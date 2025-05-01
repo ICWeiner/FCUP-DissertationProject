@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  27 APR 2025 16:51
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  1 MAY 2025 12:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1858,7 +1858,7 @@ Overfull \hbox (12.17973pt too wide) detected at line 60
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 61
- \TU/Arial(0)/m/n/10.95 22
+ \TU/Arial(0)/m/n/10.95 21
  []
 
 
@@ -1873,7 +1873,7 @@ Overfull \hbox (12.17973pt too wide) detected at line 63
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 64
- \TU/Arial(0)/m/n/10.95 23
+ \TU/Arial(0)/m/n/10.95 24
  []
 
 
@@ -1883,12 +1883,42 @@ Overfull \hbox (12.17973pt too wide) detected at line 65
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 66
+ \TU/Arial(0)/m/n/10.95 24
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 67
  \TU/Arial(0)/m/n/10.95 25
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 68
  \TU/Arial(0)/m/n/10.95 25
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 69
+ \TU/Arial(0)/m/n/10.95 25
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 70
+ \TU/Arial(0)/m/n/10.95 27
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 71
+ \TU/Arial(0)/m/n/10.95 28
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 72
+ \TU/Arial(0)/m/n/10.95 29
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 74
+ \TU/Arial(0)/m/n/10.95 29
  []
 
 )
@@ -1911,6 +1941,16 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (./main.lof
 Overfull \hbox (6.08987pt too wide) detected at line 6
  \TU/Arial(0)/m/n/10.95 7
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 9
+ \TU/Arial(0)/m/n/10.95 23
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 10
+ \TU/Arial(0)/m/n/10.95 26
  []
 
 )
@@ -2005,8 +2045,8 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [5]
-File: Figures/Background/gns3-web.png Graphic file (type bmp)
-<Figures/Background/gns3-web.png>
+File: Figures/2Background/gns3-web.png Graphic file (type bmp)
+<Figures/2Background/gns3-web.png>
 
 
 LaTeX Font Warning: Font shape `TU/Arial(0)/m/sc' undefined
@@ -2167,18 +2207,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [18]
 Chapter 4.
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 46.
-
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 46--46
-[][][] 
- []
-
-
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 46--46
-[][][] 
- []
-
 
 
 
@@ -2191,6 +2219,19 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 [19
 
 ]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 65.
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 65--65
+[][][] 
+ []
+
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 65--65
+[][][] 
+ []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2200,16 +2241,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [20]
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 83--83
-[][][] 
- []
-
-
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 83--83
-[][][] 
- []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2218,7 +2249,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[21]) (./Chapters/5Implementation.tex
+[21]
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2228,6 +2259,99 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [22]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[23]
+File: Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png Graphic f
+ile (type bmp)
+<Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[24]
+Overfull \hbox (15.88342pt too wide) in paragraph at lines 199--202
+[]\TU/Arial(0)/m/n/10.95 The system employs a dual-interface web architecture a
+ccessible through standard browsers.
+ []
+
+
+Overfull \hbox (3.71227pt too wide) in paragraph at lines 199--202
+\TU/Arial(0)/m/n/10.95 For administrative functions and exercise management, us
+ers interact with Jinja2-rendered
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[25]
+File: Figures/4SystemArchitectureDesign/system-diagram.png Graphic file (type b
+mp)
+<Figures/4SystemArchitectureDesign/system-diagram.png>
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[26]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[27]
+Overfull \hbox (1.09811pt too wide) in paragraph at lines 268--274
+\TU/Arial(0)/m/n/10.95 tional modules by simply extending the base class and im
+plementing the required platform-
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[28]) (./Chapters/5Implementation.tex
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[29]
 Chapter 5.
 ) (./Chapters/6TestingEvaluation.tex
 
@@ -2238,7 +2362,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[23
+[30
 
 ]
 Chapter 6.
@@ -2251,7 +2375,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[24
+[31
 
 ]
 Chapter 7.
@@ -2268,7 +2392,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[25
+[32
 
 ]) (./Appendices/AppendixTemplate.tex
 
@@ -2279,7 +2403,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[26
+[33
 
 ])
 
@@ -2290,7 +2414,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[27
+[34
 
 ] (./main.aux)
  ***********
@@ -2304,18 +2428,24 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8C748256EAEF35A9EC192168FA1B1DCD;9496.
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: E7671E96F527357D5B36C0672712105E;10551
+(rerunfilecheck)             After:  A64E36294066638D773860E99BB1635F;11490.
 Package rerunfilecheck Info: File `main.brf' has not changed.
 (rerunfilecheck)             Checksum: 74EB2C3E6D6A5E30C4DC013A1BE89296;471.
  ) 
 Here is how much of TeX's memory you used:
- 44503 strings out of 473840
- 918334 string characters out of 5729725
- 1390937 words of memory out of 5000000
- 66752 multiletter control sequences out of 15000+600000
+ 44508 strings out of 473840
+ 919322 string characters out of 5729725
+ 1390821 words of memory out of 5000000
+ 66754 multiletter control sequences out of 15000+600000
  568565 words of font info for 87 fonts, out of 8000000 for 9000
  1351 hyphenation exceptions out of 8191
  108i,19n,129p,2378b,1222s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (36 pages).
+Output written on main.pdf (43 pages).

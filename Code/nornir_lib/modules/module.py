@@ -9,7 +9,7 @@ from logger.logger import get_logger
 
 logger = get_logger(__name__)
 
-class CommandLibrary:
+class CommandModule:
     def __init__(self, file):
         inventory, runner = updated_inventory_host(file)
         self.nr = InitNornir(
