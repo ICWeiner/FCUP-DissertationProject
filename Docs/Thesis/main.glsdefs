@@ -550,7 +550,7 @@ user4={},%
 user5={},%
 user6={},%
 long={Lightweight Directory Access Protocol},%
-longplural={Lightweight Directory Access Protocol s},%
+longplural={Lightweight Directory Access Protocols},%
 short={LDAP},%
 shortplural={LDAPs},%
 counter={page},%
@@ -581,6 +581,118 @@ long={Secure Shell},%
 longplural={Secure Shells},%
 short={SSH},%
 shortplural={SSHs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{lvm}%
+{%
+name={\acronymfont {\glsentryshort {lvm}}},%
+sort={LVM},%
+type={acronym},%
+first={LVM},%
+firstplural={LVMs},%
+text={LVM},%
+plural={LVMs},%
+description={Logical Volume Manager},%
+descriptionplural={Logical Volume Manager},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Logical Volume Manager},%
+longplural={Logical Volume Managers},%
+short={LVM},%
+shortplural={LVMs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{lvmt}%
+{%
+name={\acronymfont {\glsentryshort {lvmt}}},%
+sort={LVM-Thin},%
+type={acronym},%
+first={LVM-Thin},%
+firstplural={LVM-Thins},%
+text={LVM-Thin},%
+plural={LVM-Thins},%
+description={LVM Thin Provisioning},%
+descriptionplural={LVM Thin Provisioning},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={LVM Thin Provisioning},%
+longplural={LVM Thin Provisionings},%
+short={LVM-Thin},%
+shortplural={LVM-Thins},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{cow}%
+{%
+name={\acronymfont {\glsentryshort {cow}}},%
+sort={CoW},%
+type={acronym},%
+first={CoW},%
+firstplural={CoWs},%
+text={CoW},%
+plural={CoWs},%
+description={Copy-on-Write},%
+descriptionplural={Copy-on-Write},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Copy-on-Write},%
+longplural={Copy-on-Writes},%
+short={CoW},%
+shortplural={CoWs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{orm}%
+{%
+name={\acronymfont {\glsentryshort {orm}}},%
+sort={ORM},%
+type={acronym},%
+first={ORM},%
+firstplural={ORMs},%
+text={ORM},%
+plural={ORMs},%
+description={Object-Relational Mapping},%
+descriptionplural={Object-Relational Mapping},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Object-Relational Mapping},%
+longplural={Object-Relational Mappings},%
+short={ORM},%
+shortplural={ORMs},%
 counter={page},%
 parent={},%
 %

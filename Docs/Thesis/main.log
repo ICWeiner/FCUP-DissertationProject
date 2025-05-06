@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  1 MAY 2025 12:18
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  6 MAY 2025 12:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -573,16 +573,454 @@ File: ppxetex.def 2025/01/30 v0.6e Pdfpages driver for XeTeX (AM)
 \c@AM@survey=\count329
 \AM@templatesizebox=\box69
 )
+(/usr/local/texlive/2024/texmf-dist/tex/latex/forest/forest.sty
+Package: forest 2017/07/14 v2.1.5 Drawing (linguistic) trees
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks43
+\pgfutil@tempdima=\dimen272
+\pgfutil@tempdimb=\dimen273
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box70
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
+))
+Package: pgf 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks44
+\pgfkeys@temptoks=\toks45
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
+tered.code.tex
+\pgfkeys@tmptoks=\toks46
+))
+\pgf@x=\dimen274
+\pgf@y=\dimen275
+\pgf@xa=\dimen276
+\pgf@ya=\dimen277
+\pgf@xb=\dimen278
+\pgf@yb=\dimen279
+\pgf@xc=\dimen280
+\pgf@yc=\dimen281
+\pgf@xd=\dimen282
+\pgf@yd=\dimen283
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count330
+\c@pgf@countb=\count331
+\c@pgf@countc=\count332
+\c@pgf@countd=\count333
+\t@pgf@toka=\toks47
+\t@pgf@tokb=\toks48
+\t@pgf@tokc=\toks49
+\pgf@sys@id@count=\count334
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
+)
+Driver file for pgf: pgfsys-xetex.def
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-xetex.de
+f
+File: pgfsys-xetex.def 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-dvipdfmx
+.def
+File: pgfsys-dvipdfmx.def 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
+)
+\pgfsys@objnum=\count335
+)))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfsyssoftpath@smallbuffer@items=\count336
+\pgfsyssoftpath@bigbuffer@items=\count337
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+
+LaTeX Warning: Package "xcolor" has already been loaded: ignoring load-time
+(LaTeX)        option "xcdraw".
+
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen284
+\pgfmath@count=\count338
+\pgfmath@box=\box71
+\pgfmath@toks=\toks50
+\pgfmath@stack@operand=\toks51
+\pgfmath@stack@operation=\toks52
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count339
+)) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@picminx=\dimen285
+\pgf@picmaxx=\dimen286
+\pgf@picminy=\dimen287
+\pgf@picmaxy=\dimen288
+\pgf@pathminx=\dimen289
+\pgf@pathmaxx=\dimen290
+\pgf@pathminy=\dimen291
+\pgf@pathmaxy=\dimen292
+\pgf@xx=\dimen293
+\pgf@xy=\dimen294
+\pgf@yx=\dimen295
+\pgf@yy=\dimen296
+\pgf@zx=\dimen297
+\pgf@zy=\dimen298
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@path@lastx=\dimen299
+\pgf@path@lasty=\dimen300
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@shorten@end@additional=\dimen301
+\pgf@shorten@start@additional=\dimen302
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfpic=\box72
+\pgf@hbox=\box73
+\pgf@layerbox@main=\box74
+\pgf@picture@serial@count=\count340
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgflinewidth=\dimen303
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@pt@x=\dimen304
+\pgf@pt@y=\dimen305
+\pgf@pt@temp=\dimen306
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowsep=\dimen307
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@max=\dimen308
+\pgf@sys@shading@range@num=\count341
+\pgf@shadingcount=\count342
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfexternal@startupbox=\box75
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex
+File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodeparttextbox=\box76
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
+\pgf@nodesepstart=\dimen309
+\pgf@nodesepend=\dimen310
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
+))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
+\pgffor@iter=\dimen311
+\pgffor@skip=\dimen312
+\pgffor@stack=\toks53
+\pgffor@toks=\toks54
+))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+Package: tikz 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex
+File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@plot@mark@count=\count343
+\pgfplotmarksize=\dimen313
+)
+\tikz@lastx=\dimen314
+\tikz@lasty=\dimen315
+\tikz@lastxsaved=\dimen316
+\tikz@lastysaved=\dimen317
+\tikz@lastmovetox=\dimen318
+\tikz@lastmovetoy=\dimen319
+\tikzleveldistance=\dimen320
+\tikzsiblingdistance=\dimen321
+\tikz@figbox=\box77
+\tikz@figbox@bg=\box78
+\tikz@tempbox=\box79
+\tikz@tempbox@bg=\box80
+\tikztreelevel=\count344
+\tikznumberofchildren=\count345
+\tikznumberofcurrentchild=\count346
+\tikz@fig@count=\count347
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex
+File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfmatrixcurrentrow=\count348
+\pgfmatrixcurrentcolumn=\count349
+\pgf@matrix@numberofcolumns=\count350
+)
+\tikz@expandcount=\count351
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.misc.code.tex
+File: pgflibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.callouts.code.tex
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.callouts.code.tex))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodepartlowerbox=\box81
+\pgfnodeparttwobox=\box82
+\pgfnodepartthreebox=\box83
+\pgfnodepartfourbox=\box84
+\pgfnodeparttwentybox=\box85
+\pgfnodepartnineteenbox=\box86
+\pgfnodeparteighteenbox=\box87
+\pgfnodepartseventeenbox=\box88
+\pgfnodepartsixteenbox=\box89
+\pgfnodepartfifteenbox=\box90
+\pgfnodepartfourteenbox=\box91
+\pgfnodepartthirteenbox=\box92
+\pgfnodeparttwelvebox=\box93
+\pgfnodepartelevenbox=\box94
+\pgfnodeparttenbox=\box95
+\pgfnodepartninebox=\box96
+\pgfnodeparteightbox=\box97
+\pgfnodepartsevenbox=\box98
+\pgfnodepartsixbox=\box99
+\pgfnodepartfivebox=\box100
+)))
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryfit.code.tex
+File: tikzlibraryfit.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryinterse
+ctions.code.tex
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.cod
+e.tex)
+\pgf@intersect@solutions=\count352
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/pgfopts/pgfopts.sty
+Package: pgfopts 2014/07/10 v2.1a LaTeX package options with pgfkeys
+\pgfopts@list@add@a@toks=\toks55
+\pgfopts@list@add@b@toks=\toks56
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/elocalloc/elocalloc.sty
+Package: elocalloc 2016/12/15 v0.03 local allocation for LaTeX 2015+ (DPC)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/inlinedef/inlinedef.sty
+Package: inlinedef 2008/07/10 v1.0 Inlined expansions within definitions
+\ID@toks=\toks57
+\ID@count=\count353
+)
+\ID@usercommands=\toks58
+\safeloop@depth=\count354
+\safeRKloop@depth=\count355
+\forest@temp@dimen=\dimen322
+\forest@temp@count=\count356
+\forest@n=\count357
+\forest@temp@global@count=\count358
+\forest@temp@toks=\toks59
+\forest@temparray@M=\count359
+\forest@temparray@N=\count360
+\forest@global@temparray@M=\count361
+\forest@global@temparray@N=\count362
+\forest@isnum@count=\count363
+\forest@isdim@nonintpart=\count364
+\forest@isdim@dimen=\dimen323
+\forest@sort@m=\count365
+\forest@sort@k=\count366
+\forest@sort@p=\count367
+\bracket@content=\toks60
+\bracket@afterthought=\toks61
+\forest@node@maxid=\count368
+\forest@process@left@M=\count369
+\forest@process@left@N=\count370
+\forest@process@right@M=\count371
+\forest@process@right@N=\count372
+\forest@process@saved@M=\count373
+\forest@process@saved@N=\count374
+\forest@process@result@M=\count375
+\forest@process@result@N=\count376
+\forest@process@n=\count377
+\forest@nodewalk@branch@toks=\toks62
+\forest@nodewalk@shortsteps@resolution=\toks63
+\forest@do@dynamics=\toks64
+\forest@box=\box101
+\forest@xg=\dimen324
+\forest@yg=\dimen325
+\forest@xs=\dimen326
+\forest@ys=\dimen327
+\forest@pi@toks=\toks65
+\forest@segment@toks=\toks66
+\forest@PIi@toks=\toks67
+\forest@PIii@toks=\toks68
+\forest@copy@in=\read3
+\forest@copy@out=\write4
+\forest@externalize@max@outer@n=\count378
+\forest@externalize@inner@n=\count379
+)
 (/usr/local/texlive/2024/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2025/02/02 v25.3 The multilingual framework for pdfLaTeX, LuaLaT
 eX and XeLaTeX
-\babel@savecnt=\count330
-\U@D=\dimen272
+\babel@savecnt=\count380
+\U@D=\dimen328
 \l@unhyphenated=\language90
 
 (/usr/local/texlive/2024/texmf-dist/tex/generic/babel/xebabel.def)
-\bbl@readstream=\read2
-\bbl@dirlevel=\count331
+\bbl@readstream=\read4
+\bbl@dirlevel=\count381
 
 (/usr/local/texlive/2024/texmf-dist/tex/generic/babel-portuges/portuguese.ldf
 Language: portuges 2021/07/09 v1.2t Portuguese support from the babel system
@@ -608,13 +1046,13 @@ Package babel Info: Importing font and identification data for portuguese
 (babel)             from babel-pt.ini. Reported on input line 11.
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/csquotes/csquotes.sty
 Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
-\csq@reset=\count332
-\csq@gtype=\count333
-\csq@glevel=\count334
-\csq@qlevel=\count335
-\csq@maxlvl=\count336
-\csq@tshold=\count337
-\csq@ltx@everypar=\toks43
+\csq@reset=\count382
+\csq@gtype=\count383
+\csq@glevel=\count384
+\csq@qlevel=\count385
+\csq@maxlvl=\count386
+\csq@tshold=\count387
+\csq@ltx@everypar=\toks69
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/csquotes/csquotes.def
 File: csquotes.def 2024-04-04 v5.2o csquotes generic definitions (JAW)
@@ -632,25 +1070,25 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip87
 \bibsep=\skip88
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count338
+\c@NAT@ctr=\count388
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/notoccite/notoccite.sty
 Package: notoccite 2000/07/20
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count339
-\float@exts=\toks44
-\float@box=\box70
-\@float@everytoks=\toks45
-\@floatcapt=\box71
+\c@float@type=\count389
+\float@exts=\toks70
+\float@box=\box102
+\@float@everytoks=\toks71
+\@floatcapt=\box103
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen273
-\WF@size=\dimen274
-\c@WF@wrappedlines=\count340
-\WF@box=\box72
-\WF@everypar=\toks46
+\wrapoverhang=\dimen329
+\WF@size=\dimen330
+\c@WF@wrappedlines=\count390
+\WF@box=\box104
+\WF@everypar=\toks72
 Package: wrapfig 2003/01/31  v 3.6
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/placeins/placeins.sty
@@ -658,15 +1096,15 @@ Package: placeins 2005/04/18  v 2.2
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/footmisc/footmisc.sty
 Package: footmisc 2024/12/24 v6.0g a miscellany of footnote facilities
-\FN@temptoken=\toks47
-\footnotemargin=\dimen275
-\@outputbox@depth=\dimen276
+\FN@temptoken=\toks73
+\footnotemargin=\dimen331
+\@outputbox@depth=\dimen332
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/bigfoot/perpage.sty
 Package: perpage 2014/10/25 2.0 Reset/sort counters per page
-\c@abspage=\count341
+\c@abspage=\count391
 )
-\c@pp@a@footnote=\count342
+\c@pp@a@footnote=\count392
 Package footmisc Info: Declaring symbol style bringhurst on input line 699.
 Package footmisc Info: Declaring symbol style chicago on input line 707.
 Package footmisc Info: Declaring symbol style wiley on input line 716.
@@ -701,16 +1139,13 @@ Applying: [2021/05/01] Usage of raw or classic option list on input line 254.
 Already applied: [0000/00/00] Usage of raw or classic option list on input line
  370.
 )
-(/usr/local/texlive/2024/texmf-dist/tex/latex/trimspaces/trimspaces.sty
-Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
-)
 (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/shellesc.sty
 Package: shellesc 2023/07/08 v1.0d unified shell escape interface for LaTeX
 Package shellesc Info: Restricted shell escape enabled on input line 77.
 )
-\c@svg@param@lastpage=\count343
-\svg@box=\box73
-\c@svg@param@currpage=\count344
+\c@svg@param@lastpage=\count393
+\svg@box=\box105
+\c@svg@param@currpage=\count394
 )
 
 LaTeX Warning: Package "xcolor" has already been loaded: ignoring load-time
@@ -728,86 +1163,14 @@ Package: transparent-nometadata 2022-10-27 v1.5 Transparency via pdfTeX's color
 Package transparent Warning: Loading aborted, because pdfTeX is not running in 
 PDF mode.
 
-)) (/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
-x
-\pgfutil@everybye=\toks48
-\pgfutil@tempdima=\dimen277
-\pgfutil@tempdimb=\dimen278
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box74
-) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks49
-\pgfkeys@temptoks=\toks50
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
-tered.code.tex
-\pgfkeys@tmptoks=\toks51
-))
-\pgf@x=\dimen279
-\pgf@y=\dimen280
-\pgf@xa=\dimen281
-\pgf@ya=\dimen282
-\pgf@xb=\dimen283
-\pgf@yb=\dimen284
-\pgf@xc=\dimen285
-\pgf@yc=\dimen286
-\pgf@xd=\dimen287
-\pgf@yd=\dimen288
-\w@pgf@writea=\write3
-\r@pgf@reada=\read3
-\c@pgf@counta=\count345
-\c@pgf@countb=\count346
-\c@pgf@countc=\count347
-\c@pgf@countd=\count348
-\t@pgf@toka=\toks52
-\t@pgf@tokb=\toks53
-\t@pgf@tokc=\toks54
-\pgf@sys@id@count=\count349
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
-File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
-)
-Driver file for pgf: pgfsys-xetex.def
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-xetex.de
-f
-File: pgfsys-xetex.def 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-dvipdfmx
-.def
-File: pgfsys-dvipdfmx.def 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
-df.def
-File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
-)
-\pgfsys@objnum=\count350
-)))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
-code.tex
-File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count351
-\pgfsyssoftpath@bigbuffer@items=\count352
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
-code.tex
-File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count353
+\c@subfigure=\count395
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count354
-) (/usr/local/texlive/2024/texmf-dist/tex/latex/commath/commath.sty
+\c@subtable=\count396
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/commath/commath.sty
 Invalid UTF-8 byte or sequence at line 6 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 9 replaced by U+FFFD.
 )
@@ -818,44 +1181,44 @@ Package: mathpazo 2020/03/25 PSNFSS-v9.3 Palatino w/ Pazo Math (D.Puga, WaS)
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/siunitx/siunitx.sty
 Package: siunitx 2025-01-21 v3.4.4 A comprehensive (SI) units package
-\l__siunitx_number_uncert_offset_int=\count355
-\l__siunitx_number_exponent_fixed_int=\count356
-\l__siunitx_number_min_decimal_int=\count357
-\l__siunitx_number_min_integer_int=\count358
-\l__siunitx_number_round_precision_int=\count359
-\l__siunitx_number_lower_threshold_int=\count360
-\l__siunitx_number_upper_threshold_int=\count361
-\l__siunitx_number_group_first_int=\count362
-\l__siunitx_number_group_size_int=\count363
-\l__siunitx_number_group_minimum_int=\count364
-\l__siunitx_angle_tmp_dim=\dimen289
-\l__siunitx_angle_marker_box=\box75
-\l__siunitx_angle_unit_box=\box76
-\l__siunitx_compound_count_int=\count365
+\l__siunitx_number_uncert_offset_int=\count397
+\l__siunitx_number_exponent_fixed_int=\count398
+\l__siunitx_number_min_decimal_int=\count399
+\l__siunitx_number_min_integer_int=\count400
+\l__siunitx_number_round_precision_int=\count401
+\l__siunitx_number_lower_threshold_int=\count402
+\l__siunitx_number_upper_threshold_int=\count403
+\l__siunitx_number_group_first_int=\count404
+\l__siunitx_number_group_size_int=\count405
+\l__siunitx_number_group_minimum_int=\count406
+\l__siunitx_angle_tmp_dim=\dimen333
+\l__siunitx_angle_marker_box=\box106
+\l__siunitx_angle_unit_box=\box107
+\l__siunitx_compound_count_int=\count407
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/translations/translations.sty
 Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages
  (CN)
 )
-\l__siunitx_table_tmp_box=\box77
-\l__siunitx_table_tmp_dim=\dimen290
-\l__siunitx_table_column_width_dim=\dimen291
-\l__siunitx_table_integer_box=\box78
-\l__siunitx_table_decimal_box=\box79
-\l__siunitx_table_uncert_box=\box80
-\l__siunitx_table_before_box=\box81
-\l__siunitx_table_after_box=\box82
-\l__siunitx_table_before_dim=\dimen292
-\l__siunitx_table_carry_dim=\dimen293
-\l__siunitx_unit_tmp_int=\count366
-\l__siunitx_unit_position_int=\count367
-\l__siunitx_unit_total_int=\count368
+\l__siunitx_table_tmp_box=\box108
+\l__siunitx_table_tmp_dim=\dimen334
+\l__siunitx_table_column_width_dim=\dimen335
+\l__siunitx_table_integer_box=\box109
+\l__siunitx_table_decimal_box=\box110
+\l__siunitx_table_uncert_box=\box111
+\l__siunitx_table_before_box=\box112
+\l__siunitx_table_after_box=\box113
+\l__siunitx_table_before_dim=\dimen336
+\l__siunitx_table_carry_dim=\dimen337
+\l__siunitx_unit_tmp_int=\count408
+\l__siunitx_unit_position_int=\count409
+\l__siunitx_unit_total_int=\count410
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/verbatim.sty
 Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks55
-\verbatim@line=\toks56
-\verbatim@in@stream=\read4
+\every@verbatim=\toks74
+\verbatim@line=\toks75
+\verbatim@in@stream=\read5
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/epigraph/epigraph.sty
 Package: epigraph 2020/01/02 v1.5e typesetting epigraphs
@@ -870,14 +1233,14 @@ Package: nextpage 2009/09/03 v1.1a additional page commands
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box83
-\sift@deathcycles=\count369
-\@vwid@loff=\dimen294
-\@vwid@roff=\dimen295
+\@vwid@box=\box114
+\sift@deathcycles=\count411
+\@vwid@loff=\dimen338
+\@vwid@roff=\dimen339
 )
 (./epigraphoverload.tex
-\epi@textbox=\box84
-\epi@sourcebox=\box85
+\epi@textbox=\box115
+\epi@sourcebox=\box116
 \epi@finalwidth=\skip93
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/xargs/xargs.sty
@@ -888,36 +1251,36 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 
 (/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 (/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks57
-\XKV@tempa@toks=\toks58
+\XKV@toks=\toks76
+\XKV@tempa@toks=\toks77
 )
-\XKV@depth=\count370
+\XKV@depth=\count412
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-\xargs@max=\count371
-\xargs@toksa=\toks59
-\xargs@toksb=\toks60
+\xargs@max=\count413
+\xargs@toksa=\toks78
+\xargs@toksb=\toks79
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count372
-\c@ALG@rem=\count373
-\c@ALG@nested=\count374
+\c@ALG@line=\count414
+\c@ALG@rem=\count415
+\c@ALG@nested=\count416
 \ALG@tlm=\skip94
 \ALG@thistlm=\skip95
-\c@ALG@Lnr=\count375
-\c@ALG@blocknr=\count376
-\c@ALG@storecount=\count377
-\c@ALG@tmpcounter=\count378
+\c@ALG@Lnr=\count417
+\c@ALG@blocknr=\count418
+\c@ALG@storecount=\count419
+\c@ALG@tmpcounter=\count420
 \ALG@tmplength=\skip96
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/algorithms/algorithm.sty
 Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
-\@float@every@algorithm=\toks61
-\c@algorithm=\count379
+\@float@every@algorithm=\toks80
+\c@algorithm=\count421
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
@@ -926,23 +1289,23 @@ Document Style - pseudocode environments for use with the `algorithmicx' style
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/backref.sty
 Package: backref 2023-11-26 v1.44 Bibliographical back referencing
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 156.
-Package hyperref Info: Option `breaklinks' set `true' on input line 156.
-Package hyperref Info: Option `hypertexnames' set `true' on input line 156.
+Package hyperref Info: Option `colorlinks' set `true' on input line 158.
+Package hyperref Info: Option `breaklinks' set `true' on input line 158.
+Package hyperref Info: Option `hypertexnames' set `true' on input line 158.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fancybox/fancybox.sty
 Package: fancybox 2010/05/15 1.4
 
 Style option: `fancybox' v1.4 <2010/05/15> (tvz)
-\@fancybox=\box86
-\shadowsize=\dimen296
-\@Sbox=\box87
-\do@VerbBox=\toks62
-\the@fancyput=\toks63
-\this@fancyput=\toks64
-\EndVerbatimTokens=\toks65
-\Verbatim@Outfile=\write4
-\Verbatim@Infile=\read5
+\@fancybox=\box117
+\shadowsize=\dimen340
+\@Sbox=\box118
+\do@VerbBox=\toks81
+\the@fancyput=\toks82
+\this@fancyput=\toks83
+\EndVerbatimTokens=\toks84
+\Verbatim@Outfile=\write5
+\Verbatim@Infile=\read6
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/ragged2e/ragged2e.sty
 Package: ragged2e 2023/06/22 v3.6 ragged2e Package
 \CenteringLeftskip=\skip97
@@ -963,9 +1326,9 @@ Package: ragged2e 2023/06/22 v3.6 ragged2e Package
 (/usr/local/texlive/2024/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip111
-\multirow@cntb=\count380
+\multirow@cntb=\count422
 \multirow@dima=\skip112
-\bigstrutjot=\dimen297
+\bigstrutjot=\dimen341
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/todonotes/todonotes.sty
 Package: todonotes 2024/01/05 v1.1.7 Todonotes source and documentation.
@@ -975,225 +1338,12 @@ Package: todonotes 2024/01/05
 LaTeX Warning: Package "xcolor" has already been loaded: ignoring load-time
 (LaTeX)        option "xcdraw".
 
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
-Package: pgf 2023-01-15 v3.1.10 (3.1.10)
 
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
-
-LaTeX Warning: Package "xcolor" has already been loaded: ignoring load-time
-(LaTeX)        option "xcdraw".
-
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
-Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen298
-\pgfmath@count=\count381
-\pgfmath@box=\box88
-\pgfmath@toks=\toks66
-\pgfmath@stack@operand=\toks67
-\pgfmath@stack@operation=\toks68
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
-tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
-.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
-nometric.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
-m.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
-rison.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
-code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
-.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
-code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
-erarithmetics.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count382
-)) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
-de.tex
-File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@picminx=\dimen299
-\pgf@picmaxx=\dimen300
-\pgf@picminy=\dimen301
-\pgf@picmaxy=\dimen302
-\pgf@pathminx=\dimen303
-\pgf@pathmaxx=\dimen304
-\pgf@pathminy=\dimen305
-\pgf@pathmaxy=\dimen306
-\pgf@xx=\dimen307
-\pgf@xy=\dimen308
-\pgf@yx=\dimen309
-\pgf@yy=\dimen310
-\pgf@zx=\dimen311
-\pgf@zy=\dimen312
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
-ruct.code.tex
-File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@path@lastx=\dimen313
-\pgf@path@lasty=\dimen314
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
-.code.tex
-File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@shorten@end@additional=\dimen315
-\pgf@shorten@start@additional=\dimen316
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
-de.tex
-File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfpic=\box89
-\pgf@hbox=\box90
-\pgf@layerbox@main=\box91
-\pgf@picture@serial@count=\count383
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
-ate.code.tex
-File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgflinewidth=\dimen317
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
-ations.code.tex
-File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@pt@x=\dimen318
-\pgf@pt@y=\dimen319
-\pgf@pt@temp=\dimen320
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
-e.tex
-File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
-ode.tex
-File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
-ssing.code.tex
-File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
-de.tex
-File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowsep=\dimen321
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
-e.tex
-File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@max=\dimen322
-\pgf@sys@shading@range@num=\count384
-\pgf@shadingcount=\count385
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
-e.tex
-File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
-code.tex
-File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfexternal@startupbox=\box92
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
-de.tex
-File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
-ncy.code.tex
-File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
-code.tex
-File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
-tex
-File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
-e.tex
-File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodeparttextbox=\box93
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
-tex
-File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
--0-65.sty
-Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen323
-\pgf@nodesepend=\dimen324
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
--1-18.sty
-Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
-) (/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/math/pgfmath.sty
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
-Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen325
-\pgffor@skip=\dimen326
-\pgffor@stack=\toks69
-\pgffor@toks=\toks70
-))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
-e.tex
-Package: tikz 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
-dlers.code.tex
-File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count386
-\pgfplotmarksize=\dimen327
-)
-\tikz@lastx=\dimen328
-\tikz@lasty=\dimen329
-\tikz@lastxsaved=\dimen330
-\tikz@lastysaved=\dimen331
-\tikz@lastmovetox=\dimen332
-\tikz@lastmovetoy=\dimen333
-\tikzleveldistance=\dimen334
-\tikzsiblingdistance=\dimen335
-\tikz@figbox=\box94
-\tikz@figbox@bg=\box95
-\tikz@tempbox=\box96
-\tikz@tempbox@bg=\box97
-\tikztreelevel=\count387
-\tikznumberofchildren=\count388
-\tikznumberofcurrentchild=\count389
-\tikz@fig@count=\count390
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
-e.tex
-File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count391
-\pgfmatrixcurrentcolumn=\count392
-\pgf@matrix@numberofcolumns=\count393
-)
-\tikz@expandcount=\count394
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
-s/tikzlibrarytopaths.code.tex
-File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)))
 (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-\c@@todonotes@numberoftodonotes=\count395
+\c@@todonotes@numberoftodonotes=\count423
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fontspec/fontspec.sty
 Package: fontspec 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
@@ -1201,20 +1351,20 @@ Package: fontspec 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
 Package: fontspec-xetex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTe
 X
-\l__fontspec_script_int=\count396
-\l__fontspec_language_int=\count397
-\l__fontspec_strnum_int=\count398
-\l__fontspec_tmp_int=\count399
-\l__fontspec_tmpa_int=\count400
-\l__fontspec_tmpb_int=\count401
-\l__fontspec_tmpc_int=\count402
-\l__fontspec_em_int=\count403
-\l__fontspec_emdef_int=\count404
-\l__fontspec_strong_int=\count405
-\l__fontspec_strongdef_int=\count406
-\l__fontspec_tmpa_dim=\dimen336
-\l__fontspec_tmpb_dim=\dimen337
-\l__fontspec_tmpc_dim=\dimen338
+\l__fontspec_script_int=\count424
+\l__fontspec_language_int=\count425
+\l__fontspec_strnum_int=\count426
+\l__fontspec_tmp_int=\count427
+\l__fontspec_tmpa_int=\count428
+\l__fontspec_tmpb_int=\count429
+\l__fontspec_tmpc_int=\count430
+\l__fontspec_em_int=\count431
+\l__fontspec_emdef_int=\count432
+\l__fontspec_strong_int=\count433
+\l__fontspec_strongdef_int=\count434
+\l__fontspec_tmpa_dim=\dimen342
+\l__fontspec_tmpb_dim=\dimen343
+\l__fontspec_tmpc_dim=\dimen344
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
@@ -1243,8 +1393,8 @@ Package: glossaries 2024/11/01 v4.55 (NLCT)
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/mfirstuc/mfirstuc.sty
 Package: mfirstuc 2022/10/14 v2.08 (NLCT)
-\@glsmfirst=\toks71
-\@glsmrest=\toks72
+\@glsmfirst=\toks85
+\@glsmrest=\toks86
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/xfor/xfor.sty
 Package: xfor 2009/02/05 v1.05 (NLCT)
@@ -1271,7 +1421,7 @@ Package: datatool-base 2019/09/27 v2.32 (NLCT)
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/substr/substr.sty
 Package: substr 2009/10/20 v1.2 Handle substrings
-\c@su@anzahl=\count407
+\c@su@anzahl=\count435
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/datatool/datatool-fp.sty
 Package: datatool-fp 2019/09/27 v2.32 (NLCT)
@@ -1282,19 +1432,19 @@ Package: fp 1995/04/02
 `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/defpattern.sty
 Package: defpattern 1994/10/12
-\actioncount=\count408
+\actioncount=\count436
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-basic.sty
 Package: fp-basic 1996/05/13
-\FP@xs=\count409
-\FP@xia=\count410
-\FP@xib=\count411
-\FP@xfa=\count412
-\FP@xfb=\count413
-\FP@rega=\count414
-\FP@regb=\count415
-\FP@regs=\count416
-\FP@times=\count417
+\FP@xs=\count437
+\FP@xia=\count438
+\FP@xib=\count439
+\FP@xfa=\count440
+\FP@xfb=\count441
+\FP@rega=\count442
+\FP@regb=\count443
+\FP@regs=\count444
+\FP@times=\count445
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-addons.sty
 Package: fp-addons 1995/03/15
@@ -1313,7 +1463,7 @@ Package: fp-pas 1994/08/29
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-random.sty
 Package: fp-random 1995/02/23
-\FPseed=\count418
+\FPseed=\count446
 )
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-eqn.sty
 Package: fp-eqn 1995/04/03
@@ -1324,23 +1474,23 @@ Package: fp-upn 1996/10/21
 (/usr/local/texlive/2024/texmf-dist/tex/latex/fp/fp-eval.sty
 Package: fp-eval 1995/04/03
 )))
-\@dtl@toks=\toks73
-\@dtl@tmpcount=\count419
+\@dtl@toks=\toks87
+\@dtl@tmpcount=\count447
 \dtl@tmplength=\skip113
-\dtl@sortresult=\count420
-\@dtl@numgrpsepcount=\count421
-\@dtl@datatype=\count422
-\dtl@codeA=\count423
-\dtl@codeB=\count424
-\@dtl@foreach@level=\count425
+\dtl@sortresult=\count448
+\@dtl@numgrpsepcount=\count449
+\@dtl@datatype=\count450
+\dtl@codeA=\count451
+\dtl@codeB=\count452
+\@dtl@foreach@level=\count453
 )
-\gls@level=\count426
-\@gls@tmpb=\toks74
+\gls@level=\count454
+\@gls@tmpb=\toks88
 \gls@tmplen=\skip114
-\glskeylisttok=\toks75
-\glslabeltok=\toks76
-\glsshorttok=\toks77
-\glslongtok=\toks78
+\glskeylisttok=\toks89
+\glslabeltok=\toks90
+\glsshorttok=\toks91
+\glslongtok=\toks92
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/glossaries/styles/glossary-hypern
 av.sty
@@ -1362,39 +1512,39 @@ sty
 Package: glossary-super 2024/11/01 v4.55 (NLCT)
  (/usr/local/texlive/2024/texmf-dist/tex/latex/supertabular/supertabular.sty
 Package: supertabular 2024/07/20 v4.2c the supertabular environment
-\c@tracingst=\count427
-\ST@wd=\dimen339
+\c@tracingst=\count455
+\ST@wd=\dimen345
 \ST@rightskip=\skip118
 \ST@leftskip=\skip119
 \ST@parfillskip=\skip120
-\ST@pageleft=\dimen340
-\ST@headht=\dimen341
-\ST@tailht=\dimen342
-\ST@pagesofar=\dimen343
-\ST@pboxht=\dimen344
-\ST@rowht=\dimen345
-\ST@prevht=\dimen346
-\ST@toadd=\dimen347
-\ST@dimen=\dimen348
-\ST@pbox=\box98
+\ST@pageleft=\dimen346
+\ST@headht=\dimen347
+\ST@tailht=\dimen348
+\ST@pagesofar=\dimen349
+\ST@pboxht=\dimen350
+\ST@rowht=\dimen351
+\ST@prevht=\dimen352
+\ST@toadd=\dimen353
+\ST@dimen=\dimen354
+\ST@pbox=\box119
 ))
 (/usr/local/texlive/2024/texmf-dist/tex/latex/glossaries/styles/glossary-tree.s
 ty
 Package: glossary-tree 2024/11/01 v4.55 (NLCT)
 \glstreeindent=\skip121
 ))
-\glswrite=\write5
-\glo@main@file=\write6
-\openout6 = `main.glo'.
+\glswrite=\write6
+\glo@main@file=\write7
+\openout7 = `main.glo'.
 
-Package glossaries Info: Writing glossary file main.glo on input line 225.
-\glo@acronym@file=\write7
-\openout7 = `main.acn'.
+Package glossaries Info: Writing glossary file main.glo on input line 227.
+\glo@acronym@file=\write8
+\openout8 = `main.acn'.
 
-Package glossaries Info: Writing glossary file main.acn on input line 225.
+Package glossaries Info: Writing glossary file main.acn on input line 227.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/titlesec/titletoc.sty
 Package: titletoc 2025/01/04 v2.17 TOC entries
-\ttl@leftsep=\dimen349
+\ttl@leftsep=\dimen355
 ))
 (./vars.tex)
 Package csquotes Info: Checking for multilingual support...
@@ -1469,12 +1619,12 @@ Package caption Info: rotating package is loaded.
 Package caption Info: supertabular package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count428
+\c@lstlisting=\count456
 Package hyperref Info: Link coloring ON on input line 35.
 
 (./main.out) (./main.out)
-\@outlinefile=\write8
-\openout8 = `main.out'.
+\@outlinefile=\write9
+\openout9 = `main.out'.
 
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/pdflscape/pdflscape.sty
@@ -1524,7 +1674,7 @@ File: Front/main.pdf Graphic file (type pdf)
 <use Front/main.pdf, page 1>
 [1
 
-\openout5 = `main.ist'.
+\openout6 = `main.ist'.
 
 
 ]
@@ -1630,13 +1780,13 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
  Table of Contents
 -----------------------------------------------------
 (./main.toc
-Overfull \hbox (7.90773pt too wide) detected at line 17
- \TU/Arial(0)/m/n/10.95 vi
+Overfull \hbox (10.34047pt too wide) detected at line 17
+ \TU/Arial(0)/m/n/10.95 vii
  []
 
 
-Overfull \hbox (10.34047pt too wide) detected at line 18
- \TU/Arial(0)/m/n/10.95 vii
+Overfull \hbox (12.77321pt too wide) detected at line 18
+ \TU/Arial(0)/m/n/10.95 viii
  []
 
 
@@ -1843,7 +1993,7 @@ Overfull \hbox (12.17973pt too wide) detected at line 57
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 58
- \TU/Arial(0)/m/n/10.95 20
+ \TU/Arial(0)/m/n/10.95 19
  []
 
 
@@ -1853,7 +2003,7 @@ Overfull \hbox (12.17973pt too wide) detected at line 59
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 60
- \TU/Arial(0)/m/n/10.95 21
+ \TU/Arial(0)/m/n/10.95 20
  []
 
 
@@ -1863,7 +2013,7 @@ Overfull \hbox (12.17973pt too wide) detected at line 61
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 62
- \TU/Arial(0)/m/n/10.95 22
+ \TU/Arial(0)/m/n/10.95 21
  []
 
 
@@ -1873,12 +2023,12 @@ Overfull \hbox (12.17973pt too wide) detected at line 63
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 64
- \TU/Arial(0)/m/n/10.95 24
+ \TU/Arial(0)/m/n/10.95 22
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 65
- \TU/Arial(0)/m/n/10.95 24
+ \TU/Arial(0)/m/n/10.95 23
  []
 
 
@@ -1888,7 +2038,7 @@ Overfull \hbox (12.17973pt too wide) detected at line 66
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 67
- \TU/Arial(0)/m/n/10.95 25
+ \TU/Arial(0)/m/n/10.95 24
  []
 
 
@@ -1903,7 +2053,7 @@ Overfull \hbox (12.17973pt too wide) detected at line 69
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 70
- \TU/Arial(0)/m/n/10.95 27
+ \TU/Arial(0)/m/n/10.95 26
  []
 
 
@@ -1917,13 +2067,89 @@ Overfull \hbox (12.17973pt too wide) detected at line 72
  []
 
 
+Overfull \hbox (12.17973pt too wide) detected at line 73
+ \TU/Arial(0)/m/n/10.95 29
+ []
+
+
 Overfull \hbox (12.17973pt too wide) detected at line 74
  \TU/Arial(0)/m/n/10.95 29
  []
 
-)
-\tf@toc=\write9
-\openout9 = `main.toc'.
+
+Overfull \hbox (12.17973pt too wide) detected at line 75
+ \TU/Arial(0)/m/n/10.95 30
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 76
+ \TU/Arial(0)/m/n/10.95 30
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 77
+ \TU/Arial(0)/m/n/10.95 31
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 78
+ \TU/Arial(0)/m/n/10.95 33
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 79
+ \TU/Arial(0)/m/n/10.95 34
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 80
+ \TU/Arial(0)/m/n/10.95 35
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 81
+ \TU/Arial(0)/m/n/10.95 35
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 82
+ \TU/Arial(0)/m/n/10.95 36
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 83
+ \TU/Arial(0)/m/n/10.95 37
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 84
+ \TU/Arial(0)/m/n/10.95 37
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 85
+ \TU/Arial(0)/m/n/10.95 38
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 86
+ \TU/Arial(0)/m/n/10.95 38
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 87
+ \TU/Arial(0)/m/n/10.95 38
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 88
+ \TU/Arial(0)/m/n/10.95 39
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 89
+ \TU/Arial(0)/m/n/10.95 40
+ []
 
 
 
@@ -1935,6 +2161,24 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [5]
+Overfull \hbox (12.17973pt too wide) detected at line 91
+ \TU/Arial(0)/m/n/10.95 40
+ []
+
+)
+\tf@toc=\write10
+\openout10 = `main.toc'.
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[6]
 -----------------------------------------------------
  List of Figures
 -----------------------------------------------------
@@ -1945,17 +2189,17 @@ Overfull \hbox (6.08987pt too wide) detected at line 6
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 9
- \TU/Arial(0)/m/n/10.95 23
+ \TU/Arial(0)/m/n/10.95 24
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 10
- \TU/Arial(0)/m/n/10.95 26
+ \TU/Arial(0)/m/n/10.95 27
  []
 
 )
-\tf@lof=\write10
-\openout10 = `main.lof'.
+\tf@lof=\write11
+\openout11 = `main.lof'.
 
 
 
@@ -1966,12 +2210,12 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[6
+[7
 
 
 ]
-\@gls@deffile=\write11
-\openout11 = `main.glsdefs'.
+\@gls@deffile=\write12
+\openout12 = `main.glsdefs'.
 
  (./main.acr))
 
@@ -1982,7 +2226,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[7
+[8
 
 
 
@@ -2220,14 +2464,14 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 ]
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 65.
+ine 64.
 
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 65--65
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 64--64
 [][][] 
  []
 
 
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 65--65
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 64--64
 [][][] 
  []
 
@@ -2259,6 +2503,10 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [22]
+File: Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png Graphic f
+ile (type bmp)
+<Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png>
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2268,14 +2516,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [23]
-File: Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png Graphic f
-ile (type bmp)
-<Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2285,13 +2525,13 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [24]
-Overfull \hbox (15.88342pt too wide) in paragraph at lines 199--202
+Overfull \hbox (15.88342pt too wide) in paragraph at lines 198--201
 []\TU/Arial(0)/m/n/10.95 The system employs a dual-interface web architecture a
 ccessible through standard browsers.
  []
 
 
-Overfull \hbox (3.71227pt too wide) in paragraph at lines 199--202
+Overfull \hbox (3.71227pt too wide) in paragraph at lines 198--201
 \TU/Arial(0)/m/n/10.95 For administrative functions and exercise management, us
 ers interact with Jinja2-rendered
  []
@@ -2328,7 +2568,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [27]
-Overfull \hbox (1.09811pt too wide) in paragraph at lines 268--274
+Overfull \hbox (1.09811pt too wide) in paragraph at lines 267--273
 \TU/Arial(0)/m/n/10.95 tional modules by simply extending the base class and im
 plementing the required platform-
  []
@@ -2342,7 +2582,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[28]) (./Chapters/5Implementation.tex
+[28]
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2352,7 +2592,339 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [29]
+./Chapters/4SystemArchitectureDesign.tex:327: Undefined control sequence.
+l.327 ... that leveraging Python's native \textttt
+                                                  {asyncio} would benefit th...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[30]
+Overfull \hbox (21.39369pt too wide) in paragraph at lines 342--344
+[]\TU/Arial(0)/b/n/10.95 Quart (ASGI Flask): \TU/Arial(0)/m/n/10.95 A Flask-com
+patible [][][]ASGI[][] reimplementation with native async/await
+ []
+
+
+Overfull \hbox (2.27217pt too wide) in paragraph at lines 350--353
+[]\TU/Arial(0)/m/n/10.95 While Flask remained suitable for early development, e
+merging requirements—particularly
+ []
+
+
+Overfull \hbox (4.53853pt too wide) in paragraph at lines 350--353
+\TU/Arial(0)/m/n/10.95 those involving asynchronous communication for more scal
+able I/O operations—eventually
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 375--376
+[]\TU/Arial(0)/b/n/10.95 app \TU/Arial(0)/m/n/10.95 = Celery(’tasks’, broker=’r
+edis://localhost:6379/0’, back-
+ []
+
+
+./Chapters/4SystemArchitectureDesign.tex:412: Package glossaries Error: Glossar
+y entry `ASGI' has not been defined.
+
+See the glossaries package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.412         Flask syntax with\ac{ASGI} 
+                                         compliance. As a near-drop-in repla...
+
+You need to define a glossary entry before you can use it.
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[32]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[33]
+
+./Chapters/4SystemArchitectureDesign.tex:443: Package glossaries Error: Glossar
+y entry `ASGI' has not been defined.
+
+See the glossaries package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.443 ...was driven by FastAPI's native \ac{ASGI} 
+                                                  support, which provides bu...
+
+You need to define a glossary entry before you can use it.
+
+
+Overfull \hbox (18.5457pt too wide) in paragraph at lines 442--450
+\TU/Arial(0)/m/n/10.95 concurrency through asyncio-compatible architecture, whi
+ch enables concurrent non-blocking
+ []
+
+) (./Chapters/5Implementation.tex
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[34]
 Chapter 5.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 17.
+
+
+Overfull \hbox (19.88596pt too wide) in paragraph at lines 26--30
+[]\TU/Arial(0)/m/n/10.95 All application components were developed in Python 3.
+10+, chosen for its mature async/await
+ []
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 66.
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[35
+
+]
+
+./Chapters/5Implementation.tex:73: Package glossaries Error: Glossary entry `AS
+GI' has not been defined.
+
+See the glossaries package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.73 ...SGI entry point to run with any \ac{ASGI}-
+                                                  compliant server
+You need to define a glossary entry before you can use it.
+
+
+Overfull \hbox (2.78189pt too wide) in paragraph at lines 119--122
+[]\TU/lmtt/m/n/10.95 repositories/ \TU/Arial(0)/m/n/10.95 implements the databa
+se abstraction layer using SQLModel/SQLAlchemy,
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[36]
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 137--137
+[][][] 
+ []
+
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 137--137
+[][][] 
+ []
+
+./Chapters/5Implementation.tex:151: Missing $ inserted.
+<inserted text> 
+                $
+l.151 ...centralized in \texttt{logging_config.py}
+                                                  , which automatically crea...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./Chapters/5Implementation.tex:151: Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.151 ...centralized in \texttt{logging_config.py}
+                                                  , which automatically crea...
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./Chapters/5Implementation.tex:156: Missing $ inserted.
+<inserted text> 
+                $
+l.156 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (847.8468pt too wide) in paragraph at lines 149--156
+\TU/Arial(0)/m/n/10.95 identifiers for all log entries. Configuration is centra
+lized in \TU/lmtt/m/n/10.95 logging$[]\OML/zplm/m/it/10.95 onfig\OT1/ppl/m/n/10
+.95 .\OML/zplm/m/it/10.95 py\OT1/ppl/m/n/10.95 , \OML/zplm/m/it/10.95 whichauto
+maticallycreatesandmanagesthe[]fileintheprojectrootdirectorywhilesimultaneously
+outputtingtotheconsole\OT1/ppl/m/n/10.95 .\OML/zplm/m/it/10.95 Bydefault\OT1/pp
+l/m/n/10.95 , \OML/zplm/m/it/10.95 thesystemlogsmessagesatINFOlevelandabove\OT1
+/ppl/m/n/10.95 , \OML/zplm/m/it/10.95 withbuilt \OMS/zplm/m/n/10.95 ^^@
+ []
+
+
+Overfull \hbox (520.17555pt too wide) in paragraph at lines 149--156
+\OML/zplm/m/it/10.95 inflexibilitytoadjustverbosityfordebuggingpurposesthroughs
+impleconfigurationchanges\OT1/ppl/m/n/10.95 .\OML/zplm/m/it/10.95 Thisapproache
+nsuresuniformloggingbehaviorwhilemaintainingadaptabilityfordifferentruntimeenvi
+ronments\OT1/ppl/m/n/10.95 .$ 
+ []
+
+
+Overfull \hbox (61.8523pt too wide) in paragraph at lines 157--160
+[]\TU/lmtt/m/n/10.95 The implementation follows Python best practices while all
+owing for future extensions
+ []
+
+
+Overfull \hbox (29.27605pt too wide) in paragraph at lines 157--160
+\TU/lmtt/m/n/10.95 such as log rotation or remote logging services. All applica
+tion modules should
+ []
+
+
+Overfull \hbox (50.3548pt too wide) in paragraph at lines 157--160
+\TU/lmtt/m/n/10.95 obtain their logger instance through the provided get_logger
+() function to maintain
+ []
+
+
+Overfull \hbox (27.3598pt too wide) in paragraph at lines 163--166
+[]\TU/lmtt/m/n/10.95 The nornir_lib/ directory implements the evaluation system
+ that interfaces with
+ []
+
+
+Overfull \hbox (52.27104pt too wide) in paragraph at lines 163--166
+\TU/lmtt/m/n/10.95 various virtual devices. This component executes commands ac
+ross network topologies
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[37]
+Overfull \hbox (37.48854pt too wide) in paragraph at lines 169--170
+[]\TU/lmtt/m/n/10.95 config.yaml - Specifies paths to host/group files and Norn
+ir runner settings 
+ []
+
+
+Overfull \hbox (43.23729pt too wide) in paragraph at lines 170--171
+[]\TU/lmtt/m/n/10.95 host_file - Contains device credentials (IP, username, pas
+sword in plaintext) 
+ []
+
+
+Overfull \hbox (39.40479pt too wide) in paragraph at lines 171--172
+[]\TU/lmtt/m/n/10.95 group_file - Defines device group parameters (must maintai
+n fast_cli: false) 
+ []
+
+
+Overfull \hbox (15.8623pt too wide) in paragraph at lines 174--179
+[]\TU/lmtt/m/n/10.95 Developers can implement new test modules by extending the
+ base CommandModule
+ []
+
+
+Overfull \hbox (63.76854pt too wide) in paragraph at lines 174--179
+\TU/lmtt/m/n/10.95 class. This requires implementing device-specific command me
+thods (_command_router(),
+ []
+
+
+Overfull \hbox (109.75851pt too wide) in paragraph at lines 174--179
+\TU/lmtt/m/n/10.95 _command_switch(), etc.) and corresponding response interpre
+ters (interpret_cisco_response(),
+ []
+
+
+Overfull \hbox (6.28105pt too wide) in paragraph at lines 174--179
+\TU/lmtt/m/n/10.95 etc.). The bundled Ping module demonstrates this pattern, ta
+king source and
+ []
+
+
+Overfull \hbox (27.3598pt too wide) in paragraph at lines 174--179
+\TU/lmtt/m/n/10.95 destination parameters and evaluating success based on confi
+gurable packet loss
+ []
+
+
+Overfull \hbox (44.60605pt too wide) in paragraph at lines 187--191
+[]\TU/lmtt/m/n/10.95 Key design considerations include the mandatory plaintext 
+credentials in host_file
+ []
+
+
+Overfull \hbox (10.11356pt too wide) in paragraph at lines 187--191
+\TU/lmtt/m/n/10.95 and the performance-sensitive fast_cli setting that must rem
+ain disabled for
+ []
+
+
+Overfull \hbox (69.51729pt too wide) in paragraph at lines 187--191
+\TU/lmtt/m/n/10.95 reliable operation. The system currently includes Ping and T
+raceroute implementations,
+ []
+
+
+Overfull \hbox (27.3598pt too wide) in paragraph at lines 187--191
+\TU/lmtt/m/n/10.95 with the modular design facilitating additional test types t
+hrough either class
+ []
+
 ) (./Chapters/6TestingEvaluation.tex
 
 
@@ -2362,9 +2934,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[30
-
-]
+[38]
 Chapter 6.
 ) (./Chapters/7ConclusionFutureWork.tex
 
@@ -2375,13 +2945,13 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[31
+[39
 
 ]
 Chapter 7.
 ) (./main.bbl (./main.brf)
-\tf@brf=\write12
-\openout12 = `main.brf'.
+\tf@brf=\write13
+\openout13 = `main.brf'.
 
 
 
@@ -2392,9 +2962,98 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[32
+[40
 
-]) (./Appendices/AppendixTemplate.tex
+]
+Underfull \hbox (badness 10000) in paragraph at lines 32--32
+[]\TU/lmtt/m/n/10.95 P. M. C. Santos, ``Environment for practical evaluations i
+n network
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--32
+\TU/lmtt/m/n/10.95 administration,'' Master's thesis, Faculdade de Ciências da
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--32
+\TU/lmtt/m/n/10.95 Universidade do Porto, Porto, Portugal, 2024, accessed: Marc
+h 21,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/10.95 GNS3 Documentation, ``Architecture,'' n.d., accessed: Marc
+h 15, 2025.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\TU/lmtt/m/n/10.95 [Online]. Available: [][]$[][][][][] [] [] [] [][][][] [] []
+[][][] [] [][][] [] [][][][] [] [][][][][] [][] [][][][] [] [][][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--46
+[]\TU/lmtt/m/n/10.95 Proxmox Server Solutions GmbH, \TU/lmtt/m/it/10.95 Proxmox
+ VE Administration Guide\TU/lmtt/m/n/10.95 , 2025,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--46
+\TU/lmtt/m/n/10.95 accessed: March 21, 2025. [Online]. Available: [][]$[][][][]
+[] [] [] [] [][][] [] [][][][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--53
+[]\TU/lmtt/m/n/10.95 P. J. Eby, \TU/lmtt/m/it/10.95 PEP 333 – Python Web Server
+ Gateway Interface v1.0\TU/lmtt/m/n/10.95 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--53
+\TU/lmtt/m/n/10.95 Online, 2003, accessed: March 21, 2025. [Online]. Available:
+ [][]$[][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
+[]\TU/lmtt/m/n/10.95 P. Projects, ``Flask documentation,'' Online, 2025, access
+ed: March
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
+\TU/lmtt/m/n/10.95 21, 2025. [Online]. Available: [][]$[][][][][] [] [] [] [][]
+[][][] [] [][][][][][][][][][][][][][][] [] [][][] [] [][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--66
+[]\TU/lmtt/m/n/10.95 D. Barroso, ``Nornir: The python automation framework,'' O
+nline,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--66
+\TU/lmtt/m/n/10.95 2025, accessed: March 21, 2025. [Online]. Available: [][]$[]
+[][][][] [] [] [] [][][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--71
+[]\TU/lmtt/m/n/10.95 J. Leal and F. Silva, ``Mooshak: a web-based multi-site pr
+ogramming
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--71
+\TU/lmtt/m/n/10.95 contest system,'' \TU/lmtt/m/it/10.95 SOFTWARE-PRACTICE & EX
+PERIENCE\TU/lmtt/m/n/10.95 , vol. 33, no. 6, pp.
+ []
+
+) (./Appendices/AppendixTemplate.tex
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2403,7 +3062,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[33
+[41
 
 ])
 
@@ -2414,7 +3073,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[34
+[42
 
 ] (./main.aux)
  ***********
@@ -2425,27 +3084,22 @@ L3 programming layer <2025-01-18>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: E7671E96F527357D5B36C0672712105E;10551
-(rerunfilecheck)             After:  A64E36294066638D773860E99BB1635F;11490.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: A6F32DA0B2910F85016F4C1154158119;14117.
 Package rerunfilecheck Info: File `main.brf' has not changed.
 (rerunfilecheck)             Checksum: 74EB2C3E6D6A5E30C4DC013A1BE89296;471.
- ) 
-Here is how much of TeX's memory you used:
- 44508 strings out of 473840
- 919322 string characters out of 5729725
- 1390821 words of memory out of 5000000
- 66754 multiletter control sequences out of 15000+600000
- 568565 words of font info for 87 fonts, out of 8000000 for 9000
- 1351 hyphenation exceptions out of 8191
- 108i,19n,129p,2378b,1222s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ )
+(\end occurred inside a group at level 1)
 
-Output written on main.pdf (43 pages).
+### simple group (level 1) entered at line 151 ({)
+### bottom level 
+Here is how much of TeX's memory you used:
+ 55428 strings out of 473840
+ 1227471 string characters out of 5729725
+ 1707641 words of memory out of 5000000
+ 77595 multiletter control sequences out of 15000+600000
+ 568597 words of font info for 91 fonts, out of 8000000 for 9000
+ 1351 hyphenation exceptions out of 8191
+ 120i,19n,129p,2378b,1568s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on main.pdf (52 pages).

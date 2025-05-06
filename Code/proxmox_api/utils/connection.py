@@ -5,10 +5,10 @@ from logger.logger import get_logger
 
 logger = get_logger(__name__)
 
-async def aproxmox_get_auth_cookie(proxmox_host, username, password):#Fetches cookie and csrf tokens
+async def aproxmox_get_auth_cookie_ldap(proxmox_host, username, password, realm):#Fetches cookie and csrf tokens
     uri = f'{proxmox_base_uri(proxmox_host)}/access/ticket'
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
-    auth_data = {"username": username, "password": password}
+    auth_data = {"username": username, "password": password, "realm":realm}
     try:
         async with httpx.AsyncClient(verify=False) as client:
             response = await client.post(uri, headers=headers, data=auth_data)

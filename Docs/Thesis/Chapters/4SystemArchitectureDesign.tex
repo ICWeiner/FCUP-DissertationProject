@@ -14,9 +14,8 @@
 % Write text in here
 % Use \subsection and \subsubsection to organize text
 
-Delivering reliable, scalable automated assessment of virtualized networks requires a system built on solid principles of 
-virtualization and automation. This chapter outlines the architecture of the proposed system, detailing the key components 
-and how they interact to enable evaluation of student-submitted network exercises.
+This chapter outlines the architecture of the proposed system, detailing the key components and how they interact to enable 
+evaluation of student-submitted network exercises.
 
 The system is designed to provide each student with a working environment where custom virtual network topologies can be 
 deployed, configured, and tested. To achieve this, the platform integrates several technologies—such as\ac{gns3} for network 
@@ -172,7 +171,7 @@ components that make up its architecture.
 
 \section{High-level architecture}
 
-    \subsection{Available Hardware }
+    \subsection{Available Hardware}
 
         The current deployment hosts all internal system components (those shown in the architecture diagram excluding the external LDAP instance) 
         on a single physical server with the following specifications.
@@ -190,10 +189,10 @@ components that make up its architecture.
             \end{tabular}
         \end{table}
 
-        This machine's specifications, while capable, create inherent memory constraints. With 32GB of available RAM, practical\ac{vm} allocation 
-        becomes the primary bottleneck. For instance, when deploying\ac{gns3} instances each configured with 4GB of memory, the system can maintain 
-        only seven active\ac{vm}s simultaneously. This limitation accounts for the\ac{pve} hypervisor's own memory overhead before encountering swap 
-        usage, which would degrade performance.
+        This machine's specifications, while capable enough for development purposes, create inherent memory constraints. With 32GB of available RAM, 
+        practical\ac{vm} allocation becomes the primary bottleneck. For instance, when deploying\ac{gns3} instances each configured with 4GB of memory, 
+        the system can maintain only seven active\ac{vm}s simultaneously. This limitation accounts for the\ac{pve} hypervisor's own memory overhead 
+        before inducing SWAP file usage, which would degrade performance.
 
     \subsection{User Interface}
         The system employs a dual-interface web architecture accessible through standard browsers. For administrative functions and exercise management, 
@@ -289,9 +288,15 @@ components that make up its architecture.
 
         \subsubsection{Virtual machine storage}
 
-            For virtual machine storage, the system utilizes LVM-thin provisioning to optimize disk space utilization across student environments. 
-            This storage backend enables efficient cloning operations through copy-on-write semantics while supporting advanced features like snapshot 
-            preservation. LVM-thin's space-efficient cloning creates a robust foundation for the system's data needs.
+            \ac{lvmt} is an efficient solution for creating and managing virtual machines (VMs) by optimizing storage usage and improving performance. Unlike 
+            traditional\ac{lvm}, which pre-allocates disk space,\ac{lvmt} allows dynamic allocation, meaning storage is consumed only as the\ac{vm} writes 
+            data—ideal for environments like ours where multiple \ac{vm}s share the same storage pool. When combined with\ac{cow} snapshots, \ac{lvmt} enables 
+            rapid\ac{vm} cloning and backup operations. For instance, a base\ac{vm} image can serve as a template, and new\ac{vm}s are created as linked 
+            clones that initially share all data blocks with the original. Only when a\ac{vm} modifies its disk does\ac{lvmt} allocate new blocks, 
+            significantly reducing storage overhead. This approach not only saves disk space but also speeds up\ac{vm} deployment, making it a great choice for 
+            our project. Additionally, since snapshots are space-efficient, in the future, we can maintain multiple VM checkpoints without worrying about excessive 
+            storage consumption—as long as the thin pool is monitored to avoid overprovisioning. Overall,\ac{lvmt} provides a scalable, high-performance storage 
+            layer for virtualization with minimal waste.
 
         \subsubsection{Web application database}
 
@@ -305,4 +310,148 @@ components that make up its architecture.
             \ac{json}-serialized validation rules and device configurations stored as text fields due to SQLite's native type limitations.\ac{vm} 
             provisioning is managed through the \texttt{TemplateVm} and \texttt{WorkVm} hierarchy, where template instances maintain the base\ac{gns3} 
             project configurations and spawned work environments link back to both users and exercises. The \texttt{Submission} model completes the 
-            core data structure by tracking student attempts, scores, and evaluation outputs while maintaining referential integrity through SQLAlchemy relationships.
+            core data structure by tracking student attempts, scores, and evaluation outputs while maintaining referential integrity through SQLModel 
+            relationships.
+
+\section{FastAPI Adoption: Overcoming Flask's Shortcomings}
+
+    \subsection{Initial setup: Flask}
+
+        Initially, Flask served as the framework for the web application, providing the necessary infrastructure to handle \ac{http} 
+        requests, render templates, and manage application routing. Its flexibility and minimalistic approach allow for the 
+        integration of various extensions and libraries as needed, ensuring the application remains lightweight yet functional. 
+        Flask's comprehensive documentation and supportive community further enhance its suitability by the creation and support
+        of community-driven extensions speeding up development and reducing the need to reinvent the wheel.
+
+        However, as development progressed, the need for better I/O performance became increasingly apparent. Early on, it was 
+        clear that leveraging Python's native \textttt{asyncio} would benefit the project—but a significant portion of the existing codebase, 
+        including Flask itself, relied on non-async-compatible libraries. This limitation stemmed from Flask's foundation on\ac{wsgi}, a 
+        synchronous standard developed long before Python's asyncio was introduced.\ac{wsgi} operates strictly in a blocking request-response 
+        model, requiring each request to complete fully before processing the next. While traditional workarounds like multi-threading 
+        or multi-processing can mitigate this, they introduce complexity and are better suited for CPU-bound tasks than I/O-bound workloads.
+
+        To address these constraints, several approaches were considered:
+
+        \begin{itemize}
+            \item \textbf{Gevent/Eventlet:} These libraries use monkey-patching to emulate asynchronous behavior in synchronous code. However, 
+            they are not true asyncio and can lead to unpredictable behavior. Given the project's early stage, this option was deemed too risky
+
+            \item \textbf{Flask + Celery:} Offloading long-running tasks to Celery workers helps avoid blocking but introduces operational overhead, 
+            requiring additional infrastructure like Redis or RabbitMQ for message brokering
+
+            \item \textbf{Quart (ASGI Flask):} A Flask-compatible\ac{asgi} reimplementation with native async/await support. However, Quart lacks 
+            Flask's mature ecosystem and still relies partially on monkey-patching, raising concerns about long-term stability
+
+            \item \textbf{FastAPI (Full ASGI migration):} Built on\ac{asgi}, FastAPI was designed with async-first principles, enabling efficient handling 
+            of thousands of concurrent connections. Its native async/await support and modern tooling offer a cleaner solution without the need 
+            for workarounds, at the expense of having to reimplement some features already implemented in Flask
+        \end{itemize}
+
+        While Flask remained suitable for early development, emerging requirements—particularly those involving asynchronous 
+        communication for more scalable I/O operations—eventually led to a need to explore architectural shifts, due to 
+        Flask's limited async support and\ac{wsgi} heritage. 
+    
+    \subsection{Second setup: Flask + Celery}
+
+        As the limitations of Flask's synchronous\ac{wsgi} model became more apparent, we explored Celery as a potential solution for handling 
+        asynchronous tasks. Celery, a distributed task queue system, allows offloading blocking I/O to separate worker processes. 
+        Celery operates by decoupling task execution from the main application flow. When a time-consuming operation is required, Flask 
+        dispatches it to a Celery worker via a message broker (typically Redis or RabbitMQ). The worker processes the task asynchronously, 
+        while Flask remains free to handle incoming requests. While this approach mitigated some of Flask's blocking I/O issues, it 
+        introduced new challenges in complexity and system overhead.
+
+        The Celery architecture operates through worker processes that listen to the message broker for tasks. These workers run as 
+        independent processes, executing tasks marked with Celery's \texttt{@app.task} decorator. The system's concurrent processing 
+        capability comes from multiple workers operating in parallel, each handling different tasks from the queue. Tasks are Python 
+        functions that are decorated with provided Celery decorators such as \texttt{@app.task}, causing them to be registered as 
+        Celery tasks within the Celery application. This design is particularly valuable for operations like batch processing or 
+        scheduled jobs that would otherwise block Flask's synchronous request handling.
+
+        \begin{algorithm}
+            \caption{Calling a Celery Task and Getting the Result}\label{celery-call-result}
+            \begin{algorithmic}[1]
+            \State \textbf{from} celery \textbf{import} Celery
+            \State
+            \State \textbf{app} = Celery('tasks', broker='redis://localhost:6379/0', backend='redis://localhost:6379/0')
+            \State
+            \State \textbf{@app.task}
+            \State \textbf{def} hello():
+            \State \hspace{1em} \textbf{return} 'hello world'
+            \State
+            \State \textbf{result} = hello.delay()
+            \State \textbf{print}(result.get())
+            \end{algorithmic}
+        \end{algorithm}
+
+        To execute a task, a Celery task function must be called using the \textit{delay()} method, which will return a result object. 
+        This result object can be used to check the status of the task and to retrieve the result once it is available.
+
+        Celery supports horizontal scaling by design, allowing multiple worker pools to run on separate physical or virtual machines. 
+        This makes it especially effective for handling growing workloads—for example, processing email newsletters for an expanding 
+        user base.
+
+        Celery's advanced features, including task retries, chaining, and prioritization, while powerful, further increased the 
+        system's complexity. We found ourselves managing not just our application logic, but also the reliability of the message broker, 
+        persistence of results, and supervision of worker processes. This architectural overhead seemed increasingly disproportionate to 
+        our actual needs as the project evolved.
+
+        Furthermore, Celery clients and workers introduce a non-negligible overhead in terms of CPU and memory usage, even when 
+        idle, as they must maintain persistent connections to the broker and periodically perform health checks or heartbeats. 
+        This can be a concern in resource-constrained environments or during development.This overhead became especially evident 
+        during early integration tests.
+
+        As the project evolved and tests were performed, it became increasingly clear that Celery's benefits lend themselves better 
+        to CPU-bound workloads, as opposed to our I/O-bound ones, and they did not outweigh its resource and architectural costs for 
+        the current use case. This realization prompted an exploration of more lightweight asynchronous alternatives, eventually 
+        culminating in an investigation into \ac{asgi}-compliant frameworks with native async capabilities and simpler concurrency 
+        management.
+
+    \subsection{Third setup: Quart, an ASGI-compliant Flask reimplementation}
+
+        Quart emerged as a promising candidate during our exploration of async solutions, offering a unique combination of 
+        Flask syntax with\ac{ASGI} compliance. As a near-drop-in replacement for Flask, Quart theoretically allowed for 
+        an easy migration while providing all the benefits of native async/await support. The framework's design promised 
+        seamless execution of asynchronous code alongside familiar Flask patterns, making it particularly attractive for 
+        existing Flask projects that would benefit from asynchronous capabilities.
+
+        However, practical evaluation revealed significant limitations in Quart's ecosystem maturity. While the core framework 
+        maintained good compatibility with code orignally written for Flask and critical extensions we relied on - including 
+        authentication, database integration, among others - either lacked Quart equivalents or had poorly maintained 
+        implementations. We discovered many Quart-specific packages were either abandoned, documented only through sparse 
+        READMEs, or failed to match their Flask counterparts in functionality. For instance, the Flask-Login equivalent for Quart 
+        was one such unmaintained extension that would require some reimplementation. This gap would require us to reimplement 
+        substantial portions of our web application instead of using existing, known-good solutions.
+
+        While Quart offers the possibility to use monkey patching on Flask extensions, deeper evaluation revealed this 
+        compatibility came with significant trade-offs. This approach could make some Flask extensions work in the 
+        async environment, we found this to be an unstable foundation for long-term maintenance. Notably, recent Quart 
+        releases have started to moved away from this approach  - the framework now treats these compatibility layers 
+        as optional extras rather than core features, signaling a deliberate shift in architectural direction.
+
+        Additionally, Quart's smaller community and limited production adoption made it difficult to assess long-term viability, 
+        raising concerns about framework maintenance and the availability of future support.
+
+        Ultimately, while Quart's technical merits as an\ac{asgi} Flask alternative were sound, the ecosystem risks and migration 
+        costs outweighed its benefits for our project. The framework's current state appears best suited for teams that 
+        can commit to Quart's entire stack, rather than as a migration path for existing Flask applications with extension 
+        dependencies. This realization steered us toward more mature\ac{asgi} alternatives, despite requiring some 
+        reimplementation, that could provide robust async support without sacrificing ecosystem stability.
+
+    \subsection{Final Decision: FastAPI Migration}
+
+        After thorough evaluation of the previous options, we ultimately selected FastAPI as our framework of choice. 
+        The decision was driven by FastAPI's native \ac{ASGI} support, which provides built-in asynchronous capabilities 
+        without requiring additional infrastructure components. Unlike our Flask + Celery implementation that demanded 
+        separate worker processes and message brokers, FastAPI achieves comparable performance under high concurrency through 
+        asyncio-compatible architecture, which enables concurrent non-blocking I/O, while significantly reducing system 
+        complexity and operational overhead. The framework's performance characteristics proved particularly advantageous 
+        for our I/O-bound operations, matching Celery's throughput in load testing but having a simpler application 
+        architecture.
+
+        The transition to FastAPI brought multiple technical benefits beyond just asynchronous capabilities. The framework's 
+        integrated OpenAPI documentation generation and Pydantic-based data validation significantly improved our development 
+        workflow and API reliability. While the migration required adapting our route handlers and dependency management 
+        patterns, this investment was offset by FastAPI's excellent documentation and growing ecosystem. FastAPI emerged as 
+        the most balanced solution, combining mature production readiness with modern features and approachable syntax. 
+        The framework's design addressed our immediate performance requirements but also established a solid foundation for 
+        future enhancements.

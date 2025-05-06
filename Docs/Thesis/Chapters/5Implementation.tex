@@ -11,6 +11,184 @@
 % For referencing this chapter elsewhere, use \ref{ChapterTemplate}
 \label{Chapter5Implementation}
 
+
 % Write text in here
 % Use \subsection and \subsubsection to organize text
+    \subsection{Project structure}
 
+    In this subsection we will go over the structure and technologies used in the implementation of our project. 
+    For our database, we adopted SQLite during development, accessed through SQLModel - an\ac{orm} built atop SQLAlchemy 
+    that incorporates Pydantic's validation capabilities. This combination provided type-safe queries through Python type 
+    hints while maintaining SQLAlchemy's powerful query syntax, along with seamless FastAPI integration for automatic 
+    OpenAPI schema generation. The use of SQLModel ensures an easy future transition to production-grade databases 
+    like PostgreSQL when needed.
+
+    All application components were developed in Python 3.10+, chosen for its mature async/await implementation and 
+    robust type system. FastAPI serves as our web framework, having replaced earlier Flask + Celery-based prototypes 
+    due to its superior native async support. External API communications are handled through HTTPX for 
+    asynchronous\ac{http}\ac{rest} interactions, while network device configuration validation is managed via Nornir.
+    
+    The architecture emphasizes separation of concerns through several key design choices. A modular package structure 
+    organizes code into logical components, while the use decorators and dependency injection promotes code reuse. 
+    Strict interface boundaries between components maintain clear contracts, and repository patterns abstract data 
+    access details. This approach adheres to DRY principles while ensuring maintainability as the project scales.
+
+    \begin{forest}
+        for tree={
+          font=\ttfamily,
+          grow'=0,
+          child anchor=west,
+          parent anchor=south,
+          anchor=west,
+          calign=first,
+          edge path={
+            \noexpand\path [draw, \forestoption{edge}]
+            (!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+          },
+          before typesetting nodes={
+            if n=1
+              {insert before={[,phantom]}}
+              {}
+          },
+          fit=band,
+          before computing xy={l=15pt},
+        }
+        [Code
+            [app]
+            [inventory]
+            [logger]
+            [nornir\_lib]
+            [gns3\_api]
+            [proxmox\_api]
+        ]
+    \end{forest}
+
+    \subsubsection{app/}
+
+        The \texttt{app/} directory contains the complete implementation of our web application, organized to promote 
+        maintainability and clear separation of concerns. The root level includes several key files that form the 
+        application foundation:
+
+        \begin{itemize}
+            \item \texttt{main.py} - The ASGI entry point to run with any \ac{ASGI}-compliant server
+            \item \texttt{database.py} - Manages database connections and session handling
+            \item \texttt{models.py} - Defines all database tables and their relationships using SQLModel
+            \item \texttt{decorators.py} - Contains reusable decorators for route handling and logic
+            \item \texttt{config.py} - Centralizes application settings loaded from environment variables
+        \end{itemize}
+
+        You will also find the following folder structure
+
+        \begin{forest}
+            for tree={
+            font=\ttfamily,
+            grow'=0,
+            child anchor=west,
+            parent anchor=south,
+            anchor=west,
+            calign=first,
+            edge path={
+                \noexpand\path [draw, \forestoption{edge}]
+                (!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+            },
+            before typesetting nodes={
+                if n=1
+                {insert before={[,phantom]}}
+                {}
+            },
+            fit=band,
+            before computing xy={l=15pt},
+            }
+            [app
+                [alembic]
+                [dependencies]
+                [repositories]
+                [routers]
+                [services]
+                [templates]
+                [uploads]
+                [utils]
+            ]
+        \end{forest}
+
+        \texttt{alembic/} responsible for creating and seeding the database with a small amount of dummy data.
+
+        \texttt{dependencies/} contains all FastAPI dependency injections, including shared resources like model repositories,
+        along with authentication and authorization utilities. These components are reused across multiple endpoints.
+
+        \texttt{repositories/} implements the database abstraction layer using SQLModel/SQLAlchemy, following the repository 
+        pattern. This directory houses all database queries and data access operations, providing a clean interface to access 
+        required data.
+
+        \texttt{routers/} organizes API endpoints by domain (authentication, exercises, vms etc.). Each router file contains 
+        related route definitions with minimal logic, delegating complex operations to the services layer.
+
+        \texttt{services/} forms the core logic layer, processing data between repositories and routers. This directory 
+        contains hides the complex workflow of some functions and offers a clean interface.
+
+        \texttt{templates/} stores Jinja2 templates for front-end interfaces, along with related static assets. The 
+        templates follow a consistent layout system.
+
+        \texttt{uploads/} stores all files uploaded by priviledged users, mainly .gns3project files.
+
+        \texttt{utils/} provides shared utility functions and classes that don't belong to specific domains.
+
+    \subsubsection{inventory/}
+        Contains some Nornir configuration files that are accessed by both Nornir and the web application\unsure{this folder might not stay here}
+
+    \subsubsection{logger/}
+        The \texttt{logger/} directory implements the application's centralized logging system with consistent 
+        configuration across all components. This module provides:
+
+        \begin{itemize}
+            \item Pre-configured log formatting with timestamps, log levels, and module names
+            \item Simultaneous output to both file (\texttt{app.log}) and console
+            \item Easy integration via \texttt{get\_logger()} factory function
+        \end{itemize}
+
+        The logger module enforces standardized logging practices across the entire application, featuring a consistent 
+        log format that includes timestamps, severity levels, and module identifiers for all log entries. Configuration is 
+        centralized in \texttt{logging\_config.py}, which automatically creates and manages the \texttt{app.log} file in the 
+        project root directory while simultaneously outputting to the console. By default, the system logs messages at INFO 
+        level and above, with built-in flexibility to adjust verbosity for debugging purposes through simple configuration 
+        changes. This approach ensures uniform logging behavior while maintaining adaptability for different runtime 
+        environments.
+
+        The implementation follows Python best practices while allowing for future extensions such as log rotation 
+        or remote logging services. All application modules should obtain their logger instance through the provided 
+        \texttt{get\_logger()} function to maintain consistent logging behavior.
+
+    \subsubsection{nornir\_lib/}
+
+        The \texttt{nornir\_lib/} directory implements the evaluation system that interfaces with various virtual devices. 
+        This component executes commands across network topologies and analyzes the responses to determine operation 
+        success.
+
+        Configuration requires three key files in the \texttt{app/} directory:
+        \begin{itemize}
+            \item \texttt{config.yaml} - Specifies paths to host/group files and Nornir runner settings
+            \item \texttt{host\_file} - Contains device credentials (IP, username, password in plaintext)
+            \item \texttt{group\_file} - Defines device group parameters (must maintain \texttt{fast\_cli: false})
+        \end{itemize}
+
+        Developers can implement new test modules by extending the base \texttt{CommandModule} class. This requires 
+        implementing device-specific command methods (\texttt{\_command\_router()}, \texttt{\_command\_switch()}, etc.) 
+        and corresponding response interpreters (\texttt{interpret\_cisco\_response()}, etc.). The bundled Ping module 
+        demonstrates this pattern, taking source and destination parameters and evaluating success based on 
+        configurable packet loss tolerance.
+
+        The architecture emphasizes:
+        \begin{itemize}
+            \item Consistent device communication through standardized interfaces
+            \item Flexible test creation via module inheritance
+            \item Centralized response interpretation logic
+        \end{itemize}
+
+        Key design considerations include the mandatory plaintext credentials in \texttt{host\_file} and the 
+        performance-sensitive \texttt{fast\_cli} setting that must remain disabled for reliable operation. The 
+        system currently includes Ping and Traceroute implementations, with the modular design facilitating 
+        additional test types through either class inheritance or completely custom implementations.
+
+    \subsubsection{gns3\_api/}
+
+    \subsubsection{proxmox\_api/}
