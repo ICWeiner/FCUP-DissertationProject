@@ -27,6 +27,7 @@ def upgrade() -> None:
     op.add_column('templatevm', sa.Column('hostname', sqlmodel.sql.sqltypes.AutoString(),))
     op.add_column('templatevm', sa.Column('gns3_project_id', sqlmodel.sql.sqltypes.AutoString()))
     op.add_column('workvm', sa.Column('hostname', sqlmodel.sql.sqltypes.AutoString()))
+    op.add_column('user', sa.Column('realm', sqlmodel.sql.sqltypes.AutoString(length=50)))
     # ### end Alembic commands ###
 
 
@@ -38,4 +39,6 @@ def downgrade() -> None:
     op.drop_column('templatevm', 'hostname')
     op.drop_column('exercise', 'configurations')
     op.drop_column('exercise', 'validations')
+    op.drop_column('user', 'realm')
+
     # ### end Alembic commands ###

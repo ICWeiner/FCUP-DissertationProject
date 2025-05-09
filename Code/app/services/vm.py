@@ -5,7 +5,7 @@ from app.models import WorkVm
 from app.dependencies.repositories import ExerciseRepositoryDep
 from app.services import proxmox as proxmox_services
 
-async def create_users_work_vms(users, exercises):
+async def create_users_work_vms(request_user, users, exercises):
     '''
     Creates work VMs for a list of users, assigning each user a cloned VM 
     from the template VM associated with each exercise.
@@ -34,7 +34,7 @@ async def create_users_work_vms(users, exercises):
     for exercise in exercises:
         for user in users:
             hostname = f'vm-{uuid.uuid4().hex[:12]}'  # Generate a random hostname
-            tasks.append(proxmox_services.aclone_vm(exercise.templatevm.proxmox_id, hostname))
+            tasks.append(proxmox_services.aclone_vm(request_user, exercise.templatevm.proxmox_id, hostname))
             assignments.append((user, exercise, hostname)) 
 
     vm_ids = await asyncio.gather(*tasks)
@@ -49,17 +49,3 @@ async def create_users_work_vms(users, exercises):
         created_vms.append(workvm)
 
     return created_vms
-
-async def handle_new_user_workvms(
-        user,
-        exercise_repository: ExerciseRepositoryDep):
-    """
-    Creates WorkVMs for a new user based on all available TemplateVMs.
-    Ensures correct assignment of WorkVMs to the new user.
-
-    :param user: The newly registered user.
-    :return: result of create_users_work_vms
-    """
-    exercises = exercise_repository.find_all()
-
-    return await create_users_work_vms([user], exercises)

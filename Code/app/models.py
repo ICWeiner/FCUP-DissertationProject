@@ -14,6 +14,7 @@ class User(UserBase, table=True):
     hashed_password: str = Field(nullable=False, max_length=200)
     last_login: Optional[datetime] = Field(nullable=True, default=None)
     admin: bool = Field(nullable=False, default=None)
+    realm: str = Field(nullable=False, max_length=50)
 
     submissions: List["Submission"] = Relationship(back_populates="user")
     workvms: List["WorkVm"] = Relationship(back_populates="user")
@@ -21,6 +22,7 @@ class User(UserBase, table=True):
 class UserPublic(UserBase):
     id: int
     admin: bool
+    realm: str
 
     class Config:
         from_attributes = True

@@ -196,7 +196,7 @@ async def update_exercise_enlistment(
             logger.info(f"Initial CPU usage: {psutil.cpu_percent()}%")
             logger.info(f"Cloning VMs for {len(users)} users")
             
-            workvms = await vm_services.create_users_work_vms(users, [exercise])
+            workvms = await vm_services.create_users_work_vms(current_user, users, [exercise])
             workvm_repository.batch_save(workvms)
             
             end_time = time.perf_counter()
@@ -216,7 +216,7 @@ async def update_exercise_enlistment(
         start_time = time.perf_counter()
         logger.info(f"Starting deletion of {len(workvms)} VMs")
 
-        tasks = [proxmox_services.adestroy_vm(workvm.proxmox_id) for workvm in workvms]
+        tasks = [proxmox_services.adestroy_vm(current_user, workvm.proxmox_id) for workvm in workvms]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         # Log errors but continue with deletion
@@ -257,9 +257,9 @@ async def evaluate_exercise(exercise_repository: ExerciseRepositoryDep,
 
     results = []
 
-    await proxmox_services.aset_vm_status(vm_proxmox_id, True)
+    await proxmox_services.aset_vm_status(current_user, vm_proxmox_id, True)
 
-    node_ip = await proxmox_services.aget_vm_ip(vm_proxmox_id)
+    node_ip = await proxmox_services.aget_vm_ip(current_user, vm_proxmox_id)
 
     await asyncio.sleep(3)
 
@@ -301,12 +301,12 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
     start_time_template_vm = time.perf_counter()
     
     #Step 1: Clone base template VM needs base template ID and hostname returns cloned vm ID
-    vm_proxmox_id = await proxmox_services.aclone_vm(data.proxmox_id, template_hostname)
+    vm_proxmox_id = await proxmox_services.aclone_vm(current_user, data.proxmox_id, template_hostname)
 
     # Step 2: Start VM needs vm ID returns true if successful
-    await proxmox_services.aset_vm_status(vm_proxmox_id, True)
+    await proxmox_services.aset_vm_status(current_user, vm_proxmox_id, True)
 
-    node_ip = await proxmox_services.aget_vm_ip(vm_proxmox_id)
+    node_ip = await proxmox_services.aget_vm_ip(current_user, vm_proxmox_id)
 
     await asyncio.sleep(3)
 
@@ -322,10 +322,10 @@ async def create_exercise(exercise_repository: ExerciseRepositoryDep,
                 nornir_services.run_command(configuration['hostname'], command, "", gns3_config_filename)
 
     # Step 5: Stop VM needs VM ID returns true if successful
-    await proxmox_services.aset_vm_status(vm_proxmox_id, False)
+    await proxmox_services.aset_vm_status(current_user, vm_proxmox_id, False)
 
     # Step 6: Convert to Template needs VM id returns true if successful
-    await proxmox_services.atemplate_vm(vm_proxmox_id) 
+    await proxmox_services.atemplate_vm(current_user, vm_proxmox_id) 
 
     end_time_template_vm = time.perf_counter() 
 
@@ -364,7 +364,7 @@ async def exercise_delete(exercise_id: int,
 
         start_time = time.perf_counter()
 
-        tasks = [proxmox_services.adestroy_vm(workvm.proxmox_id) for workvm in workvms]
+        tasks = [proxmox_services.adestroy_vm(current_user, workvm.proxmox_id) for workvm in workvms]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         for workvm, result in zip(workvms, results):
@@ -372,7 +372,7 @@ async def exercise_delete(exercise_id: int,
                 logger.error(f"Error deleting VM {workvm.proxmox_id}: {result}")
 
         # Delete the template VM
-        template_result = await proxmox_services.adestroy_vm(templatevm.proxmox_id)
+        template_result = await proxmox_services.adestroy_vm(current_user, templatevm.proxmox_id)
 
         if isinstance(template_result, Exception):
             logger.error(f"Error deleting template VM {templatevm.proxmox_id}: {template_result}")

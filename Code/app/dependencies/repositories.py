@@ -9,19 +9,19 @@ from app.database import get_session
 
 T = TypeVar('T')  # Generic type for repositories
 
-def get_repository(repo_class: Type[T]) -> T:
+def _get_repository(repo_class: Type[T]) -> T:
     def _get_repo(db: Session = Depends(get_session)) -> T:
         return repo_class(db)
     return Depends(_get_repo)
 
 
-UserRepositoryDep = Annotated[UserRepository, get_repository(UserRepository)]
+UserRepositoryDep = Annotated[UserRepository, _get_repository(UserRepository)]
 
 
-ExerciseRepositoryDep = Annotated[ExerciseRepository, get_repository(ExerciseRepository)]
+ExerciseRepositoryDep = Annotated[ExerciseRepository, _get_repository(ExerciseRepository)]
 
 
-WorkVmRepositoryDep = Annotated[WorkVmRepository, get_repository(WorkVmRepository)]
+WorkVmRepositoryDep = Annotated[WorkVmRepository, _get_repository(WorkVmRepository)]
 
 
-TemplateVmRepositoryDep = Annotated[TemplateVmRepository, get_repository(TemplateVmRepository)]
+TemplateVmRepositoryDep = Annotated[TemplateVmRepository, _get_repository(TemplateVmRepository)]

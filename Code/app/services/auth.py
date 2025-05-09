@@ -27,10 +27,11 @@ ALGORITHM  = settings.ALGORITHM
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login", auto_error=False)
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 class TokenData(BaseModel):
     username: str | None = None
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def _get_ldap_connection(authentication=ANONYMOUS, user=None, password=None) -> Connection:
     """Create and return a new LDAP connection"""

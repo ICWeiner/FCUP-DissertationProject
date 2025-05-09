@@ -10,13 +10,16 @@ from fastapi.templating import Jinja2Templates
 from app.config import settings
 from app.models import UserCreate, User
 from app.dependencies.repositories import UserRepositoryDep
-from app.dependencies.auth import CurrentUserDep, PrivilegedUserDep
+from app.dependencies.auth import CurrentUserDep, PrivilegedUserDep, ProxmoxSessionManagerDep
 from app.services import auth as auth_services
-
 
 from pathlib import Path
 
 ACCESS_TOKEN_EXPIRE_SECONDS = settings.ACCESS_TOKEN_EXPIRE_SECONDS
+
+LDAP_BASE_REALM = settings.LDAP_BASE_REALM
+LDAP_PRIVILEGED_REALM = settings.LDAP_PRIVILEGED_REALM
+
 
 BASE_DIR = Path(__file__).parent.parent
 
@@ -93,8 +96,38 @@ async def login_user(
     response: Response,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     user_repository: UserRepositoryDep,
+    proxmox_session_manager :ProxmoxSessionManagerDep,
 ) -> Token:
-  
+
+    sucess, is_privileged = await proxmox_session_manager.verify_credentials(form_data.username, form_data.password)
+
+    if sucess:
+        user = user_repository.find_by_username(form_data.username)
+
+        if not user:
+            user = User(
+                username=form_data.username,
+                email=f"{form_data.username}@fakedomain.com",  # Adjust as needed
+                hashed_password=auth_services.get_password_hash(form_data.password),
+                admin=is_privileged,
+                realm = settings.LDAP_PRIVILEGED_REALM if is_privileged else settings.LDAP_BASE_REALM
+            )
+            user_repository.save(user)
+
+        access_token = _generate_and_set_token(response, user)
+        return {
+            "access_token": access_token,
+            "token_type": "bearer"
+        }
+    
+    raise HTTPException(
+            status_code=400,
+            detail="Incorrect username or password"
+        )
+
+
+    
+    """
     user = user_repository.find_by_username(form_data.username)
     
     if user:
@@ -136,6 +169,7 @@ async def login_user(
         "access_token": access_token,
         "token_type": "bearer"
     }
+    """
 
 @router.get("/me")#test route to check if user is logged in
 async def read_users_me(

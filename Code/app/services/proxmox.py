@@ -9,8 +9,9 @@ import proxmox_api.proxmox_vm_firewall as proxmox_vm_firewall
 import proxmox_api.utils.proxmox_vm_ip_fetcher as proxmox_vm_ip_fetcher
 
 from app import decorators 
+from app.models import UserPublic
 from app.config import settings
-from app.services import proxmox_session
+from app.services import proxmox_auth
 from logger.logger import get_logger
 
 
@@ -30,7 +31,18 @@ def with_proxmox_session(func):
     @functools.wraps(func)
     async def wrapper(*args, **kwargs):
         async with SemaphoreManager.get_semaphore():
-            session = await proxmox_session.aget_proxmox_session( *_get_proxmox_host_and_credentials() )
+            if len(args) > 0:
+                # Case 1: User is second positional arg
+                user = args[0] if len(args) >= 1 and isinstance(args[0], UserPublic) else None
+            else:
+                # Case 2: Try to get from kwargs as fallback
+                user = kwargs.get('user')
+            
+            if not isinstance(user, UserPublic):
+                raise TypeError("Second argument must be UserPublic instance")
+            
+            session = await proxmox_auth.ProxmoxSessionManager().get_session(user.username, user.realm)
+
             try:
                 return await func(session, *args, **kwargs)
             except httpx.RequestError as err:
@@ -43,21 +55,25 @@ def with_proxmox_session(func):
 def _get_proxmox_host():
     return settings.PROXMOX_HOST
 
-def _get_proxmox_credentials():
-    return settings.PROXMOX_USER, settings.PROXMOX_PASSWORD
-
-def _get_proxmox_host_and_credentials():
-    return _get_proxmox_host(), *_get_proxmox_credentials()
 
 @with_proxmox_session
 @decorators.with_retry()
-async def adestroy_vm(session, vm_proxmox_id):
+async def adestroy_vm(
+    session: httpx.AsyncClient, 
+    user: UserPublic,
+    vm_proxmox_id: str
+    ) -> bool:
     return await proxmox_vm_actions.adestroy( _get_proxmox_host(), session, vm_proxmox_id)
 
 
 @with_proxmox_session
 @decorators.with_retry()
-async def aclone_vm(session, template_proxmox_id, hostname):
+async def aclone_vm(
+    session: httpx.AsyncClient, 
+    user: UserPublic,
+    template_proxmox_id: str, 
+    hostname: str
+    )-> str:
     clone_id = None
 
     while clone_id is None:
@@ -69,7 +85,12 @@ async def aclone_vm(session, template_proxmox_id, hostname):
     return clone_id
 
 @with_proxmox_session
-async def aset_vm_status(session, vm_proxmox_id, desired_status):
+async def aset_vm_status(
+    session: httpx.AsyncClient, 
+    user: UserPublic,
+    vm_proxmox_id: str, 
+    desired_status: str
+    )-> bool:
 
     @decorators.poll_until_complete(max_retries=10, interval=5)
     async def _poll_vm_status() -> bool:
@@ -85,7 +106,11 @@ async def aset_vm_status(session, vm_proxmox_id, desired_status):
     return await _poll_vm_status()
 
 @with_proxmox_session
-async def atemplate_vm(session, vm_proxmox_id) -> bool:
+async def atemplate_vm(
+    session: httpx.AsyncClient, 
+    user: UserPublic,
+    vm_proxmox_id: str
+    ) -> bool:
 
     @decorators.poll_until_complete(max_retries=10, interval=5)
     async def _poll_template_status() -> bool:
@@ -100,7 +125,11 @@ async def atemplate_vm(session, vm_proxmox_id) -> bool:
 
 @with_proxmox_session
 @decorators.with_retry(allowed_exceptions=(ValueError, httpx.HTTPStatusError) )
-async def aget_vm_ip(session, vm_proxmox_id) -> str:
+async def aget_vm_ip(
+    session: httpx.AsyncClient, 
+    user: UserPublic,
+    vm_proxmox_id: str
+    ) -> str:
     ip = await proxmox_vm_ip_fetcher.get_ip(_get_proxmox_host(), session, vm_proxmox_id)
     
     # This will raise ValueError for invalid IPs, triggering retry
@@ -114,16 +143,29 @@ async def aget_vm_ip(session, vm_proxmox_id) -> str:
 
 @with_proxmox_session
 @decorators.with_retry()
-async def aget_vm_hostname(session, vm_proxmox_id) -> str:
+async def aget_vm_hostname(
+    session: httpx.AsyncClient,
+    user: UserPublic,
+    vm_proxmox_id: str
+    ) -> str:
     return await proxmox_vm_ip_fetcher.get_hostname( _get_proxmox_host(), session, vm_proxmox_id)
 
 @with_proxmox_session
 @decorators.with_retry()
-async def acreate_firewall_rules(session, vm_proxmox_id, teacher_vm_proxmox_id) -> bool:
+async def acreate_firewall_rules(
+    session: httpx.AsyncClient,
+    user: UserPublic,
+    vm_proxmox_id: str, 
+    teacher_vm_proxmox_id: str
+    ) -> bool:
     teacher_vm_ip = await proxmox_vm_ip_fetcher.get_ip( _get_proxmox_host(), session, teacher_vm_proxmox_id)
     return await proxmox_vm_firewall.acreate_proxmox_vm_isolation_rules( _get_proxmox_host(), session, vm_proxmox_id, teacher_vm_ip)
 
 @with_proxmox_session
 @decorators.with_retry()
-async def adestroy_firewall_rules(session, vm_proxmox_id) -> bool:
+async def adestroy_firewall_rules(
+    session: httpx.AsyncClient,
+    user: UserPublic,
+    vm_proxmox_id: str
+    ) -> bool:
     return await proxmox_vm_firewall.adelete_proxmox_vm_isolation_rules( _get_proxmox_host(), session, vm_proxmox_id)
