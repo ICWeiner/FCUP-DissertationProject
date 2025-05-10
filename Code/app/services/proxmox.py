@@ -41,7 +41,7 @@ def with_proxmox_session(func):
             if not isinstance(user, UserPublic):
                 raise TypeError("Second argument must be UserPublic instance")
             
-            session = await proxmox_auth.ProxmoxSessionManager().get_session(user.username, user.realm)
+            session = proxmox_auth.ProxmoxSessionManager().get_session(user.username, user.realm)
 
             try:
                 return await func(session, *args, **kwargs)

@@ -41,10 +41,11 @@ def upgrade() -> None:
                 "created_on": datetime.datetime(2023, 1, 1, 12, 0, 0),
                 "username": "johndoe",
                 "email": "johndoe@mail.com",
-                "id": 1,
-                "hashed_password": "$2b$12$Ytt6KbdiTJaB5KxleeEtUOj1.ev2Bu13Us8Kvz86.pdorVwQpbsVu",
+                "id": 1,    
+                "hashed_password": "$2b$12$4ziPIFO1ZPze1E6TfYzNNOGcVC0Oj4kGsbyIbnAzV4PQc3y.aatS2",
                 "last_login": datetime.datetime(2023, 5, 10, 14, 30, 0),
-                "admin": True
+                "admin": True,
+                "realm": "pam"
                 },
         ]
     )   

@@ -75,7 +75,8 @@ async def create_user(
     user = UserCreate(username = data.username,
                       email = data.email,
                       hashed_password = auth_services.get_password_hash(data.password),
-                      admin = False)
+                      admin = False,
+                      realm = "pam")
     
     db_user = User.model_validate(user)
 
@@ -98,33 +99,45 @@ async def login_user(
     user_repository: UserRepositoryDep,
     proxmox_session_manager :ProxmoxSessionManagerDep,
 ) -> Token:
+    user = user_repository.find_by_username(form_data.username)
 
-    sucess, is_privileged = await proxmox_session_manager.verify_credentials(form_data.username, form_data.password)
+    if user:
+        # Existing user - try auth with their stored realm
+        success, is_privileged = await proxmox_session_manager.verify_credentials(
+            username=form_data.username,
+            password=form_data.password,
+            realm=user.realm  # Use the realm from database
+        )
+    else:
+        # New user - try LDAP realms
+        success, is_privileged = await proxmox_session_manager.verify_credentials(
+            username=form_data.username,
+            password=form_data.password
+            # Let verify_credentials handle the realm fallback
+        )
 
-    if sucess:
-        user = user_repository.find_by_username(form_data.username)
-
-        if not user:
-            user = User(
-                username=form_data.username,
-                email=f"{form_data.username}@fakedomain.com",  # Adjust as needed
-                hashed_password=auth_services.get_password_hash(form_data.password),
-                admin=is_privileged,
-                realm = settings.LDAP_PRIVILEGED_REALM if is_privileged else settings.LDAP_BASE_REALM
-            )
-            user_repository.save(user)
-
-        access_token = _generate_and_set_token(response, user)
-        return {
-            "access_token": access_token,
-            "token_type": "bearer"
-        }
-    
-    raise HTTPException(
+    if not success:
+        raise HTTPException(
             status_code=400,
             detail="Incorrect username or password"
         )
 
+    # Create user if they don't exist
+    if not user:
+        user = User(
+            username=form_data.username,
+            email=f"{form_data.username}@fakedomain.com",
+            hashed_password=auth_services.get_password_hash(form_data.password),
+            admin=is_privileged,
+            realm=settings.LDAP_PRIVILEGED_REALM if is_privileged else settings.LDAP_BASE_REALM
+        )
+        user_repository.save(user)
+
+    access_token = _generate_and_set_token(response, user)
+    return {
+        "access_token": access_token,
+        "token_type": "bearer"
+    }
 
     
     """

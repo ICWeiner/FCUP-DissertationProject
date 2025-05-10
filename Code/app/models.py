@@ -30,6 +30,7 @@ class UserPublic(UserBase):
 class UserCreate(UserBase):
     hashed_password: str
     admin: bool
+    realm: str
 
 class UserUpdate(UserBase):
     email: str | None = None

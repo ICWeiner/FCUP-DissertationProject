@@ -25,6 +25,8 @@ def upgrade() -> None:
     op.create_table('templatevm',
     sa.Column('created_on', sa.DateTime(), nullable=False),
     sa.Column('proxmox_id', sa.Integer(), nullable=False),
+    sa.Column('hostname', sqlmodel.sql.sqltypes.AutoString()),
+    sa.Column('gns3_project_id', sqlmodel.sql.sqltypes.AutoString()),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
@@ -36,6 +38,7 @@ def upgrade() -> None:
     sa.Column('hashed_password', sqlmodel.sql.sqltypes.AutoString(length=200), nullable=False),
     sa.Column('last_login', sa.DateTime(), nullable=True),
     sa.Column('admin', sa.Boolean(), nullable=False),
+    sa.Column('realm', sqlmodel.sql.sqltypes.AutoString(length=50)),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -46,6 +49,8 @@ def upgrade() -> None:
     sa.Column('name', sqlmodel.sql.sqltypes.AutoString(length=64), nullable=False),
     sa.Column('description', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
     sa.Column('templatevm_id', sa.Integer(), nullable=True),
+    sa.Column('validations', sqlmodel.sql.sqltypes.AutoString()),
+    sa.Column('configurations', sqlmodel.sql.sqltypes.AutoString()),
     sa.ForeignKeyConstraint(['templatevm_id'], ['templatevm.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -55,6 +60,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('templatevm_id', sa.Integer(), nullable=False),
+    sa.Column('hostname', sqlmodel.sql.sqltypes.AutoString()),
     sa.ForeignKeyConstraint(['templatevm_id'], ['templatevm.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')

@@ -1,5 +1,6 @@
 import asyncio
 import httpx
+import threading
 from datetime import datetime, timedelta, timezone
 from datetime import timedelta
 
@@ -17,15 +18,17 @@ logger = get_logger(__name__)
 class ProxmoxSessionManager:
 
     _instance = None
+    _lock = threading.Lock()  # Use threading.Lock for sync operations
     
     def __new__(cls):
         if cls._instance is None:
-            cls._instance = super().__new__(cls)
-            cls._instance.__init__()
+            with cls._lock:
+                cls._instance = super().__new__(cls)
+                cls._instance.__init__()
         return cls._instance
     
     def __init__(self):
-        if not hasattr(self, '_active_sessions'):  # Prevent re-init
+        if not hasattr(self, '_auth_cookies'):  # Prevent re-init
             self._auth_cookies: Dict[str, dict] = {}  # Stores cookies
             self._locks = defaultdict(asyncio.Lock)  # One lock by user
             self._proxmox_host = settings.PROXMOX_HOST
@@ -45,6 +48,7 @@ class ProxmoxSessionManager:
         }
         logger.info("#######################")
         logger.info(f"New session created for user {username}")
+        print(self._auth_cookies)
         logger.info("#######################")
         
         
@@ -52,32 +56,46 @@ class ProxmoxSessionManager:
         self,
         username: str,
         password: str,
+        realm: str = "",
     ) -> Tuple[bool, bool]: #first value indicates sucess, second indicates if privileged
         """Verify credentials with Proxmox server"""
         @decorators.with_retry(max_attempts=2, initial_delay=2, allowed_exceptions = (httpx.HTTPStatusError) )
         async def _attempt_auth_with_realm(realm: str) -> bool:
             logger.info(f"Attempting to login into realm {realm} with user {username}")
             async with self._locks[f"{username}@{realm}"]:
-                auth_result = await aproxmox_get_auth_cookie(
-                    self._proxmox_host,
-                    username,
-                    password,
-                    realm
-                )
+                try:
+                    auth_result = await aproxmox_get_auth_cookie(
+                        self._proxmox_host,
+                        username,
+                        password,
+                        realm
+                    )
 
-                if not auth_result:  # Handle None return
+                    if not auth_result or None in auth_result:  # Handle None return
+                        logger.debug(f"Authentication failed for {username}@{realm}")
+                        return False
+                    
+                    cookie, csrf = auth_result
+                    if not all((cookie, csrf)):
+                        logger.warning(f"Empty cookie/csrf for {username}@{realm}")
+                        return False
+
+                    self._store_cookie(username, realm, cookie, csrf)
+                    logger.info(f"Sucessful authentication into realm {realm} with user {username}")
+                    return True
+                except Exception as e:
+                    logger.error(f"Unexpected error during {username}@{realm} auth: {str(e)}")
                     return False
                 
-                cookie, csrf = auth_result
+        if realm != "": 
 
-                if cookie and csrf:
-                    self._store_cookie(username, realm, cookie, csrf)
-                    logger.info(f"Sucessful login into realm {realm} with user {username}")
-                    return True
-                
-        if await _attempt_auth_with_realm(settings.LDAP_PRIVILEGED_REALM): return True, True
+            if await _attempt_auth_with_realm(realm): return True, True
 
-        if await _attempt_auth_with_realm(settings.LDAP_BASE_REALM): return True, False
+        else:
+                    
+            if await _attempt_auth_with_realm(settings.LDAP_PRIVILEGED_REALM): return True, True
+
+            if await _attempt_auth_with_realm(settings.LDAP_BASE_REALM): return True, False
 
         logger.info(f"Failed to login with user {username}")
         
@@ -94,7 +112,7 @@ class ProxmoxSessionManager:
             return None
         
         session = httpx.AsyncClient(verify=False)
-        session.cookies.set("PVEAuthCookie", data.cookie)
-        session.headers.update({"CSRFPreventionToken": data.csrf})  
+        session.cookies.set("PVEAuthCookie", data["cookie"])
+        session.headers.update({"CSRFPreventionToken": data["csrf"]})  
         return session
 
