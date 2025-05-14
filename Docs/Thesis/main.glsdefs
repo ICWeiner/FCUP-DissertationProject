@@ -698,3 +698,31 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{spice}%
+{%
+name={\acronymfont {\glsentryshort {spice}}},%
+sort={SPICE},%
+type={acronym},%
+first={SPICE},%
+firstplural={SPICEs},%
+text={SPICE},%
+plural={SPICEs},%
+description={Simple Protocol for Independent Computing Environments},%
+descriptionplural={Simple Protocol for Independent Computing Environments},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Simple Protocol for Independent Computing Environments},%
+longplural={Simple Protocol for Independent Computing Environmentss},%
+short={SPICE},%
+shortplural={SPICEs},%
+counter={page},%
+parent={},%
+%
+}%
+

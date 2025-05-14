@@ -40,7 +40,7 @@ def upgrade() -> None:
             "id": i,  # Ensure the IDs are unique
             "hashed_password": "dummy",
             "last_login": datetime.datetime(2023, 5, 10, 14, 30, 0),
-            "admin": i % 2 == 0  # Alternate between admin and non-admin
+            "admin": 0
         }
         for i in range(2, n + 2)  # Generate users from 2 to n(id 1 is already occupied in previous migration)
     ]

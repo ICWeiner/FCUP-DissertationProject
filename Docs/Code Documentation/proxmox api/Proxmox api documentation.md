@@ -12,7 +12,7 @@ Any other exceptions will be propagated and should be caught and treated by the 
         Does not do any check whatsoever, only returns the response.
         Mostly for DRY reasons as it is used a lot, should only be used by the functions in the same file.
 
-        get_free_id <proxmox_host> <session>
+        acheck_free_id <proxmox_host> <session> <id>
         Returns a VM/CT ID not currently in use.
         Does not reserve the ID so its only useful if ID is used right away.
 
@@ -21,6 +21,9 @@ Any other exceptions will be propagated and should be caught and treated by the 
 
         check_vm_status <proxmox_host> <session> <vm-id> 
         Checks if VM is up and qemu guest-agent is running.
+
+        check_vm_is_template <proxmox_host> <session> <vm-id> 
+        Checks if VM is in template format
 
         start <proxmox_host> <session> <vm-id> 
         Starts the specified VM.

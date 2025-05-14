@@ -11,6 +11,12 @@ class UserRepository(BaseRepository):
         return self.db.query(self.__entity_type__)\
                      .filter(self.__entity_type__.username == username)\
                      .first()
+    
+    def find_by_usernames(self, usernames: List[str]) -> List[User]:
+        """Returns a list of User entities whose usernames match"""
+        return self.db.query(self.__entity_type__)\
+                     .filter(self.__entity_type__.username.in_(usernames))\
+                     .all()
 
     def find_by_email(self, email: str) -> Optional[User]:
         """Returns full User entity with all relationships"""

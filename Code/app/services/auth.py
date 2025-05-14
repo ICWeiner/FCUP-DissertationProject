@@ -41,7 +41,7 @@ def _get_ldap_connection(authentication=ANONYMOUS, user=None, password=None) -> 
     conn.bind()
     return conn
 
-def _find_user_dn(username: str, search_base: str) -> Optional[str]:
+def find_user_dn(username: str, search_base: str) -> Optional[str]:
     """
     Search for a user in the specified base DN
     Returns distinguished name (DN) if found, None otherwise
@@ -77,13 +77,13 @@ def ldap_authenticate(username: str, password: str) -> Tuple[bool, bool]:
         return False, False
 
     # First check privileged DN
-    privileged_dn = _find_user_dn(username, LDAP_PRIVILEGED_DN)
+    privileged_dn = find_user_dn(username, LDAP_PRIVILEGED_DN)
     if privileged_dn and _verify_credentials(privileged_dn, password):
         logger.info(f"Privileged user {username} authenticated")
         return True, True
 
     # Fall back to base DN
-    base_dn = _find_user_dn(username, LDAP_BASE_DN)
+    base_dn = find_user_dn(username, LDAP_BASE_DN)
     if base_dn and _verify_credentials(base_dn, password):
         logger.info(f"Regular user {username} authenticated")
         return True, False

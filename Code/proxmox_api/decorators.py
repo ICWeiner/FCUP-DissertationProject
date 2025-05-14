@@ -21,7 +21,7 @@ def handle_network_errors(func: Callable[..., Awaitable[bool]]) -> Callable[...,
         except httpx.HTTPStatusError as err:
             if err.response.status_code == 404:
                 logger.info(f"Resource not found: {err.request.url}")
-                return False
+                raise
             logger.error(f"HTTP error: {err}")
             raise
         except httpx.RequestError as err:

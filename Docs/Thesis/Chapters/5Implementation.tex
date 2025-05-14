@@ -14,24 +14,10 @@
 
 % Write text in here
 % Use \subsection and \subsubsection to organize text
-    \subsection{Project structure}
+\section{Project structure}
 
-    In this subsection we will go over the structure and technologies used in the implementation of our project. 
-    For our database, we adopted SQLite during development, accessed through SQLModel - an\ac{orm} built atop SQLAlchemy 
-    that incorporates Pydantic's validation capabilities. This combination provided type-safe queries through Python type 
-    hints while maintaining SQLAlchemy's powerful query syntax, along with seamless FastAPI integration for automatic 
-    OpenAPI schema generation. The use of SQLModel ensures an easy future transition to production-grade databases 
-    like PostgreSQL when needed.
+    In this section we will go over the structure and technologies used in the implementation of our project.
 
-    All application components were developed in Python 3.10+, chosen for its mature async/await implementation and 
-    robust type system. FastAPI serves as our web framework, having replaced earlier Flask + Celery-based prototypes 
-    due to its superior native async support. External API communications are handled through HTTPX for 
-    asynchronous\ac{http}\ac{rest} interactions, while network device configuration validation is managed via Nornir.
-    
-    The architecture emphasizes separation of concerns through several key design choices. A modular package structure 
-    organizes code into logical components, while the use decorators and dependency injection promotes code reuse. 
-    Strict interface boundaries between components maintain clear contracts, and repository patterns abstract data 
-    access details. This approach adheres to DRY principles while ensuring maintainability as the project scales.
 
     \begin{forest}
         for tree={
@@ -63,14 +49,35 @@
         ]
     \end{forest}
 
-    \subsubsection{app/}
+    \subsection{Technologies}
+
+        The architecture emphasizes separation of concerns through several key design choices. A modular package structure 
+        organizes code into logical components, while the use decorators and dependency injection promotes code reuse. 
+        Strict interface boundaries between components maintain clear contracts, and repository patterns abstract data 
+        access details. This approach adheres to DRY principles while ensuring maintainability as the project scales.
+
+        \subsubsection{SQLite}
+            For our database, we adopted SQLite during development, accessed through SQLModel - an\ac{orm} built atop SQLAlchemy 
+            that incorporates Pydantic's validation capabilities. This combination provided type-safe queries through Python type 
+            hints while maintaining SQLAlchemy's powerful query syntax, along with seamless FastAPI integration for automatic 
+            OpenAPI schema generation. The use of SQLModel ensures an easy future transition to production-grade databases 
+            like PostgreSQL when needed.
+
+        \subsubsection{Python}
+
+            All application components were developed in Python 3.10+, chosen for its mature async/await implementation and 
+            robust type system. FastAPI serves as our web framework, having replaced earlier Flask + Celery-based prototypes 
+            due to its superior native async support. External API communications are handled through HTTPX for 
+            asynchronous\ac{http}\ac{rest} interactions, while network device configuration validation is managed via Nornir.
+
+    \subsection{app/}
 
         The \texttt{app/} directory contains the complete implementation of our web application, organized to promote 
         maintainability and clear separation of concerns. The root level includes several key files that form the 
         application foundation:
 
         \begin{itemize}
-            \item \texttt{main.py} - The ASGI entry point to run with any \ac{ASGI}-compliant server
+            \item \texttt{main.py} - The\ac{ASGI} entry point to run with any\ac{ASGI}-compliant server
             \item \texttt{database.py} - Manages database connections and session handling
             \item \texttt{models.py} - Defines all database tables and their relationships using SQLModel
             \item \texttt{decorators.py} - Contains reusable decorators for route handling and logic
@@ -133,10 +140,54 @@
 
         \texttt{utils/} provides shared utility functions and classes that don't belong to specific domains.
 
-    \subsubsection{inventory/}
-        Contains some Nornir configuration files that are accessed by both Nornir and the web application\unsure{this folder might not stay here}
+    \subsection{inventory/}
+        The \texttt{inventory/} directory contains YAML configuration files that store static device information 
+        for each topology. These files serve as a device registry, enabling Nornir to immediately access device 
+        specifications without runtime type checking. This approach significantly improves automation performance 
+        by eliminating redundant device discovery operations.\unsure{this folder might not stay here}
 
-    \subsubsection{logger/}
+        \begin{table}[h]
+            \centering
+            \caption{Example inventory file contents}
+            \label{tab:devices}
+            \begin{tabular}{>{\ttfamily}llllll}
+            \toprule
+            \rowcolor{lightgray}
+            \textrm{\normalfont Device} & \textrm{\normalfont Groups} & \textrm{\normalfont Hostname} & \textrm{\normalfont Port} & \textrm{\normalfont Username} & \textrm{\normalfont Password} \\
+            \midrule
+            linuxvm-1 & linuxvm & 192.168.57.143 & 5005 & \texttt{<username>} & \texttt{********} \\
+            pc1 & vpcs & 192.168.57.143 & 5007 & -- & -- \\
+            r1 & cisco\_router & 192.168.57.143 & 5000 & -- & -- \\
+            sw1 & cisco\_switch & 192.168.57.143 & 5002 & -- & -- \\
+            \bottomrule
+            \end{tabular}
+        \end{table}
+
+        \paragraph{Key Fields Explanation:}
+        \begin{itemize}
+            \item \textbf{Device Name}: Unique identifier within the topology (e.g., \texttt{linuxvm-1}, \texttt{r1})
+            \item \textbf{Device Class}: Specifies the device type/role (determines connection handlers)
+            \begin{itemize}
+                \item linuxvm: Linux hosts
+                \item cisco\_router: Cisco IOS Router
+                \item cisco\_switch: Cisco IOS Switch
+                \item vpcs: Virtual PC simulator
+            \end{itemize}
+            \item \textbf{Hostname}: Shared IP indicates all devices are virtual instances on the same host
+            \item \textbf{Port}: Unique port for each device's management interface
+            \item \textbf{Credentials}: Shown here as placeholders 
+        \end{itemize}
+
+        \paragraph{Implementation Notes:}
+        \begin{enumerate}
+            \item The YAML structure enables easy integration with Nornir's inventory plugins
+            \item Port assignments do not follow any specific order
+            \item Credential fields use \texttt{null} values for unauthenticated devices like VPCS
+        \end{enumerate}
+
+
+
+    \subsection{logger/}
         The \texttt{logger/} directory implements the application's centralized logging system with consistent 
         configuration across all components. This module provides:
 
@@ -158,7 +209,7 @@
         or remote logging services. All application modules should obtain their logger instance through the provided 
         \texttt{get\_logger()} function to maintain consistent logging behavior.
 
-    \subsubsection{nornir\_lib/}
+    \subsection{nornir\_lib/}
 
         The \texttt{nornir\_lib/} directory implements the evaluation system that interfaces with various virtual devices. 
         This component executes commands across network topologies and analyzes the responses to determine operation 
@@ -173,9 +224,11 @@
 
         Developers can implement new test modules by extending the base \texttt{CommandModule} class. This requires 
         implementing device-specific command methods (\texttt{\_command\_router()}, \texttt{\_command\_switch()}, etc.) 
-        and corresponding response interpreters (\texttt{interpret\_cisco\_response()}, etc.). The bundled Ping module 
-        demonstrates this pattern, taking source and destination parameters and evaluating success based on 
-        configurable packet loss tolerance.
+        and corresponding response interpreters (\texttt{interpret\_cisco\_response()}, etc.) with the benefit of not 
+        having to worry about anything about nornir and its inventory system. The system currently includes Ping and 
+        Traceroute implementations, with the modular design. Developers can use the bundled Ping module that 
+        demonstrates this pattern, taking parameters and evaluating success based on configurable packet loss 
+        tolerance.
 
         The architecture emphasizes:
         \begin{itemize}
@@ -184,11 +237,277 @@
             \item Centralized response interpretation logic
         \end{itemize}
 
-        Key design considerations include the mandatory plaintext credentials in \texttt{host\_file} and the 
-        performance-sensitive \texttt{fast\_cli} setting that must remain disabled for reliable operation. The 
-        system currently includes Ping and Traceroute implementations, with the modular design facilitating 
-        additional test types through either class inheritance or completely custom implementations.
+        In the past iteration of this project, it was noted that communication with devices could be less than reliable,
+        with no apparent reason. After some testing and research it was found that disabling the \texttt{fast\_cli} 
+        increased reliability and we have not experienced the communication failure since disabling this feature. 
+    
+    \subsection{proxmox\_api/}
 
-    \subsubsection{gns3\_api/}
+        The proxmox\_api library provides direct, lightweight wrappers around the\ac{pve}\ac{rest}\ac{api}, 
+        offering simplified interfaces for common virtualization management tasks while maintaining close 
+        correspondence with the underlying\ac{api} endpoints.
 
-    \subsubsection{proxmox\_api/}
+        \paragraph{Design Philosophy}
+        \begin{itemize}
+            \item \textbf{Transparent Wrapping}: Each method maps clearly to a specific\ac{pve}\ac{api} endpoint
+            \item \textbf{Minimal Abstraction}: Preserves the\ac{api}'s native behavior with light conveniences
+            \item \textbf{Consistent Error Handling}: Uniform approach across all operations
+            \item \textbf{Asynchronous Communication}: Use async methods where possible to maximize performance
+        \end{itemize}
+
+        \subsubsection{Error Handling}
+            The library implements a consistent error handling approach through the \texttt{@handle\_network\_errors} 
+            decorator, which manages network-related exceptions while preserving application-level errors. This 
+            decorator specifically intercepts connectivity issues (host unreachable, timeouts) and\ac{http} 404 
+            responses, converting them to \texttt{False} returns while maintaining detailed error logging. All 
+            other\ac{http} errors and programming exceptions propagate unchanged, ensuring callers receive 
+            complete error context for non-network failures.
+
+            \begin{table}[h]
+                \centering
+                \caption{Error Handling Behavior}
+                \label{tab:error-handling}
+                \begin{tabular}{lp{8cm}}
+                    \toprule
+                    \textbf{Case} & \textbf{Behavior} \
+                    \midrule
+                    Network Connectivity & Returns \texttt{False} with error logging \
+                    HTTP 404 (Not Found) & Logs and re-raises with request details \
+                    Other HTTP Errors & Propagates with original status code \
+                    Application Exceptions & Unmodified propagation \
+                    \bottomrule
+                \end{tabular}
+            \end{table}
+        
+            The implementation preserves function signatures through Python's \texttt{@wraps} decorator and 
+            maintains type safety via generic type variables. Designed specifically for async operations, it 
+            provides transparent error handling that distinguishes between temporary network issues and substantive 
+            application errors while ensuring comprehensive diagnostic logging.
+
+            
+            \paragraph{Implementation Patterns}
+                The methods follow three primary patterns:
+                
+                \begin{table}[h]
+                \centering
+                \caption{Method Implementation Patterns}
+                \label{tab:method-patterns}
+                \begin{tabular}{lp{8cm}}
+                \toprule
+                \textbf{Pattern} & \textbf{Characteristics} \\
+                \midrule
+                Simple Wrapper & Single API call + status check (e.g., \texttt{start}, \texttt{stop}) \\
+                Chained Operation & Multiple API calls (e.g., \texttt{create}) \\
+                Special Case Handler & Custom status code processing (e.g., \texttt{check\_free\_id}) \\
+                \bottomrule
+                \end{tabular}
+                \end{table}
+                
+            \paragraph{proxmox\_vm\_actions Module}
+                Key\ac{vm} operations:
+                
+                \begin{itemize}
+                    \item \texttt{start(proxmox\_host, session, vm\_id)}
+                    \begin{itemize}
+                        \item Issues \texttt{POST /nodes/<node>/qemu/<vmid>/status/start}
+                        \item Verifies successful status change
+                    \end{itemize}
+                    
+                    \item \texttt{create(proxmox\_host, session, template\_id, clone\_id, hostname)}
+                \begin{itemize}
+                    \item Chains clone operation + protection removal
+                    \item Handles storage and naming configuration
+                    \end{itemize}
+                \end{itemize}
+
+    \subsection{gns3\_api/}
+        The\ac{gns3}\ac{api} wrapper provides essential operations for managing\ac{gns3} projects through 
+        its\ac{rest}\ac{api}, following similar design patterns to the proxmox\_api wrapper but tailored for
+        \ac{gns3}-specific workflows. The library handles project operations including verification, import/export, 
+        and node information collection.
+
+        \paragraph{Implementation Characteristics}
+
+        The wrapper shares several architectural features with the proxmox\_api implementation:
+
+        \begin{itemize}
+        \item Uses the same \texttt{@handle\_network\_errors} decorator pattern
+        \item Follows consistent async/await patterns
+        \item Maintains similar logging practices
+        \end{itemize}
+
+        However, it differs in several\ac{gns3}-specific aspects:
+
+        \begin{itemize}
+        \item Project-centric operations rather than\ac{vm} management
+        \item File handling for project import/export
+        \item UUID-based project identification
+        \end{itemize}
+
+        \paragraph{Error Handling}
+
+        The library maintains consistent error behavior:
+
+        \begin{itemize}
+        \item Returns \texttt{False} for network failures
+        \item Returns \texttt{None} for missing resources
+        \item Propagates all other exceptions
+        \end{itemize}
+
+        \paragraph{Example Workflow}
+
+        A typical usage sequence would be:
+
+        \begin{enumerate}
+            \item Verify project exists (\texttt{acheck\_project})
+            \item Get node information (\texttt{aget\_project\_nodes})
+            \item Start project nodes (\texttt{start\_project})
+        \end{enumerate}
+
+        The implementation demonstrates careful handling of both network operations and local file I/O, 
+        particularly in the import/export methods where it manages binary data transfer and local filesystem 
+        interactions. The UUID-based project identification ensures unique project references during import 
+        operations.
+
+\section{Web Application Components}
+    This web application is structured to offer the following capabilities:
+        \begin{enumerate}
+            \item Login with institutional credentials
+            \item Selection from available exercises
+            \item Automated environment preparation
+            \item Practical work in GNS3 web interface
+            \item Validation feedback
+        \end{enumerate}
+
+    To accomplish that, it comprises three core modules that work in concert to manage networking exercises while 
+    abstracting the underlying virtualization infrastructure:
+
+    \subsection{Authentication Module}
+        The authentication system establishes user identity and access control through\ac{jwt} tokens. It 
+        verifies ownership of virtual resources during every operation, preventing cross-user interference 
+        like unauthorized\ac{vm} control. To help accomplish these features it integrates with the database to 
+        check for priviledged accounts and vm ownership.
+
+    \subsection{Exercise Management Module}
+        This module handles the complete exercise workflow from creation to validation. Instructors can upload 
+        network topologies, by providing gns3project files and validation criteria using the previously mentioned 
+        validation modules, namely ping and traceroute, during exercise creation, while students receive filtered 
+        exercise lists based on which they are enrolled in. The validation subsystem uses the developed modules 
+        to validate instructor defined criteria, providing automated feedback for students. All provisioning 
+        occurs automatically when students are enrolled in exercises.
+
+    \subsection{VM Control Module}
+        Finally this modules provides the ability to interact with\ac{vm}s by exposing endpoints for, among other 
+        things, powering on/off and request exercise validation. This allows students to avoid interacting directly with 
+        the underlying infrastructure and focus on doing their exercises.
+
+\section{Asynchronous Processing with FastAPI}
+    Asyncio is Python library for writing concurrent code. It provides a foundation for asynchronous programming by enabling 
+    the creation and management of event loops, coroutines, and asynchronous tasks.
+
+    An \textit{event loop} is a central component of asynchronous programming—it continuously runs in the background, managing 
+    the execution of asynchronous tasks. When a task reaches a point where it would normally block (e.g., waiting for a network 
+    response), it yields control back to the event loop, which can then continue running other ready tasks. This model of 
+    cooperative multitasking contrasts with traditional multithreading or multiprocessing, as it operates in a single thread 
+    and does not require locking or context switching between OS threads.
+
+    A \textit{coroutine} is a special kind of function defined with \texttt{async def}. When called, it does not run immediately, 
+    but instead returns a coroutine object. This object can be scheduled by the event loop, and when awaited, it runs until it 
+    hits a pause point (e.g., another \texttt{await})—at which point it yields control back to the event loop, allowing other 
+    coroutines to execute.
+
+    In FastAPI, declaring an endpoint as \texttt{async def}enables non-blocking behavior for I/O operations when using 
+    async-compatible libraries. This allows the server to handle other requests while waiting for operations like 
+    external\ac{api} calls. If that logic includes \texttt{asyncio}-compatible I/O operations—such as using a 
+    library for asynchronous\ac{http} calls then the request can proceed in a truly asynchronous manner. This 
+    allows the web server to observe massive speedups when compared to blocking I/O when multiple\ac{http} calls 
+    must be made to external services.
+
+    Additionally, \texttt{asyncio} supports the orchestration of multiple tasks using constructs such as \texttt{asyncio.gather()}, 
+    which allows multiple coroutines to be executed concurrently and awaited collectively. This has been especially useful in 
+    scenarios within the project where multiple devices or services must be queried or configured simultaneously, such as 
+    when multiples students are enrolled in an exercise, which requires the creation of multiple\ac{vm}s.
+
+    \subsection{Differences Between Asyncio And Celery}
+
+        In contrast, Celery operates at a higher level of abstraction, focusing on distributed task execution rather 
+        than fine-grained concurrency. Instead of relying on an event loop, Celery uses a pool of worker 
+        processes—often distributed across multiple machines—that consume tasks from a message broker such as RabbitMQ 
+        or Redis. Tasks in Celery are standard Python functions decorated with \texttt{@app.task}, which serializes their 
+        execution requests into messages sent to the broker. Workers then fetch these messages and execute the tasks 
+        in separate processes, enabling true parallelism across CPU cores or even different servers. Celery's 
+        architecture makes it particularly well-suited for workloads that require heavy computation, long-running 
+        operations, or distributed execution across multiple machines. Unlike asyncio, which excels at managing many 
+        lightweight I/O-bound tasks within a single thread.
+
+        While both asyncio and Celery outperform traditional sequential blocking I/O code, asyncio proved better 
+        aligned with our project's requirements. Sequential code suffers from inherent inefficiencies: each I/O 
+        operation forces the program to idle while waiting for a response, wasting CPU cycles that could be used 
+        for other tasks. asyncio eliminates this waste by allowing multiple of I/O operations to proceed 
+        concurrently within a single thread, dramatically improving throughput for I/O-bound workloads. Celery, 
+        while also avoiding blocking behavior, introduces overhead from inter-process communication and task 
+        serialization, making it less optimal for high-frequency, low-latency operations. In our use case, where the 
+        system primarily handles short-lived\ac{http} requests, asyncio's lightweight coroutines and event-driven model 
+        delivered the same or even superior performance with simpler structure and code. Celery remains invaluable for 
+        background jobs, but for real-time, I/O-heavy scenarios, asyncio provided the ideal balance of speed and 
+        maintainability.
+
+\section{GNS3 Customization and Configuration}
+    This section describes the configuration of a\ac{gns3} host virtual machine. 
+
+    The first step involves installing the \texttt{gns3-server} along with all its required dependencies. This provides the 
+    core backend functionality. The installation can be done using a provided remote installation script that handles the 
+    setup of Python packages, IOU support, and necessary architecture extensions such as the i386 repository. 
+    This script can be found on the official\ac{gns3} website.
+
+    Once installed, it is essential to configure the \texttt{gns3-server} to run as a system daemon. Running the server as 
+    a background service ensures it is automatically started at boot time and remains continuously available without 
+    requiring manual intervention. This is especially important to ensure no manual interaction is needed with the host\ac{vm}.
+
+    In addition to installation and service configuration, modifications must be made to the \texttt{gns3-server} source 
+    code to enable\ac{spice} support.\ac{spice} is a remote display protocol that allows users to interact with virtual machines 
+    through a graphical interface. These source code changes enable the server to launch\ac{qemu} instances with the appropriate
+    \ac{spice} options, facilitating enhanced remote access and control over the virtualized devices.A more detailed explanation 
+    and rationale for these changes can be found in the first iteration of this project\cite{santos2024}.
+
+    The host operating system for the\ac{gns3} host\ac{vm}s during development was \textbf{Ubuntu Server} (non-minimized 
+    installation). This ensures that all necessary system tools and dependencies are available. Other operating systems 
+    such as different Linux distributions or Windows were not tested.    
+
+    \paragraph{Note:} The \texttt{gns3-web} UI for\ac{gns3} is currently in beta and may present issues when adding 
+    templates for devices. At this point in time it is recommended to use the GUI client for this task.
+
+    \paragraph{IOU Support:} If the project includes\ac{iou} nodes, a valid\ac{iou} license is required. This file must be 
+    placed in \texttt{\textasciitilde{}/.iourc} and formatted according to\ac{gns3}s expectations.
+
+\section{Proxmox API Usage}
+
+    \ac{pve} provides a \ac{rest}\ac{api} that exposes all functionality available. This includes operations such as 
+    creating, cloning, starting, stopping, and deleting virtual machines, as well as querying their current status. 
+    By interfacing with this\ac{api}, the system gains the ability to manage\ac{vm}s in an automated, repeatable, and 
+    scalable manner, which is essential for deploying work environments on demand.
+
+    In our project, the\ac{pve}\ac{api} is accessed via\ac{http} using the HTTPX library in Python. 
+    Authentication is handled using Ticket Cookies. A ticket is a signed random text value with the user and creation 
+    time included. Additionally, any write (POST/PUT/DELETE) request must include a CSRF prevention. To obtain a valid 
+    ticket and CSRF token a POST request must be made to the appropriate endpoint with valid plaintext credentials in the 
+    body of the message. This ticket is valid for a set amount of time and itself can be sent to the correct endpoint to 
+    acquire a fresh ticket.
+
+    To avoid repeated logins, aswell as avoiding storage of plaintext user credentials, and reduce overhead tickets are 
+    stored in memory and reused for their duration, after which a new token is acquired.
+
+    Additionally, when users log into the web application, their provided credentials are sent to the\ac{pve}\ac{api} 
+    authentication endpoint to obtain a ticket specific to their session. This approach offers multiple advantages. 
+    First, regular user accounts, such as those belonging to students, can be configured with limited permissions in\ac{pve}. 
+    This serves as a secondary layer of protection in case a bug in the authentication logic allows an unauthorized 
+    request (e.g., attempting to delete a\ac{vm}). Second, it improves accountability, as every action taken by a user 
+    can be traced to their authenticated account, resulting in more detailed and accurate audit logs.
+
+    For this approach to work, valid user accounts must exist within the\ac{pve} system. These accounts can be created in 
+    several ways, as\ac{pve} supports a variety of authentication backends. For example, integration with \ac{ldap} is 
+    supported out of the box. This makes user management particularly convenient in educational institutions, where 
+    centralized identity systems are commonly used. Alternatively, local accounts managed directly within\ac{pve} 
+    can also be used, offering a simpler setup for smaller-scale or isolated environments.
+
+

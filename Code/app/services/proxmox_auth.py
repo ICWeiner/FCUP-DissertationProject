@@ -48,7 +48,6 @@ class ProxmoxSessionManager:
         }
         logger.info("#######################")
         logger.info(f"New session created for user {username}")
-        print(self._auth_cookies)
         logger.info("#######################")
         
         
@@ -95,7 +94,7 @@ class ProxmoxSessionManager:
                     
             if await _attempt_auth_with_realm(settings.LDAP_PRIVILEGED_REALM): return True, True
 
-            if await _attempt_auth_with_realm(settings.LDAP_BASE_REALM): return True, False
+            #if await _attempt_auth_with_realm(settings.LDAP_BASE_REALM): return True, False #disabled new user discovery for student accounts
 
         logger.info(f"Failed to login with user {username}")
         

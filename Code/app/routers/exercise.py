@@ -12,11 +12,13 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Annotated, List, Optional
 
-from app.models import Exercise, TemplateVm
+from app.config import settings
+from app.models import Exercise, TemplateVm, User
 from app.dependencies.auth import CurrentUserDep, PrivilegedUserDep
 from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryDep, WorkVmRepositoryDep, TemplateVmRepositoryDep
 from app.services import vm as vm_services
 from app.services import proxmox as proxmox_services
+from app.services import auth as auth_services
 from app.services import gns3 as gns3_services
 from app.services import nornir as nornir_services
 from app.utils import gns3 as gns3_utils
@@ -30,6 +32,10 @@ from logger.logger import get_logger
 logger = get_logger(__name__)
 
 BASE_DIR = Path(__file__).parent.parent
+
+LDAP_BASE_REALM = settings.LDAP_BASE_REALM
+LDAP_BASE_DN = settings.LDAP_BASE_DN
+
 
 router = APIRouter(prefix="/exercises",
                     tags=["exercises"],
@@ -172,8 +178,9 @@ async def update_exercise_enlistment(
     form_data = await request.form()
     action = form_data.get("action")
     user_ids = form_data.getlist("user_ids")  # Get all selected user IDs
+    user_names = form_data.get("students")
     
-    if not action or not user_ids:
+    if not action or ( not user_ids and not user_names):
         raise HTTPException(status_code=400, detail="No action or users selected")
     
     # Get exercise to access templatevm_id
@@ -183,20 +190,41 @@ async def update_exercise_enlistment(
     
     if action == "enlist":
         # Get users that don't already have workvms
-        existing_user_ids = user_repository.get_users_for_exercise(exercise_id)
+        user_names = [line.strip() for line in user_names.strip().splitlines() if line.strip()]
+
+        found_users = user_repository.find_by_usernames(user_names)
         
-        new_user_ids = [uid for uid in user_ids if uid not in existing_user_ids]
+        found_usernames = {user.username for user in found_users}
+
+        not_found = [u for u in user_names if u not in found_usernames]
+
+        for user_name in not_found:
+            if not auth_services.find_user_dn(user_name, LDAP_BASE_DN): 
+                not_found.remove(user_name)
+
+        new_users = [User(username=u,
+                          email = f"{u}@mail.com",
+                          hashed_password = "",
+                          admin = False,
+                          realm = LDAP_BASE_REALM)
+                        for u in not_found]
         
-        if new_user_ids:
-            # Get full user objects
-            users = user_repository.find_by_ids(new_user_ids)
-            
+        user_repository.batch_save(new_users)
+
+        found_users.extend(new_users)
+
+        users_that_have_workvms = user_repository.get_users_for_exercise(exercise_id)
+        existing_user_ids = {user.id for user in users_that_have_workvms}
+        
+        users_that_need_workvms = [user for user in found_users if user.id not in existing_user_ids]
+     
+        if users_that_need_workvms:
             # Batch create VMs
             start_time = time.perf_counter()
             logger.info(f"Initial CPU usage: {psutil.cpu_percent()}%")
-            logger.info(f"Cloning VMs for {len(users)} users")
+            logger.info(f"Cloning VMs for {len(users_that_need_workvms)} users")
             
-            workvms = await vm_services.create_users_work_vms(current_user, users, [exercise])
+            workvms = await vm_services.create_users_work_vms(current_user, users_that_need_workvms, [exercise])
             workvm_repository.batch_save(workvms)
             
             end_time = time.perf_counter()

@@ -27,6 +27,7 @@
 \glossaryentry{Proxmox VE?\glossentry{pve}|setentrycounter[]{page}"\glsnumberformat}{7}
 \glossaryentry{KVM?\glossentry{kvm}|setentrycounter[]{page}"\glsnumberformat}{7}
 \glossaryentry{LXC?\glossentry{lxc}|setentrycounter[]{page}"\glsnumberformat}{7}
+\glossaryentry{SPICE?\glossentry{spice}|setentrycounter[]{page}"\glsnumberformat}{7}
 \glossaryentry{KVM?\glossentry{kvm}|setentrycounter[]{page}"\glsnumberformat}{8}
 \glossaryentry{KVM?\glossentry{kvm}|setentrycounter[]{page}"\glsnumberformat}{8}
 \glossaryentry{Proxmox VE?\glossentry{pve}|setentrycounter[]{page}"\glsnumberformat}{8}
@@ -195,14 +196,63 @@
 \glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{30}
 \glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{30}
 \glossaryentry{WSGI?\glossentry{wsgi}|setentrycounter[]{page}"\glsnumberformat}{30}
-\glossaryentry{WSGI?\glossentry{wsgi}|setentrycounter[]{page}"\glsnumberformat}{30}
+\glossaryentry{WSGI?\glossentry{wsgi}|setentrycounter[]{page}"\glsnumberformat}{31}
 \glossaryentry{ASGI?\glossentry{asgi}|setentrycounter[]{page}"\glsnumberformat}{31}
 \glossaryentry{ASGI?\glossentry{asgi}|setentrycounter[]{page}"\glsnumberformat}{31}
 \glossaryentry{WSGI?\glossentry{wsgi}|setentrycounter[]{page}"\glsnumberformat}{31}
 \glossaryentry{WSGI?\glossentry{wsgi}|setentrycounter[]{page}"\glsnumberformat}{31}
-\glossaryentry{ASGI?\glossentry{asgi}|setentrycounter[]{page}"\glsnumberformat}{32}
 \glossaryentry{ASGI?\glossentry{asgi}|setentrycounter[]{page}"\glsnumberformat}{33}
-\glossaryentry{ASGI?\glossentry{asgi}|setentrycounter[]{page}"\glsnumberformat}{33}
+\glossaryentry{ASGI?\glossentry{asgi}|setentrycounter[]{page}"\glsnumberformat}{34}
+\glossaryentry{ASGI?\glossentry{asgi}|setentrycounter[]{page}"\glsnumberformat}{34}
 \glossaryentry{ORM?\glossentry{orm}|setentrycounter[]{page}"\glsnumberformat}{35}
-\glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{35}
-\glossaryentry{REST?\glossentry{rest}|setentrycounter[]{page}"\glsnumberformat}{35}
+\glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{36}
+\glossaryentry{REST?\glossentry{rest}|setentrycounter[]{page}"\glsnumberformat}{36}
+\glossaryentry{Proxmox VE?\glossentry{pve}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{REST?\glossentry{rest}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{Proxmox VE?\glossentry{pve}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{40}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}"\glsnumberformat}{41}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{41}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{41}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{41}
+\glossaryentry{REST?\glossentry{rest}|setentrycounter[]{page}"\glsnumberformat}{41}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{41}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{41}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{41}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}"\glsnumberformat}{42}
+\glossaryentry{JWT?\glossentry{jwt}|setentrycounter[]{page}"\glsnumberformat}{43}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}"\glsnumberformat}{43}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}"\glsnumberformat}{43}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{44}
+\glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{44}
+\glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{44}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}"\glsnumberformat}{44}
+\glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{SPICE?\glossentry{spice}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{SPICE?\glossentry{spice}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{QEMU?\glossentry{qemu}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{SPICE?\glossentry{spice}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}"\glsnumberformat}{45}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{IOU?\glossentry{iou}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{IOU?\glossentry{iou}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{GNS3?\glossentry{gns3}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{Proxmox VE?\glossentry{pve}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{Proxmox VE?\glossentry{pve}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{REST?\glossentry{rest}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{Proxmox VE?\glossentry{pve}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{API?\glossentry{api}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}"\glsnumberformat}{46}

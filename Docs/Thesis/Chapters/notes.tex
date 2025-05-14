@@ -14,41 +14,7 @@
     to the previous Flask implementation with Celery integration.
 
 
-\section{Asyncio more in depth}
-
-  Asyncio is Python library for writing concurrent code. It provides a foundation for asynchronous programming by enabling 
-  the creation and management of event loops, coroutines, and asynchronous tasks.
-
-  An \textit{event loop} is a central component of asynchronous programming—it continuously runs in the background, managing 
-  the execution of asynchronous tasks. When a task reaches a point where it would normally block (e.g., waiting for a network 
-  response), it yields control back to the event loop, which can then continue running other ready tasks. This model of 
-  cooperative multitasking contrasts with traditional multithreading or multiprocessing, as it operates in a single thread 
-  and does not require locking or context switching between OS threads.
-
-  A \textit{coroutine} is a special kind of function defined with \texttt{async def}. When called, it does not run immediately, 
-  but instead returns a coroutine object. This object can be scheduled by the event loop, and when awaited, it runs until it 
-  hits a pause point (e.g., another \texttt{await})—at which point it yields control back to the event loop, allowing other 
-  coroutines to execute.
-
-  For example, in FastAPI, declaring an endpoint as \texttt{async def} ensures that the underlying logic is non-blocking. 
-  If that logic includes \texttt{asyncio}-compatible I/O operations—such as using a library for asynchronous \ac{http} calls 
-  then the request can proceed in a truly asynchronous manner. This allows the web server to observe massive speedups when
-  multiple \ac{http} calls must be made to external services.
-
-  In the context of our project, \texttt{asyncio} plays a critical role. The application often performs multiple concurrent 
-  \ac{http} requests to interact with services like \ac{gns3} and \ac{pve}. By utilizing asynchronous functions the application 
-  can efficiently manage these concurrent tasks without spawning additional threads or processes, thus keeping overhead low.
-
-  Additionally, \texttt{asyncio} supports the orchestration of multiple tasks using constructs such as \texttt{asyncio.gather()}, 
-  which allows multiple coroutines to be executed concurrently and awaited collectively. This has been especially useful in 
-  scenarios within the project where multiple devices or services must be queried or configured simultaneously.
-
 \subsection{Celery}
-
-  A Celery client running on a given machine will have allocated a set amount of workers to work on tasks. Workers are 
-  independent processes that listen to the broker and execute incoming tasks concurrently. Tasks are Python functions that 
-  are decorated with provided Celery decorators such as \texttt{@app.task}, causing them to be registered as Celery tasks 
-  within the Celery application.
 
   \begin{algorithm}
     \caption{Calling a Celery Task and Getting the Result}\label{celery-call-result}

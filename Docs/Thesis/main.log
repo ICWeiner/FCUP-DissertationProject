@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  6 MAY 2025 12:23
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  13 MAY 2025 13:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1699,6 +1699,8 @@ File: Front/main.pdf Graphic file (type pdf)
 -----------------------------------------------------
  Acknowledgements
 -----------------------------------------------------
+Missing character: There is no ඞ (U+0D9E) in font Arial/OT:language=dflt;mappin
+g=tex-text;!
 
 
 [1
@@ -2113,41 +2115,46 @@ Overfull \hbox (12.17973pt too wide) detected at line 81
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 82
- \TU/Arial(0)/m/n/10.95 36
+ \TU/Arial(0)/m/n/10.95 35
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 83
- \TU/Arial(0)/m/n/10.95 37
+ \TU/Arial(0)/m/n/10.95 35
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 84
- \TU/Arial(0)/m/n/10.95 37
+ \TU/Arial(0)/m/n/10.95 36
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 85
- \TU/Arial(0)/m/n/10.95 38
+ \TU/Arial(0)/m/n/10.95 36
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 86
- \TU/Arial(0)/m/n/10.95 38
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 87
- \TU/Arial(0)/m/n/10.95 38
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 88
- \TU/Arial(0)/m/n/10.95 39
+ \TU/Arial(0)/m/n/10.95 37
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 89
+ \TU/Arial(0)/m/n/10.95 38
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 90
+ \TU/Arial(0)/m/n/10.95 39
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 91
+ \TU/Arial(0)/m/n/10.95 40
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 93
  \TU/Arial(0)/m/n/10.95 40
  []
 
@@ -2161,8 +2168,63 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [5]
-Overfull \hbox (12.17973pt too wide) detected at line 91
- \TU/Arial(0)/m/n/10.95 40
+Overfull \hbox (12.17973pt too wide) detected at line 96
+ \TU/Arial(0)/m/n/10.95 41
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 100
+ \TU/Arial(0)/m/n/10.95 42
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 101
+ \TU/Arial(0)/m/n/10.95 43
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 102
+ \TU/Arial(0)/m/n/10.95 43
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 103
+ \TU/Arial(0)/m/n/10.95 43
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 104
+ \TU/Arial(0)/m/n/10.95 43
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 105
+ \TU/Arial(0)/m/n/10.95 44
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 106
+ \TU/Arial(0)/m/n/10.95 45
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 109
+ \TU/Arial(0)/m/n/10.95 46
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 110
+ \TU/Arial(0)/m/n/10.95 47
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 111
+ \TU/Arial(0)/m/n/10.95 48
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 113
+ \TU/Arial(0)/m/n/10.95 48
  []
 
 )
@@ -2195,6 +2257,11 @@ Overfull \hbox (12.17973pt too wide) detected at line 9
 
 Overfull \hbox (12.17973pt too wide) detected at line 10
  \TU/Arial(0)/m/n/10.95 27
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 11
+ \TU/Arial(0)/m/n/10.95 30
  []
 
 )
@@ -2592,8 +2659,11 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [29]
-./Chapters/4SystemArchitectureDesign.tex:327: Undefined control sequence.
-l.327 ... that leveraging Python's native \textttt
+File: Figures/4SystemArchitectureDesign/db_er.png Graphic file (type bmp)
+<Figures/4SystemArchitectureDesign/db_er.png>
+
+./Chapters/4SystemArchitectureDesign.tex:336: Undefined control sequence.
+l.336 ... that leveraging Python's native \textttt
                                                   {asyncio} would benefit th...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2611,19 +2681,19 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [30]
-Overfull \hbox (21.39369pt too wide) in paragraph at lines 342--344
+Overfull \hbox (21.39369pt too wide) in paragraph at lines 351--353
 []\TU/Arial(0)/b/n/10.95 Quart (ASGI Flask): \TU/Arial(0)/m/n/10.95 A Flask-com
 patible [][][]ASGI[][] reimplementation with native async/await
  []
 
 
-Overfull \hbox (2.27217pt too wide) in paragraph at lines 350--353
+Overfull \hbox (2.27217pt too wide) in paragraph at lines 359--362
 []\TU/Arial(0)/m/n/10.95 While Flask remained suitable for early development, e
 merging requirements—particularly
  []
 
 
-Overfull \hbox (4.53853pt too wide) in paragraph at lines 350--353
+Overfull \hbox (4.53853pt too wide) in paragraph at lines 359--362
 \TU/Arial(0)/m/n/10.95 those involving asynchronous communication for more scal
 able I/O operations—eventually
  []
@@ -2638,20 +2708,30 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [31]
-Underfull \hbox (badness 10000) in paragraph at lines 375--376
+Underfull \hbox (badness 10000) in paragraph at lines 384--385
 []\TU/Arial(0)/b/n/10.95 app \TU/Arial(0)/m/n/10.95 = Celery(’tasks’, broker=’r
 edis://localhost:6379/0’, back-
  []
 
 
-./Chapters/4SystemArchitectureDesign.tex:412: Package glossaries Error: Glossar
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[32]
+
+./Chapters/4SystemArchitectureDesign.tex:421: Package glossaries Error: Glossar
 y entry `ASGI' has not been defined.
 
 See the glossaries package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.412         Flask syntax with\ac{ASGI} 
+l.421         Flask syntax with\ac{ASGI} 
                                          compliance. As a near-drop-in repla...
 
 You need to define a glossary entry before you can use it.
@@ -2665,31 +2745,22 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[32]
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
 [33]
 
-./Chapters/4SystemArchitectureDesign.tex:443: Package glossaries Error: Glossar
+./Chapters/4SystemArchitectureDesign.tex:452: Package glossaries Error: Glossar
 y entry `ASGI' has not been defined.
 
 See the glossaries package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.443 ...was driven by FastAPI's native \ac{ASGI} 
+l.452 ...was driven by FastAPI's native \ac{ASGI} 
                                                   support, which provides bu...
 
 You need to define a glossary entry before you can use it.
 
 
-Overfull \hbox (18.5457pt too wide) in paragraph at lines 442--450
+Overfull \hbox (18.5457pt too wide) in paragraph at lines 451--459
 \TU/Arial(0)/m/n/10.95 concurrency through asyncio-compatible architecture, whi
 ch enables concurrent non-blocking
  []
@@ -2706,18 +2777,10 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 [34]
 Chapter 5.
 
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 17.
-
-
-Overfull \hbox (19.88596pt too wide) in paragraph at lines 26--30
+Overfull \hbox (19.88596pt too wide) in paragraph at lines 68--72
 []\TU/Arial(0)/m/n/10.95 All application components were developed in Python 3.
 10+, chosen for its mature async/await
  []
-
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 66.
 
 
 
@@ -2732,22 +2795,29 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 ]
 
-./Chapters/5Implementation.tex:73: Package glossaries Error: Glossary entry `AS
+./Chapters/5Implementation.tex:80: Package glossaries Error: Glossary entry `AS
 GI' has not been defined.
 
 See the glossaries package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.73 ...SGI entry point to run with any \ac{ASGI}-
-                                                  compliant server
+l.80 ...    \item \texttt{main.py} - The\ac{ASGI} 
+                                                  entry point to run with an...
+
 You need to define a glossary entry before you can use it.
 
 
-Overfull \hbox (2.78189pt too wide) in paragraph at lines 119--122
-[]\TU/lmtt/m/n/10.95 repositories/ \TU/Arial(0)/m/n/10.95 implements the databa
-se abstraction layer using SQLModel/SQLAlchemy,
- []
+./Chapters/5Implementation.tex:80: Package glossaries Error: Glossary entry `AS
+GI' has not been defined.
+
+See the glossaries package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80 ...SGI} entry point to run with any\ac{ASGI}-
+                                                  compliant server
+You need to define a glossary entry before you can use it.
 
 
 
@@ -2759,89 +2829,19 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [36]
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 137--137
+Overfull \hbox (2.78189pt too wide) in paragraph at lines 126--129
+[]\TU/lmtt/m/n/10.95 repositories/ \TU/Arial(0)/m/n/10.95 implements the databa
+se abstraction layer using SQLModel/SQLAlchemy,
+ []
+
+
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 147--147
 [][][] 
  []
 
 
-Overfull \hbox (3.40549pt too wide) in paragraph at lines 137--137
+Overfull \hbox (3.40549pt too wide) in paragraph at lines 147--147
 [][][] 
- []
-
-./Chapters/5Implementation.tex:151: Missing $ inserted.
-<inserted text> 
-                $
-l.151 ...centralized in \texttt{logging_config.py}
-                                                  , which automatically crea...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./Chapters/5Implementation.tex:151: Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.151 ...centralized in \texttt{logging_config.py}
-                                                  , which automatically crea...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./Chapters/5Implementation.tex:156: Missing $ inserted.
-<inserted text> 
-                $
-l.156 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (847.8468pt too wide) in paragraph at lines 149--156
-\TU/Arial(0)/m/n/10.95 identifiers for all log entries. Configuration is centra
-lized in \TU/lmtt/m/n/10.95 logging$[]\OML/zplm/m/it/10.95 onfig\OT1/ppl/m/n/10
-.95 .\OML/zplm/m/it/10.95 py\OT1/ppl/m/n/10.95 , \OML/zplm/m/it/10.95 whichauto
-maticallycreatesandmanagesthe[]fileintheprojectrootdirectorywhilesimultaneously
-outputtingtotheconsole\OT1/ppl/m/n/10.95 .\OML/zplm/m/it/10.95 Bydefault\OT1/pp
-l/m/n/10.95 , \OML/zplm/m/it/10.95 thesystemlogsmessagesatINFOlevelandabove\OT1
-/ppl/m/n/10.95 , \OML/zplm/m/it/10.95 withbuilt \OMS/zplm/m/n/10.95 ^^@
- []
-
-
-Overfull \hbox (520.17555pt too wide) in paragraph at lines 149--156
-\OML/zplm/m/it/10.95 inflexibilitytoadjustverbosityfordebuggingpurposesthroughs
-impleconfigurationchanges\OT1/ppl/m/n/10.95 .\OML/zplm/m/it/10.95 Thisapproache
-nsuresuniformloggingbehaviorwhilemaintainingadaptabilityfordifferentruntimeenvi
-ronments\OT1/ppl/m/n/10.95 .$ 
- []
-
-
-Overfull \hbox (61.8523pt too wide) in paragraph at lines 157--160
-[]\TU/lmtt/m/n/10.95 The implementation follows Python best practices while all
-owing for future extensions
- []
-
-
-Overfull \hbox (29.27605pt too wide) in paragraph at lines 157--160
-\TU/lmtt/m/n/10.95 such as log rotation or remote logging services. All applica
-tion modules should
- []
-
-
-Overfull \hbox (50.3548pt too wide) in paragraph at lines 157--160
-\TU/lmtt/m/n/10.95 obtain their logger instance through the provided get_logger
-() function to maintain
- []
-
-
-Overfull \hbox (27.3598pt too wide) in paragraph at lines 163--166
-[]\TU/lmtt/m/n/10.95 The nornir_lib/ directory implements the evaluation system
- that interfaces with
- []
-
-
-Overfull \hbox (52.27104pt too wide) in paragraph at lines 163--166
-\TU/lmtt/m/n/10.95 various virtual devices. This component executes commands ac
-ross network topologies
  []
 
 
@@ -2854,75 +2854,152 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [37]
-Overfull \hbox (37.48854pt too wide) in paragraph at lines 169--170
-[]\TU/lmtt/m/n/10.95 config.yaml - Specifies paths to host/group files and Norn
-ir runner settings 
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[38]
+Overfull \hbox (80.05281pt too wide) in paragraph at lines 225--232
+\TU/Arial(0)/m/n/10.95 This requires implementing device-specific command metho
+ds (\TU/lmtt/m/n/10.95 _command_router()\TU/Arial(0)/m/n/10.95 , \TU/lmtt/m/n/1
+0.95 _command_switch()\TU/Arial(0)/m/n/10.95 ,
  []
 
 
-Overfull \hbox (43.23729pt too wide) in paragraph at lines 170--171
-[]\TU/lmtt/m/n/10.95 host_file - Contains device credentials (IP, username, pas
-sword in plaintext) 
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[39]
+Overfull \hbox (42.56549pt too wide) in paragraph at lines 259--265
+[]\TU/Arial(0)/m/n/10.95 The library implements a consistent error handling app
+roach through the \TU/lmtt/m/n/10.95 @handle_network_errors
+ []
+
+./Chapters/5Implementation.tex:273: Misplaced \noalign.
+\midrule ->\noalign 
+                    {\ifnum 0=`}\fi \@aboverulesep =\aboverulesep \global \@...
+l.273                     \midrule
+                                  
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+./Chapters/5Implementation.tex:274: Extra alignment tab has been changed to \cr
+.
+<recently read> \endtemplate 
+                             
+l.274                     Network Connectivity &
+                                                 Returns \texttt{False} with...
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+./Chapters/5Implementation.tex:276: Extra alignment tab has been changed to \cr
+.
+<recently read> \endtemplate 
+                             
+l.276                     Other HTTP Errors &
+                                              Propagates with original statu...
+You have given more \span or & marks than there were
+in the preamble to the \halign or \valign now in progress.
+So I'll assume that you meant to type \cr instead.
+
+./Chapters/5Implementation.tex:278: Misplaced \noalign.
+\bottomrule ->\noalign 
+                       {\ifnum 0=`}\fi \@aboverulesep =\aboverulesep \global...
+l.278                     \bottomrule
+                                     
+I expect to see \noalign only after the \cr of
+an alignment. Proceed, and I'll ignore this case.
+
+
+Overfull \hbox (116.99998pt too wide) in paragraph at lines 270--280
+ [][] 
  []
 
 
-Overfull \hbox (39.40479pt too wide) in paragraph at lines 171--172
-[]\TU/lmtt/m/n/10.95 group_file - Defines device group parameters (must maintai
-n fast_cli: false) 
+Underfull \hbox (badness 10000) in paragraph at lines 301--302
+[]|\TU/Arial(0)/m/n/10.95 Custom status code processing (e.g.,
  []
 
 
-Overfull \hbox (15.8623pt too wide) in paragraph at lines 174--179
-[]\TU/lmtt/m/n/10.95 Developers can implement new test modules by extending the
- base CommandModule
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[40]
+Overfull \hbox (3.32486pt too wide) in paragraph at lines 324--328
+[]\TU/Arial(0)/m/n/10.95 The [][][]GNS3[][] [][][]API[][] wrapper provides esse
+ntial operations for managing [][][]GNS3[][] projects through
  []
 
 
-Overfull \hbox (63.76854pt too wide) in paragraph at lines 174--179
-\TU/lmtt/m/n/10.95 class. This requires implementing device-specific command me
-thods (_command_router(),
+Overfull \hbox (3.67155pt too wide) in paragraph at lines 331--332
+[] []\TU/Arial(0)/b/n/10.95 Implementation Characteristics[] \TU/Arial(0)/m/n/1
+0.95 The wrapper shares several architectural features with
  []
 
 
-Overfull \hbox (109.75851pt too wide) in paragraph at lines 174--179
-\TU/lmtt/m/n/10.95 _command_switch(), etc.) and corresponding response interpre
-ters (interpret_cisco_response(),
- []
 
 
-Overfull \hbox (6.28105pt too wide) in paragraph at lines 174--179
-\TU/lmtt/m/n/10.95 etc.). The bundled Ping module demonstrates this pattern, ta
-king source and
- []
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[41]
 
 
-Overfull \hbox (27.3598pt too wide) in paragraph at lines 174--179
-\TU/lmtt/m/n/10.95 destination parameters and evaluating success based on confi
-gurable packet loss
- []
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[42]
 
 
-Overfull \hbox (44.60605pt too wide) in paragraph at lines 187--191
-[]\TU/lmtt/m/n/10.95 Key design considerations include the mandatory plaintext 
-credentials in host_file
- []
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[43]
 
 
-Overfull \hbox (10.11356pt too wide) in paragraph at lines 187--191
-\TU/lmtt/m/n/10.95 and the performance-sensitive fast_cli setting that must rem
-ain disabled for
- []
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[44]
 
 
-Overfull \hbox (69.51729pt too wide) in paragraph at lines 187--191
-\TU/lmtt/m/n/10.95 reliable operation. The system currently includes Ping and T
-raceroute implementations,
- []
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-
-Overfull \hbox (27.3598pt too wide) in paragraph at lines 187--191
-\TU/lmtt/m/n/10.95 with the modular design facilitating additional test types t
-hrough either class
+[45]
+Overfull \hbox (8.02051pt too wide) in paragraph at lines 493--497
+\TU/Arial(0)/m/n/10.95 value with the user and creation time included. Addition
+ally, any write (POST/PUT/DELETE)
  []
 
 ) (./Chapters/6TestingEvaluation.tex
@@ -2934,7 +3011,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[38]
+[46]
 Chapter 6.
 ) (./Chapters/7ConclusionFutureWork.tex
 
@@ -2945,7 +3022,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[39
+[47
 
 ]
 Chapter 7.
@@ -2962,98 +3039,9 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[40
+[48
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 32--32
-[]\TU/lmtt/m/n/10.95 P. M. C. Santos, ``Environment for practical evaluations i
-n network
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--32
-\TU/lmtt/m/n/10.95 administration,'' Master's thesis, Faculdade de Ciências da
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--32
-\TU/lmtt/m/n/10.95 Universidade do Porto, Porto, Portugal, 2024, accessed: Marc
-h 21,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--39
-[]\TU/lmtt/m/n/10.95 GNS3 Documentation, ``Architecture,'' n.d., accessed: Marc
-h 15, 2025.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--39
-\TU/lmtt/m/n/10.95 [Online]. Available: [][]$[][][][][] [] [] [] [][][][] [] []
-[][][] [] [][][] [] [][][][] [] [][][][][] [][] [][][][] [] [][][][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--46
-[]\TU/lmtt/m/n/10.95 Proxmox Server Solutions GmbH, \TU/lmtt/m/it/10.95 Proxmox
- VE Administration Guide\TU/lmtt/m/n/10.95 , 2025,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--46
-\TU/lmtt/m/n/10.95 accessed: March 21, 2025. [Online]. Available: [][]$[][][][]
-[] [] [] [] [][][] [] [][][][][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--53
-[]\TU/lmtt/m/n/10.95 P. J. Eby, \TU/lmtt/m/it/10.95 PEP 333 – Python Web Server
- Gateway Interface v1.0\TU/lmtt/m/n/10.95 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--53
-\TU/lmtt/m/n/10.95 Online, 2003, accessed: March 21, 2025. [Online]. Available:
- [][]$[][][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--59
-[]\TU/lmtt/m/n/10.95 P. Projects, ``Flask documentation,'' Online, 2025, access
-ed: March
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--59
-\TU/lmtt/m/n/10.95 21, 2025. [Online]. Available: [][]$[][][][][] [] [] [] [][]
-[][][] [] [][][][][][][][][][][][][][][] [] [][][] [] [][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 66--66
-[]\TU/lmtt/m/n/10.95 D. Barroso, ``Nornir: The python automation framework,'' O
-nline,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 66--66
-\TU/lmtt/m/n/10.95 2025, accessed: March 21, 2025. [Online]. Available: [][]$[]
-[][][][] [] [] [] [][][][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--71
-[]\TU/lmtt/m/n/10.95 J. Leal and F. Silva, ``Mooshak: a web-based multi-site pr
-ogramming
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--71
-\TU/lmtt/m/n/10.95 contest system,'' \TU/lmtt/m/it/10.95 SOFTWARE-PRACTICE & EX
-PERIENCE\TU/lmtt/m/n/10.95 , vol. 33, no. 6, pp.
- []
-
-) (./Appendices/AppendixTemplate.tex
+]) (./Appendices/AppendixTemplate.tex
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3062,7 +3050,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[41
+[49
 
 ])
 
@@ -3073,7 +3061,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[42
+[50
 
 ] (./main.aux)
  ***********
@@ -3085,21 +3073,17 @@ L3 programming layer <2025-01-18>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A6F32DA0B2910F85016F4C1154158119;14117.
+(rerunfilecheck)             Checksum: 08520B9173C8AB7935EE04F256823077;16424.
 Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: 74EB2C3E6D6A5E30C4DC013A1BE89296;471.
- )
-(\end occurred inside a group at level 1)
-
-### simple group (level 1) entered at line 151 ({)
-### bottom level 
+(rerunfilecheck)             Checksum: B3716B97A16F5FFF940D0FBF3AD70A20;518.
+ ) 
 Here is how much of TeX's memory you used:
- 55428 strings out of 473840
- 1227471 string characters out of 5729725
- 1707641 words of memory out of 5000000
- 77595 multiletter control sequences out of 15000+600000
- 568597 words of font info for 91 fonts, out of 8000000 for 9000
+ 55466 strings out of 473840
+ 1228378 string characters out of 5729725
+ 1711881 words of memory out of 5000000
+ 77639 multiletter control sequences out of 15000+600000
+ 568565 words of font info for 87 fonts, out of 8000000 for 9000
  1351 hyphenation exceptions out of 8191
  120i,19n,129p,2378b,1568s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (52 pages).
+Output written on main.pdf (60 pages).
