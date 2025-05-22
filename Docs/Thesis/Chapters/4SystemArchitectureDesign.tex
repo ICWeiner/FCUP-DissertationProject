@@ -27,6 +27,119 @@ components that make up its architecture.
 
 \section{Functional Use Cases}
 
+    This section outlines the key functional use cases that the system must support to fulfill its intended requirements. 
+    Functional use cases describe the interactions between the users (actors) and the system, detailing the expected 
+    behavior and workflow for each core functionality. These use cases serve as a foundation for understanding the system's 
+    design and implementation.
+
+    \subsection{Teacher Creates a New Exercise}
+        \textbf{Actor:} Teacher
+
+        \textbf{Preconditions:} The teacher is authenticated.
+
+        \textbf{Main Flow:}
+        \begin{enumerate}
+            \item The teacher fills out a exercise creation form with the exercise metadata.
+            \item The teacher enters a template\ac{vm} ID into the form.
+            \item The teacher submits the form.
+            \item The system clones the selected template.
+            \item The system uploads the\ac{gns3} project file provided in the form to the newly cloned \ac{vm}.
+            \item (Optional) The system performs form-defined pre-configurations to the\ac{gns3} topology.
+            \item The system transforms the new\ac{vm} into a template ready to be cloned for use by students.
+        \end{enumerate}
+
+        \textbf{Postconditions:} The exercise and related specific\ac{vm} are created and stored in the system.
+
+    \subsection{System Supports Enrollment of Users into Exercises}
+        \textbf{Actor:} Teacher
+
+        \textbf{Preconditions:} Exercises exist in the system.
+
+        \textbf{Main Flow:}
+        \begin{enumerate}
+            \item The teacher selects an exercise.
+            \item The teacher navigates to an enrollment interface.
+            \item The teacher uploads a list of new users.
+            \item (Optional) The system checks the list of users against existing directory services.
+            \item If necessary, new users are registered automatically.
+            \item The system validates if the list contains already enrolled users.
+            \item The system creates\ac{vm}s for non-enrolled users.
+            \item The system creates associations between the users, the\ac{vm}s and the exercise.
+        \end{enumerate}
+
+    \subsection{System Supports Both Directory Integration and Local Authentication}
+        \textbf{Actor:} System Administrator
+
+        \textbf{Preconditions:} Configuration phase or system startup.
+
+        \textbf{Main Flow:}
+        \begin{enumerate}
+            \item The administrator configures the authentication method.
+            \item If directory integration is enabled, connection to LDAP or similar service is established.
+            \item If local authentication is selected, user credentials are stored and verified locally.
+            \item During login, the system checks which method is active and authenticates accordingly.
+        \end{enumerate}
+
+        \textbf{Postconditions:} Users can authenticate via the chosen method: directory service or local credentials.
+
+
+    \subsection{Student Starts Their Exercise VM}
+        \textbf{Actor:} Student
+
+        \textbf{Preconditions:} A cloned\ac{vm}. is already assigned to the student.
+
+        \textbf{Main Flow:}
+        \begin{enumerate}
+            \item The student logs in and navigates to the assigned exercise.
+            \item The student clicks the \texttt{Start VM} button.
+            \item The system sends an API request to the Proxmox server to start the\ac{vm}..
+        \end{enumerate}
+
+        \textbf{Postconditions:} The\ac{vm} is started and becomes accessible for the student.
+
+    \subsection{Student Submits Solution}
+        \textbf{Actor:} Student
+
+        \textbf{Preconditions:} The student's\ac{vm} is running and reachable.
+
+        \textbf{Main Flow:}
+        \begin{enumerate}
+            \item The student clicks the \texttt{Submit} button for the exercise.
+            \item The system (via Nornir) connects to the student's\ac{vm}.
+            \item Commands are executed and their output is validated.
+        \end{enumerate}
+
+        \textbf{Postconditions:} The validation results are saved and feedback is made available.
+
+    \subsection{Teacher Reviews Student Results}
+        \textbf{Actor:} Teacher
+
+        \textbf{Preconditions:} At least one student has submitted their solution.
+
+        \textbf{Main Flow:}
+        \begin{enumerate}
+            \item The teacher logs into the system and selects an exercise.
+            \item The system displays a list of students along with their submission statuses.
+            \item The teacher selects a student to view detailed feedback and logs.
+        \end{enumerate}
+
+        \textbf{Postconditions:} The teacher reviews the validation output for grading or feedback.
+
+    \subsection{Student Views Exercise Feedback}
+        \textbf{Actor:} Student
+
+        \textbf{Preconditions:} The student has at least one completed submission.
+
+        \textbf{Main Flow:}
+        \begin{enumerate}
+            \item The student logs into the system and navigates to submission history.
+            \item The student selects a submission to view its result.
+            \item The system displays validation output and feedback.
+        \end{enumerate}
+
+        \textbf{Postconditions:} The student sees the outcome of the submission and understands any errors.
+
+
 \section{System Architecture Overview}
     The architecture is divided into several key components, each responsible for a specific aspect of the system's functionality. 
     The main components of the system architecture are as follows:
@@ -43,7 +156,7 @@ components that make up its architecture.
         
         \item \textbf{GNS3:}\ac{gns3} is used to emulate all the components of the virtual networks to be configured by students, 
         using various types of virtualization detailed earlier. Communication with\ac{gns3} is done through 
-        the\ac{gns3}\ac{rest}\ac{api} by the web application during template\ac{vm} creation and validation
+        the\ac{gns3}\ac{rest}\ac{api} by the web application
 
         \item \textbf{Nornir:} This automation framework is used for validating device configurations. It connects to the 
         virtualized devices, executes commands, and compares the output to expected results to determine correctness.
@@ -58,18 +171,17 @@ components that make up its architecture.
     and their components.
 
     All\ac{pve}-related operations—such as cloning, starting, templating, and deletion—are fully automated and triggered by the 
-    web application. Under normal operation ,after doing pre-required setup, no further manual intervention using the\ac{pve} web 
-    UI or shell utilities is required; such intervention is only necessary when the system's error handling mechanisms detect failures 
-    that cannot be automatically resolved. To securely execute these operations, the application authenticates to the\ac{pve}\ac{api} 
-    using token-based authentication. The required credentials and configuration parameters are securely injected via environment variables\unsure{this may change}, 
-    while the time limited token is stored in memory, ensuring that only authorized and properly configured processes can interact 
-    with the\ac{pve} infrastructure.
+    web application. Under normal operating conditions, no manual intervention via the\ac{pve} web interface or shell utilities 
+    is required once the initial setup is complete. Such intervention should only be necessary when the system's error handling 
+    mechanisms aren't capable of automatically resolving errors. To securely execute these operations, the application 
+    authenticates to the\ac{pve}\ac{api} using token-based authentication, ensuring that only authorized and properly configured 
+    processes can interact with the\ac{pve} infrastructure.
 
     \subsection{Why Proxmox VE?}
 
         \ac{pve} was chosen for several compelling reasons that make it ideal for it to be choosen as our virtualization platform. First, 
         it's completely free to use for all core functionality, with no hidden costs or licensing traps. Unlike proprietary solutions that 
-        charge per CPU core or socket,\ac{pve} lets us scale up our infrastructure without worrying about surprise licensing fees.
+        charge per CPU core or socket,\ac{pve} lets us scale up our infrastructure without worrying about licensing fees.
 
         The platform's support for both containers and\ac{vm}s within a single management interface gives us tremendous flexibility. We 
         can run lightweight\ac{lxc} for applications that dont require a full\ac{vm} while using full\ac{vm}s where required seamlessly. 
@@ -89,14 +201,14 @@ components that make up its architecture.
         where the system did not provide task ids in the\ac{http} responses. This forced us to implement custom polling mechanisms to reliably 
         determine operation completion states where possible.
 
-        A more critical limitation emerged in\ac{pve}ac{rest}ac{api}'s resilience characteristics. During stress testing, we discovered that 
+        A more critical limitation emerged in\ac{pve}\ac{rest}\ac{api}'s resilience characteristics. During stress testing, we discovered that 
         even moderate request volumes done using a single machine running sequential code could overwhelm the single-node cluster's management 
         daemon, triggering frequent\ac{http} 500 errors. These reliability constraints necessitated the development of protective measures 
         including exponential backoff retry logic and strict client-side concurrent request limiting to maintain system stability.
 
     \subsection{Proxmox VE Firewall}
 
-        \ac{pve} comes bundled with a iptables-based firewall implementation that can be enabled and configured at different levels.
+        \ac{pve} comes bundled with an iptables-based firewall implementation that can be enabled and configured at different levels.
 
         The Proxmox host-level firewall provides essential features for securing student work environments, during examination 
         periods, preventing student machines and the virtualized network equipments in them from communicating with outside networks.

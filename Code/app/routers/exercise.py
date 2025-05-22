@@ -178,9 +178,9 @@ async def update_exercise_enlistment(
     form_data = await request.form()
     action = form_data.get("action")
     user_ids = form_data.getlist("user_ids")  # Get all selected user IDs
-    user_names = form_data.get("students")
+    sent_names = form_data.get("names")
     
-    if not action or ( not user_ids and not user_names):
+    if not action or ( not user_ids and not sent_names):
         raise HTTPException(status_code=400, detail="No action or users selected")
     
     # Get exercise to access templatevm_id
@@ -190,29 +190,33 @@ async def update_exercise_enlistment(
     
     if action == "enlist":
         # Get users that don't already have workvms
-        user_names = [line.strip() for line in user_names.strip().splitlines() if line.strip()]
 
-        found_users = user_repository.find_by_usernames(user_names)
-        
-        found_usernames = {user.username for user in found_users}
+        #deduplicate sent usernames and separate by \n 
+        sent_names = list({name.strip() for name in sent_names.strip().splitlines() if name.strip()})
 
-        not_found = [u for u in user_names if u not in found_usernames]
+        # Look up existing users in DB
+        found_users = user_repository.find_by_usernames(sent_names)
+        existing_usernames_in_db = {user.username for user in found_users}
 
-        for user_name in not_found:
-            if not auth_services.find_user_dn(user_name, LDAP_BASE_DN): 
-                not_found.remove(user_name)
+        # Create new users for valid LDAP users not in DB
+        new_users = [
+            User(
+                username=name,
+                email=f"{name}@mail.com",
+                hashed_password="",
+                admin=False,
+                realm=LDAP_BASE_REALM
+            )
+            for name in sent_names
+            if name not in existing_usernames_in_db and auth_services.find_user_dn(name, LDAP_BASE_DN)
+        ]
 
-        new_users = [User(username=u,
-                          email = f"{u}@mail.com",
-                          hashed_password = "",
-                          admin = False,
-                          realm = LDAP_BASE_REALM)
-                        for u in not_found]
-        
         user_repository.batch_save(new_users)
 
+        # Combine existing and new users
         found_users.extend(new_users)
 
+        # Get users that already have a work VM
         users_that_have_workvms = user_repository.get_users_for_exercise(exercise_id)
         existing_user_ids = {user.id for user in users_that_have_workvms}
         

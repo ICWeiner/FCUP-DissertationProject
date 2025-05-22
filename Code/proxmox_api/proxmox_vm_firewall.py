@@ -18,50 +18,61 @@ def _get_firewall_uri_list(proxmox_host: str):    #Get list of all firewall acti
     return uri_list
 
 @decorators.handle_network_errors
-async def acreate_proxmox_vm_isolation_rules(proxmox_host: str, session: httpx.Client, vm_proxmox_id: str, allowed_vm_ip: str) -> bool:
+async def acreate_proxmox_vm_isolation_rules(proxmox_host: str, session: httpx.Client, vm_proxmox_id: str, validation_vm_ip: str, client_ip) -> bool:
 
     for uri in _get_firewall_uri_list(proxmox_host):
         response = await session.put(uri, data = {'enable':1})
         response.raise_for_status()
 
-    firewall_rule_0 = {    
-                'comment': 'VM accepts only packets from Teacher VM',
-                'source': allowed_vm_ip,
-                'action': 'ACCEPT',
-                'enable': 1,
-                'type': 'in',
-            } 
-    
-    firewall_rule_1 = {    
-                'comment': 'VM sends only packets to Teacher VM',
-                'dest': allowed_vm_ip,
-                'action': 'ACCEPT',
-                'enable': 1,
-                'type': 'out',
-            }
-    
-    firewall_rule_2 = {    
-                'comment': 'VM drops all other packets',
-                'action': 'DROP',
-                'enable': 1,
-                'type': 'in',
-            } 
-    
-    firewall_rule_3 = {    
-                'comment': 'VM drops all other packets',
-                'action': 'DROP',
-                'enable': 1,
-                'type': 'out',
-            } 
+    firewall_rules = [
+        {
+            'comment': 'VM accepts packets from Validation VM',
+            'source': validation_vm_ip,
+            'action': 'ACCEPT',
+            'enable': 1,
+            'type': 'in',
+        },
+        {
+            'comment': 'VM sends packets to Validation VM',
+            'dest': validation_vm_ip,
+            'action': 'ACCEPT',
+            'enable': 1,
+            'type': 'out',
+        },
+        {
+            'comment': 'VM accepts packets from requesting client',
+            'source': client_ip,
+            'action': 'ACCEPT',
+            'enable': 1,
+            'type': 'in',
+        },
+        {
+            'comment': 'VM sends packets to requesting client',
+            'dest': client_ip,
+            'action': 'ACCEPT',
+            'enable': 1,
+            'type': 'out',
+        },
+        {
+            'comment': 'VM drops all other packets',
+            'action': 'DROP',
+            'enable': 1,
+            'type': 'in',
+        },
+        {
+            'comment': 'VM drops all other packets',
+            'action': 'DROP',
+            'enable': 1,
+            'type': 'out',
+        }
+    ]
 
     
     response = await session.put(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/options',
                         data = {'enable':1})
     response.raise_for_status()
 
-    firewall_rules = [firewall_rule_3, firewall_rule_2, firewall_rule_1, firewall_rule_0]
-
-    for rule in firewall_rules:
+    for rule in reversed(firewall_rules):
         response = await session.post(f'{proxmox_base_uri(proxmox_host)}/nodes/{constants.proxmox_node_name}/qemu/{vm_proxmox_id}/firewall/rules',
                                 data = rule)
         response.raise_for_status()

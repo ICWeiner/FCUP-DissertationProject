@@ -97,12 +97,14 @@ async def connect_vm(
     
 @router.post("/{vm_proxmox_id}/firewall/create")
 async def start_vm_firewall(
+    request: Request,
     vm_proxmox_id: int,
     current_user: CurrentUserDep,
     workvm: ValidateVmOwnershipDep
     ):
 
-    success = await proxmox_services.acreate_firewall_rules(current_user, vm_proxmox_id, 800)#remove hardcoded 800 id, should be the id of the fastapi host
+    client_ip = request.client.host
+    success = await proxmox_services.acreate_firewall_rules(current_user, vm_proxmox_id, 800, client_ip)#remove hardcoded 800 id, should be the id of the fastapi host
     
     if success:
         return {"message": "VM firewall created successfully"}

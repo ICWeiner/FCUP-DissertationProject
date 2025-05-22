@@ -156,10 +156,11 @@ async def acreate_firewall_rules(
     session: httpx.AsyncClient,
     user: UserPublic,
     vm_proxmox_id: str, 
-    teacher_vm_proxmox_id: str
+    teacher_vm_proxmox_id: str,
+    client_ip: str
     ) -> bool:
     teacher_vm_ip = await proxmox_vm_ip_fetcher.get_ip( _get_proxmox_host(), session, teacher_vm_proxmox_id)
-    return await proxmox_vm_firewall.acreate_proxmox_vm_isolation_rules( _get_proxmox_host(), session, vm_proxmox_id, teacher_vm_ip)
+    return await proxmox_vm_firewall.acreate_proxmox_vm_isolation_rules( _get_proxmox_host(), session, vm_proxmox_id, teacher_vm_ip, client_ip)
 
 @with_proxmox_session
 @decorators.with_retry()
