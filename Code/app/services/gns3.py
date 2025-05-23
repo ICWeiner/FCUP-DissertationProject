@@ -3,7 +3,7 @@ from gns3_api.utils import gns3_parser
 import asyncio 
 
 #TODO: these function might need retry mechanisms
-async def import_gns3_project(node_ip: str, path_to_gns3project: str) -> str:#TODO: decide if async or not 
+async def import_gns3_project(node_ip: str, path_to_gns3project: str) -> str:
     gns3_project_id = await gns3_actions.aimport_project(node_ip, path_to_gns3project)
 
     await asyncio.sleep(10) #GNS3 will immediately answer 200 OK , even though project has not actually finished importing

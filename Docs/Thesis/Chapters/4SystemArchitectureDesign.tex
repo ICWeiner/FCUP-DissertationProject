@@ -32,10 +32,24 @@ components that make up its architecture.
     behavior and workflow for each core functionality. These use cases serve as a foundation for understanding the system's 
     design and implementation.
 
+    \subsection{System Supports Both Directory Integration and Local Authentication}
+        \textbf{Actor:} System Administrator
+
+        \textbf{Main Flow:}
+        \begin{enumerate}
+            \item The administrator configures the authentication method.
+            \item If directory integration is enabled, LDAP or similar service becomes responsible for credential validation.
+            \item If local authentication is selected, user credentials are stored and verified locally.
+            \item During login, the system checks which method is active and authenticates accordingly.
+        \end{enumerate}
+
+        \textbf{Postconditions:} Users can authenticate via the configured method: directory service or local credentials.
+
+
     \subsection{Teacher Creates a New Exercise}
         \textbf{Actor:} Teacher
 
-        \textbf{Preconditions:} The teacher is authenticated.
+        \textbf{Preconditions:} The teacher is authenticated in a priviledged account.
 
         \textbf{Main Flow:}
         \begin{enumerate}
@@ -48,12 +62,13 @@ components that make up its architecture.
             \item The system transforms the new\ac{vm} into a template ready to be cloned for use by students.
         \end{enumerate}
 
-        \textbf{Postconditions:} The exercise and related specific\ac{vm} are created and stored in the system.
+        \textbf{Postconditions:} The exercise and related specific\ac{vm} are created and stored in the system and 
+        become visible to enrolled users.
 
     \subsection{System Supports Enrollment of Users into Exercises}
         \textbf{Actor:} Teacher
 
-        \textbf{Preconditions:} Exercises exist in the system.
+        \textbf{Preconditions:} Atleast one exercise exists in the system.
 
         \textbf{Main Flow:}
         \begin{enumerate}
@@ -67,26 +82,10 @@ components that make up its architecture.
             \item The system creates associations between the users, the\ac{vm}s and the exercise.
         \end{enumerate}
 
-    \subsection{System Supports Both Directory Integration and Local Authentication}
-        \textbf{Actor:} System Administrator
-
-        \textbf{Preconditions:} Configuration phase or system startup.
-
-        \textbf{Main Flow:}
-        \begin{enumerate}
-            \item The administrator configures the authentication method.
-            \item If directory integration is enabled, connection to LDAP or similar service is established.
-            \item If local authentication is selected, user credentials are stored and verified locally.
-            \item During login, the system checks which method is active and authenticates accordingly.
-        \end{enumerate}
-
-        \textbf{Postconditions:} Users can authenticate via the chosen method: directory service or local credentials.
-
-
     \subsection{Student Starts Their Exercise VM}
         \textbf{Actor:} Student
 
-        \textbf{Preconditions:} A cloned\ac{vm}. is already assigned to the student.
+        \textbf{Preconditions:} Student is enrolled in selected exercise.
 
         \textbf{Main Flow:}
         \begin{enumerate}
@@ -95,12 +94,12 @@ components that make up its architecture.
             \item The system sends an API request to the Proxmox server to start the\ac{vm}..
         \end{enumerate}
 
-        \textbf{Postconditions:} The\ac{vm} is started and becomes accessible for the student.
+        \textbf{Postconditions:} The\ac{vm} is started and its\ac{gns3} instance becomes accessible to the student.
 
     \subsection{Student Submits Solution}
         \textbf{Actor:} Student
 
-        \textbf{Preconditions:} The student's\ac{vm} is running and reachable.
+        \textbf{Preconditions:} The student's\ac{vm} and its its\ac{gns3} instance are running.
 
         \textbf{Main Flow:}
         \begin{enumerate}
@@ -166,7 +165,7 @@ components that make up its architecture.
 \section{Proxmox VE}
 
     \ac{pve} functions as the virtualization backbone of the system, enabling the creation and management of Linux-based\ac{vm}s 
-    which in turn host services for use by students. Each\ac{vm} runs a lightweight Linux-based operating system with a 
+    which in turn host services for use by students. Each student's\ac{vm} runs a lightweight Linux-based operating system with a 
     dedicated\ac{gns3} instance, providing a self-contained environment for deploying and configuring virtual networks 
     and their components.
 
@@ -190,13 +189,13 @@ components that make up its architecture.
         We also value storage system's flexibility with LVM-thin provisioning allows efficient snapshotting of student environments while 
         maintaining good performance.
 
-        Looking ahead,\ac{pve}'s built-in support for emerging technologies like software-defined networking and its robust role-based 
-        access control system means our project still has room to grow into\ac{pve}. The active open-source development community ensures 
-        continuous improvements without vendor lock-in.
+        Looking ahead,\ac{pve}'s built-in support for technologies like software-defined networking and a robust role-based access control 
+        system means our project still has room to grow into\ac{pve}. The active open-source development community ensures continuous 
+        improvements without vendor lock-in.
 
     \subsection{Proxmox VE Limitations}
 
-        During development, we encountered several challenges when interfacing programmatically with\ac{pve}. One of th most significant 
+        During development, we encountered several challenges when interfacing programmatically with\ac{pve}. One of the most significant 
         issues stemmed from the platform's limited visibility into non-instantaneous operations - particularly for tasks like\ac{vm} cloning, 
         where the system did not provide task ids in the\ac{http} responses. This forced us to implement custom polling mechanisms to reliably 
         determine operation completion states where possible.
@@ -204,7 +203,12 @@ components that make up its architecture.
         A more critical limitation emerged in\ac{pve}\ac{rest}\ac{api}'s resilience characteristics. During stress testing, we discovered that 
         even moderate request volumes done using a single machine running sequential code could overwhelm the single-node cluster's management 
         daemon, triggering frequent\ac{http} 500 errors. These reliability constraints necessitated the development of protective measures 
-        including exponential backoff retry logic and strict client-side concurrent request limiting to maintain system stability.
+        including exponential backoff retry logic and strict web application concurrent request limiting when interacting with\ac{pve} to maintain system stability.
+
+        One final limitation discovered during performance testing of batch creation and deletion of\ac{vm}s was that, on occasion, their disks 
+        would fail to be removed. This issue could not be detected through\ac{http} responses alone and was only observable by inspecting the\ac{pve} 
+        logs. As more disks failed to be removed, they accumulated as unused entries in storage, eventually leading to a noticeable performance regression. 
+        This specific limitation will be discussed in more detail in a later chapter.
 
     \subsection{Proxmox VE Firewall}
 
@@ -214,44 +218,46 @@ components that make up its architecture.
         periods, preventing student machines and the virtualized network equipments in them from communicating with outside networks.
 
         This is done by adding firewall rules at the host level, meaning to each relevant student\ac{vm}, that disable communications
-        in both directions, with the exception of the machine that is responsible for configuration validation.
+        in both directions, with the exception of the machine that is responsible for configuration validation and the machine the student is 
+        working from.
 
-        By default this behavior is not active and must be enabled on an as-needed basis, typically when a controlled assessment 
+        By default this behavior is not active and must be enabled on an as-needed basis, such as when a controlled assessment 
         environment is required for more rigorous situations such as examinations.
 
         In future iterations it may also be valuable to develop this further and making this feature less rigid as it may be interesting 
         to have exercises that communicate with devices on the internet.
     
-    \subsection{Exploration of containers as a full substitute for VMs}
+    \subsection{Maximing resource usage}
+        
+        During development, we attempted to minimize resource usage where possible to achieve higher levels of scaling potencial. 
+        The introduction of the\ac{gns3} web interface removed the need for students to interact with the\ac{vm} directly, allowing for 
+        operation in a headless manner. This eliminated the need for a desktop environment reducing memory overhead which improved scalability.
+        
+        \subsubsection{Exploration of containers as a full substitute for VMs}
 
-        During development, we attempted to minimize\ac{vm} usage where possible to accommodate as much scaling potencial as possible. 
-        The introduction of the\ac{gns3} web interface allowed the machines hosting\ac{gns3} instances to operate in a headless manner, 
-        removing the need for direct student interaction with the host machine. This eliminated desktop environment requirements and 
-        significantly reduced memory overhead, improving scalability.
+            We further explored replacing\ac{vm}s entirely with containers, which promised additional resource savings. However, this approach 
+            proved unfeasible due to fundamental technical constraints. Effective emulation requires\ac{kvm} acceleration, which presents 
+            two problematic scenarios in containerized environments: either running unprivileged containers without\ac{kvm} access, resulting 
+            in unacceptable performance degradation or configuring privileged containers or containers with\ac{kvm} passthrough, introducing 
+            serious security vulnerabilities.
 
-        We further explored replacing\ac{vm}s entirely with containers, which promised additional resource savings. However, this approach 
-        proved unworkable due to fundamental technical constraints. Effective emulation requires\ac{kvm} acceleration, which presents 
-        two problematic scenarios in containerized environments: either running unprivileged containers without\ac{kvm} access (resulting 
-        in unacceptable performance degradation) or configuring privileged containers or containers with\ac{kvm} passthrough (introducing 
-        serious security vulnerabilities).
+            Given that software emulation without\ac{kvm} acceleration delivers poor performance for interactive use, we abandoned containerization 
+            as a complete\ac{vm} replacement for\ac{gns3} hosts. The\ac{vm}-based architecture remains necessary to maintain both performance through hardware 
+            acceleration and proper isolation between student environments.
 
-        Given that software emulation without\ac{kvm} acceleration delivers poor performance for interactive use, we abandoned containerization 
-        as a complete\ac{vm} replacement. The\ac{vm}-based architecture remains necessary to maintain both performance through hardware 
-        acceleration and proper isolation between student environments.
+    \subsection{VM Lifecycle}
 
-        \subsubsection{VM Lifecycle}
+        The lifecycle of a\ac{vm} begins when a new exercise is created by a priviledged user through the web application. 
+        Upon exercise creation, the platform automatically clones a pre-configured base template\ac{vm} stored in\ac{pve}. This new instance 
+        undergoes a configuration process where the provided\ac{gns3} project file is imported and a series of user-defined commands are executed 
+        across the provided network topology. Once the setup is finalized, the configured\ac{vm} is converted into a new template\ac{vm} that 
+        is tailored to that exercise.
 
-            The lifecycle of a\ac{vm} begins when a new exercise is created by a priviledged user through the web application. 
-            Upon exercise creation, the platform automatically clones a pre-configured base template\ac{vm} stored in\ac{pve}. This new instance 
-            undergoes a configuration process where the provided\ac{gns3} project file is imported and a series of user-defined commands are executed 
-            across the provided network topology. Once the setup is finalized, the configured\ac{vm} is converted into a new template\ac{vm} that 
-            is tailored to that exercise.
-
-            When students are enrolled in an exercise, the system generates individual work environments, by creating linked clones from these 
-            exercise-specific templates. Each student receives their own isolated\ac{vm} instance that precisely mirrors the original template's 
-            configuration. This cloning approach ensures both consistency across student environments and rapid provisioning, as linked clones 
-            avoid the overhead of full disk copies while maintaining the template's baseline configuration. The use of linked clones significantly 
-            reduces both storage requirements and deployment time compared to traditional full cloning methods.
+        When students are enrolled in an exercise, the system generates individual work environments, by creating linked clones from these 
+        exercise-specific templates. Each student receives their own isolated\ac{vm} instance that precisely mirrors the original template's 
+        configuration. This cloning approach ensures both consistency across student environments and rapid provisioning, as linked clones 
+        avoid the overhead of full disk copies while maintaining the template's baseline configuration. The use of linked clones significantly 
+        reduces both storage requirements and deployment time compared to traditional full cloning methods.
         
 \section{GNS3}
 
@@ -269,9 +275,9 @@ components that make up its architecture.
     curation of the included device images.
 
     The system achieves scalability through multiple \ac{vm} instances running in \ac{pve}, each hosting an independent \ac{gns3} environment. 
-    This architecture enables concurrent usage by multiple students on a single physical host. For future expansion, the design supports 
-    horizontal scaling by adding additional nodes to the \ac{pve} cluster, allowing the platform to accommodate growing numbers of users 
-    without requiring complete architectural changes.
+    This architecture enables concurrent usage by multiple students on a single physical host. For future expansion the system can be installed 
+    on a machine with a higher core count and RAM amount and additionally be expanded horizontally by adding additional nodes to the \ac{pve} 
+    cluster, allowing the platform to accommodate growing numbers of users without requiring complete architectural changes.
 
     \begin{figure}
         \centering
@@ -303,19 +309,19 @@ components that make up its architecture.
 
         This machine's specifications, while capable enough for development purposes, create inherent memory constraints. With 32GB of available RAM, 
         practical\ac{vm} allocation becomes the primary bottleneck. For instance, when deploying\ac{gns3} instances each configured with 4GB of memory, 
-        the system can maintain only seven active\ac{vm}s simultaneously. This limitation accounts for the\ac{pve} hypervisor's own memory overhead 
+        the system can maintain only seven active\ac{vm}s simultaneously. This limitation accounts for \ac{pve}'s own memory overhead 
         before inducing SWAP file usage, which would degrade performance.
 
-    \subsection{User Interface}
-        The system employs a dual-interface web architecture accessible through standard browsers. For administrative functions and exercise management, 
-        users interact with Jinja2-rendered HTML pages delivered by the web application. These templates handle all developed features, like user 
+    \subsection{Interface Component}
+        This component is comprised by two distinct UIs accessible via standard browsers. For administrative functions and exercise management, 
+        users interact with Jinja2-rendered HTML pages delivered by the web application. These handle all developed features, like user 
         authentication,\ac{vm} interaction etc.
 
-        When working on networking exercises, users can transition to the \ac{gns3}-web interface by clicking a button. This dedicated environment 
+        When working on networking exercises, users transition to the \ac{gns3}-web interface. This dedicated environment 
         provides direct access to the user's virtual network devices, as required by each exercise scenario. This integration ensures users experience 
         a cohesive workflow from exercise selection to practical implementation without needing multiple authentication steps or application switches.
 
-    \subsection{Web Application}
+    \subsection{Web Application Component}
 
         The web application serves as the primary interface through which users interact with the system. It is built using the FastAPI 
         framework, following a migration from an earlier prototype developed using Flask, and follows an asynchronous-first, modular 
@@ -331,18 +337,19 @@ components that make up its architecture.
 
         Internally, the application is designed to be stateless and maintain minimal runtime state.  Most essential information—such 
         as user accounts, defined exercises, and student-to-VM mappings—is persisted in a relational database rather than stored in 
-        memory. Configuration values such as API tokens, base URLs, and database credentials are injected via environment variables 
-        to decouple deployment-specific settings from the application code. This design improves reliability, supports concurrent 
-        usage, and enables horizontal scalability if deployed across multiple instances. 
+        memory. Configuration parameters such as the cryptographic secret key, the\ac{pve} host IP address, database connection, as 
+        well as LDAP-specific realms and distinguished names, are injected through environment variables. This approach ensures that 
+        deployment-specific settings are decoupled from the application logic, promoting flexibility, portability, and security.
 
         To ensure maintainability and modularity, interactions with external services like\ac{pve} and\ac{gns3} are isolated in 
         dedicated modules. These serve as abstraction layers between the application logic and third-party\ac{api}s, exposing clean, 
         reusable interfaces while hiding low-level implementation details. For example,\ac{pve}-related operations such as\ac{vm} 
-        creation and deletion are handled in a separate module (e.g services/proxmox.py), as are all\ac{gns3}-related tasks. This 
-        separation of concerns improves the structure of the codebase and simplifies future maintainability by being more readable.
+        creation and deletion are handled in a separate module (e.g app/services/proxmox.py), which themselves interface with lower level 
+        implementations (proxmox_api/proxmox_vm_actions.py) as are all\ac{gns3}-related tasks. This separation of concerns improves 
+        the structure of the codebase and simplifies future maintainability by being more readable.
 
-        To help with development and testing, the application automatically generates OpenAPI-compliant documentation, allowing 
-        developers to explore and interact with available endpoints. This self-documenting behavior streamlines integration 
+        To help with development and testing, the application automatically generates OpenAPI-compliant documentation, a feature of FastAPI, 
+        allowing developers to explore and interact with available endpoints. This self-documenting behavior streamlines integration 
         testing and encourages a more agile development process.
 
         Finally, to safeguard user data and infrastructure control points, the application enforces secure authentication mechanisms 
@@ -365,14 +372,14 @@ components that make up its architecture.
 
         For network emulation, the system utilizes full\ac{kvm}-based virtual machines, each hosting a\ac{gns3} instance. These\ac{vm}s 
         provide the necessary hardware virtualization support for nested device emulation, particularly crucial for fast virtualization. 
-        Finally, by the use of linked clones and storage-efficient backing filesystems, in this case LVM-thin, allows the system to rapidly 
-        provision\ac{vm}s while minimizing storage usage.
+        Finally, by the use of linked clones and storage-efficient backing filesystems, allows the system to rapidly provision\ac{vm}s 
+        while minimizing storage usage.
     
-    \subsection{Evluation component}
+    \subsection{Evaluation component}
 
         The system employs a modular evaluation framework built on Nornir to validate configurations across virtualized network devices. 
         At its core, this component utilizes specialized Python classes called "modules" that encapsulate platform-specific validation logic. 
-        Each module is responsible for three key functions: identifying the target device's platform (such as Cisco IOS, Linux, or VPCS), 
+        Each module is responsible for three key functions: identifying the target device's platform (such as Cisco\ac{ios}, Linux, or\ac{vpcs}), 
         executing the appropriate validation commands for that platform, and interpreting the command output using regular expressions to d
         etermine configuration correctness.
 
@@ -384,8 +391,8 @@ components that make up its architecture.
         developers can create additional modules by simply extending the base class and implementing the required platform-specific methods.
         
         Configuration validation occurs through a multi-stage process. When a test is initiated, the system first identifies the target device's 
-        platform through Nornir's inventory system. It then dispatches the appropriate platform-specific command variant, such as the Cisco IOS-style 
-        ping command for routers versus the Linux \texttt{ping -c} syntax for Linux hosts. The module captures and sanitizes the raw command output, 
+        platform through Nornir's inventory system. It then dispatches the appropriate platform-specific command variant, such as the Cisco\ac{ios}-style 
+        ping command for cisco routers versus the Linux \texttt{ping -c} syntax for Linux hosts. The module captures and sanitizes the raw command output, 
         removing terminal control sequences and other artifacts before applying regular expressions to assess the results. For connectivity tests like 
         ping, the interpretation logic calculates success rates against a configurable tolerance threshold defined in the system constants.
         
@@ -396,7 +403,7 @@ components that make up its architecture.
 
     \subsection{Storage component}
         
-        The system has two main components regarding storage, one for the database needs of the web application and one for the disks of the \ac{vm}s.
+        The system has two main components regarding storage, one for the database needs of the web application and one for the disks of the\ac{vm}s.
 
         \subsubsection{Virtual machine storage}
 
@@ -458,7 +465,8 @@ components that make up its architecture.
             they are not true asyncio and can lead to unpredictable behavior. Given the project's early stage, this option was deemed too risky
 
             \item \textbf{Flask + Celery:} Offloading long-running tasks to Celery workers helps avoid blocking but introduces operational overhead, 
-            requiring additional infrastructure like Redis or RabbitMQ for message brokering
+            requiring additional infrastructure like Redis or RabbitMQ for message brokering, as well as resource overhead, as celery worker pools take 
+            up resources even when idle
 
             \item \textbf{Quart (ASGI Flask):} A Flask-compatible\ac{asgi} reimplementation with native async/await support. However, Quart lacks 
             Flask's mature ecosystem and still relies partially on monkey-patching, raising concerns about long-term stability

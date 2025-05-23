@@ -127,13 +127,14 @@ async def aimport_project(node_ip: str, filepath:str):
 
     filename = filepath.split("/")[-1] #Get the filename from the full path
 
-    logger.info(f"Importing project {project_id} on {node_ip}")
+    logger.info(f"Importing project with name {filename} and id {project_id} on {node_ip}")
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=30.0) as client:#default timeout not sufficient here
         response = await client.post(
             f'{_gns3_base_uri(node_ip)}/projects/{project_id}/import',
             headers = {'accept': 'application/json'},
-            files = {"archive": (filename, fileobj)}
+            files = {"archive": (filename, fileobj)},
+
             )
 
     response.raise_for_status()

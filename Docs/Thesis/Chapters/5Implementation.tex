@@ -11,13 +11,14 @@
 % For referencing this chapter elsewhere, use \ref{ChapterTemplate}
 \label{Chapter5Implementation}
 
+This chapter will expand on topics introduced in the last chapter, while going more into implementation specifics 
+and providing more details.
 
 % Write text in here
 % Use \subsection and \subsubsection to organize text
 \section{Project structure}
 
     In this section we will go over the structure and technologies used in the implementation of our project.
-
 
     \begin{forest}
         for tree={
@@ -55,6 +56,12 @@
         organizes code into logical components, while the use decorators and dependency injection promotes code reuse. 
         Strict interface boundaries between components maintain clear contracts, and repository patterns abstract data 
         access details. This approach adheres to DRY principles while ensuring maintainability as the project scales.
+        
+        \subsubsection{Python}
+            All application components were developed in Python 3.10+, chosen for its mature async/await implementation and 
+            robust type system. FastAPI serves as our web framework, having replaced earlier Flask + Celery-based prototypes 
+            due to its superior native async support. External API communications are handled through HTTPX for 
+            asynchronous\ac{http}\ac{rest} interactions, while network device configuration validation is managed via Nornir.
 
         \subsubsection{SQLite}
             For our database, we adopted SQLite during development, accessed through SQLModel - an\ac{orm} built atop SQLAlchemy 
@@ -63,12 +70,6 @@
             OpenAPI schema generation. The use of SQLModel ensures an easy future transition to production-grade databases 
             like PostgreSQL when needed.
 
-        \subsubsection{Python}
-
-            All application components were developed in Python 3.10+, chosen for its mature async/await implementation and 
-            robust type system. FastAPI serves as our web framework, having replaced earlier Flask + Celery-based prototypes 
-            due to its superior native async support. External API communications are handled through HTTPX for 
-            asynchronous\ac{http}\ac{rest} interactions, while network device configuration validation is managed via Nornir.
 
     \subsection{app/}
 
@@ -77,7 +78,7 @@
         application foundation:
 
         \begin{itemize}
-            \item \texttt{main.py} - The\ac{ASGI} entry point to run with any\ac{ASGI}-compliant server
+            \item \texttt{main.py} - The\ac{asgi} entry point to run with any\ac{asgi}-compliant server
             \item \texttt{database.py} - Manages database connections and session handling
             \item \texttt{models.py} - Defines all database tables and their relationships using SQLModel
             \item \texttt{decorators.py} - Contains reusable decorators for route handling and logic
@@ -118,7 +119,7 @@
             ]
         \end{forest}
 
-        \texttt{alembic/} responsible for creating and seeding the database with a small amount of dummy data.
+        \texttt{alembic/} responsible for database creation and migrations, aswell as seeding a small amount of dummy data.
 
         \texttt{dependencies/} contains all FastAPI dependency injections, including shared resources like model repositories,
         along with authentication and authorization utilities. These components are reused across multiple endpoints.
@@ -144,7 +145,7 @@
         The \texttt{inventory/} directory contains YAML configuration files that store static device information 
         for each topology. These files serve as a device registry, enabling Nornir to immediately access device 
         specifications without runtime type checking. This approach significantly improves automation performance 
-        by eliminating redundant device discovery operations.\unsure{this folder might not stay here}
+        by eliminating redundant device discovery operations.
 
         \begin{table}[h]
             \centering
@@ -169,8 +170,8 @@
             \item \textbf{Device Class}: Specifies the device type/role (determines connection handlers)
             \begin{itemize}
                 \item linuxvm: Linux hosts
-                \item cisco\_router: Cisco IOS Router
-                \item cisco\_switch: Cisco IOS Switch
+                \item cisco\_router: Cisco\ac{ios} Router
+                \item cisco\_switch: Cisco\ac{ios} Switch
                 \item vpcs: Virtual PC simulator
             \end{itemize}
             \item \textbf{Hostname}: Shared IP indicates all devices are virtual instances on the same host
@@ -182,7 +183,7 @@
         \begin{enumerate}
             \item The YAML structure enables easy integration with Nornir's inventory plugins
             \item Port assignments do not follow any specific order
-            \item Credential fields use \texttt{null} values for unauthenticated devices like VPCS
+            \item Credential fields use \texttt{null} values for unauthenticated devices like\ac{vpcs}
         \end{enumerate}
 
 
@@ -267,14 +268,14 @@
                 \centering
                 \caption{Error Handling Behavior}
                 \label{tab:error-handling}
-                \begin{tabular}{lp{8cm}}
+                \begin{tabular}{@{}lp{9cm}@{}}  % Slightly narrower if needed
                     \toprule
-                    \textbf{Case} & \textbf{Behavior} \
+                    \textbf{Case} & \textbf{Behavior} \\
                     \midrule
-                    Network Connectivity & Returns \texttt{False} with error logging \
-                    HTTP 404 (Not Found) & Logs and re-raises with request details \
-                    Other HTTP Errors & Propagates with original status code \
-                    Application Exceptions & Unmodified propagation \
+                    Network Connectivity & Returns \texttt{False} with error logging. \\
+                    HTTP 404 (Not Found) & Logs and re-raises with request details. \\
+                    Other HTTP Errors & Propagates with original status code. \\
+                    Application Exceptions & Unmodified propagation. \\
                     \bottomrule
                 \end{tabular}
             \end{table}
@@ -322,7 +323,7 @@
 
     \subsection{gns3\_api/}
         The\ac{gns3}\ac{api} wrapper provides essential operations for managing\ac{gns3} projects through 
-        its\ac{rest}\ac{api}, following similar design patterns to the proxmox\_api wrapper but tailored for
+        its\ac{rest}\ac{api}, following similar design patterns to the /proxmox\_api wrapper but tailored for
         \ac{gns3}-specific workflows. The library handles project operations including verification, import/export, 
         and node information collection.
 
@@ -361,7 +362,7 @@
         \begin{enumerate}
             \item Verify project exists (\texttt{acheck\_project})
             \item Get node information (\texttt{aget\_project\_nodes})
-            \item Start project nodes (\texttt{start\_project})
+            \item Start project nodes (\texttt{astart\_project})
         \end{enumerate}
 
         The implementation demonstrates careful handling of both network operations and local file I/O, 
@@ -372,7 +373,7 @@
 \section{Web Application Components}
     This web application is structured to offer the following capabilities:
         \begin{enumerate}
-            \item Login with institutional credentials
+            \item Login with institutional or local credentials
             \item Selection from available exercises
             \item Automated environment preparation
             \item Practical work in GNS3 web interface
@@ -383,15 +384,15 @@
     abstracting the underlying virtualization infrastructure:
 
     \subsection{Authentication Module}
-        The authentication system establishes user identity and access control through\ac{jwt} tokens. It 
+        The authentication module establishes user identity and access control through\ac{jwt} tokens. It 
         verifies ownership of virtual resources during every operation, preventing cross-user interference 
         like unauthorized\ac{vm} control. To help accomplish these features it integrates with the database to 
-        check for priviledged accounts and vm ownership.
+        check for priviledged accounts and\ac{vm} ownership.
 
     \subsection{Exercise Management Module}
         This module handles the complete exercise workflow from creation to validation. Instructors can upload 
         network topologies, by providing gns3project files and validation criteria using the previously mentioned 
-        validation modules, namely ping and traceroute, during exercise creation, while students receive filtered 
+        validation modules, namely Ping and Traceroute, during exercise creation, while students receive filtered 
         exercise lists based on which they are enrolled in. The validation subsystem uses the developed modules 
         to validate instructor defined criteria, providing automated feedback for students. All provisioning 
         occurs automatically when students are enrolled in exercises.
@@ -416,7 +417,7 @@
     hits a pause point (e.g., another \texttt{await})—at which point it yields control back to the event loop, allowing other 
     coroutines to execute.
 
-    In FastAPI, declaring an endpoint as \texttt{async def}enables non-blocking behavior for I/O operations when using 
+    In FastAPI, declaring an endpoint as \texttt{async def} enables non-blocking behavior for I/O operations when using 
     async-compatible libraries. This allows the server to handle other requests while waiting for operations like 
     external\ac{api} calls. If that logic includes \texttt{asyncio}-compatible I/O operations—such as using a 
     library for asynchronous\ac{http} calls then the request can proceed in a truly asynchronous manner. This 
@@ -447,13 +448,16 @@
         concurrently within a single thread, dramatically improving throughput for I/O-bound workloads. Celery, 
         while also avoiding blocking behavior, introduces overhead from inter-process communication and task 
         serialization, making it less optimal for high-frequency, low-latency operations. In our use case, where the 
-        system primarily handles short-lived\ac{http} requests, asyncio's lightweight coroutines and event-driven model 
-        delivered the same or even superior performance with simpler structure and code. Celery remains invaluable for 
-        background jobs, but for real-time, I/O-heavy scenarios, asyncio provided the ideal balance of speed and 
-        maintainability.
+        system primarily handles short-lived\ac{http} requests, asyncio's lightweight coroutines delivered the same 
+        or even superior performance with simpler structure and code. Celery remains invaluable for projects requiring  
+        background jobs, but for real-time, I/O-heavy scenarios, asyncio provided the speed we wanted with efficient resource usage and 
+        also being more maintainable.
 
 \section{GNS3 Customization and Configuration}
-    This section describes the configuration of a\ac{gns3} host virtual machine. 
+
+    This section outlines the configuration process for a\ac{gns3} host virtual machine. This setup must be performed during the initial 
+    deployment of the system, as it involves creating a base template\ac{vm} that includes a properly configured\ac{gns3} instance. 
+    All future clones used by the system will be derived from this base template.
 
     The first step involves installing the \texttt{gns3-server} along with all its required dependencies. This provides the 
     core backend functionality. The installation can be done using a provided remote installation script that handles the 
@@ -461,14 +465,16 @@
     This script can be found on the official\ac{gns3} website.
 
     Once installed, it is essential to configure the \texttt{gns3-server} to run as a system daemon. Running the server as 
-    a background service ensures it is automatically started at boot time and remains continuously available without 
-    requiring manual intervention. This is especially important to ensure no manual interaction is needed with the host\ac{vm}.
+    a background service, ensuring it is automatically started at boot time and restarted in case of crashes, remaining 
+    continuously available without requiring manual intervention. This is especially important to ensure no manual interaction 
+    is needed with the host\ac{vm}.
 
     In addition to installation and service configuration, modifications must be made to the \texttt{gns3-server} source 
-    code to enable\ac{spice} support.\ac{spice} is a remote display protocol that allows users to interact with virtual machines 
-    through a graphical interface. These source code changes enable the server to launch\ac{qemu} instances with the appropriate
-    \ac{spice} options, facilitating enhanced remote access and control over the virtualized devices.A more detailed explanation 
-    and rationale for these changes can be found in the first iteration of this project\cite{santos2024}.
+    code to enable an auxiliary telnet console port while keeping\ac{spice} support.\ac{spice} is a remote display protocol that 
+    allows users to interact with \ac{vm}s through a graphical interface. These source code changes enable the server to 
+    launch\ac{qemu} instances with the appropriate \ac{spice} options, facilitating enhanced remote access and control over the 
+    virtualized devices.A more detailed explanation and rationale for these changes can be found in the first iteration of 
+    this project\cite{santos2024}.
 
     The host operating system for the\ac{gns3} host\ac{vm}s during development was \textbf{Ubuntu Server} (non-minimized 
     installation). This ensures that all necessary system tools and dependencies are available. Other operating systems 
@@ -477,8 +483,11 @@
     \paragraph{Note:} The \texttt{gns3-web} UI for\ac{gns3} is currently in beta and may present issues when adding 
     templates for devices. At this point in time it is recommended to use the GUI client for this task.
 
+    \paragraph{Note:} For clients to interact with\ac{spice} enabled devices, such as virtualized linux hosts the user must install 
+    \texttt{gns3-webclient-pack} on their machine.
+
     \paragraph{IOU Support:} If the project includes\ac{iou} nodes, a valid\ac{iou} license is required. This file must be 
-    placed in \texttt{\textasciitilde{}/.iourc} and formatted according to\ac{gns3}s expectations.
+    placed in \texttt{\textasciitilde{}/.iourc} and formatted according to\ac{gns3}'s expectations.
 
 \section{Proxmox API Usage}
 
@@ -498,9 +507,9 @@
     stored in memory and reused for their duration, after which a new token is acquired.
 
     Additionally, when users log into the web application, their provided credentials are sent to the\ac{pve}\ac{api} 
-    authentication endpoint to obtain a ticket specific to their session. This approach offers multiple advantages. 
+    authentication endpoint to obtain a ticket specific to that user. This approach offers multiple advantages. 
     First, regular user accounts, such as those belonging to students, can be configured with limited permissions in\ac{pve}. 
-    This serves as a secondary layer of protection in case a bug in the authentication logic allows an unauthorized 
+    This serves as a secondary layer of protection in case of an exploit in the authentication logic that allows an unauthorized 
     request (e.g., attempting to delete a\ac{vm}). Second, it improves accountability, as every action taken by a user 
     can be traced to their authenticated account, resulting in more detailed and accurate audit logs.
 
@@ -508,6 +517,7 @@
     several ways, as\ac{pve} supports a variety of authentication backends. For example, integration with \ac{ldap} is 
     supported out of the box. This makes user management particularly convenient in educational institutions, where 
     centralized identity systems are commonly used. Alternatively, local accounts managed directly within\ac{pve} 
-    can also be used, offering a simpler setup for smaller-scale or isolated environments.
+    can also be used, offering a simpler setup for smaller-scale or isolated environments. The use of local accounts 
+    or directory services for\ac{pve} should go in tandem with the use in the web application.
 
 

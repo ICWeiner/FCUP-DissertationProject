@@ -7,7 +7,7 @@ import json
 import asyncio
 
 from pydantic import BaseModel, ValidationError, parse_obj_as
-from fastapi import APIRouter, Request, Form, UploadFile, File, HTTPException
+from fastapi import APIRouter, Request, Form, UploadFile, File, HTTPException, status
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Annotated, List, Optional
@@ -123,6 +123,11 @@ async def check_exercise(request: Request,
 
     if work_vms:
         vm_proxmox_id = work_vms[0].proxmox_id
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You don't have permission to access this exercise"
+        )
 
     return templates.TemplateResponse("exercise.html", {"request": request,
                                                      "title": exercise.name,

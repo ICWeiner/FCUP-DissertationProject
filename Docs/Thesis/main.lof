@@ -11,5 +11,7 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces A diagram of our database}}{33}{figure.caption.9}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Grouped bar chart showing VM operation times. Cloning time is labeled to highlight the rising trend. Results from Flask running purely sequential code}}{53}{figure.caption.24}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Bar chart showing VM cloning times after cleanup, at baseline, and in the worst case scenario.}}{55}{figure.caption.25}%
 \addvspace {10\p@ }
 \contentsfinish 
