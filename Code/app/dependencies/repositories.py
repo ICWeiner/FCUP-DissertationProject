@@ -5,6 +5,7 @@ from app.repositories.user import UserRepository
 from app.repositories.exercise import ExerciseRepository
 from app.repositories.workvm import WorkVmRepository
 from app.repositories.templatevm import TemplateVmRepository
+from app.repositories.submission import SubmissionRepository
 from app.database import get_session
 
 T = TypeVar('T')  # Generic type for repositories
@@ -25,3 +26,6 @@ WorkVmRepositoryDep = Annotated[WorkVmRepository, _get_repository(WorkVmReposito
 
 
 TemplateVmRepositoryDep = Annotated[TemplateVmRepository, _get_repository(TemplateVmRepository)]
+
+
+SubmissionRepositoryDep = Annotated[SubmissionRepository, _get_repository(SubmissionRepository)]

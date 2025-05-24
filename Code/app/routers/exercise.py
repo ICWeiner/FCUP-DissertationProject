@@ -13,9 +13,9 @@ from fastapi.templating import Jinja2Templates
 from typing import Annotated, List, Optional
 
 from app.config import settings
-from app.models import Exercise, TemplateVm, User
+from app.models import Exercise, TemplateVm, User, Submission
 from app.dependencies.auth import CurrentUserDep, PrivilegedUserDep
-from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryDep, WorkVmRepositoryDep, TemplateVmRepositoryDep
+from app.dependencies.repositories import ExerciseRepositoryDep, UserRepositoryDep, WorkVmRepositoryDep, TemplateVmRepositoryDep, SubmissionRepositoryDep
 from app.services import vm as vm_services
 from app.services import proxmox as proxmox_services
 from app.services import auth as auth_services
@@ -123,7 +123,7 @@ async def check_exercise(request: Request,
 
     if work_vms:
         vm_proxmox_id = work_vms[0].proxmox_id
-    else:
+    elif not current_user.admin:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="You don't have permission to access this exercise"
@@ -274,10 +274,13 @@ async def update_exercise_enlistment(
     )
 
 @router.post("/{exercise_id}/validate")
-async def evaluate_exercise(exercise_repository: ExerciseRepositoryDep,
-                        workvm_repository: WorkVmRepositoryDep,
-                        current_user: CurrentUserDep,
-                        exercise_id: int,
+async def evaluate_exercise(
+    request: Request,
+    exercise_repository: ExerciseRepositoryDep,
+    workvm_repository: WorkVmRepositoryDep,
+    submission_repository: SubmissionRepositoryDep,
+    current_user: CurrentUserDep,
+    exercise_id: int,
 ):  
     exercise = exercise_repository.find_by_id(exercise_id)
 
@@ -306,12 +309,29 @@ async def evaluate_exercise(exercise_repository: ExerciseRepositoryDep,
         result = nornir_services.run_command(validation['hostname'], validation['command'], validation['target'], gns3_config_filename)
         results.append(result)
 
-    return {
-        "validations": exercise.validations,
-        "configurations": exercise.configurations,
-        "results": results,
-    }
+    zipped = list(zip(validations, results))
+
+    submission = Submission(
+        user = current_user,
+        exercise = exercise, 
+        work_vm = work_vms[0],
+        output = results,
+    )
+
+    submission_repository.save(submission)
     
+
+    return templates.TemplateResponse(
+        "exercise_evaluation.html",
+        {
+            "request": request,
+            "title": f"Evaluation {exercise.name}",
+            "body": exercise.description,
+            "exercise": exercise,
+            "zipped": zipped,
+        }
+    )
+
 
 @router.post("/create")
 async def create_exercise(exercise_repository: ExerciseRepositoryDep,

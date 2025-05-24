@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{body}}</p>
+
+        <table border="1">
+            <thead>
+                <tr>
+                <th>Hostname</th>
+                <th>Command</th>
+                <th>Target</th>
+                <th>Success</th>
+                <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for validation, result in zipped %}
+                <tr>
+                    <td>{{ validation.hostname }}</td>
+                    <td>{{ validation.command }}</td>
+                    <td>{{ validation.target }}</td>
+                    <td>
+                    {% if result.test_results[0] %}
+                        ✅
+                    {% else %}
+                        ❌
+                    {% endif %}
+                    </td>
+                    <td>{{ result.test_results[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        
+    </div>
+{% endblock %}
