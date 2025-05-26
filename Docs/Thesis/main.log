@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  23 MAY 2025 16:23
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  26 MAY 2025 16:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2306,7 +2306,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [5]
 Overfull \hbox (12.17973pt too wide) detected at line 92
- \TU/Arial(0)/m/n/10.95 39
+ \TU/Arial(0)/m/n/10.95 40
  []
 
 
@@ -3011,7 +3011,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 [38]
 Chapter 5.
 
-Overfull \hbox (19.88596pt too wide) in paragraph at lines 60--64
+Overfull \hbox (19.88596pt too wide) in paragraph at lines 61--65
 []\TU/Arial(0)/m/n/10.95 All application components were developed in Python 3.
 10+, chosen for its mature async/await
  []
@@ -3028,12 +3028,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 [39
 
 ]
-Overfull \hbox (2.78189pt too wide) in paragraph at lines 126--129
-[]\TU/lmtt/m/n/10.95 repositories/ \TU/Arial(0)/m/n/10.95 implements the databa
-se abstraction layer using SQLModel/SQLAlchemy,
- []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3043,6 +3037,12 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [40]
+Overfull \hbox (2.78189pt too wide) in paragraph at lines 127--130
+[]\TU/lmtt/m/n/10.95 repositories/ \TU/Arial(0)/m/n/10.95 implements the databa
+se abstraction layer using SQLModel/SQLAlchemy,
+ []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3061,7 +3061,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [42]
-Overfull \hbox (80.05281pt too wide) in paragraph at lines 225--232
+Overfull \hbox (80.05281pt too wide) in paragraph at lines 226--233
 \TU/Arial(0)/m/n/10.95 This requires implementing device-specific command metho
 ds (\TU/lmtt/m/n/10.95 _command_router()\TU/Arial(0)/m/n/10.95 , \TU/lmtt/m/n/1
 0.95 _command_switch()\TU/Arial(0)/m/n/10.95 ,
@@ -3077,14 +3077,9 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [43]
-Overfull \hbox (42.56549pt too wide) in paragraph at lines 259--265
+Overfull \hbox (42.56549pt too wide) in paragraph at lines 260--266
 []\TU/Arial(0)/m/n/10.95 The library implements a consistent error handling app
 roach through the \TU/lmtt/m/n/10.95 @handle_network_errors
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 301--302
-[]|\TU/Arial(0)/m/n/10.95 Custom status code processing (e.g.,
  []
 
 
@@ -3097,13 +3092,18 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [44]
-Overfull \hbox (3.32486pt too wide) in paragraph at lines 324--328
+Underfull \hbox (badness 10000) in paragraph at lines 302--303
+[]|\TU/Arial(0)/m/n/10.95 Custom status code processing (e.g.,
+ []
+
+
+Overfull \hbox (3.32486pt too wide) in paragraph at lines 325--329
 []\TU/Arial(0)/m/n/10.95 The [][][]GNS3[][] [][][]API[][] wrapper provides esse
 ntial operations for managing [][][]GNS3[][] projects through
  []
 
 
-Overfull \hbox (3.67155pt too wide) in paragraph at lines 331--332
+Overfull \hbox (3.67155pt too wide) in paragraph at lines 332--333
 [] []\TU/Arial(0)/b/n/10.95 Implementation Characteristics[] \TU/Arial(0)/m/n/1
 0.95 The wrapper shares several architectural features with
  []
@@ -3154,7 +3154,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [49]
-Overfull \hbox (8.02051pt too wide) in paragraph at lines 498--504
+Overfull \hbox (8.02051pt too wide) in paragraph at lines 499--505
 \TU/Arial(0)/m/n/10.95 value with the user and creation time included. Addition
 ally, any write (POST/PUT/DELETE)
  []
@@ -3179,16 +3179,16 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [51]
 Chapter 6.
-Package pgfplots info on input line 67: Using 'lua backend=false' for axis: x c
+Package pgfplots info on input line 69: Using 'lua backend=false' for axis: x c
 oord trafo unsupported.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 97.
+(Font)              scaled to size 10.42007pt on input line 99.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 97.
+(Font)              scaled to size 7.91925pt on input line 99.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 97.
+(Font)              scaled to size 10.42007pt on input line 99.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 97.
+(Font)              scaled to size 7.91925pt on input line 99.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -3204,21 +3204,9 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 [52
 
 ]
-Overfull \hbox (4.3648pt too wide) in paragraph at lines 119--119
-[]            \TU/lmtt/m/n/10.95 --- 2nd type of output (intermittent lock-time
-out failures) ---[] 
- []
-
-
-Overfull \hbox (44.60605pt too wide) in paragraph at lines 121--121
-[]            \TU/lmtt/m/n/10.95 Could not remove disk 'local-lvm:vm-120993831-
-disk-0', check manually:[] 
- []
-
-
-Overfull \hbox (73.3498pt too wide) in paragraph at lines 122--122
-[]            \TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-sto
-rage-local-lvm' - got timeout[] 
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 124--124
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
  []
 
 
@@ -3231,49 +3219,29 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [53]
-Overfull \hbox (44.60605pt too wide) in paragraph at lines 130--130
-[]            \TU/lmtt/m/n/10.95 Could not remove disk 'local-lvm:vm-363495383-
-disk-0', check manually:[] 
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 133--133
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
  []
 
 
-Overfull \hbox (73.3498pt too wide) in paragraph at lines 131--131
-[]            \TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-sto
-rage-local-lvm' - got timeout[] 
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 135--135
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
  []
 
 
-Overfull \hbox (73.3498pt too wide) in paragraph at lines 133--133
-[]            \TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-sto
-rage-local-lvm' - got timeout[] 
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 141--141
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
  []
 
 
-Overfull \hbox (27.3598pt too wide) in paragraph at lines 136--136
-[]            \TU/lmtt/m/n/10.95 --- 4th and final type of output (storage conf
-ig update errors) ---[] 
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 143--143
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
  []
 
-
-Overfull \hbox (33.10855pt too wide) in paragraph at lines 138--138
-[]            \TU/lmtt/m/n/10.95 Could not remove disk 'local-lvm:vm-5469324-di
-sk-0', check manually:[] 
- []
-
-
-Overfull \hbox (73.3498pt too wide) in paragraph at lines 139--139
-[]            \TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-sto
-rage-local-lvm' - got timeout[] 
- []
-
-
-Overfull \hbox (73.3498pt too wide) in paragraph at lines 141--141
-[]            \TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-sto
-rage-local-lvm' - got timeout[] 
- []
-
-Package pgfplots info on input line 176: Using 'lua backend=false' for axis: x 
-coord trafo unsupported.
 
 
 
@@ -3283,7 +3251,10 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[54]) (./Chapters/7ConclusionFutureWork.tex
+[54]
+Package pgfplots info on input line 178: Using 'lua backend=false' for axis: x 
+coord trafo unsupported.
+) (./Chapters/7ConclusionFutureWork.tex
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3346,7 +3317,7 @@ LaTeX Warning: There were multiply-defined labels.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: CCE3DEB106F01981690AB4124FF47DA1;19296.
 Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: 315241E0D3B287BC41B823787A7B7B8B;518.
+(rerunfilecheck)             Checksum: 80D62A759A5546204762DF8695224C45;518.
  ) 
 Here is how much of TeX's memory you used:
  65478 strings out of 473840

@@ -3,5 +3,5 @@ from typing import Optional, List
 from app.models import Submission, User, UserPublic, WorkVm, Exercise
 from app.repositories.base import BaseRepository
 
-class Submission(BaseRepository):
+class SubmissionRepository(BaseRepository):
     __entity_type__ = Submission

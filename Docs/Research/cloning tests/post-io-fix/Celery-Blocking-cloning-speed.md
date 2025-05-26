@@ -1,4 +1,4 @@
-# Async version (Celery based) POST-IO FIX
+# Celery version (Flask + Celery based) POST-IO FIX
 
 -AFTER IO CLEANUP
 (only 2 cores)

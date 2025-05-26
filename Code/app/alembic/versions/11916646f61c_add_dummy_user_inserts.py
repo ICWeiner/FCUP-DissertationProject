@@ -29,7 +29,7 @@ def upgrade() -> None:
     # Define the tables explicitly using SQLAlchemy's Table class
     user = sa.Table('user', metadata, autoload_with=bind)
 
-    n = 5# controls how many dummy users will be inserted
+    n = 200# controls how many dummy users will be inserted
         #, you wont be able to login to these accounts and they wont have any vms associated  initially
 
     users = [

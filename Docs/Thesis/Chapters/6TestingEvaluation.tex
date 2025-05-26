@@ -26,22 +26,21 @@ In this chapter were will go over how we did performance and stress tests aswell
     Each test consisted of three sequential tasks:
 
     \begin{enumerate}
-        \item \textbf{1st task: Template\ac{vm} creation:} A new\ac{vm} was cloned from a pre-configured template. Once 
-        cloning was complete, the\ac{vm} was powered on, waited for to acquire a valid IP address, and had a 
-        project imported into its\ac{gns3} instance. After the import was processed, the\ac{vm} was powered off 
+        \item \textbf{1st task: Template\ac{vm} creation:} Make a linked clone from a pre-configured template. Once 
+        cloning is complete, the\ac{vm} is powered on, and polled until a valid IP address is acquired. Then a 
+        project is imported into its\ac{gns3} instance. After the import is processed, the\ac{vm} is powered off 
         and converted into a template.
 
-        \item \textbf{2nd task:\ac{vm} cloning:} Immediately after the template was ready, a predetermined number of clones 
-        were created from it.
+        \item \textbf{2nd task:\ac{vm} cloning:} Create a predetermined amount of linked clones of a given exercises 
+        template.
 
-        \item \textbf{3rd task:\ac{vm} deletion:} Finally, the newly created\ac{vm}s and the template were deleted.
+        \item \textbf{3rd task:\ac{vm} deletion:} Delete the cloned\ac{vm}s and the template of a given exercise.
     \end{enumerate}
-
-    To eliminate human error as much as possible, human intervention was only required to trigger the 1st and the 
-    3rd tasks.
 
     Each batch test was performed for different quantities of\ac{vm} clones: 1, 10, 20, 100, and 200. The execution 
     times for each task were logged for analysis.
+
+
 
     \subsection{I/O Problems during Batch VM Operations}
 
@@ -106,46 +105,46 @@ In this chapter were will go over how we did performance and stress tests aswell
         It was also noted that there was an error during the 4th batch of tasks, specifically during the deleting task.
 
         After some investigation it was found that there were intermittent failures to remove\ac{vm} disks. These failures 
-        were \emph{not} detectable via the standard\ac{http}\ac{api} responses and only appeared in the\ac{pve} server 
+        were \emph{not} detectable via the \ac{pve}\ac{http}\ac{api} responses and only appeared in the\ac{pve} server 
         logs. As orphaned disks accumulated, overall performance degraded significantly.
 
         \medskip
         \noindent\textbf{Observed Task History Outputs:}
         \begin{verbatim}
-            --- 1st type of output (VM disks removed successfully) ---
-            trying to acquire lock...
-            OK
-            Logical volume "vm-348786940-disk-0" successfully removed.
-            TASK OK
+--- 1st type of output (VM disks removed successfully) ---
+trying to acquire lock...
+OK
+Logical volume "vm-348786940-disk-0" successfully removed.
+TASK OK
 
-            --- 2nd type of output (intermittent lock-timeout failures) ---
-            trying to acquire lock...
-            Could not remove disk 'local-lvm:vm-120993831-disk-0', check manually:
-            can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
-            trying to acquire lock...
-            OK
-            Logical volume "vm-120993831-disk-0" successfully removed.
-            TASK OK
+--- 2nd type of output (intermittent lock-timeout failures) ---
+trying to acquire lock...
+Could not remove disk 'local-lvm:vm-120993831-disk-0', check manually:
+can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
+trying to acquire lock...
+OK
+Logical volume "vm-120993831-disk-0" successfully removed.
+TASK OK
 
-            --- 3rd type of output (persistent failures) ---
-            trying to acquire lock...
-            Could not remove disk 'local-lvm:vm-363495383-disk-0', check manually:
-            can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
-            trying to acquire lock...
-            can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
-            TASK OK
+--- 3rd type of output (persistent failures) ---
+trying to acquire lock...
+Could not remove disk 'local-lvm:vm-363495383-disk-0', check manually:
+can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
+trying to acquire lock...
+can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
+TASK OK
 
-            --- 4th and final type of output (storage config update errors) ---
-            trying to acquire lock...
-            Could not remove disk 'local-lvm:vm-5469324-disk-0', check manually:
-            can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
-            trying to acquire lock...
-            can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
-            trying to acquire cfs lock 'file-user_cfg' ...
-            TASK OK
+--- 4th and final type of output (storage config update errors) ---
+trying to acquire lock...
+Could not remove disk 'local-lvm:vm-5469324-disk-0', check manually:
+can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
+trying to acquire lock...
+can't lock file '/var/lock/pve-manager/pve-storage-local-lvm' - got timeout
+trying to acquire cfs lock 'file-user_cfg' ...
+TASK OK
         \end{verbatim}
 
-        This suggests\ac{pve}'s locking mechanism can't keep pace with the fast paced mass amount of delete requests. 
+        This suggests\ac{pve}'s locking mechanism can't keep pace with big amounts of quick sucession delete requests. 
         The lock is used to ensure that two tasks dont modify the\ac{lvm}'s metadata simulatenously. Since there should be 
         some background tasks that are piling up, the system cant keep pace and eventually starts using retries to keep 
         up but even this is insuficient and starts failing more and more towards the end as it becomes fully congested. 
@@ -157,7 +156,7 @@ In this chapter were will go over how we did performance and stress tests aswell
         of this problem reocurring, it does not fully remedy the problem and additional future work should look into solving this 
         matter completely.
 
-        After performing a cleanup of the orphaned disks we can see that performance was improved from even the 1st baseline test
+        After performing a cleanup of the orphaned disks we can see that performance was improved from even the 1st baseline test.
 
         \begin{figure}[h]
         \centering
