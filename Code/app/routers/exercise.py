@@ -311,15 +311,7 @@ async def evaluate_exercise(
 
     zipped = list(zip(validations, results))
 
-    submission = Submission(
-        user = current_user,
-        exercise = exercise, 
-        work_vm = work_vms[0],
-        output = results,
-    )
 
-    submission_repository.save(submission)
-    
 
     return templates.TemplateResponse(
         "exercise_evaluation.html",

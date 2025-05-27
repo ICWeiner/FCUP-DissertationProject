@@ -16,6 +16,12 @@ VM Cloning process time: 0.345339 seconds
 VM deleting process time: 0.027174 seconds
 Final CPU usage: 8.6%
 
+averages
+34.256035
+0.368690
+0.026849
+7.4
+
 
 for 10 VMs:
 Template VM creation time: 34.373219 seconds
@@ -29,10 +35,14 @@ VM deleting process time: 0.153797 seconds
 Final CPU usage: 7.4%
 
 Template VM creation time: 34.187679 seconds
-Final CPU usage: 7.5%
 VM Cloning process time: 3.195949 seconds
 VM deleting process time: 0.151084 seconds
+Final CPU usage: 7.5%
 
+34.244570
+3.163624
+0.153751
+7.4(3)
 
 for 20 VMs:
 Template VM creation time: 45.605793 seconds
@@ -50,12 +60,16 @@ VM Cloning process time: 6.224193 seconds
 VM deleting process time: 0.304631 seconds
 Final CPU usage: 7.7%
 
+41.707572
+6.265722
+0.312510
+7.6
+
 for 100 VMs:
 Template VM creation time: 45.598744 seconds
 VM Cloning process time: 32.806243 seconds
 VM deleting process time: 1.836278 seconds
 Final CPU usage: 8.2%
-
 
 Template VM creation time: 34.215090 seconds
 VM Cloning process time: 32.857365 seconds
@@ -66,6 +80,11 @@ Template VM creation time: 34.188849 seconds
 VM Cloning process time: 32.928519 seconds
 VM deleting process time: 1.793530 seconds
 Final CPU usage: 8.1%
+
+38.000894
+32.864042
+1.820313
+8.1(6)
 
 
 for 200 VMs:
@@ -83,3 +102,12 @@ Template VM creation time: 39.176289 seconds
 VM Cloning process time: 71.482917 seconds
 VM deleting process time: 4.435023 seconds
 Final CPU usage: 8.8%
+
+36.500994
+71.062075
+4.418675
+8.7(6)
+
+
+total template average
+35.745697

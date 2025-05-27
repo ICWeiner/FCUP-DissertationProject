@@ -11,7 +11,9 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces A diagram of our database}}{33}{figure.caption.9}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Grouped bar chart showing VM operation times. Cloning time is labeled to highlight the rising trend. Results from Flask running purely sequential code}}{53}{figure.caption.24}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Bar chart showing VM cloning times after cleanup, at baseline, and in the worst case scenario.}}{55}{figure.caption.25}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Boxplot comparison of execution time variability for Template VM creation.}}{53}{figure.caption.25}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Execution time to clone increasing number of \acp {vm} across different implementations.}}{54}{figure.caption.26}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Grouped bar chart showing VM operation times. Cloning time is labeled to highlight the rising trend. Results from Flask running purely sequential code}}{55}{figure.caption.27}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Bar chart showing VM cloning times after cleanup, at baseline, and in the worst case scenario.}}{57}{figure.caption.28}%
 \addvspace {10\p@ }
 \contentsfinish 

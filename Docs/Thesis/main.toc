@@ -118,8 +118,11 @@
 \contentsline {section}{\numberline {5.5}Proxmox API Usage}{50}{section.5.5}%
 \contentsline {chapter}{\numberline {6}Testing \& Evaluation}{52}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Performance Evaluation}{52}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}I/O Problems during Batch VM Operations}{52}{subsection.6.1.1}%
-\contentsline {chapter}{\numberline {7}Conclusion \& Future Work}{56}{chapter.7}%
+\contentsline {subsubsection}{\numberline {6.1.0.1}Task 1: Template VM Creation}{53}{subsubsection.6.1.0.1}%
+\contentsline {subsubsection}{\numberline {6.1.0.2}Task 2: VM Cloning}{54}{subsubsection.6.1.0.2}%
+\contentsline {subsubsection}{\numberline {6.1.0.3}Task 3: VM Deleting}{54}{subsubsection.6.1.0.3}%
+\contentsline {subsection}{\numberline {6.1.1}I/O Problems during Batch VM Operations}{54}{subsection.6.1.1}%
+\contentsline {chapter}{\numberline {7}Conclusion \& Future Work}{58}{chapter.7}%
 \vspace {0.5cm}
-\contentsline {chapter}{Bibliography}{56}{dummy.6}%
+\contentsline {chapter}{Bibliography}{58}{dummy.6}%
 \contentsfinish 
