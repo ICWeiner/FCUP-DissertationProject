@@ -1,0 +1,60 @@
+% Appendix Template
+
+\chapter*{nornir\_lib documentation} % Main appendix title
+
+\label{nornir_lib_appendix} % Change X to a consecutive letter; for referencing this appendix elsewhere, use \ref{AppendixX}
+
+This library is responsible for connecting to\ac{gns3} devices in a given topology, inputting commands, retrieving output, and analyzing results to evaluate success or failure.
+
+It consists of the following components:
+
+\begin{itemize}
+  \item \textbf{\texttt{modules/}} – Described in detail in the Subsection~\ref{sec:new_module}. Contains predefined command modules.
+  \item \textbf{\texttt{utils/}} – Provides helper functions that interface with\ac{gns3} or facilitate command execution.
+\end{itemize}
+
+Additionally, it uses several configuration files located in the \texttt{app/} folder:
+
+\begin{itemize}
+  \item \texttt{config.yaml}  
+  Contains paths to the \texttt{host\_file}, \texttt{group\_file}, and \texttt{defaults\_file}, as well as the configuration of the Nornir \texttt{runner}.
+  
+  \item \texttt{host\_file}  
+  Describes the VMs or containers hosting\ac{gns3} servers. At minimum, the IP address, group (typically \texttt{linux}), username, and password (in plain text) must be specified.
+
+  \item \texttt{group\_file}  
+  Defines default settings for groups. \textbf{Note:} \texttt{fast\_cli} must remain \texttt{false} to ensure tests run reliably.
+
+  \item \texttt{defaults\_file}  
+  Currently unused.
+\end{itemize}
+
+\subsection*{Modules}
+
+The project comes with built-in test modules. To use a module:
+
+\begin{enumerate}
+  \item Instantiate the module class by passing the configured Nornir object for the desired machine/project.
+  \item Call the \texttt{command()} method with the required arguments, which may vary by module.
+\end{enumerate}
+
+\subsection*{Implementing a New Module}
+\label{sec:new_module}
+
+To create a custom module:
+
+\begin{itemize}
+  \item Subclass the \texttt{CommandModule} class located in \texttt{modules/module.py}.
+  \item Implement the following methods:
+    \begin{itemize}
+      \item \texttt{\_command\_router}
+      \item \texttt{\_command\_switch}
+      \item \texttt{\_command\_vpcs}
+      \item \texttt{\_command\_linux}
+      \item \texttt{interpret\_cisco\_response}
+      \item \texttt{interpret\_linux\_response}
+      \item \texttt{interpret\_vpcs\_response}
+    \end{itemize}
+  \item For command methods, use \texttt{PingModule} as a skeleton and modify the command string accordingly.
+  \item For interpretation methods, implement logic that evaluates command output and determines whether it meets expected results.
+\end{itemize}

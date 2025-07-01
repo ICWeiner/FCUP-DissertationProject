@@ -11,6 +11,90 @@
 % For referencing this chapter elsewhere, use \ref{ChapterTemplate}
 \label{Chapter7ConclusionFutureWork}
 
+This work explored the design and implementation of an automated network assessment system, building upon the work of 
+\citet{santos2024}. The system was developed for the deployment and evaluation of networking assignments, with each 
+student interacting with a dedicated\ac{gns3} environment hosted via\ac{pve}\ac{vm}s and with the intention of being used 
+in both classroom and examination settings, allowing instructors to allocate more time toward guiding and supporting 
+students, rather than spending it on manual evaluation.
+
+Throughout the project, several key aims and objectives were successfully met. A modular architecture was established, 
+enabling the creation, management, and evaluation of network assignments. Integration with\ac{pve} allowed for 
+automated\ac{vm} lifecycle management, while\ac{gns3} provided a flexible environment for deploying practical networking 
+scenarios. With assessment being done with Nornir, which enabled scalable and repeatable command execution across multiple 
+devices, and a web back-end built using FastAPI that facilitated communication between all system components.
+
+One of the central objectives was to allow students to initiate assessments on demand. This was achieved through the use of 
+the developed modules, which input a command to a given virtual network device, determine the correct command depending of 
+its type (e.g. Cisco router, Linux VM have different syntax for a traceroute). This effort was made to ensure support for a 
+diverse range of device types and vendors, as exposure to heterogeneous network environments better prepares students for 
+the complexity of professional settings. While the current implementations has only support for a few device types, the 
+modular structure can easily be expanded upon for broader compatibility in the future. The modules developed during the 
+project offer a basis for extensibility.
+
+Another major aim of this project was also to unify and extend the components originally developed by \citet{santos2024} into 
+a cohesive back-end system. This required significant development effort, particularly in defining clear interfaces between 
+components and ensuring they could operate together reliably under various conditions.
+
+Significant progress was also made in terms of asynchronous handling and\ac{api} development. The\ac{api} design was 
+iteratively refined to ensure clear boundaries between responsibilities while maintaining ease of integration with other 
+components.
+
+
+\section{Lessons learned}
+    This project highlighted several important lessons, one of them being the criticality of asynchronous I/O in system 
+    involving remote\ac{api} calls. For this, Python's asynchronous capabilities, in conjunction with libraries that support 
+    them, proved invaluable. Additionally, it taught us key lessons in\ac{api} design, particularly that modularity facilitates 
+    maintainability and integration, especially when multiple external systems are involved (\ac{pve},\ac{gns3}). 
+
+    Additionally, we learned that error handling, observability, and retry mechanisms should be devised and implemented from the 
+    the very early steps of development in networked systems, where silent failures during provisioning can propagate and lead to 
+    complex, hard-to-diagnose issues.
+
+    One more important lesson is the need to run tests periodically to ensure good system performance, as we found during 
+    our tests that our performance was decreasing with no major errors to be seen anywhere, which highlights the importance of 
+    monitoring and benchmarking.
+
+
+\section{Future Work}
+    Building on the current system, future work should aim for several things. In terms of security and access control, the 
+    groundwork was laid for role-based authentication. However, further exploration is needed into\ac{pve}'s native role and 
+    permission system. At present,\ac{pve} assumes administrative access if authenticated, which is suitable for development 
+    but not for production deployment, with only the web application doing role checking. A more fine-grained approach—where 
+    roles such as "student" and "teacher" are mapped to restricted scopes in\ac{pve}—remains an important area for future work.
+
+    It would also be desirable to expand on the assignment definition model to introduce versioning, as well as introducing 
+    capabilities to create more complex grading of exercises including but not limited to adding exercise sub-lines and 
+    support for boolean expressions in lines and sublines. 
+
+    Additionally improving on the\ac{ui} using more modern frontend frameworks and shifting to Client Side Rendering could allow 
+    for a better UX with new features such as real time feedback and progress tracking of interactions with services external 
+    to the web application.
+
+    Developing more, but also introducing more complex modules, capable of chaining commands, and supporting a much wider range 
+    of devices is key in making sure this system can go overcome the limitations of its existing counterparts, such as Cisco's 
+    Packet Tracer, by supporting more complex, multi-step, assessment of protocols and configurations not available to them.
+
+    Furthermore, exploring the capabilities and limitations of the system in a multi-node cluster environment presents a 
+    another direction for future work. While\ac{pve} offers robust support for clustering and centralized management of multiple 
+    nodes, it does not natively include mechanisms for automated load balancing across those nodes. In the current implementation,\ac{vm} 
+    placement decisions must be made manually, which can lead to inefficient resource utilization, especially under dynamic 
+    or heavy workloads. Developing an integrated load balancing feature could significantly enhance scalability, fault tolerance, 
+    and system responsiveness. This would involve monitoring node resource usage in real-time and dynamically provisioning or migrating 
+    ac{vm}s to balance\ac{cpu} and memory loads more effectively across the cluster.
+
+    Another promising direction for future work lies in providing optional containerized environments for student exercises. While 
+    this was not pursued in the current implementation due to the lack of time to perform a thorough risk analysis, the potential 
+    benefits justify further investigation. Containerization could reduce resource usage and startup times for exercises that do 
+    not require full virtualization, such as those relying solely on\ac{iou} and\ac{vpcs} as well as others that do not rely on\ac{kvm}. 
+    
+    Simultaneously, as the system grows, it will be vital to integrate unit and system tests to ensure reliability and 
+    maintainability as the platform scales, to ensure the continued good functioning of older parts.
+
+    In conclusion, this system represents a promising step toward a fully automated and scalable platform for practical 
+    networking education. While there is still much work to be done before it can be fully integrated in institutions and courses, 
+    the progress made so far provides a strong basis for further growth and refinement.
+
+
 % Write text in here
 % Use \subsection and \subsubsection to organize text
 

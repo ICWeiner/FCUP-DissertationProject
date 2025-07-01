@@ -1,6 +1,7 @@
 import asyncio
 import httpx
 import threading
+import ssl
 from datetime import datetime, timedelta, timezone
 from datetime import timedelta
 
@@ -94,7 +95,7 @@ class ProxmoxSessionManager:
                     
             if await _attempt_auth_with_realm(settings.LDAP_PRIVILEGED_REALM): return True, True
 
-            #if await _attempt_auth_with_realm(settings.LDAP_BASE_REALM): return True, False #disabled new user discovery for student accounts
+            if await _attempt_auth_with_realm(settings.LDAP_BASE_REALM): return True, False #disabled new user discovery for student accounts
 
         logger.info(f"Failed to login with user {username}")
         
@@ -110,7 +111,9 @@ class ProxmoxSessionManager:
         if not data or data["expires_at"] <= datetime.now(timezone.utc):
             return None
         
-        session = httpx.AsyncClient(verify=False)
+        ctx = ssl.create_default_context(cafile="client.pem")
+
+        session = httpx.AsyncClient(verify=ctx)
         session.cookies.set("PVEAuthCookie", data["cookie"])
         session.headers.update({"CSRFPreventionToken": data["csrf"]})  
         return session

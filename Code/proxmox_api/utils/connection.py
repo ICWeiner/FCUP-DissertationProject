@@ -1,4 +1,5 @@
 import httpx
+import ssl
 from .proxmox_base_uri_generator import proxmox_base_uri
 
 from logger.logger import get_logger
@@ -16,7 +17,8 @@ async def aproxmox_get_auth_cookie(
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     auth_data = {"username": username, "password": password, "realm":realm}
     try:
-        async with httpx.AsyncClient(verify=False) as client:
+        ctx = ssl.create_default_context(cafile="client.pem")
+        async with httpx.AsyncClient(verify=ctx) as client:
             response = await client.post(uri, headers=headers, data=auth_data)
 
         if response.status_code == 200:

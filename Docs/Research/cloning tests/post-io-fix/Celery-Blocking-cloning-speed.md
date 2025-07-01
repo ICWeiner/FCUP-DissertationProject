@@ -126,4 +126,4 @@ Final CPU usage: 23.3%
 22.2(3)
 
 total template average
-34.639572
+34.927078

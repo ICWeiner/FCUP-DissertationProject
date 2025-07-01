@@ -18,111 +18,113 @@
 \contentsline {chapter}{List of Abbreviations}{viii}{section*.3}%
 \vspace {0.3cm}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Problem Statement}{1}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Need for Automated Evaluation}{1}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}Limitations of Current Solutions}{2}{subsection.1.1.2}%
+\contentsline {section}{\numberline {1.1}Need for Automated Assessment}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Limitations of Current Solutions}{2}{subsection.1.1.1}%
 \contentsline {section}{\numberline {1.2}Aims and Objectives}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Organization}{3}{section.1.3}%
 \contentsline {chapter}{\numberline {2}Background}{4}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Overview of Used Technologies}{4}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Virtualization}{4}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}GNS3}{5}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Architecture}{5}{subsection.2.1.3}%
-\contentsline {subsubsection}{\numberline {2.1.3.1}Controller}{5}{subsubsection.2.1.3.1}%
-\contentsline {subsubsection}{\numberline {2.1.3.2}Compute}{6}{subsubsection.2.1.3.2}%
-\contentsline {subsubsection}{\numberline {2.1.3.3}GUI}{6}{subsubsection.2.1.3.3}%
-\contentsline {subsection}{\numberline {2.1.4}Proxmox VE}{6}{subsection.2.1.4}%
-\contentsline {subsubsection}{\numberline {2.1.4.1}Virtualization Technologies}{7}{subsubsection.2.1.4.1}%
-\contentsline {subsubsection}{\numberline {2.1.4.2}\ac {kvm}}{8}{subsubsection.2.1.4.2}%
-\contentsline {subsubsection}{\numberline {2.1.4.3}\ac {lxc}}{8}{subsubsection.2.1.4.3}%
-\contentsline {subsection}{\numberline {2.1.5}LDAP}{8}{subsection.2.1.5}%
-\contentsline {section}{\numberline {2.2}Virtualized Lab Environments}{9}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Python Web Frameworks for API-Based Systems}{9}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Python}{9}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}WSGI}{9}{subsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.2.1}Flask}{11}{subsubsection.2.3.2.1}%
-\contentsline {subsection}{\numberline {2.3.3}ASGI}{11}{subsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.3.1}FastAPI}{12}{subsubsection.2.3.3.1}%
-\contentsline {section}{\numberline {2.4}Long running task processing approaches}{13}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}The need for asynchronous processing in API-heavy applications.}{13}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Asyncio}{13}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Celery}{14}{subsection.2.4.3}%
-\contentsline {section}{\numberline {2.5}System administration automation tools}{14}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Nornir}{14}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Ansible}{15}{subsection.2.5.2}%
-\contentsline {chapter}{\numberline {3}Related Work}{16}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Programming Evaluation Systems}{16}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Mooshak and lessons learned}{17}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}Cisco Packet Tracer}{18}{section.3.2}%
-\contentsline {chapter}{\numberline {4}System Architecture \& Design}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Functional Use Cases}{19}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}System Supports Both Directory Integration and Local Authentication}{19}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Teacher Creates a New Exercise}{20}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}System Supports Enrollment of Users into Exercises}{20}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Student Starts Their Exercise VM}{21}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Student Submits Solution}{21}{subsection.4.1.5}%
-\contentsline {subsection}{\numberline {4.1.6}Teacher Reviews Student Results}{21}{subsection.4.1.6}%
-\contentsline {subsection}{\numberline {4.1.7}Student Views Exercise Feedback}{22}{subsection.4.1.7}%
-\contentsline {section}{\numberline {4.2}System Architecture Overview}{22}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Proxmox VE}{23}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Why Proxmox VE?}{23}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Proxmox VE Limitations}{24}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Proxmox VE Firewall}{24}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Maximing resource usage}{25}{subsection.4.3.4}%
-\contentsline {subsubsection}{\numberline {4.3.4.1}Exploration of containers as a full substitute for VMs}{25}{subsubsection.4.3.4.1}%
-\contentsline {subsection}{\numberline {4.3.5}VM Lifecycle}{26}{subsection.4.3.5}%
-\contentsline {section}{\numberline {4.4}GNS3}{26}{section.4.4}%
-\contentsline {section}{\numberline {4.5}High-level architecture}{27}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Available Hardware}{27}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Interface Component}{28}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Web Application Component}{28}{subsection.4.5.3}%
-\contentsline {subsection}{\numberline {4.5.4}Virtualization Components}{29}{subsection.4.5.4}%
-\contentsline {subsection}{\numberline {4.5.5}Evaluation component}{31}{subsection.4.5.5}%
-\contentsline {subsection}{\numberline {4.5.6}Storage component}{32}{subsection.4.5.6}%
-\contentsline {subsubsection}{\numberline {4.5.6.1}Virtual machine storage}{32}{subsubsection.4.5.6.1}%
-\contentsline {subsubsection}{\numberline {4.5.6.2}Web application database}{32}{subsubsection.4.5.6.2}%
-\contentsline {section}{\numberline {4.6}FastAPI Adoption: Overcoming Flask's Shortcomings}{33}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Initial setup: Flask}{33}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Second setup: Flask + Celery}{35}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Third setup: Quart, an ASGI-compliant Flask reimplementation}{36}{subsection.4.6.3}%
-\contentsline {subsection}{\numberline {4.6.4}Final Decision: FastAPI Migration}{37}{subsection.4.6.4}%
-\contentsline {chapter}{\numberline {5}Implementation}{39}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Project structure}{39}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Technologies}{39}{subsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.1.1}Python}{39}{subsubsection.5.1.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.1.2}SQLite}{40}{subsubsection.5.1.1.2}%
-\contentsline {subsection}{\numberline {5.1.2}app/}{40}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}inventory/}{41}{subsection.5.1.3}%
-\contentsline {paragraph}{Key Fields Explanation:}{42}{paragraph*.11}%
-\contentsline {paragraph}{Implementation Notes:}{42}{paragraph*.12}%
-\contentsline {subsection}{\numberline {5.1.4}logger/}{42}{subsection.5.1.4}%
-\contentsline {subsection}{\numberline {5.1.5}nornir\_lib/}{43}{subsection.5.1.5}%
-\contentsline {subsection}{\numberline {5.1.6}proxmox\_api/}{44}{subsection.5.1.6}%
-\contentsline {paragraph}{Design Philosophy}{44}{paragraph*.13}%
-\contentsline {subsubsection}{\numberline {5.1.6.1}Error Handling}{44}{subsubsection.5.1.6.1}%
-\contentsline {paragraph}{Implementation Patterns}{45}{paragraph*.15}%
-\contentsline {paragraph}{proxmox\_vm\_actions Module}{45}{paragraph*.17}%
-\contentsline {subsection}{\numberline {5.1.7}gns3\_api/}{45}{subsection.5.1.7}%
-\contentsline {paragraph}{Implementation Characteristics}{45}{paragraph*.18}%
-\contentsline {paragraph}{Error Handling}{46}{paragraph*.19}%
-\contentsline {paragraph}{Example Workflow}{46}{paragraph*.20}%
-\contentsline {section}{\numberline {5.2}Web Application Components}{46}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Authentication Module}{47}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Exercise Management Module}{47}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}VM Control Module}{47}{subsection.5.2.3}%
-\contentsline {section}{\numberline {5.3}Asynchronous Processing with FastAPI}{47}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Differences Between Asyncio And Celery}{48}{subsection.5.3.1}%
-\contentsline {section}{\numberline {5.4}GNS3 Customization and Configuration}{49}{section.5.4}%
-\contentsline {paragraph}{Note:}{50}{paragraph*.21}%
-\contentsline {paragraph}{Note:}{50}{paragraph*.22}%
-\contentsline {paragraph}{IOU Support:}{50}{paragraph*.23}%
-\contentsline {section}{\numberline {5.5}Proxmox API Usage}{50}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Testing \& Evaluation}{52}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Performance Evaluation}{52}{section.6.1}%
-\contentsline {subsubsection}{\numberline {6.1.0.1}Task 1: Template VM Creation}{53}{subsubsection.6.1.0.1}%
-\contentsline {subsubsection}{\numberline {6.1.0.2}Task 2: VM Cloning}{54}{subsubsection.6.1.0.2}%
-\contentsline {subsubsection}{\numberline {6.1.0.3}Task 3: VM Deleting}{54}{subsubsection.6.1.0.3}%
-\contentsline {subsection}{\numberline {6.1.1}I/O Problems during Batch VM Operations}{54}{subsection.6.1.1}%
-\contentsline {chapter}{\numberline {7}Conclusion \& Future Work}{58}{chapter.7}%
+\contentsline {section}{\numberline {2.1}Virtualization}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}GNS3}{5}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Architecture}{5}{subsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.1}Controller}{5}{subsubsection.2.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.2}Compute}{6}{subsubsection.2.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.2.1.3}GUI}{6}{subsubsection.2.2.1.3}%
+\contentsline {section}{\numberline {2.3}Proxmox VE}{7}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Supported Virtualization Technologies}{8}{subsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.1.1}\ac {kvm}}{8}{subsubsection.2.3.1.1}%
+\contentsline {subsubsection}{\numberline {2.3.1.2}\ac {lxc}}{8}{subsubsection.2.3.1.2}%
+\contentsline {section}{\numberline {2.4}Virtualized Work Environments}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.5}LDAP}{9}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Python Web Frameworks for API-Based Systems}{10}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}WSGI}{11}{subsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.1.1}Flask}{12}{subsubsection.2.6.1.1}%
+\contentsline {subsubsection}{\numberline {2.6.1.2}Requests}{13}{subsubsection.2.6.1.2}%
+\contentsline {subsection}{\numberline {2.6.2}Long running task processing approaches}{13}{subsection.2.6.2}%
+\contentsline {subsubsection}{\numberline {2.6.2.1}Celery}{14}{subsubsection.2.6.2.1}%
+\contentsline {subsubsection}{\numberline {2.6.2.2}Asyncio}{14}{subsubsection.2.6.2.2}%
+\contentsline {subsection}{\numberline {2.6.3}ASGI}{15}{subsection.2.6.3}%
+\contentsline {subsubsection}{\numberline {2.6.3.1}FastAPI}{16}{subsubsection.2.6.3.1}%
+\contentsline {subsubsection}{\numberline {2.6.3.2}HTTPX}{17}{subsubsection.2.6.3.2}%
+\contentsline {section}{\numberline {2.7}System administration automation tools}{18}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Ansible}{18}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Nornir}{18}{subsection.2.7.2}%
+\contentsline {chapter}{\numberline {3}Related Work}{20}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Automated assessment Systems}{20}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Mooshak and lessons learned}{21}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Cisco Packet Tracer}{22}{section.3.2}%
+\contentsline {chapter}{\numberline {4}System Architecture \& Design}{26}{chapter.4}%
+\contentsline {paragraph}{Note:}{26}{paragraph*.11}%
+\contentsline {section}{\numberline {4.1}System Architecture Overview}{27}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Proxmox VE}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Why Proxmox VE?}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Proxmox VE Limitations}{29}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Proxmox VE Firewall}{30}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Maximing resource usage}{30}{subsection.4.2.4}%
+\contentsline {subsubsection}{\numberline {4.2.4.1}Exploration of containers as a full substitute for VMs}{30}{subsubsection.4.2.4.1}%
+\contentsline {subsection}{\numberline {4.2.5}VM Lifecycle}{31}{subsection.4.2.5}%
+\contentsline {section}{\numberline {4.3}GNS3}{31}{section.4.3}%
+\contentsline {section}{\numberline {4.4}High-level architecture}{33}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Interface Component}{33}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Web Application Component}{34}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Virtualization Components}{35}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Evaluation component}{35}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Virtual machine storage}{38}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Web application database}{38}{subsection.4.4.6}%
+\contentsline {section}{\numberline {4.5}System Functional Overview}{39}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}System Actors}{40}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Functional Use Cases}{40}{subsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.2.1}System Supports Both Directory Integration and Local Authentication}{40}{subsubsection.4.5.2.1}%
+\contentsline {subsubsection}{\numberline {4.5.2.2}Teacher Creates a New Exercise}{41}{subsubsection.4.5.2.2}%
+\contentsline {subsubsection}{\numberline {4.5.2.3}System Supports Enrollment of Users into Exercises}{41}{subsubsection.4.5.2.3}%
+\contentsline {subsubsection}{\numberline {4.5.2.4}Student Starts Their Exercise VM}{42}{subsubsection.4.5.2.4}%
+\contentsline {subsubsection}{\numberline {4.5.2.5}Student Submits Solution}{42}{subsubsection.4.5.2.5}%
+\contentsline {chapter}{\numberline {5}Implementation}{44}{chapter.5}%
+\contentsline {section}{\numberline {5.1}FastAPI Adoption: Overcoming Flask's Shortcomings}{44}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Initial setup: Flask}{44}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Second setup: Flask + Celery}{46}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Third setup: Quart, an ASGI-compliant Flask reimplementation}{47}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Final Decision: FastAPI Migration}{48}{subsection.5.1.4}%
+\contentsline {section}{\numberline {5.2}Project structure}{49}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Technologies}{49}{subsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.1.1}Python}{50}{subsubsection.5.2.1.1}%
+\contentsline {subsubsection}{\numberline {5.2.1.2}SQLite}{50}{subsubsection.5.2.1.2}%
+\contentsline {subsection}{\numberline {5.2.2}app/}{50}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}inventory/}{52}{subsection.5.2.3}%
+\contentsline {paragraph}{Key Fields Explanation:}{52}{paragraph*.17}%
+\contentsline {paragraph}{Implementation Notes:}{52}{paragraph*.18}%
+\contentsline {subsection}{\numberline {5.2.4}logger/}{53}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}nornir\_lib/}{53}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}proxmox\_api/}{54}{subsection.5.2.6}%
+\contentsline {paragraph}{Design Philosophy}{54}{paragraph*.19}%
+\contentsline {subsubsection}{\numberline {5.2.6.1}Error Handling}{55}{subsubsection.5.2.6.1}%
+\contentsline {subsection}{\numberline {5.2.7}gns3\_api/}{56}{subsection.5.2.7}%
+\contentsline {section}{\numberline {5.3}Web Application Components}{57}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Authentication Module}{57}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Exercise Management Module}{58}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}VM Control Module}{58}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}Asynchronous Processing with FastAPI}{58}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Differences Between Asyncio And Celery}{59}{subsection.5.4.1}%
+\contentsline {section}{\numberline {5.5}GNS3 Customization and Configuration}{60}{section.5.5}%
+\contentsline {paragraph}{Note:}{61}{paragraph*.21}%
+\contentsline {section}{\numberline {5.6}Proxmox API Usage}{61}{section.5.6}%
+\contentsline {paragraph}{Note:}{62}{paragraph*.22}%
+\contentsline {chapter}{\numberline {6}Testing \& Evaluation}{64}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Performance Evaluation}{64}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Available Hardware}{65}{subsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.1}Task 1: Template VM Creation}{66}{subsubsection.6.1.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.2}Task 2: VM Cloning}{67}{subsubsection.6.1.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.1.3}Task 3: VM Deleting}{69}{subsubsection.6.1.1.3}%
+\contentsline {subsection}{\numberline {6.1.2}I/O Problems during Batch VM Operations}{70}{subsection.6.1.2}%
+\contentsline {paragraph}{1st type of output:}{71}{paragraph*.33}%
+\contentsline {paragraph}{2nd type of output:}{72}{paragraph*.34}%
+\contentsline {paragraph}{ 3rd type of output:}{72}{paragraph*.35}%
+\contentsline {paragraph}{4th and final type of output:}{72}{paragraph*.36}%
+\contentsline {section}{\numberline {6.2}System Usage}{73}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Create a new exercise and enroll students}{74}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Complete an assignment and request an assessment}{75}{subsection.6.2.2}%
+\contentsline {chapter}{\numberline {7}Conclusion \& Future Work}{77}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Lessons learned}{78}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Future Work}{78}{section.7.2}%
 \vspace {0.5cm}
-\contentsline {chapter}{Bibliography}{58}{dummy.6}%
+\contentsline {chapter}{Bibliography}{79}{dummy.6}%
 \contentsfinish 

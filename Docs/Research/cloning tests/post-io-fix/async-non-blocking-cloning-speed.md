@@ -111,4 +111,4 @@ VM deletion process time: 2.872980 seconds
 21.0(3)
 
 total template average
-32.202087
+32.197323

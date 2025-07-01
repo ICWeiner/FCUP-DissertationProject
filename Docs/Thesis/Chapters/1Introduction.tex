@@ -14,80 +14,80 @@
 % Write text in here
 % Use \subsection and \subsubsection to organize text
 
-This chapter contextualizes challenges, outlining the limitations of current pedagogical tools and processes while framing the necessity 
-for an automated, scalable solution. By dissecting the shortcomings of existing platforms to manual assessment burdens—we lay the groundwork 
-for a system capable of aiding network administration education.
-
-
-\section{Problem Statement}
-
-The digital transformation sweeping across industries has created unprecedented demand for skilled computer science professionals.
-While most, if not all,\ac{cs} specializations face growing needs, network administration remains a foundational requirement. This persistent demand 
-reflects the networks's critical role as infrastructure supporting all digital systems.
+Digital change has greatly raised the need for those who work in the field of\ac{cs}. Among the various specializations within it, network 
+administration continues to be essential, due to the fundamental role that networks play in supporting the operation and connectivity 
+of all digital systems.
 
 Modern organizations require professionals who can design, configure, and troubleshoot increasingly complex network environments. 
-Effective education must therefore bridge theoretical knowledge with practical implementation, particularly through hands-on evaluations 
-that simulate real-world scenarios. Yet current assessment methods fail to meet these needs at scale, creating a growing gap between academic 
-preparation and professional requirements.
+Effective education must therefore bridge theoretical knowledge with practical implementation, particularly through hands-on learning 
+that simulates real-world scenarios. Yet current training and assessment methods fail to meet these needs at scale, creating a growing gap 
+between academic preparation and professional requirements.
 
-\subsection{Need for Automated Evaluation}
+This project aims to build an initial version of a system capable of assisting the training in the topic of network administration, building upon previous 
+work of \citet{santos2024} which solved a series of individual problems relevant to this topic, without building a system out of them.
 
-Practical evaluations are essential to prepare students for real-world challenges, enabling them to apply 
-theoretical knowledge and develop hands-on skills. However, available evaluation methods face significant limitations.
+\section{Need for Automated Assessment}
 
-Creating a physical network environment for practical evaluations is sure to be costly and challenging to scale for 
-large student populations. 
-While emulation and virtualization technologies offer cost-effective alternatives for creating flexible practice environments, 
-they lack built-in automated assessment capabilities. 
-Instructors must manually review each student's network topology configuration—a process that is:
+  Practical assessments are essential to prepare students for real-world challenges, enabling them to apply 
+  theoretical knowledge and develop hands-on skills. However, traditional assessment methods face significant limitations.
 
-\begin{itemize}
-  \item \textbf{Time-consuming}: Manual checks grow linearly with class size.
-  \item \textbf{Error-prone}: Human reviewers may overlook misconfigurations.
-  \item \textbf{Inconsistent}: Subjective grading criteria lead to unfair assessments.
-\end{itemize}
+  Creating a physical network environment for practical assessments is sure to be costly and challenging to scale for 
+  large student populations. 
+  While emulation and virtualization technologies offer cost-effective alternatives for creating flexible practice environments, 
+  they lack built-in automated assessment capabilities. 
+  Instructors must manually review each students' network assignment configuration—a process that is:
 
-Automating evaluations would reduce instructor workload, freeing time for student support aswell as ensure consistent, objective grading 
-and simultaneously enable immediate feedback for learners.
+  \begin{itemize}
+    \item \textbf{Time-consuming}: Manual checks grow linearly with class size.
+    \item \textbf{Error-prone}: Human reviewers may overlook misconfigurations.
+    \item \textbf{Inconsistent}: Subjective grading criteria lead to unfair assessments.
+  \end{itemize}
 
-\subsection{Limitations of Current Solutions}
+  Automating assessments would reduce instructor workload, freeing time for student support as well as ensure consistent, objective grading 
+  and simultaneously enable immediate feedback for learners.
 
-Existing approaches to network education suffer from two critical gaps:
+  \subsection{Limitations of Current Solutions}
 
-\begin{enumerate}
-    \item \textbf{Single-vendor focus}: Most tools (e.g., Cisco's packet tracer) are designed for specific vendor ecosystems, failing 
-    to prepare students for heterogeneous real-world networks where multi-vendor interoperability is essential.
-        \item \textbf{Missing evaluation component}: Some education institutions' curricula, such as our case in\ac{dcc}, forgo practical 
-        assessments entirely, which means:
-    \begin{itemize}
-        \item Students complete exercises without validation
-        \item No measurable feedback on configuration skills
-        \item Graduates enter industry with possible gaps in their knowledge
-    \end{itemize}
-\end{enumerate}
+    Existing approaches to network education suffer from two critical gaps:
 
+    \begin{enumerate}
+        \item \textbf{Single-vendor focus}: Most tools (e.g., Cisco's Packet Tracer) are designed for specific vendor ecosystems, failing 
+        to prepare students for heterogeneous real-world networks where multi-vendor interoperability is essential.
+        \item \textbf{Missing assessment component}: Some education institutions' curricula, such as our case in\ac{dcc}, forgo practical 
+        assessments entirely, meaning students complete networking exercises without getting feedback or validation. This lack of feedback 
+        can lead to students having gaps in their knowledge, hindering their performance when they join the workforce, as they may not have 
+        acquired sufficient practical skills in the identification and solving of common problems.
+    \end{enumerate}
 
 \section{Aims and Objectives}
 
-Building upon the foundational work of \citet{santos2024} in automated network topology evaluation, this project has the following technical objectives:
+  Designing and implementing a system that can automatically evaluate network administration assignments is one of the aims 
+  of this work. It will be utilised as a tool in classes and tests, allowing instructors to spend more time directly helping 
+  and guiding students.
 
-\begin{enumerate}
-    \item \textbf{Develop a prototypical automated evaluation environment}:
-    \begin{itemize}
-        \item Create a system for assessing network administration exercises without manual intervention
-        \item Support multi-vendor device configurations (Cisco, Juniper, Linux-based)
-        \item Validate both connectivity and configuration compliance
-    \end{itemize}
+  One of the objectives needed to accomplish this, is to have such a system be able to perform assessments whenever requested 
+  by a student, in a fully automated manner.
+  To have a wide range of support for vendors and device types is also highly desirable as exposing students to as much 
+  variety as possible will better prepare them for more heterogeneous environments of the real world.
+  It will also be important to have assessment for configurations as well as connectivity.
 
-    \item \textbf{Implement a cohesive back-end system}:
-    \begin{itemize}
-        \item Transform loose components from \citet{santos2024} into a unified system
-        \item Develop capabilities to coordinate between:
-        \begin{itemize}
-            \item Infrastructure provisioning
-            \item Network emulation 
-            \item Evaluation automation
-        \end{itemize}
-    \end{itemize}
-\end{enumerate}
+  Another aim of this project is to create a modular and cohesive back-end system out of the components created by 
+  \citet{santos2024}.
+  Achieving this will require further development of the components as well as creating capabilities to communicate between 
+  them.
 
+  All source code developed as part of this project is publicly available at: \url{https://github.com/ICWeiner/FCUP-DissertationProject}
+
+\section{Organization}
+
+  Besides the Introduction, this work includes 6 more chapters:
+
+  \begin{enumerate}
+      \item \textbf{Chapter 2} presents an overview of the system components and underlying technologies.
+      \item \textbf{Chapter 3} reviews related work, highlighting lessons learned and how this project differentiates itself from existing solutions.
+      \item \textbf{Chapter 4} provides a detailed description of the system architecture and its layers. It also outlines the project's functional use cases.
+      \item \textbf{Chapter 5} focuses on implementation details, emphasizing design decisions and their realization.
+      \item \textbf{Chapter 6} discusses performance evaluation results, demonstrating the scalability of solutions introduced in this work.
+      \item \textbf{Chapter 7} gives an overview of met aims and objectives, reviews lessons learned throughout, and goes 
+      over ideas for future work.
+  \end{enumerate}

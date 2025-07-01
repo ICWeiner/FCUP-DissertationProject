@@ -22,7 +22,24 @@
 \addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
 \begin{acknowledgements}
 
-Acknowledge ALL the people! ඞ
+Firstly i would like to thank my friends and family for encouraging me to pursue both my Bachelor's and Master's degrees. 
+Their love and support were fundamental in this endeavor.
+
+Additionally i want to express my sincerest gratitude to my girlfriend Daniela for all the love, support, company, all 
+the time spent playing board games and just being herself, as well as her family for all the support that they give me.
+
+Furthermore i would like to thank my Master's supervisor Professor Rui Prior for allowing me to explore this topic, as well 
+as all the ideas and feedback he gave me during development.
+
+Lastly i would like to thank Ginjas, for just being him.
+
+Thank you.
+
+\vspace*{10cm}
+\newfontfamily\sinhalaFont{Noto Sans Sinhala}
+\tikz[baseline]{
+  \node[opacity=0.05, text=black, font=\sinhalaFont] at (0,0) {ඞ};
+}
 
 \end{acknowledgements}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
@@ -39,11 +56,25 @@ Acknowledge ALL the people! ඞ
 	degree={Mestrado em Engenharia de Redes e Sistemas Informáticos},
 	nameconnector={por},
         keywordsname={Palavras-chave},
-        keywords={física (keywords em português)}]
+        keywords={ Proxmox VE, GNS3, automação, Nornir, FastAPI, assíncrono, comunicação, Emulação}]
 \begin{otherlanguage}{portuguese}
 
-Este tese é sobre alguma coisa
+Os métodos convencionais de formação em rede, que dependem fortemente do hardware físico, são muitas vezes proibitivamente 
+caros e não são escaláveis. As tecnologias de virtualização e emulação resolvem esta limitação, permitindo a execução 
+simultânea de vários dispositivos simulados numa unica maquina. No entanto, a avaliação da correção das configurações dos 
+dispositivos de rede continua a ser um processo manual, propenso a erros, em que as configurações incorrectas podem conduzir 
+a falhas críticas em toda a rede.
 
+Este trabalho representa a segunda fase no desenvolvimento de um sistema capaz de efetuar uma avaliação automatizada de topologias 
+de rede com suporte para um ambiente de dispositivos heterogéneos, no seguimento direto de um trabalho anterior. O sistema 
+terá como objetivo fornecer um ambiente de trabalho completo para os alunos, uma interface Web para que tanto os alunos como 
+os professores possam interagir com a plataforma e capacidades para automatizar a avaliação das configurações feitas pelos 
+alunos, permitindo que os professores se concentrem no ensino e na orientação dos alunos, em vez de terem de efetuar 
+verificações manuais repetitivas dos trabalhos dos alunos.
+
+Os desenvolvimentos deste projeto incluem a extensão e integração do trabalho anterior, bem como o desenvolvimento de uma 
+aplicação web utilizando FastAPI para alavancar as capacidades de comunicação assíncrona que se revelaram essenciais para 
+garantir que o sistema pode escalar.
 
 
 \end{otherlanguage}
@@ -53,9 +84,23 @@ Este tese é sobre alguma coisa
 %	ABSTRACT PAGE
 %-------------------------------------------------------------------------
 \addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
-\begin{abstract}
+\begin{abstract} 
 
-This thesis is about something, I guess.
+Conventional network training methods, which depend heavily on physical hardware, are often prohibitively expensive and lack scalability. 
+Virtualization and emulation technologies address this limitation by allowing multiple simulated devices to run concurrently 
+on a single system. Nevertheless, assessing the correctness of network device configurations continues to be a manual, 
+error-prone process, where misconfigurations can lead to critical failures across the network.
+
+This work represents the second phase in developing a system for automated assessment of network topologies, designed to support 
+a diverse range of network devices. Building upon previous research, the system aims to deliver a complete, web-based working 
+environment where both students and instructors can interact with the platform. Its key feature is the automation of configuration 
+assessments made by students, which reduces the manual workload for instructors, allowing them to focus more on teaching and guiding 
+rather than repetitive checking of assignments.
+
+The developments of this project include the extension and integration of previous work as well as the development of a web 
+application using FastAPI to leverage asynchronous communication capabilities which proved essential to ensure the system can 
+scale.
+
 
 \end{abstract}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
@@ -124,7 +169,7 @@ This thesis is about something, I guess.
 
 \newacronym{cs}{CS}{Computer Science}
 
-\newacronym{dcc}{DCC}{Department of Computer Science}
+\newacronym{dcc}{DCC}{FCUP-Department of Computer Science}
 
 \newacronym{gns3}{GNS3}{Graphical Network Simulator-3}
 
@@ -174,7 +219,15 @@ This thesis is about something, I guess.
 
 \newacronym{spice}{SPICE}{Simple Protocol for Independent Computing Environments}
 
+\newacronym{dry}{DRY}{Don't Repeat Yourself}
 
+\newacronym{uuid}{UUID}{Universally Unique Identifier}
+
+\newacronym{ui}{UI}{User Interface}
+
+\newacronym{gui}{GUI}{Graphical User Interface}
+
+\newacronym{cpu}{CPU}{Central Processing Unit}
 
 
 

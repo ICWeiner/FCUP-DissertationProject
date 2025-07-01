@@ -35,13 +35,13 @@
   To execute a task, a Celery task function must be called using the \textit{delay()} method, which will return a result object. 
   This result object can be used to check the status of the task and to retrieve the result once it is available.
 
-  Celery supports horizontal scaling by design, allowing multiple worker pools to run on separate physical or virtual machines. 
+  Celery supports horizontal scaling by design, allowing multiple worker pools to run on separate physical or\ac{vm}s. 
   This makes it especially effective for handling growing workloads—for example, processing email newsletters for an expanding 
   user base.
 
   In addition to basic task execution, Celery provides advanced features such as retry policies, task chaining, prioritization, 
   and timeouts. However, these benefits come with added complexity in deployment and maintenance, especially regarding broker 
-  reliability, result backend persistence, and worker supervision.
+  reliability, result back-end persistence, and worker supervision.
 
   Furthermore, Celery clients and workers introduce a non-negligible overhead in terms of CPU and memory usage, even when 
   idle, as they must maintain persistent connections to the broker and periodically perform health checks or heartbeats. 
@@ -54,82 +54,13 @@
   and simpler concurrency management.
 
 
-\subsection{Requests}
-  The Requests\cite{requests2025} library is a popular and user-friendly\ac{http} library for Python, used to send\ac{http} 
-  requests to web services. It simplifies interactions with \ac{api}s by simple to use methods for the various\ac{http} verbs, 
-  as well as providing support for cookies, sessions, authentication, \ac{json} and exception handling for network failures and 
-  invalid responses.
-
-  Requests was initially used in the project to handle all\ac{http} requests to the various services, such as
-  \ac{gns3} and \ac{pve}. Its simplicity and ease of use made it a natural choice for the initial implementation, allowing
-  for quick development and testing of the various endpoints.
-
-  \begin{algorithm}
-    \caption{Making a Synchronous HTTP Request Using Requests}\label{requests-basic}
-    \begin{algorithmic}[1]
-      \State \textbf{import} requests
-      \State
-      \State \textbf{url} = "https://api.example.com/data"
-      \State \textbf{response} = requests.get(url)
-      \State
-      \If{response.status\_code == 200}
-        \State \textbf{data} = response.json()
-        \State \textbf{print}(data)
-      \Else
-        \State \textbf{print}("Request failed with status code", response.status\_code)
-      \EndIf
-    \end{algorithmic}
-  \end{algorithm}
-
-  However, as the project evolved and the need for asynchronous processing became more apparent, with Requests being a 
-  synchronous library only, there was a need to transition to an alternative that support asynchronous operations.
-
-\subsection{HTTPX}
-
-  HTTPX\cite{httpx2025} is a modern \ac{http} client library for Python. HTTPX retains a similar structure to 
-  Requests, while providing  built-in support for asyncio.
-
-  In contrast to Requests, which blocks the current thread while waiting for a response, HTTPX enables non-blocking 
-  \ac{http} communication when used in asynchronous mode. This is particularly beneficial in scenarios involving multiple 
-  concurrent network operations, such as querying multiple \ac{gns3} devices or cloning virtual machines in \ac{pve}, 
-  where synchronous requests would otherwise serialize execution and lead to performance bottlenecks.
-
-  \begin{algorithm}
-    \caption{Making an Asynchronous HTTP Request Using HTTPX}\label{httpx-basic}
-    \begin{algorithmic}[1]
-      \State \textbf{import} httpx
-      \State \textbf{import} asyncio
-      \State
-      \State \textbf{async def} fetch():
-      \State \hspace{1em} \textbf{url} = "https://api.example.com/data"
-      \State \hspace{1em} \textbf{async with} httpx.AsyncClient() \textbf{as} client:
-      \State \hspace{2em} response = \textbf{await} client.get(url)
-      \State \hspace{2em} \textbf{if} response.status\_code == 200:
-      \State \hspace{3em} \textbf{data} = response.json()
-      \State \hspace{3em} \textbf{print}(data)
-      \State \hspace{2em} \textbf{else}:
-      \State \hspace{3em} \textbf{print}("Request failed with status code", response.status\_code)
-      \State
-      \State asyncio.run(fetch())
-    \end{algorithmic}
-  \end{algorithm}
-
-  HTTPX was adopted in the project to replace Requests for both asynchronous and synchronous use cases. Thanks to its full 
-  support for \texttt{async} and \texttt{await}, HTTPX integrates seamlessly into the FastAPI application, allowing 
-  concurrent \ac{http} requests to be awaited collectively using constructs like \texttt{asyncio.gather()}. This significantly 
-  improved the application's throughput under concurrent workloads.
-
-  Overall, HTTPX provides a robust and flexible foundation for asynchronous networking in Python, making it an ideal 
-  fit for the needs of this project.
-
-
 \subsection{Linux}
   Linux is a core component of this project, as it is the kernel of all operating systems used to host all the services provided.
 
   \begin{itemize}
     \item \textbf{Containerized Web Application} - The web application is hosted in an \ac{lxc} on \ac{pve}. Since \ac{lxc}s share 
     the host kernel, the containerized web application benefits from efficient resource usage while still being isolated from the host system.
-    \item \textbf{Virtual Machines hosting GNS3} \ac{pve} also hosts virtual machines running Linux-based Ubuntu \ac{gns3} servers. 
+    \item \textbf{Virtual Machines hosting GNS3} \ac{pve} also hosts\ac{vm}s running Linux-based Ubuntu \ac{gns3} servers. 
     These VMs provide students with environments to configure and test network topologies, benefiting from the 
     flexibility of full virtualization through \ac{kvm}, giving them the ability to virtualize any type of network device.
     Students only interact with these \ac{vm}s via the \ac{gns3} web Interface. Students interact with these \ac{vm}s using a browser, 

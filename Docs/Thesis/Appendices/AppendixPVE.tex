@@ -1,0 +1,73 @@
+
+\chapter*{proxmox\_api endpoints} % Main appendix title
+
+\label{pve_api_appendix} % Change X to a consecutive letter; for referencing this appendix elsewhere, use \ref{AppendixX}
+
+This library is responsible for interacting with the Proxmox VE API, automating management tasks such as starting, stopping, and templating virtual machines and containers.  
+
+Unless otherwise specified, all methods return a boolean value. In the event of network errors:
+\begin{itemize}
+  \item Functions expecting a boolean will return \texttt{False}.
+  \item Functions expecting other types will return \texttt{None}.
+\end{itemize}
+
+All other exceptions are propagated and should be caught by the caller.
+
+\subsection*{Module: \texttt{proxmox\_vm\_actions}}
+
+\begin{verbatim}
+_get_status(proxmox_host, session, vm_id)
+    Queries the state of a VM. For internal use. Returns the raw response.
+
+acheck_free_id(proxmox_host, session, id)
+    Checks if given VM/CT ID is unused. Does not reserve it.
+
+create(proxmox_host, session, template_id, clone_id, hostnames)
+    Clones the specified template VM with the given hostname.
+
+check_vm_status(proxmox_host, session, vm_id)
+    Checks if the VM is running and the QEMU guest-agent is active.
+
+check_vm_is_template(proxmox_host, session, vm_id)
+    Checks if a VM is in template format.
+
+start(proxmox_host, session, vm_id)
+    Starts the specified VM.
+
+stop(proxmox_host, session, vm_id)
+    Stops the specified VM.
+
+template(proxmox_host, session, vm_id)
+    Transforms the VM into a template.
+
+destroy(proxmox_host, session, vm_id)
+    Destroys the specified VM.
+\end{verbatim}
+
+The \texttt{session} parameter must be created using the \texttt{connection} module in \texttt{utils/}, and must contain valid credentials for the Proxmox cluster.
+
+\subsection*{Module: \texttt{proxmox\_vm\_firewall}}
+
+\begin{verbatim}
+create_proxmox_vm_isolation_rules(proxmox_host, first_vm_id, last_vm_id, allowed_vm_ip, session)
+    Enables firewall and blocks communication between student VMs.
+    Only allows communication with the allowed VM (typically the teacher VM).
+
+delete_proxmox_vm_isolation_rules(proxmox_host, first_vm_id, last_vm_id, allowed_vm_ip, session)
+    Removes previously set firewall rules, re-enabling inter-VM communication.
+\end{verbatim}
+
+\subsection*{Module: \texttt{utils}}
+
+Various utility functions to support Proxmox interaction:
+\begin{itemize}
+  \item \texttt{connection.proxmox\_connect}:  
+    Authenticates and returns an HTTP session with a valid authentication cookie.  
+    See the ProxmoxVE authentication documentation for details.
+    
+  \item \texttt{proxmox\_base\_uri\_generator}:  
+    Generates the base URI for API calls to Proxmox.
+
+  \item \texttt{proxmox\_vm\_ip\_fetcher}:  
+    Retrieves the current IP address or hostname of a VM or container given its ID.
+\end{itemize}

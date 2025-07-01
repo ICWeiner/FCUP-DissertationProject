@@ -14,54 +14,55 @@
 % Write text in here
 % Use \subsection and \subsubsection to organize text
 
-The main focus of this chapter is to provide the reader with the necessary background to understand the context and technical 
-foundations of this project. The goal of the system is to automatically evaluate network topologies by validating 
-configurations and executing tests across various devices within a virtual network.
+This chapter lays the technical groundwork for our project, with the aim to provide the reader with the necessary background to 
+understand the context and technical foundations of this project. The goal of the system is to automatically evaluate network 
+assignments by validating configurations and executing tests across various devices within a virtual network. Achieving this 
+will require the coordination of several components and services in order to support an automated solution capable of providing 
+each student with a correctly provisioned environment. 
 
-Achieving this requires the integration of multiple technologies, as the system must support a wide range of features to 
-deliver an automated solution. Key concerns include not only functionality but also scalability, since 
-multiple students may interact with the platform concurrently, each requiring an isolated working environment.
+While a more detailed architecture will be presented in Chapter~\ref{Chapter4SystemArchitectureDesign}, here we will introduce the 
+concepts and technologies that make this project possible. These include virtualization technologies to host students' work environments 
+as well as the network devices in them, technologies that support our orchestration needs, web frameworks for user interaction and asynchronous 
+technologies to enhance scalability.
 
-To support these requirements, this chapter introduces core concepts and tools such as virtualization, web frameworks, 
-administration automation and task processing. These components form the foundation upon which the system is built.
+\section{Virtualization}
+  Virtualization is the process of creating a virtual version of physical resources, such as routers, switches, or even
+  entire computers. In the context of this project, it is used to create\ac{vm}s to provide students with a 
+  work environment consisting of a virtual network, itself comprised of various types of virtualized devices. This approach 
+  enhances scalability and reduces costs, as it allows multiple\ac{vm}s to be run on a single physical machine.
 
-\section{Overview of Used Technologies}
+  In our project we will utilize \textbf{emulation} and \textbf{simulation}. 
 
-  \subsection{Virtualization}
-    Virtualization is the process of creating a virtual version of physical resources, such as routers, switches, or even
-    entire computers. In the context of this project, it is used to create virtual machines to provide students with a 
-    work environment consisting of a virtual network, itself comprised of various types of virtualized devices. This approach 
-    enhances scalability and reduces costs, as it allows multiple virtual machines to be run on a single physical machine.
+  \begin{itemize}
+    \item \textbf{Emulation} is the process of replicating the behavior of a hardware or software system in a virtual environment, 
+    reproducing even its bugs and limitations. This is useful for various things like testing software on different platforms, 
+    running legacy software on modern hardware and even running potentially harmful software in a safe isolated environment.
+    Emulation will be used wherever possible to provide students with a work environment that resembled the real world as much as 
+    possible to best develop their network skills.
+    \item \textbf{Simulation} models the behaviour of a device, without replicating the underlying hardware or software.
+    This results in a simpler, less resource intensive model, though it may not fully capture the real devices' behavior.
+    Simulation will be used to simulate the behaviour of certain, simpler and generic, network devices and PCs.
+  \end{itemize}
 
-    Virtualization can be categorized into \textbf{emulation} and \textbf{simulation}. 
-
-    \begin{itemize}
-      \item \textbf{Emulation} is the process of creating a virtual version of a physical device in software, replicating its 
-      behavior exactly—including any bugs and limitations. This is useful for various things like testing software on 
-      different platforms, running legacy software on modern hardware and even running potentially harmful software in a safe 
-      isolated environment.
-      Emulation will be used wherever possible to provide students with a work environment that  matches the real world as much as 
-      possible to best develop their network skills
-      \item \textbf{Simulation} models the behaviour of a device, without replicating the underlying hardware or software.
-      This results in a simpler less resource intensive model, though it may not fully capture the real device's behavior.
-      Simulation will be used to simulate the behaviour of certain, simpler and generic, network devices and PCs.
-
-    \end{itemize}
+  This project relies on both, as they enable the use of the the devices in the virtual work environments students will use to 
+  complete their assignments. These environments are hosted within\ac{vm}s that run on a virtualization platform. These will be 
+  discussed in further detail, in Section~\ref{sec:chap2_gns3} and Section~\ref{sec:chap2_pve}.
 
 
-  \subsection{GNS3}
-    \ac{gns3} is an open-source graphical network emulator software that allows the user to create complex network topologies 
-    and interact with the various devices in it. It is widely used for educational purposes and is often used in preparation 
-    for professional network certifications like the Cisco Certified Network Associate (CCNA).
+\section{GNS3}
+\label{sec:chap2_gns3}
+  \ac{gns3} is an open-source graphical network emulator software that allows the user to create complex network topologies 
+  and interact with the various devices in it. It is widely used for educational purposes and is often used in preparation 
+  for professional network certifications like the Cisco Certified Network Associate (CCNA).
 
-    \ac{gns3} employs a simple drag and drop interface to allow users to add new devices, make links between them 
-    and even add textual annotations. The software allows users to interact with the devices by way of a console or even a GUI
-    if the device supports it. The software also allows users to export their topologies to be shared with others, which can
-    be useful for teachers to provide students with a pre-configured topology to work on.
+  \ac{gns3} employs a simple drag and drop interface to allow users to add new devices, make links between them 
+  and even add textual annotations. The software allows users to interact with the devices by way of a console or even a\ac{gui}
+  if the device supports it. It also allows users to export their topologies to be shared with others, which can
+  be useful for teachers to provide students with a pre-configured assignment to work on.
 
-    Additionally, the software supports packet capturing which is essential for students to develop their debugging and 
-    troubleshoting skills. Finally it can also be interacted with via a\ac{rest}\ac{api} which is of particular interest
-    for this project.
+  Additionally, there is support for packet capturing, which is essential for students to develop their debugging and 
+  troubleshoting skills. Finally it can also be interacted with via a\ac{rest}\ac{api} which is of particular interest
+  for this project.
 
   \subsection{Architecture}
     The software can be employed in a variety of ways due to its architecture \cite{GNS3Architecture} that separates the user 
@@ -72,9 +73,9 @@ administration automation and task processing. These components form the foundat
       The controller is integrated in the gns3-server project and is responsible for communicating with all the other components 
       of the software. The controller is a singleton, meaning there should only be one instance of it running at any given time, 
       and it does not support concurrent requests. It is able to control multiple compute instances if so desired, each capable 
-      of hosting one or more emulator instances, varying depending on their complexity. The controller also exposes the
-      \ac{rest}\ac{api} allowing the ability to interact with the software programatically. All communication is done over
-      \ac{http} in\ac{json} format and there is support for basic\ac{http} authentication as well as notifications via websockets.
+      of hosting one or more emulator instances, varying depending on their complexity. The controller also exposes a
+      \ac{rest}\ac{api} providing the ability to interact with the software programatically. All communication is done over
+      \ac{http} in\ac{json} format and there is support for basic\ac{http} authentication as well as notifications via WebSockets.
 
     \subsubsection{Compute}
       The compute is also integrated in the gns3-server project and controls the various emulators required to run the nodes 
@@ -82,20 +83,25 @@ administration automation and task processing. These components form the foundat
       The list of currently supported emulators is:
 
       \begin{itemize}
-          \item \textbf{Dynamips} - Used to emulate Cisco routers and basic switching.
-          \item \textbf{\ac{iou}} - Used to emulate Cisco\ac{ios} devices.
-          \item \textbf{\ac{qemu}} - Used to emulate a wide variety of devices.
-          \item \textbf{\ac{vpcs}} - A basic program meant to simulate a basic PC.
-          \item \textbf{VMware/VirtualBox} - Used to run virtual machines with nested virtualization support.
+          \item \textbf{Dynamips} - Used to emulate Cisco routers and their hardware, as well as basic switching.
+          \item \textbf{\ac{iou}} - Used to emulate Cisco\ac{ios} devices, it is faster than Dynamips as it does not perform hardware emulation. 
+          Supported but not recommended as it is deemed inferior when compared to VIRL.
+          \item \textbf{\ac{qemu}} - Used to emulate a wide variety of devices such as\ac{vm}s.
+          \begin{itemize}
+            \item \textbf{VIRL} To use VIRL\ac{ios} images on\ac{qemu} it is required to purchase a licence from Cisco.
+            These images are created specifically for simulation and are recommended if newer version of\ac{ios} are desirable. 
+          \end{itemize}
+          \item \textbf{\ac{vpcs}} - A program meant to simulate a basic PC.
+          \item \textbf{VMware/VirtualBox} - Used to run\ac{vm}s with nested virtualization support.
           \item \textbf{Docker} - Used to run docker containers.
         \end{itemize}
 
     \subsubsection{GUI}
-      The GUI is composed of two separate but with mostly identical functionality, namely the gns3-gui and the gns3-web projects.
+      The\ac{gui} is composed of two separate entitites with mostly identical functionality, namely the gns3-gui and the gns3-web projects.
       The gns3-gui project is a desktop application that is used to to interact with a local or remote gns3-server instance. It 
-      is written in Python and uses the Qt framework for the graphical interface. The gns3-web is a web interface that is 
-      accessible via web browser and even though it is still in a beta stage, it has all the necessary features and stability to 
-      be used as a substitute for the gns3-gui.
+      is written in Python and uses the Qt framework for the\ac{gui}. The gns3-web, seen in Figure~\ref{fig:gns3-web-ui}, is 
+      a web interface that is accessible via web browser and, even though it is still in a beta stage, it has all the necessary features 
+      that students will need, as well as enough stability to be used as a substitute for the gns3-gui.
 
       \begin{figure}
           \centering
@@ -103,89 +109,122 @@ administration automation and task processing. These components form the foundat
               {2Background/gns3-web.png}
           \caption{A simple network topology example in the GNS3 Web UI}
         \hfill
+      \label{fig:gns3-web-ui}
       \end{figure}
 
+    The gns3-web UI, accessible via a browser, serves as the platform where students can complete their assignments, by interacting 
+    with the virtualized devices in a pre-configured\ac{gns3} remote host. This ensures students can focus on doing their assignments without having 
+    to setup software on their own or interact with the underlying host\ac{vm}.
 
-  \subsection{Proxmox VE} 
-    \ac{pve} is an open-source platform designed for enterprise-level virtualization \cite{proxmox2025}. It is based on the Debian
-    distribution of Linux and provides a web-based interface for managing virtual machines and containers. It is widely used
-    in data centers and cloud environments, as it provides a scalable and reliable solution for virtualization.
 
-    \ac{pve} bundles several core services that can be interacted with via shell commands, a web interface or by using
-    the\ac{pve}\ac{rest}\ac{api}.
-    These allow the user to interact with every service provided by\ac{pve}, in a plethora of ways, depending on the user's
-    needs, skills and preferences. The web interface is the most user-friendly way to interact with the platform, as it
-    provides a graphical interface for managing the cluster. The shell commands provide a more direct way to interact with the
-    platform, allowing for more complex operations to be performed and opening the doors to scripting and automation. Finally,
-    the\ac{pve}\ac{rest}\ac{api} allows for programmatic and remote interaction with the platform, enabling users to create custom
-    applications that can interact with the platform.
+\section{Proxmox VE}
+\label{sec:chap2_pve}
+  \ac{pve} is an open-source platform designed for enterprise-level virtualization \cite{proxmox2025}. It is based on the Debian
+  distribution of Linux and provides a web-based interface for managing\ac{vm}s and containers. It is widely used
+  in data centers and cloud environments, as it provides a scalable and reliable solution for virtualization.
 
-    \subsubsection{Virtualization Technologies}
-      \ac{pve} supports the the deployment and management of two distinct types of virtualization, namely,\ac{kvm} and\ac{lxc}.
+  \ac{pve} bundles several core services that can be interacted with via shell commands, a web interface or by using
+  the\ac{pve}\ac{rest}\ac{api}.
+  These allow the user to interact with every service provided by\ac{pve}, in a plethora of ways, depending on the user's
+  needs, skills and preferences. The web interface is the most user-friendly way to interact with the platform, as it
+  provides a\ac{gui} for managing the cluster. The shell commands provide a more direct way to interact with the
+  platform, allowing for more complex operations to be performed and opening the doors to scripting and automation. Finally,
+  the\ac{pve}\ac{rest}\ac{api} allows for programmatic and remote interaction with the platform, enabling users to create custom
+  applications that can interact with the platform.
 
-      Users can interact with these virtualized environments via NoVNC, a simple web-based VNC client or\ac{spice} which is a more
-      feature-rich protocol that provides better performance and more features than VNC.
-      Both of these protocols support the use of a console-based interface, aswell as a full desktop graphical interface.
+  \ac{pve} will be used to host all the\ac{vm}s running\ac{gns3} that students will complete their assignments on.
 
-      \subsubsection{\ac{kvm}}
-        \ac{kvm} is a virtualization solution provided by the Linux kernel. It leverages the hardware virtualization extensions 
-        of modern processors to provide a full virtualization experience at near-native speeds. Supports a wide range of guest 
-        operating systems making it a good choice for general purpose virtualization.
+  \subsection{Supported Virtualization Technologies}
+    \ac{pve} supports the the deployment and management of two distinct types of virtualization, namely,\ac{kvm} and\ac{lxc}.
 
-        In\ac{pve},\ac{kvm} is used as the core component for running virtual machines and is used alongside\ac{qemu}.
+    Users can interact with these virtualized environments via NoVNC, a simple web-based VNC client or\ac{spice} which is a more
+    feature-rich protocol that provides better performance and more features than VNC.
+    Both of these protocols support the use of a console-based interface, as well as a full desktop\ac{gui}.
 
-      \subsubsection{\ac{lxc}}
-        Containerization is an operating system-level virtualization method that packages an application and its dependencies
-        together into an isolated environment. Contrary to traditional\ac{vm} solutions, containers dont emulate hardware or require a 
-        guest operating system relying instead on the host's kernel. This approach leads to a faster and more lightweight 
-        virtualization solution, as they consume less memory and cpu resources.
+    \subsubsection{\ac{kvm}}
+      \ac{kvm} is a virtualization solution provided by the Linux kernel. It leverages the hardware virtualization extensions 
+      of modern processors to provide a full virtualization experience at near-native speeds. Supports a wide range of guest 
+      operating systems making it a good choice for general purpose virtualization.
 
-        \ac{lxc} creates full system containers, capable of simulating a complete Linux distribution providing users with an 
-        environment that behaves like a traditional\ac{vm} but with the speed and efficiency of a container.\ac{lxc} start 
-        much faster than\ac{vm}s making them ideal for scenarios requiring rapid deployment and/or scaling.
+      In\ac{pve},\ac{kvm} is used as the core component for running\ac{vm}s and is used alongside\ac{qemu}.
 
-        However, it's important to note that while containers offer a degree of isolation, they do not provide the same level of
-        security as\ac{vm}s. This means that while they may not always be a suitable replacement for\ac{vm}s.
+    \subsubsection{\ac{lxc}}
+      Containerization is an operating system-level virtualization method that packages an application and its dependencies
+      together into an isolated environment. Contrary to traditional\ac{vm} solutions, containers dont emulate hardware or require a 
+      guest operating system relying instead on the host's kernel. This approach leads to a faster and more lightweight 
+      virtualization solution, as they consume less memory and\ac{cpu} resources.
 
-  \subsection{LDAP}
+      \ac{lxc} creates full system containers, capable of simulating a complete Linux distribution providing users with an 
+      environment that behaves like a traditional\ac{vm} but with the speed and efficiency of a container.\ac{lxc} start 
+      much faster than\ac{vm}s making them ideal for scenarios requiring rapid deployment and/or scaling.
 
-    \ac{ldap} is the foundation of user and device management in many institutions. Universities can rely on openLDAP and/or Microsoft's 
-    Active Directory (its enterprise implementation) to handle student, faculty accounts and lab computer access, amongst other things.
+      However, it's important to note that while containers offer a degree of isolation, they do not provide the same level of
+      security as\ac{vm}s. They also dont support all features that\ac{vm}s do, which will be discussed more in-depth in 
+      Chapter~\ref{Chapter4SystemArchitectureDesign}. This means that they may not always be a suitable replacement for\ac{vm}s.
 
-    One of\ac{ldap}'s most popular implementations, OpenLDAP, had its initial release in 1998. The protocol's longevity stems from its 
-    efficiency at handling large-scale authentication so much so that despite newer alternatives existing,\ac{ldap} remains entrenched 
-    in academic environments due to its reliability and universal adoption. For our project,\ac{ldap} integration enables students 
-    access to the system using their existing university credentials. 
-
-    Two key factors make\ac{ldap} particularly valuable for this project: its standardized approach to user management 
-    and pre-existing deployment in our target educational environments. Given the extensive use, it's desirable for our system to have the 
-    capability to interact with LDAP in order to correctly authenticate users.
-
-\section{Virtualized Lab Environments}
-  The combined use of\ac{pve} as a virtualization platform and\ac{gns3} for network emulation presents a cost-effective solution for 
-  scalable networking education. This approach offers significant benefits over physical lab infrastructures:
+\section{Virtualized Work Environments}
+  Creating a physical lab for students to learn and practice networking skills can be labor and time intensive as well as costly for larger student populations.
+  To tackle this challenge we devised virtualized work environments wth existing tools and technologies, where a student can interact with a unique instance of a 
+  virtualized network, consisting of multiple devices. Then, by virtualizing these work environments on a virtualization platform, we can 
+  host several instances simultaneously over a single physical machine, increasing the number of students supported without an increase of hardware 
+  requirements.
+  
+  This approach offers significant benefits over physical lab infrastructures:
 
   \begin{itemize}
-    \item \textbf{Resource Efficiency}: Single physical host can support multiple concurrent student environments
+    \item \textbf{Resource Efficiency}: Single physical host can support multiple concurrent student environments, each with multiple devices.
     \item \textbf{Operational Characteristics}:
     \begin{itemize}
-        \item Accelerated environment provisioning through templates
-        \item State preservation via\ac{pve}'s snapshot/restore functionality
-        \item Support for diverse network operating systems through virtualization technologies
+        \item Fast environment provisioning through template\ac{vm}s.
+        \item Possibility of state preservation via\ac{pve}'s snapshot/restore functionality.
+        \item Support for diverse operating systems through virtualization technologies.
     \end{itemize}
   \end{itemize}
 
+  The combined use of\ac{pve} as a virtualization platform and\ac{gns3} for network emulation presents a flexible and cost-effective solution 
+  for scalable networking education.
+
+\section{LDAP}
+
+  \ac{ldap} is the foundation of user and device management in many institutions and enterprise environments. In 
+  universities, it is common for\ac{ldap} directories to be used for authentication.\ac{ldap} can be to used to 
+  provide access control for students, faculty, and staff across a wide range of services from logging into campus 
+  computers to accessing library resources or online learning platforms. In\ac{dcc},\ac{ldap} is used to authenticate 
+  into labs' computers.
+
+  One of\ac{ldap}'s most popular implementations, OpenLDAP, had its initial release in 1998. The protocol's longevity 
+  stems from its efficiency at handling large-scale authentication so much so that despite newer alternatives existing,
+  \ac{ldap} remains in academic environments due to its reliability. For our project,\ac{ldap} integration 
+  enables students access to the system using their existing university credentials. This avoids the need to create and 
+  manage a separate set of usernames and passwords for the system, which not only reduces administrative overhead but 
+  also aligns with standard institutional practices. Furthermore, group-based permissions can be derived directly from 
+  the directory, streamlining role-based access control.
+
+  Two key factors make\ac{ldap} particularly valuable for this project: its standardized approach to user management 
+  and pre-existing deployment in our target educational environments. Given the extensive use, it's desirable for our 
+  system to have the capability to interact with LDAP in order to correctly authenticate users.
+
+  However, it is also important to ensure that our system remains flexible and accessible in a wider range of contexts. 
+  Not all institutions have an\ac{ldap} deployment, or may have a preference for alternative identity providers. 
+  For this reason,\ac{ldap} support in the system is designed as an optional integration. When enabled, it provides 
+  direct authentication against an existing\ac{ldap} server; when disabled, the system falls back to local user management.
+
+  When\ac{ldap} based authentication is desired, the proper authentication realms must be configured in the\ac{pve} 
+  cluster. This has multiple benefits, such as not overbearing the yet to be introduced web application component of 
+  the project with functionalities and responsibilities, as well as providing a better logging experience, as it will be 
+  possible to see who interacted with the cluster and what was done, providing accountability.
+
 \section{Python Web Frameworks for API-Based Systems}
 
-  \subsection{Python}
-    Python is a high-level, interpreted programming language renowned for its readability and versatility. It supports 
-    multiple programming paradigms, including procedural, object-oriented, and functional programming, making it suitable 
-    for a wide array of applications.
-    In the context of this project, Python serves as the primary programming language as its extensive standard library 
-    and supportive community contribute to efficient development and maintenance of the project's codebase.
+  Python is a high-level, interpreted programming language renowned for its readability and versatility. It supports 
+  multiple programming paradigms, including procedural, object-oriented, and functional programming, making it suitable 
+  for a wide array of applications.
+  In the context of this project, Python serves as the primary programming language, as its extensive standard library 
+  and supportive community contribute to efficient development and maintenance of the project's codebase. 
+  In the case of building Python web\ac{api}s there are 2 big standards in active use today,\ac{wsgi} and\ac{asgi}. 
 
   \subsection{WSGI}
-    The\ac{wsgi} is a pivotal standard for Python web application deployment, defining a consistent interface between web 
+    The\ac{wsgi} is a standard for Python web application deployment, defining a consistent interface between web 
     servers and Python web applications/frameworks.
 
     Prior to\ac{wsgi}'s introduction\cite{pep333}, Python web frameworks were typically written against various server-specific APIs such as 
@@ -193,10 +232,10 @@ administration automation and task processing. These components form the foundat
     frameworks, as not all frameworks supported all web servers and vice-versa. To address this fragmentation,\ac{wsgi} was 
     created as a standardized interface, promoting portability and flexibility in deploying Python web applications. 
 
-    \ac{wsgi} serves as a bridge, enabling web servers to communicate with Python applications. It specifies a simple and universal 
-    interface for web servers to forward requests to Python applications and for those applications to return responses. 
-    This standardization allows developers to choose from a variety of web servers and Python frameworks without compatibility 
-    concerns.
+    \ac{wsgi} serves as a bridge, as can be seen in Figure~\ref{fig:wsgi-illustration}, enabling web servers to communicate with 
+    Python applications. It specifies a simple and universal interface for web servers to forward requests to Python applications 
+    and for those applications to return responses. This standardization allows developers to choose from a variety of web servers 
+    and Python frameworks without compatibility concerns.
 
     Introduced in 2003 as PEP 333,\ac{wsgi} was later updated to PEP 3333 in 2010 to accommodate Python 3. These specifications 
     outline how web servers and Python applications should interact, ensuring a consistent and reliable deployment environment 
@@ -206,8 +245,18 @@ administration automation and task processing. These components form the foundat
     \begin{itemize}
       \item \textbf{Server/Gateway Side} - Responsible for receiving\ac{http} requests from clients and passing them to the 
       Python application. Then receives the response from the application and forwards it to the client. 
-      \item \textbf{Application} - The Python application that processes requests and returns responses.
+      \item \textbf{Application} - A Python callable (usually a function or class) that follows the\ac{wsgi} specification. It receives request data from the server, 
+      processes it, and returns a response in a specific format that the server can forward to the client.
     \end{itemize}
+
+      \begin{figure}
+        \centering
+          \includegraphics[width=.95\linewidth]
+            {2Background/wsgi-figure.png}
+        \caption{A figure showcasing the deployment of a\ac{wsgi} application.  Illustration by Reena Kamra }
+      \hfill
+      \label{fig:wsgi-illustration}
+    \end{figure}
 
     Additionally\ac{wsgi} has support for middleware components.\ac{wsgi} middleware is a Python callable that wraps another
     \ac{wsgi} application to observe or modify its behavior. Middleware can perform various functions, including request 
@@ -217,18 +266,19 @@ administration automation and task processing. These components form the foundat
     The separation defined by\ac{wsgi} allows for flexibility and scalability in deploying Python web applications.
 
     Python\ac{wsgi} applications often use built-in servers, during development, provided by frameworks like Flask. 
-    However, these servers typically aren't fully featured and aren't suitable for production environments. In production, WSGI 
-    servers act as intermediaries between web servers (e.g., NGINX or Apache) and Python applications, handling incoming requests 
+    However, these servers typically aren't fully featured and aren't suitable for production environments, as they are optimized 
+    for running Python code instead of other tasks typical of web servers, such as serving static assets.  In production,\ac{wsgi} 
+    servers act as intermediaries between web servers (e.g. NGINX or Apache) and Python applications, handling incoming requests 
     and serving responses efficiently.
 
     \subsubsection{Flask}
-      Flask is a web application micro framework written in Python, adhering to the\ac{wsgi} standard, designed to 
+      Flask is a web application micro framework written in Python, and the most popular one adhering to the\ac{wsgi} standard, designed to 
       facilitate the development of web applications by providing essential tools and features. Classified as a microframework, 
       Flask does not require particular tools or libraries, instead choosing to focus on simplicity and extensibility\cite{flask2025}.
 
-      An example of how easy it is to develop a basic web application with flask is provided in the following small 
-      piece of code.
+      An example of how easy it is to develop a basic web application with flask is provided in Sample Code~\ref{sample:flask-hello}.
 
+      \floatname{algorithm}{Sample code}
       \begin{algorithm}
         \caption{Flask Hello World}\label{flask-hello-world}
         \begin{algorithmic}[1]
@@ -242,13 +292,93 @@ administration automation and task processing. These components form the foundat
           \State \textbf{if} \_\_name\_\_ == '\_\_main\_\_':
           \State \hspace{1em} app.run()
         \end{algorithmic}
+        \label{sample:flask-hello}
       \end{algorithm}
+
+    \subsubsection{Requests}
+      Requests\cite{requests2025} is a popular and user-friendly\ac{http} library for Python, used to send\ac{http} 
+      requests to web services. It simplifies interactions with\ac{api}s by simple to use methods for the various\ac{http} verbs, 
+      as well as providing support for cookies, sessions, authentication,\ac{json} and exception handling for network failures and 
+      invalid responses.
+
+      Requests was initially used in the project to handle all\ac{http} requests to the various services, such as\ac{gns3} and\ac{pve}. 
+      Its simplicity and ease of use made it a natural choice for the initial implementation, allowing for quick development and testing 
+      of the various endpoints. An example of a GET request and subsequent processing can be seen in Sample Code~\ref{sample:requests-hello}.
+
+      \floatname{algorithm}{Sample code}
+      \begin{algorithm}
+        \caption{Making a Synchronous HTTP Request Using Requests}\label{requests-basic}
+        \begin{algorithmic}[1]
+          \State \textbf{import} requests
+          \State
+          \State \textbf{url} = "https://api.example.com/data"
+          \State \textbf{response} = requests.get(url)
+          \State
+          \State \textbf{if} response.status\_code == 200:
+          \State \hspace{1em} \textbf{data} = response.json()
+          \State \hspace{1em} \textbf{print}(data)
+          \State \textbf{else}:
+          \State \hspace{1em} \textbf{print}("Request failed with status code", response.status\_code)
+        \end{algorithmic}
+        \label{sample:requests-hello}
+      \end{algorithm}
+
+      However, as the project evolved and the need for alternative non-blocking I/0 became more apparent, with Requests being a 
+      synchronous blocking library only, there was a need to transition to an alternative that supported different programming paradigms.
+
+
+  \subsection{Long running task processing approaches}
+
+    Modern\ac{api}-driven applications may benefit from programming paradigms made to handle concurrent operations efficiently. Traditional 
+    synchronous execution models, where each request blocks thread execution until completion, prove inadequate for systems requiring high 
+    throughput and responsiveness. This limitation becomes particularly apparent in projects like ours, which relies heavily on\ac{http} 
+    calls to various devices and services.
+
+    \subsubsection{Celery}
+      Celery is an open source distributed task queue focused on real-time processing but also offers support for task scheduling.
+      It is implemented in Python, but the underlying protocol can be implemented in any language. It requires a message broker 
+      to function, such as Redis or RabbitMQ, which are responsible for queuing and distributing tasks from producers (clients) to 
+      consumers (workers). Celery's workers are processes that can be distributed among different machines
+
+      When integrating Celery into their projects developers must mark functions they want to be processed as tasks with Celery provided 
+      decorators (e.g. \texttt{@app.task}) which allows workers to then execute them. The system shines in projects requiring 
+      heavy computational or scheduled jobs, but brings with it non-negligible operational, developmental and resouce overhead, doubly so if 
+      the project didn't already include the use of message brokers.
+      
+    \subsubsection{Asyncio}
+
+      \texttt{asyncio} is Python's built-in library for writing concurrent asynchronous code. It serves as the foundation for asynchronous operations 
+      in many Python frameworks, enabling high-performance networking, web servers, database connections, distributed task queues, etc.
+
+      The asynchronous model, implemented through Python's \texttt{async}/\texttt{await} syntax, offers several critical advantages:
+
+      \begin{itemize}
+          \item \textbf{Improved Resource Utilization}: A single thread can manage multiple concurrent I/O operations by yielding control during waiting periods.
+          \item \textbf{Enhanced Scalability}: Systems can handle higher concurrent user counts with the same hardware resources.
+          \item \textbf{Responsive Performance}: The application remains reactive even during long-running operations.
+      \end{itemize}
+
+      Asynchronous I/O can be useful in cases of time-consuming operations, as while awaiting the finish of said tasks, it relinquishes control 
+      so that other code can run in the meantime. This approach is particularly well-suited for I/O-bound operations, such as network 
+      communication, file access, or database queries, where tasks would otherwise spend a significant amount of time waiting for external operations that 
+      are outside of our control to complete. Rather than blocking the entire application during such waits, \texttt{asyncio} allows other tasks to 
+      execute in the meantime, leading to more efficient resource utilization and improved throughput.
+
+      Overall, \texttt{asyncio} provides the concurrency model that underpins efficient I/O performance. By embracing this model, 
+      the project benefits from improved responsiveness, lower latency, and better scalability, during workloads that 
+      involve heavy interaction with services external to the web application, such as\ac{pve}.
+
+      Although Python has native asynchronous capabilities, libraries must be written with these in mind, meaning some may have limited 
+      or even no support for these capabilities.
+
+      Frameworks that leverage these capabilities natively, provide the foundation for building responsive, scalable\ac{api} 
+      services.
 
   \subsection{ASGI}
 
-    \ac{asgi} is an interface specification for Python web servers and applications. It is considered a spiritual successor to
-    \ac{wsgi}, designed to provide a standard interface for asynchronous communication.\ac{asgi} was developed to address the 
-    limitations of \ac{wsgi}, which was primarily designed for synchronous applications. Unlike\ac{wsgi},\ac{asgi} supports 
+    \ac{asgi} is an interface specification for Python web servers and applications. It is considered a spiritual successor 
+    to\ac{wsgi}, designed to provide a standard interface for asynchronous communication.\ac{asgi} was developed to address the 
+    limitations of\ac{wsgi}, which was primarily designed for synchronous applications. Unlike\ac{wsgi},\ac{asgi} supports 
     handling multiple requests concurrently, making it suitable for modern web applications that require real-time features such 
     as WebSockets, long-lived connections, background tasks or the use of Python's async features.
     
@@ -263,78 +393,91 @@ administration automation and task processing. These components form the foundat
       FastAPI relies entirely on Python type declarations, making it more intuitive and lowering the barrier to entry to new 
       developers. This approach also simplifies the understanding and maintenance of the codebase.
       
-      Built on top of Starlette, a lightweight\ac{asgi} framework, and Pydantic, a data validation library. FastAPI combines the 
+      Built on top of Starlette, a lightweight\ac{asgi} framework, and Pydantic, a data validation library, FastAPI combines the 
       strengths of both to provide a powerful and flexible framework for building APIs with automatic data validation, 
       serialization and documentation generation, all of which significantly enhance developer productivity.
       
       Another key feature of FastAPI, being\ac{asgi}-compliant, is its built-in support for asynchronous programming, allowing 
-      developers to write non-blocking code using Python's \textit{async}/\textit{await} keywords. This is particularly useful 
+      developers to write non-blocking code using Python's \texttt{async/await} keywords. This is particularly useful 
       for I/O-bound operations, such as database queries or network requests, as it allows the application to handle multiple 
-      requests concurrently without blocking the application which is essential in projects such as this one where multiple 
+      requests concurrently without blocking the application. This is essential in projects such as this one where multiple 
       concurrent\ac{http} calls are made to interact with multiple devices and services concurrently, such as\ac{gns3} and\ac{pve}.
       
       Another powerful feature of FastAPI is its dependency injection system, that is very easy to use as it is automatically
-      handled by the framework itselft. This allows for a clean and modular codebase, as dependencies can be easily injected into
-      the various components of the application. This is especially useful in larger applications, where managing dependencies
-      can become complex and cumbersome.
+      handled by the framework itself. This allows for a clean and modular codebase, as dependencies that need to be reused often
+      (e.g. have a need for shared logic repeatedly or sharing database connections) can be easily injected into the various components 
+      of the application reducing code repetition. This is especially useful in larger applications, where managing such dependencies can 
+      become complex and cumbersome.
       
       A change from Flask to FastAPI laid the groundwork for more efficient handling of I/O-bound operations—such as network interactions 
       with\ac{pve} or\ac{gns3}, which will be of importance in future iterations of the project while also streamlining development thanks 
       to FastAPI's built-in request parsing, background task support, and integrated dependency injection system.
 
-\section{Long running task processing approaches}
+    \subsubsection{HTTPX}
 
-  \subsection{The need for asynchronous processing in API-heavy applications.}
-    Modern\ac{api}-driven applications benefit tremendously from asynchronous programming paradigms to handle concurrent operations 
-    efficiently. Traditional synchronous execution models, where each request blocks thread execution until completion, prove 
-    inadequate for systems requiring high throughput and responsiveness. This limitation becomes particularly apparent in projects 
-    like ours, which relies heavily on\ac{http} calls to various devices and services.
+      HTTPX\cite{httpx2025} is a modern\ac{http} client library for Python. HTTPX retains a similar structure to 
+      Requests, while providing  built-in support for asyncio.
 
-    The asynchronous model, implemented through Python's \texttt{async}/\texttt{await} syntax, offers several critical advantages:
+      In contrast to Requests, which blocks the current thread while waiting for a response, HTTPX enables non-blocking 
+      \ac{http} communication when used in asynchronous mode. This is particularly beneficial in scenarios involving multiple 
+      concurrent network operations, such as querying multiple\ac{gns3} devices or cloning\ac{vm}s  in\ac{pve}, 
+      where synchronous requests would otherwise serialize execution and lead to performance bottlenecks.
 
-    \begin{itemize}
-        \item \textbf{Improved Resource Utilization}: A single thread can manage multiple concurrent I/O operations by yielding control during waiting periods
-        \item \textbf{Enhanced Scalability}: Systems can handle higher concurrent user counts with the same hardware resources
-        \item \textbf{Responsive Performance}: The application remains reactive even during long-running operations
-    \end{itemize}
+      An example of a basic asynchronous GET request with HTTPX is provided in Sample Code~\ref{sample:httpx-hello}.
 
-    Although Python has native asynchronous capabilities, libraries must be written with these in mind, meaning some may have limited 
-    or even no support for these capabilities.
-    
-  \subsection{Asyncio}
+      \floatname{algorithm}{Sample code}
+      \begin{algorithm}
+        \caption{Making an Asynchronous HTTP Request Using HTTPX}\label{httpx-basic}
+        \begin{algorithmic}[1]
+          \State \textbf{import} httpx
+          \State \textbf{import} asyncio
+          \State
+          \State \textbf{async def} fetch():
+          \State \hspace{1em} \textbf{url} = "https://api.example.com/data"
+          \State \hspace{1em} \textbf{async with} httpx.AsyncClient() \textbf{as} client:
+          \State \hspace{2em} response = \textbf{await} client.get(url)
+          \State \hspace{2em} \textbf{if} response.status\_code == 200:
+          \State \hspace{3em} \textbf{data} = response.json()
+          \State \hspace{3em} \textbf{print}(data)
+          \State \hspace{2em} \textbf{else}:
+          \State \hspace{3em} \textbf{print}("Request failed with status code", response.status\_code)
+          \State
+          \State asyncio.run(fetch())
+        \end{algorithmic}
+        \label{sample:httpx-hello}
+      \end{algorithm}
 
-    Asyncio is Python's built-in library for writing concurrent asynchronous code. It serves as the foundation for asynchronous operations 
-    in many Python frameworks, enabling high-performance networking, web servers, database connections, distributed task queues, etc.. 
+      HTTPX was adopted in the project to replace Requests for both asynchronous and synchronous use cases. Thanks to its full 
+      support for \texttt{async} and \texttt{await}, HTTPX integrates seamlessly into the FastAPI application, allowing 
+      concurrent\ac{http} requests to be awaited collectively using constructs like \texttt{asyncio.gather()}. This significantly 
+      improved the application's throughput under concurrent workloads.
 
-    Asynchronous I/O can be useful in cases of time-consuming operations, as while awaiting the finish of said tasks, it relinquishes control 
-    so that other code can run in the meantime. This approach is particularly well-suited for I/O-bound operations—such as network 
-    communication, file access, or database queries—where tasks would otherwise spend a significant amount of time waiting for external operations that 
-    are outside of our control to complete. Rather than blocking the entire application during such waits, Asyncio allows other tasks to 
-    execute in the meantime, leading to more efficient resource utilization and improved throughput.
+      Overall, HTTPX provides a robust and flexible foundation for asynchronous networking in Python, making it an ideal 
+      fit for the needs of this project.
 
-    Overall, Asyncio provides the concurrency model that underpins efficient I/O performance. By embracing this model, 
-    the project benefits from improved responsiveness, lower latency, and better scalability—especially under workloads that 
-    involve heavy interaction with external services.
-
-    Frameworks that leverage these capabilities natively, provide the foundation for building responsive, scalable\ac{api} 
-    services.
-    
-  \subsection{Celery}
-    Celery is an open source distributed task queue focused on real-time processing but also offers support for task scheduling.
-    It is implemented in Python, but the underlying protocol can be implemented in any language. Celery requires a message broker 
-    to function, such as Redis or RabbitMQ, which are responsible for queuing and distributing tasks from producers (clients) to 
-    consumers (workers).
-
-    When integrating Celery into their projects developers must mark functions they want to be processed as tasks with Celery provided 
-    decorators (e.g. \texttt{@app.task}) which allows workers to then execute them asynchronously. The system shines in projects requiring 
-    heavy computational or scheduled jobs, but brings with it non-negligible operational, developmental and resouce overhead, doubly so if 
-    the project didn't already include the use of message brokers.
+  Using these technologies, a web application will be built to offer a solution where students can interact with the system as a whole.
 
 \section{System administration automation tools}
 
   Modern system administration increasingly relies on automation tools to manage complex infrastructure while maintaining reliability and 
-  reproducibility. In our context, configuration management systems serve as the foundational layer for ensuring well-configured device states 
-  across network environments.
+  reproducibility. In our context, these tools serve as the foundational layer for ensuring well-configured device states across network 
+  environments.
+
+  \subsection{Ansible}
+
+    Ansible is a widely adopted open-source automation platform that simplifies configuration management, application deployment, 
+    and task automation through a declarative YAML-based approach. Unlike imperative scripting solutions, Ansible employs playbooks 
+    to define system states, making automation accessible to both developers and operations teams while maintaining robust capabilities 
+    for complex workflows.
+
+    The platform operates on an agentless architecture, utilizing\ac{ssh} for connectivity, which eliminates the need for persistent software 
+    on managed nodes. This design choice significantly reduces deployment overhead while maintaining secure communication through standard 
+    protocols. Ansible's push-based execution model allows for immediate task execution across entire device inventories without requiring 
+    pre-installed clients.
+
+    Ansible remains a valuable tool in task automation and orchestration but, as was already discussed in\cite{santos2024} there are several 
+    barriers to the adoption of Ansible in this project, mainly the difficulties encountered by utilizing the Telnet protocol for 
+    communications with network devices that dont support the\ac{ssh} protocol .
 
   \subsection{Nornir}
   
@@ -352,24 +495,12 @@ administration automation and task processing. These components form the foundat
 
     Finally, thanks to Nornir's architecture, it is highly extensible through its plugin system, allowing users to create 
     custom plugins for inventory management, task execution, and result processing. This modularity ensures that Nornir can 
-    adapt to a wide range of network automation scenarios.
+    adapt to a wide range of network automation scenarios. Similarly to Ansible, Nornir also employs an agentless architecture.
 
     Nornir makes it easy to write reusable tasks for configuration management and state validation which makes it 
     highly desirable in the context of this project. Its ability to handle concurrent operations will also ensure it can scale 
     alongside the rest of the project.
 
-  \subsection{Ansible}
+    Nornir will be used as the main tool to interact with the virtualized devices in students' assignments in order to run commands 
+    on them and retrieve the respective output for analysis.
 
-    Ansible is a widely adopted open-source automation platform that simplifies configuration management, application deployment, 
-    and task automation through a declarative YAML-based approach. Unlike imperative scripting solutions, Ansible employs playbooks 
-    to define system states, making automation accessible to both developers and operations teams while maintaining robust capabilities 
-    for complex workflows.
-
-    The platform operates on an agentless architecture, utilizing\ac{ssh} for connectivity, which eliminates the need for persistent software 
-    on managed nodes. This design choice significantly reduces deployment overhead while maintaining secure communication through standard 
-    protocols. Ansible's push-based execution model allows for immediate task execution across entire device inventories without requiring 
-    pre-installed clients.
-
-    Ansible remains a valuable tool in task automation and orchestration but, as was already discussed in\cite{santos2024} there are several 
-    barriers to the adoption of Ansible in this project, mainly the difficulties encountered by utilizing the Telnet protocol for 
-    communications with network devices that dont support the\ac{ssh} protocol .

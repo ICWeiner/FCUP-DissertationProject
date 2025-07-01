@@ -35,8 +35,8 @@ first={DCC},%
 firstplural={DCCs},%
 text={DCC},%
 plural={DCCs},%
-description={Department of Computer Science},%
-descriptionplural={Department of Computer Science},%
+description={FCUP-Department of Computer Science},%
+descriptionplural={FCUP-Department of Computer Science},%
 symbol={\relax },%
 symbolplural={\relax },%
 user1={},%
@@ -45,8 +45,8 @@ user3={},%
 user4={},%
 user5={},%
 user6={},%
-long={Department of Computer Science},%
-longplural={Department of Computer Sciences},%
+long={FCUP-Department of Computer Science},%
+longplural={FCUP-Department of Computer Sciences},%
 short={DCC},%
 shortplural={DCCs},%
 counter={page},%
@@ -721,6 +721,146 @@ long={Simple Protocol for Independent Computing Environments},%
 longplural={Simple Protocol for Independent Computing Environmentss},%
 short={SPICE},%
 shortplural={SPICEs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dry}%
+{%
+name={\acronymfont {\glsentryshort {dry}}},%
+sort={DRY},%
+type={acronym},%
+first={DRY},%
+firstplural={DRYs},%
+text={DRY},%
+plural={DRYs},%
+description={Don't Repeat Yourself},%
+descriptionplural={Don't Repeat Yourself},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Don't Repeat Yourself},%
+longplural={Don't Repeat Yourselfs},%
+short={DRY},%
+shortplural={DRYs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{uuid}%
+{%
+name={\acronymfont {\glsentryshort {uuid}}},%
+sort={UUID},%
+type={acronym},%
+first={UUID},%
+firstplural={UUIDs},%
+text={UUID},%
+plural={UUIDs},%
+description={Universally Unique Identifier},%
+descriptionplural={Universally Unique Identifier},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Universally Unique Identifier},%
+longplural={Universally Unique Identifiers},%
+short={UUID},%
+shortplural={UUIDs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ui}%
+{%
+name={\acronymfont {\glsentryshort {ui}}},%
+sort={UI},%
+type={acronym},%
+first={UI},%
+firstplural={UIs},%
+text={UI},%
+plural={UIs},%
+description={User Interface},%
+descriptionplural={User Interface},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={User Interface},%
+longplural={User Interfaces},%
+short={UI},%
+shortplural={UIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{gui}%
+{%
+name={\acronymfont {\glsentryshort {gui}}},%
+sort={GUI},%
+type={acronym},%
+first={GUI},%
+firstplural={GUIs},%
+text={GUI},%
+plural={GUIs},%
+description={Graphical User Interface},%
+descriptionplural={Graphical User Interface},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Graphical User Interface},%
+longplural={Graphical User Interfaces},%
+short={GUI},%
+shortplural={GUIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{cpu}%
+{%
+name={\acronymfont {\glsentryshort {cpu}}},%
+sort={CPU},%
+type={acronym},%
+first={CPU},%
+firstplural={CPUs},%
+text={CPU},%
+plural={CPUs},%
+description={Central Processing Unit},%
+descriptionplural={Central Processing Unit},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Central Processing Unit},%
+longplural={Central Processing Units},%
+short={CPU},%
+shortplural={CPUs},%
 counter={page},%
 parent={},%
 %
