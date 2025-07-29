@@ -866,3 +866,115 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{virl}%
+{%
+name={\acronymfont {\glsentryshort {virl}}},%
+sort={VIRL},%
+type={acronym},%
+first={VIRL},%
+firstplural={VIRLs},%
+text={VIRL},%
+plural={VIRLs},%
+description={Virtual Internet Routing Lab},%
+descriptionplural={Virtual Internet Routing Lab},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Virtual Internet Routing Lab},%
+longplural={Virtual Internet Routing Labs},%
+short={VIRL},%
+shortplural={VIRLs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{vnc}%
+{%
+name={\acronymfont {\glsentryshort {vnc}}},%
+sort={VNC},%
+type={acronym},%
+first={VNC},%
+firstplural={VNCs},%
+text={VNC},%
+plural={VNCs},%
+description={Virtual Network Computing},%
+descriptionplural={Virtual Network Computing},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Virtual Network Computing},%
+longplural={Virtual Network Computings},%
+short={VNC},%
+shortplural={VNCs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{yaml}%
+{%
+name={\acronymfont {\glsentryshort {yaml}}},%
+sort={YAML},%
+type={acronym},%
+first={YAML},%
+firstplural={YAMLs},%
+text={YAML},%
+plural={YAMLs},%
+description={YAML Ain't Markup Language},%
+descriptionplural={YAML Ain't Markup Language},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={YAML Ain't Markup Language},%
+longplural={YAML Ain't Markup Languages},%
+short={YAML},%
+shortplural={YAMLs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ssd}%
+{%
+name={\acronymfont {\glsentryshort {ssd}}},%
+sort={SSD},%
+type={acronym},%
+first={SSD},%
+firstplural={SSDs},%
+text={SSD},%
+plural={SSDs},%
+description={Solid State Drive},%
+descriptionplural={Solid State Drive},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Solid State Drive},%
+longplural={Solid State Drives},%
+short={SSD},%
+shortplural={SSDs},%
+counter={page},%
+parent={},%
+%
+}%
+

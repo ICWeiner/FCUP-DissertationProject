@@ -28,6 +28,18 @@ Given the early-stage, prototypical nature of the user interface and the absence
 is on illustrating how the system is used to perform key operations. Mapping to the functional requirements described in 
 Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical validation of the implemented features.
 
+It is important to clarify that the evaluation presented in this work primarily focuses on infrastructure-level operations, 
+such as cloning, starting, and deleting\ac{vm}s on\ac{pve}. While the system also automates and interacts with \ac{gns3} 
+instances, particularly for tasks such as topology validation athese aspects were not the primary subject of performance 
+evaluation. The rationale is that\ac{gns3}-level interactions occur after infrastructure provisioning and are more tightly 
+coupled to exercise-specific logic, rather than the orchestration layer itself. As such, the current analysis emphasizes the 
+efficiency and scalability of core\ac{vm} management rather than the behavior of individual emulated network devices.
+
+Finally, Flask's synchronous request model under\ac{wsgi} can become a bottleneck in disk-intensive scenarios, particularly when 
+backed by a single\ac{ssd}. While modern\ac{ssd}s support parallel I/O at the hardware level, Flask processes requests sequentially 
+per worker, preventing full utilization of this parallelism. In contrast, asynchronous frameworks allow concurrent I/O within a single 
+thread, offering more efficient resource usage in I/O-bound workloads.
+
 
 \section{Performance Evaluation}
 
@@ -59,7 +71,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \textbf{Component} & \textbf{Specification} \\ \hline
                 Processor & Intel Core i7-9700K \\ \hline
                 Memory & 32GB DDR4 @ 2666MHz \\ \hline
-                Storage & 1TB Samsung 970 EVO Plus NVMe SSD \\ \hline
+                Storage & 1TB Samsung 970 EVO Plus NVMe\ac{ssd} \\ \hline
                 Graphics & NVIDIA GTX 1650 \\ \hline
             \end{tabular}
         \end{table}
@@ -96,8 +108,11 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
     Time measurements were recorded from the start of a task's execution, defined as the moment the first relevant\ac{api} 
     request was issued, until the moment of successful completion, when the final\ac{api} response was received.
 
-    Each test scenario was repeated three times per implementation/batch size combination. The reported values represent 
-    the average across these repetitions.
+    For the first task, each implementation was run a total of fifteen times.
+
+    For the remaining two scenarios, tests were repeated three times for each implementation and batch size combination. The reported values represent 
+    the average across these repetitions. While three runs may not provide the statistical robustness of a larger sample size, they are sufficient to 
+    identify consistent trends and relative performance differences. Due to time constraints, more extensive testing was not feasible at this stage.
 
     For the FastAPI implementation, a concurrency limit of 5 was imposed for interactions with the\ac{pve}\ac{api} for reasons 
     that will be discussed in Section~\ref{sec:io_problems}. 
@@ -110,20 +125,48 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
             parallel, as each step depends on the previous one. As such, no significant performance uplift is expected for this particular 
             task.
 
-            \begin{table}[ht]
+            \begin{figure}[ht]
                 \centering
-                \caption{Comparison of Average Execution Time (in seconds)}
-                \begin{tabular}{|l|c|c|c|}
-                    \hline
-                    \textbf{Task} & \textbf{Flask} & \textbf{Flask + Celery} & \textbf{FastAPI} \\
-                    \hline
-                    Template\ac{vm} creation & 36.942013 & 34.927078 & 32.197323 \\
-                    \hline
-                \end{tabular}
-                \label{tab:task1_plot}
-            \end{table}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        title={Comparison of Average Execution Time (in seconds) (n=15)},
+                        ybar,
+                        bar width=12pt,
+                        enlargelimits=0.12,
+                        ylabel={Time (s)},
+                        xlabel={},
+                        xtick=data,
+                        xticklabels={},
+                        ymin=0,
+                        legend style={at={(0.5,-0.15)}, anchor=north, legend columns=-1},
+                        ylabel near ticks,
+                        xlabel near ticks,
+                        nodes near coords,
+                        every node near coord/.append style={font=\scriptsize},
+                        width=0.6\textwidth,
+                        height=7cm,
+                    ]
 
-            As can be confirmed in Table~\ref{tab:task1_plot} the average execution times are very similar across all three implementations, 
+                    % Flask
+                    \addplot+[style={blue, fill=blue!30}, bar shift=-18pt] 
+                        coordinates {(Impl, 36.942013)};
+
+                    % Flask + Celery
+                    \addplot+[style={red, fill=red!30}, bar shift=0pt] 
+                        coordinates {(Impl, 34.927078)};
+
+                    % FastAPI
+                    \addplot+[style={green!70!black, fill=green!40}, bar shift=18pt] 
+                        coordinates {(Impl, 32.197323)};
+
+                    \legend{Flask, Flask + Celery, FastAPI}
+                    \end{axis}
+                \end{tikzpicture}
+                \caption{Average execution time for Template VM creation across implementations.}
+                \label{fig:task1_plot}
+            \end{figure}
+
+            As can be confirmed in Figure~\ref{fig:task1_plot} the average execution times are very similar across all three implementations, 
             with the FastAPI approach showing a slight performance advantage.
 
             However, averages alone do not tell the full story. Figure~\ref{fig:task1_boxplot} illustrates the execution time variability. 
@@ -133,7 +176,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \centering
                 \begin{tikzpicture}
                     \begin{axis}[
-                            title={Execution Time Variability for Template VM Creation},
+                            title={Execution Time Variability for Template VM Creation (n=15)},
                             ylabel={Time (s)},
                             boxplot/draw direction=y, % Vertical boxplot
                             xtick={1,2,3},
@@ -169,10 +212,10 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \label{fig:task1_boxplot}
             \end{figure}
 
-            From the boxplot, it is evident that the Flask implementation exhibits the highest variability in execution 
-            times, indicating inconsistency. The Flask + Celery variant improves consistency but still contains several 
-            statistical outliers. In contrast, the FastAPI implementation demonstrates significantly tighter grouping and 
-            no outliers in our tests.
+            From the boxplot, it is evident that the Flask implementation exhibits the highest 
+            variability in execution times, indicating inconsistency. The Flask + Celery variant improves consistency but still 
+            contains several statistical outliers. In contrast, the FastAPI implementation demonstrates significantly tighter 
+            grouping and no outliers in our tests.
 
             This coupled with the slighty better execution time make the FastAPI implementation the more performant of 
             the three.
@@ -193,7 +236,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \centering
                 \begin{tikzpicture}
                     \begin{axis}[
-                        title={Average Execution Time for Batch of VM Cloning},
+                        title={Average Execution Time for Batch of VM Cloning in seconds (n=3)},
                         ybar,
                         bar width=12pt,
                         enlargelimits=0.12,
@@ -271,7 +314,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \centering
                 \begin{tikzpicture}
                     \begin{axis}[
-                            title={Execution Time Deviation for Batch VM Cloning},
+                            title={Execution Time Deviation for Batch VM Cloning (n=3)},
                             ylabel={Deviation (\%)},
                             boxplot/draw direction=y, % Vertical boxplot
                             xtick={1,2,3},
@@ -313,7 +356,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
             being two times slower than the FastAPI implementation, making the FastAPI effort the overall better performer.
 
 
-        \subsubsection{Task 3: VM Deleting}
+        \subsubsection{Task 3: VM Deletion}
 
             This task is much more short lived than the previous ones, consisting of a single\ac{api} call to\ac{pve} per\ac{vm} to 
             perform the deletion.
@@ -327,7 +370,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \centering
                 \begin{tikzpicture}
                     \begin{axis}[
-                        title={Average Execution Time for Batch VM Deleting},
+                        title={Average Execution Time for Batch VM Deletion in seconds (n=3)},
                         ybar,
                         bar width=12pt,
                         enlargelimits=0.12,
@@ -385,6 +428,14 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
             In this case, those two factors, the asynchronous orchestration and broker communication, have a higher influence on 
             execution time than the\ac{vm} batch size itself.
 
+            In the particular case of sample size 1, we can see that it took even more time than bigger batch sizes. While this 
+            may in part be fault of our relatively small data pool, we choose to keep it as it highlights very well the performance 
+            overhead that celery brings with it, and why it can be considered detrimental in the case of short-lived tasks
+
+            When comparing batch size 100 to 200, FastAPI exhibited a 2.8x slowdown despite only a 2x increase in workload. This disproportional 
+            latency is not due to FastAPI itself, but rather to hitting performance limits in\ac{pve}. As infrastructure resources became saturated, 
+            clone operations began failing and triggered exponential backoff retries, leading to higher cumulative delays.
+
             The other implementations scale in a much more expected manner, with the FastAPI version being 1.84x faster on average 
             than Flask.
 
@@ -392,7 +443,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \centering
                 \begin{tikzpicture}
                     \begin{axis}[
-                            title={Execution Time Deviation for Batch VM Deleting},
+                            title={Execution Time Deviation for Batch VM Deletion (n=3)},
                             ylabel={Deviation (\%)},
                             boxplot/draw direction=y, % Vertical boxplot
                             xtick={1,2,3},
@@ -424,7 +475,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
 
                     \end{axis}
                 \end{tikzpicture}
-                \caption{Boxplot comparison of execution time variability for VM deleting.}
+                \caption{Boxplot comparison of execution time variability for VM deletion.}
                 \label{fig:task3_boxplot}
             \end{figure}
 
@@ -436,7 +487,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \centering
                 \begin{tikzpicture}
                     \begin{axis}[
-                            title={Execution Time Deviation for Batch VM Deleting},
+                            title={Execution Time Deviation for Batch VM Deletion (n=3)},
                             ylabel={Deviation (\%)},
                             boxplot/draw direction=y, % Vertical boxplot
                             xtick={1,2},
@@ -461,7 +512,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
 
                     \end{axis}
                 \end{tikzpicture}
-                \caption{Boxplot comparison of execution time variability of Flask and FastAPI for VM deleting.}
+                \caption{Boxplot comparison of execution time variability of Flask and FastAPI for VM deletion.}
                 \label{fig:task3_boxplot2}
             \end{figure}
 
@@ -510,7 +561,7 @@ Chapter~\ref{Chapter4SystemArchitectureDesign}, thereby serving as a practical v
                 \addplot+[ybar, fill=gray!60] coordinates {
                 (1,4.612) (2,4.942) (3,5.377) (4,0.0) (5,7.090)
                 };
-                \addlegendentry{VM Deleting}
+                \addlegendentry{VM Deletion}
 
                 \end{axis}
             \end{tikzpicture}
@@ -665,7 +716,7 @@ TASK OK
              \item \textbf{GNS3 Project File}: This field accepts a file with the \texttt{gns3project} extension, which can be exported 
              directly from\ac{gns3}.
              \item \textbf{Exercise validation}: This field allows the user to define one or more validation checks to be executed 
-             on the specified devices. Currently, only ping and traceroute commands are supported. These validations will be executed 
+             on the specified devices. Currently, only \texttt{ping} and \texttt{traceroute} commands are supported. These validations will be executed 
              when a student requests automatic assessment.
              \item \textbf{Exercise pre-configuration}: This field enables the execution of custom commands on any supported device type 
              for initial configuration. These commands will be executed only on the template\ac{vm} before it is converted into a reusable 

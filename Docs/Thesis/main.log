@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  1 JUL 2025 18:09
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.6)  29 JUL 2025 19:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1862,42 +1862,42 @@ Package fontspec Info:
 
 
 LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 8
-1.
+4.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ot1ppl.fd
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 )
 LaTeX Font Info:    Trying to load font information for OML+zplm on input line 
-81.
+84.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 
-81.
+84.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 
-81.
+84.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 81.
+(Font)              scaled to size 8.33606pt on input line 84.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 81.
+(Font)              scaled to size 6.25204pt on input line 84.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 81.
+(Font)              scaled to size 5.21004pt on input line 84.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 81.
+(Font)              scaled to size 8.33606pt on input line 84.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 81.
+(Font)              scaled to size 6.25204pt on input line 84.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 81.
+(Font)              scaled to size 5.21004pt on input line 84.
 LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 
-81.
+84.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
@@ -1987,7 +1987,7 @@ Overfull \hbox (6.08987pt too wide) detected at line 28
 
 
 Overfull \hbox (6.08987pt too wide) detected at line 29
- \TU/Arial(0)/m/n/10.95 5
+ \TU/Arial(0)/m/n/10.95 6
  []
 
 
@@ -1997,117 +1997,117 @@ Overfull \hbox (6.08987pt too wide) detected at line 30
 
 
 Overfull \hbox (6.08987pt too wide) detected at line 31
- \TU/Arial(0)/m/n/10.95 6
- []
-
-
-Overfull \hbox (6.08987pt too wide) detected at line 32
  \TU/Arial(0)/m/n/10.95 7
  []
 
 
-Overfull \hbox (6.08987pt too wide) detected at line 33
+Overfull \hbox (6.08987pt too wide) detected at line 32
  \TU/Arial(0)/m/n/10.95 8
+ []
+
+
+Overfull \hbox (6.08987pt too wide) detected at line 33
+ \TU/Arial(0)/m/n/10.95 9
  []
 
 
 Overfull \hbox (6.08987pt too wide) detected at line 34
- \TU/Arial(0)/m/n/10.95 8
- []
-
-
-Overfull \hbox (6.08987pt too wide) detected at line 35
- \TU/Arial(0)/m/n/10.95 8
- []
-
-
-Overfull \hbox (6.08987pt too wide) detected at line 36
  \TU/Arial(0)/m/n/10.95 9
  []
 
 
-Overfull \hbox (6.08987pt too wide) detected at line 37
- \TU/Arial(0)/m/n/10.95 9
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 38
+Overfull \hbox (12.17973pt too wide) detected at line 35
  \TU/Arial(0)/m/n/10.95 10
  []
 
 
-Overfull \hbox (11.36703pt too wide) detected at line 39
+Overfull \hbox (12.17973pt too wide) detected at line 36
+ \TU/Arial(0)/m/n/10.95 10
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 37
+ \TU/Arial(0)/m/n/10.95 10
+ []
+
+
+Overfull \hbox (11.36703pt too wide) detected at line 38
  \TU/Arial(0)/m/n/10.95 11
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 40
+Overfull \hbox (12.17973pt too wide) detected at line 39
  \TU/Arial(0)/m/n/10.95 12
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 41
+Overfull \hbox (12.17973pt too wide) detected at line 40
  \TU/Arial(0)/m/n/10.95 13
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 41
+ \TU/Arial(0)/m/n/10.95 14
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 42
- \TU/Arial(0)/m/n/10.95 13
+ \TU/Arial(0)/m/n/10.95 14
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 43
- \TU/Arial(0)/m/n/10.95 14
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 44
- \TU/Arial(0)/m/n/10.95 14
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 45
  \TU/Arial(0)/m/n/10.95 15
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 46
+Overfull \hbox (12.17973pt too wide) detected at line 44
+ \TU/Arial(0)/m/n/10.95 15
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 45
  \TU/Arial(0)/m/n/10.95 16
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 47
+Overfull \hbox (12.17973pt too wide) detected at line 46
  \TU/Arial(0)/m/n/10.95 17
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 48
+Overfull \hbox (12.17973pt too wide) detected at line 47
  \TU/Arial(0)/m/n/10.95 18
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 48
+ \TU/Arial(0)/m/n/10.95 19
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 49
- \TU/Arial(0)/m/n/10.95 18
+ \TU/Arial(0)/m/n/10.95 19
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 50
- \TU/Arial(0)/m/n/10.95 18
+ \TU/Arial(0)/m/n/10.95 19
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 51
- \TU/Arial(0)/m/n/10.95 20
+ \TU/Arial(0)/m/n/10.95 21
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 52
- \TU/Arial(0)/m/n/10.95 20
+ \TU/Arial(0)/m/n/10.95 21
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 53
- \TU/Arial(0)/m/n/10.95 21
+ \TU/Arial(0)/m/n/10.95 22
  []
 
 
@@ -2124,177 +2124,177 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 ]
 Overfull \hbox (12.17973pt too wide) detected at line 54
- \TU/Arial(0)/m/n/10.95 22
+ \TU/Arial(0)/m/n/10.95 23
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 55
- \TU/Arial(0)/m/n/10.95 26
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 57
  \TU/Arial(0)/m/n/10.95 27
  []
 
 
+Overfull \hbox (12.17973pt too wide) detected at line 57
+ \TU/Arial(0)/m/n/10.95 28
+ []
+
+
 Overfull \hbox (12.17973pt too wide) detected at line 58
- \TU/Arial(0)/m/n/10.95 28
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 59
- \TU/Arial(0)/m/n/10.95 28
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 60
  \TU/Arial(0)/m/n/10.95 29
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 61
+Overfull \hbox (12.17973pt too wide) detected at line 59
  \TU/Arial(0)/m/n/10.95 30
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 60
+ \TU/Arial(0)/m/n/10.95 30
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 61
+ \TU/Arial(0)/m/n/10.95 31
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 62
- \TU/Arial(0)/m/n/10.95 30
+ \TU/Arial(0)/m/n/10.95 32
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 63
- \TU/Arial(0)/m/n/10.95 30
+ \TU/Arial(0)/m/n/10.95 32
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 64
- \TU/Arial(0)/m/n/10.95 31
+ \TU/Arial(0)/m/n/10.95 33
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 65
- \TU/Arial(0)/m/n/10.95 31
+ \TU/Arial(0)/m/n/10.95 33
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 66
- \TU/Arial(0)/m/n/10.95 33
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 67
- \TU/Arial(0)/m/n/10.95 33
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 68
  \TU/Arial(0)/m/n/10.95 34
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 69
+Overfull \hbox (12.17973pt too wide) detected at line 67
  \TU/Arial(0)/m/n/10.95 35
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 68
+ \TU/Arial(0)/m/n/10.95 35
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 69
+ \TU/Arial(0)/m/n/10.95 36
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 70
- \TU/Arial(0)/m/n/10.95 35
+ \TU/Arial(0)/m/n/10.95 36
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 71
- \TU/Arial(0)/m/n/10.95 38
+ \TU/Arial(0)/m/n/10.95 40
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 72
- \TU/Arial(0)/m/n/10.95 38
+ \TU/Arial(0)/m/n/10.95 40
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 73
- \TU/Arial(0)/m/n/10.95 39
+ \TU/Arial(0)/m/n/10.95 41
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 74
- \TU/Arial(0)/m/n/10.95 40
+ \TU/Arial(0)/m/n/10.95 42
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 75
- \TU/Arial(0)/m/n/10.95 40
+ \TU/Arial(0)/m/n/10.95 42
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 76
- \TU/Arial(0)/m/n/10.95 40
+ \TU/Arial(0)/m/n/10.95 43
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 77
- \TU/Arial(0)/m/n/10.95 41
+ \TU/Arial(0)/m/n/10.95 43
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 78
- \TU/Arial(0)/m/n/10.95 41
+ \TU/Arial(0)/m/n/10.95 44
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 79
- \TU/Arial(0)/m/n/10.95 42
+ \TU/Arial(0)/m/n/10.95 45
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 80
- \TU/Arial(0)/m/n/10.95 42
+ \TU/Arial(0)/m/n/10.95 45
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 81
- \TU/Arial(0)/m/n/10.95 44
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 82
- \TU/Arial(0)/m/n/10.95 44
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 83
- \TU/Arial(0)/m/n/10.95 44
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 84
  \TU/Arial(0)/m/n/10.95 46
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 85
- \TU/Arial(0)/m/n/10.95 47
+Overfull \hbox (12.17973pt too wide) detected at line 82
+ \TU/Arial(0)/m/n/10.95 46
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 86
+Overfull \hbox (12.17973pt too wide) detected at line 83
+ \TU/Arial(0)/m/n/10.95 46
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 84
  \TU/Arial(0)/m/n/10.95 48
  []
 
 
+Overfull \hbox (12.17973pt too wide) detected at line 85
+ \TU/Arial(0)/m/n/10.95 50
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 86
+ \TU/Arial(0)/m/n/10.95 51
+ []
+
+
 Overfull \hbox (12.17973pt too wide) detected at line 87
- \TU/Arial(0)/m/n/10.95 49
+ \TU/Arial(0)/m/n/10.95 52
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 88
- \TU/Arial(0)/m/n/10.95 49
+ \TU/Arial(0)/m/n/10.95 52
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 89
- \TU/Arial(0)/m/n/10.95 50
+ \TU/Arial(0)/m/n/10.95 52
  []
 
 
@@ -2308,152 +2308,152 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [5]
 Overfull \hbox (12.17973pt too wide) detected at line 90
- \TU/Arial(0)/m/n/10.95 50
+ \TU/Arial(0)/m/n/10.95 53
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 91
- \TU/Arial(0)/m/n/10.95 50
+ \TU/Arial(0)/m/n/10.95 53
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 92
- \TU/Arial(0)/m/n/10.95 52
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 95
- \TU/Arial(0)/m/n/10.95 53
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 96
- \TU/Arial(0)/m/n/10.95 53
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 97
  \TU/Arial(0)/m/n/10.95 54
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 99
+Overfull \hbox (12.17973pt too wide) detected at line 95
  \TU/Arial(0)/m/n/10.95 55
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 100
+Overfull \hbox (12.17973pt too wide) detected at line 96
  \TU/Arial(0)/m/n/10.95 56
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 101
+Overfull \hbox (12.17973pt too wide) detected at line 97
  \TU/Arial(0)/m/n/10.95 57
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 102
+Overfull \hbox (12.17973pt too wide) detected at line 99
  \TU/Arial(0)/m/n/10.95 57
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 103
- \TU/Arial(0)/m/n/10.95 58
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 104
- \TU/Arial(0)/m/n/10.95 58
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 105
- \TU/Arial(0)/m/n/10.95 58
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 106
+Overfull \hbox (12.17973pt too wide) detected at line 100
  \TU/Arial(0)/m/n/10.95 59
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 107
+Overfull \hbox (12.17973pt too wide) detected at line 101
+ \TU/Arial(0)/m/n/10.95 59
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 102
  \TU/Arial(0)/m/n/10.95 60
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 109
+Overfull \hbox (12.17973pt too wide) detected at line 103
  \TU/Arial(0)/m/n/10.95 61
  []
 
 
+Overfull \hbox (12.17973pt too wide) detected at line 104
+ \TU/Arial(0)/m/n/10.95 61
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 105
+ \TU/Arial(0)/m/n/10.95 61
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 106
+ \TU/Arial(0)/m/n/10.95 62
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 107
+ \TU/Arial(0)/m/n/10.95 63
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 109
+ \TU/Arial(0)/m/n/10.95 64
+ []
+
+
 Overfull \hbox (12.17973pt too wide) detected at line 111
- \TU/Arial(0)/m/n/10.95 64
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 112
- \TU/Arial(0)/m/n/10.95 64
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 113
- \TU/Arial(0)/m/n/10.95 65
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 114
- \TU/Arial(0)/m/n/10.95 66
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 115
  \TU/Arial(0)/m/n/10.95 67
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 116
- \TU/Arial(0)/m/n/10.95 69
+Overfull \hbox (12.17973pt too wide) detected at line 112
+ \TU/Arial(0)/m/n/10.95 68
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 117
+Overfull \hbox (12.17973pt too wide) detected at line 113
+ \TU/Arial(0)/m/n/10.95 68
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 114
  \TU/Arial(0)/m/n/10.95 70
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 122
+Overfull \hbox (12.17973pt too wide) detected at line 115
+ \TU/Arial(0)/m/n/10.95 71
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 116
  \TU/Arial(0)/m/n/10.95 73
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 123
- \TU/Arial(0)/m/n/10.95 74
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 124
+Overfull \hbox (12.17973pt too wide) detected at line 117
  \TU/Arial(0)/m/n/10.95 75
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 125
+Overfull \hbox (12.17973pt too wide) detected at line 122
  \TU/Arial(0)/m/n/10.95 77
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 126
+Overfull \hbox (12.17973pt too wide) detected at line 123
  \TU/Arial(0)/m/n/10.95 78
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 124
+ \TU/Arial(0)/m/n/10.95 80
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 125
+ \TU/Arial(0)/m/n/10.95 81
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 126
+ \TU/Arial(0)/m/n/10.95 82
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 127
- \TU/Arial(0)/m/n/10.95 78
+ \TU/Arial(0)/m/n/10.95 82
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 129
- \TU/Arial(0)/m/n/10.95 79
+ \TU/Arial(0)/m/n/10.95 84
  []
 
 )
@@ -2479,13 +2479,13 @@ Overfull \hbox (6.08987pt too wide) detected at line 6
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 7
- \TU/Arial(0)/m/n/10.95 12
+Overfull \hbox (6.08987pt too wide) detected at line 7
+ \TU/Arial(0)/m/n/10.95 8
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 9
- \TU/Arial(0)/m/n/10.95 22
+Overfull \hbox (12.17973pt too wide) detected at line 8
+ \TU/Arial(0)/m/n/10.95 13
  []
 
 
@@ -2504,48 +2504,48 @@ Overfull \hbox (12.17973pt too wide) detected at line 12
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 14
- \TU/Arial(0)/m/n/10.95 28
+Overfull \hbox (12.17973pt too wide) detected at line 13
+ \TU/Arial(0)/m/n/10.95 25
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 15
- \TU/Arial(0)/m/n/10.95 33
+ \TU/Arial(0)/m/n/10.95 29
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 16
- \TU/Arial(0)/m/n/10.95 37
+ \TU/Arial(0)/m/n/10.95 34
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 17
+ \TU/Arial(0)/m/n/10.95 38
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 18
  \TU/Arial(0)/m/n/10.95 39
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 19
- \TU/Arial(0)/m/n/10.95 63
+ \TU/Arial(0)/m/n/10.95 41
  []
 
 
-Overfull \hbox (12.17973pt too wide) detected at line 21
- \TU/Arial(0)/m/n/10.95 67
+Overfull \hbox (12.17973pt too wide) detected at line 20
+ \TU/Arial(0)/m/n/10.95 43
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 22
- \TU/Arial(0)/m/n/10.95 68
- []
-
-
-Overfull \hbox (12.17973pt too wide) detected at line 23
- \TU/Arial(0)/m/n/10.95 68
+ \TU/Arial(0)/m/n/10.95 66
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 24
- \TU/Arial(0)/m/n/10.95 69
+ \TU/Arial(0)/m/n/10.95 70
  []
 
 
@@ -2555,12 +2555,12 @@ Overfull \hbox (12.17973pt too wide) detected at line 25
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 26
- \TU/Arial(0)/m/n/10.95 70
+ \TU/Arial(0)/m/n/10.95 71
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 27
- \TU/Arial(0)/m/n/10.95 71
+ \TU/Arial(0)/m/n/10.95 72
  []
 
 
@@ -2574,18 +2574,8 @@ Overfull \hbox (12.17973pt too wide) detected at line 29
  []
 
 
-Overfull \hbox (4.35413pt too wide) detected at line 30
-\TU/Arial(0)/m/n/10.95 6.10. 
- []
-
-
 Overfull \hbox (12.17973pt too wide) detected at line 30
  \TU/Arial(0)/m/n/10.95 74
- []
-
-
-Overfull \hbox (3.54143pt too wide) detected at line 31
-\TU/Arial(0)/m/n/10.95 6.11. 
  []
 
 
@@ -2594,23 +2584,58 @@ Overfull \hbox (12.17973pt too wide) detected at line 31
  []
 
 
-Overfull \hbox (4.35413pt too wide) detected at line 32
-\TU/Arial(0)/m/n/10.95 6.12. 
- []
-
-
 Overfull \hbox (12.17973pt too wide) detected at line 32
- \TU/Arial(0)/m/n/10.95 76
+ \TU/Arial(0)/m/n/10.95 77
  []
 
 
 Overfull \hbox (4.35413pt too wide) detected at line 33
-\TU/Arial(0)/m/n/10.95 6.13. 
+\TU/Arial(0)/m/n/10.95 6.10. 
  []
 
 
 Overfull \hbox (12.17973pt too wide) detected at line 33
- \TU/Arial(0)/m/n/10.95 76
+ \TU/Arial(0)/m/n/10.95 78
+ []
+
+
+Overfull \hbox (3.54143pt too wide) detected at line 34
+\TU/Arial(0)/m/n/10.95 6.11. 
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 34
+ \TU/Arial(0)/m/n/10.95 78
+ []
+
+
+Overfull \hbox (4.35413pt too wide) detected at line 35
+\TU/Arial(0)/m/n/10.95 6.12. 
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 35
+ \TU/Arial(0)/m/n/10.95 79
+ []
+
+
+Overfull \hbox (4.35413pt too wide) detected at line 36
+\TU/Arial(0)/m/n/10.95 6.13. 
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 36
+ \TU/Arial(0)/m/n/10.95 80
+ []
+
+
+Overfull \hbox (4.35413pt too wide) detected at line 37
+\TU/Arial(0)/m/n/10.95 6.14. 
+ []
+
+
+Overfull \hbox (12.17973pt too wide) detected at line 37
+ \TU/Arial(0)/m/n/10.95 80
  []
 
 )
@@ -2649,9 +2674,9 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 ] (./Chapters/1Introduction.tex
 Chapter 1.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 11.40997pt on input line 41.
+(Font)              scaled to size 11.40997pt on input line 40.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 11.40997pt on input line 41.
+(Font)              scaled to size 11.40997pt on input line 40.
 
 
 
@@ -2705,12 +2730,12 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [5]
-File: Figures/2Background/gns3-web.png Graphic file (type bmp)
-<Figures/2Background/gns3-web.png>
+File: Figures/2Background/gns3-arch.png Graphic file (type bmp)
+<Figures/2Background/gns3-arch.png>
 
 
 LaTeX Font Warning: Font shape `TU/Arial(0)/m/sc' undefined
-(Font)              using `TU/Arial(0)/m/n' instead on input line 110.
+(Font)              using `TU/Arial(0)/m/n' instead on input line 104.
 
 
 
@@ -2731,14 +2756,8 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [7]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\ac' on input line 144.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\ac' on input line 151.
-
+File: Figures/2Background/gns3-web.png Graphic file (type bmp)
+<Figures/2Background/gns3-web.png>
 
 
 
@@ -2750,6 +2769,11 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [8]
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\ac' on input line 185.
+
+
+
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
 (fancyhdr)                Make it at least 18.99997pt, for example:
@@ -2759,6 +2783,11 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [9]
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\ac' on input line 192.
+
+
+
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
 (fancyhdr)                Make it at least 18.99997pt, for example:
@@ -2767,6 +2796,15 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [10]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[11]
 File: Figures/2Background/wsgi-figure.png Graphic file (type bmp)
 <Figures/2Background/wsgi-figure.png>
 
@@ -2778,19 +2816,10 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[11]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 283.
-
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
 [12]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 302.
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2809,12 +2838,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [14]
-Overfull \hbox (0.74776pt too wide) in paragraph at lines 367--370
-[]\TU/Arial(0)/m/n/10.95 Overall, \TU/lmtt/m/n/10.95 asyncio \TU/Arial(0)/m/n/1
-0.95 provides the concurrency model that underpins efficient I/O performance.
- []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2824,6 +2847,12 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [15]
+Overfull \hbox (0.74776pt too wide) in paragraph at lines 386--389
+[]\TU/Arial(0)/m/n/10.95 Overall, \TU/lmtt/m/n/10.95 asyncio \TU/Arial(0)/m/n/1
+0.95 provides the concurrency model that underpins efficient I/O performance.
+ []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2850,7 +2879,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[18]) (./Chapters/3RelatedWork.tex
+[18]
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2859,7 +2888,16 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[19]
+[19]) (./Chapters/3RelatedWork.tex
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[20]
 Chapter 3.
 
 
@@ -2870,7 +2908,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[20
+[21
 
 ]
 File: Figures/3RelatedWork/mooshak1.png Graphic file (type bmp)
@@ -2884,7 +2922,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[21]
+[22]
 File: Figures/3RelatedWork/packet_tracer1.png Graphic file (type bmp)
 <Figures/3RelatedWork/packet_tracer1.png>
 
@@ -2896,9 +2934,19 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[22]
+[23]
 File: Figures/3RelatedWork/packet_tracer2.png Graphic file (type bmp)
 <Figures/3RelatedWork/packet_tracer2.png>
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[24]
 File: Figures/3RelatedWork/packet_tracer3.png Graphic file (type bmp)
 <Figures/3RelatedWork/packet_tracer3.png>
 
@@ -2910,7 +2958,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[23]
+[25]) (./Chapters/4SystemArchitectureDesign.tex
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2919,16 +2967,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[24]) (./Chapters/4SystemArchitectureDesign.tex
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[25]
+[26]
 Chapter 4.
 
 
@@ -2939,22 +2978,13 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[26
+[27
 
 ]
 File: Figures/4SystemArchitectureDesign/system-arch.png Graphic file (type bmp)
 
 <Figures/4SystemArchitectureDesign/system-arch.png>
 
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[27]
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -2991,10 +3021,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [31]
-File: Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png Graphic f
-ile (type bmp)
-<Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png>
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3013,6 +3039,10 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [33]
+File: Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png Graphic f
+ile (type bmp)
+<Figures/4SystemArchitectureDesign/user-gns3-proxmox-diagram.png>
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3031,6 +3061,28 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [35]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[36]
+File: Figures/4SystemArchitectureDesign/nornir-diagram.png Graphic file (type b
+mp)
+<Figures/4SystemArchitectureDesign/nornir-diagram.png>
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[37]
 File: Figures/4SystemArchitectureDesign/system-diagram.png Graphic file (type b
 mp)
 <Figures/4SystemArchitectureDesign/system-diagram.png>
@@ -3043,28 +3095,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[36]
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[37]
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
 [38]
-File: Figures/4SystemArchitectureDesign/db_er.png Graphic file (type bmp)
-<Figures/4SystemArchitectureDesign/db_er.png>
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3083,6 +3114,9 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [40]
+File: Figures/4SystemArchitectureDesign/db_er.png Graphic file (type bmp)
+<Figures/4SystemArchitectureDesign/db_er.png>
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3091,7 +3125,10 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[41]) (./Chapters/5Implementation.tex
+[41]
+File: Figures/4SystemArchitectureDesign/use-case.png Graphic file (type bmp)
+<Figures/4SystemArchitectureDesign/use-case.png>
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3110,6 +3147,24 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [43]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[44]) (./Chapters/5Implementation.tex
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[45]
 Chapter 5.
 
 
@@ -3120,23 +3175,32 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[44
+[46
 
 ]
-Overfull \hbox (27.42047pt too wide) in paragraph at lines 64--66
+Overfull \hbox (27.42047pt too wide) in paragraph at lines 75--77
 []\TU/Arial(0)/b/n/10.95 Quart (ASGI Flask): \TU/Arial(0)/m/n/10.95 A Flask-com
 patible [][][]ASGI[][] reimplementation with native \TU/lmtt/m/n/10.95 async/aw
 ait
  []
 
 
-Overfull \hbox (2.27217pt too wide) in paragraph at lines 72--75
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[47]
+Overfull \hbox (2.27217pt too wide) in paragraph at lines 83--91
 []\TU/Arial(0)/m/n/10.95 While Flask remained suitable for early development, e
 merging requirements—particularly
  []
 
 
-Overfull \hbox (4.53853pt too wide) in paragraph at lines 72--75
+Overfull \hbox (4.53853pt too wide) in paragraph at lines 83--91
 \TU/Arial(0)/m/n/10.95 those involving asynchronous communication for more scal
 able I/O operations—eventually
  []
@@ -3150,43 +3214,10 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[45]
-Overfull \hbox (13.30757pt too wide) in paragraph at lines 96--97
+[48]
+Overfull \hbox (13.30757pt too wide) in paragraph at lines 113--114
 []\TU/Arial(0)/b/n/10.95 app\TU/Arial(0)/m/n/10.95 =Celery(’tasks’,broker=’redi
 s://localhost:6379/0’,backend=’redis://localhost:6379/0’) 
- []
-
-
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[46]
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[47]
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[48]
-Overfull \hbox (25.91273pt too wide) in paragraph at lines 229--233
-[]\TU/Arial(0)/m/n/10.95 All application components were developed in Python 3.
-10+, chosen for its mature \TU/lmtt/m/n/10.95 async/await
  []
 
 
@@ -3208,9 +3239,103 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [50]
-Overfull \hbox (2.78189pt too wide) in paragraph at lines 296--299
-[]\TU/lmtt/m/n/10.95 repositories/ \TU/Arial(0)/m/n/10.95 implements the databa
-se abstraction layer using SQLModel/SQLAlchemy,
+Underfull \hbox (badness 10000) in paragraph at lines 193--193
+[]|\TU/Arial(0)/m/n/8 Limited; WSGI-based,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--193
+[]|\TU/Arial(0)/m/n/8 Background tasks of-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 195--195
+[]|\TU/Arial(0)/m/n/8 Can implement Multi-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 195--195
+\TU/Arial(0)/m/n/8 threading or Multi-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 195--196
+[]|\TU/Arial(0)/m/n/8 Non-blocking I/O using
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--197
+[]|\TU/Arial(0)/m/n/8 Simple, low-load syn-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--197
+[]|\TU/Arial(0)/m/n/8 CPU-bound and/or de-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+[]|\TU/Arial(0)/m/n/8 I/O-bound, high-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--199
+[]|\TU/Arial(0)/m/n/8 Minimal, single-process
+ []
+
+
+Underfull \hbox (badness 3492) in paragraph at lines 199--199
+[]|\TU/Arial(0)/m/n/8 High: requires workers,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--199
+\TU/Arial(0)/m/n/8 message broker, and
+ []
+
+
+Underfull \hbox (badness 2512) in paragraph at lines 199--200
+[]|\TU/Arial(0)/m/n/8 Moderate, single-process
+ []
+
+
+Underfull \hbox (badness 2409) in paragraph at lines 201--201
+[]|\TU/Arial(0)/m/n/8 Offloaded to background
+ []
+
+
+Underfull \hbox (badness 4403) in paragraph at lines 201--202
+[]|\TU/Arial(0)/m/n/8 Efficient via async han-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--203
+[]|\TU/Arial(0)/m/n/8 Possible with multi-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+[]|\TU/Arial(0)/m/n/8 Possible with multi-
+ []
+
+
+Underfull \hbox (badness 3769) in paragraph at lines 205--205
+[]|\TU/Arial(0)/m/n/8 Manual or with external
+ []
+
+
+Underfull \hbox (badness 5878) in paragraph at lines 207--207
+[]|\TU/Arial(0)/m/n/8 Manual or using Flask-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--209
+[]|\TU/Arial(0)/m/n/8 Moderate; adds inter-
+ []
+
+
+Overfull \hbox (18.70218pt too wide) in paragraph at lines 189--215
+ [][] 
  []
 
 
@@ -3241,9 +3366,9 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [53]
-Overfull \hbox (42.56549pt too wide) in paragraph at lines 431--437
-[]\TU/Arial(0)/m/n/10.95 The library implements a consistent error handling app
-roach through the \TU/lmtt/m/n/10.95 @handle_network_errors
+Overfull \hbox (2.78189pt too wide) in paragraph at lines 333--336
+[]\TU/lmtt/m/n/10.95 repositories/ \TU/Arial(0)/m/n/10.95 implements the databa
+se abstraction layer using SQLModel/SQLAlchemy,
  []
 
 
@@ -3256,12 +3381,6 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [54]
-Overfull \hbox (2.12823pt too wide) in paragraph at lines 469--472
-[]\TU/Arial(0)/b/n/10.95 Special Case Handlers \TU/Arial(0)/m/n/10.95 are desig
-ned for non-standard workflows or endpoints with unique
- []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3281,6 +3400,10 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 
 [56]
 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
 (fancyhdr)                Make it at least 18.99997pt, for example:
@@ -3289,6 +3412,12 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [57]
+Overfull \hbox (2.12823pt too wide) in paragraph at lines 506--509
+[]\TU/Arial(0)/b/n/10.95 Special Case Handlers \TU/Arial(0)/m/n/10.95 are desig
+ned for non-standard workflows or endpoints with unique
+ []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3307,7 +3436,25 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [59]
-Overfull \hbox (6.71858pt too wide) in paragraph at lines 606--617
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[60]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[61]
+Overfull \hbox (6.71858pt too wide) in paragraph at lines 643--654
 []\TU/Arial(0)/m/n/10.95 While both \TU/lmtt/m/n/10.95 asyncio \TU/Arial(0)/m/n
 /10.95 and Celery outperform traditional sequential blocking I/O code, \TU/lmtt
 /m/n/10.95 asyncio
@@ -3322,16 +3469,25 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[60]
+[62]
 
-./Chapters/5Implementation.tex:665: Package glossaries Error: Glossary entry `h
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[63]
+
+./Chapters/5Implementation.tex:703: Package glossaries Error: Glossary entry `h
 ttps' has not been defined.
 
 See the glossaries package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.665 ...body of the message, sent over\ac{https}.
+l.703 ...body of the message, sent over\ac{https}.
                                                    This ticket is valid for ...
 
 You need to define a glossary entry before you can use it.
@@ -3345,43 +3501,33 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[61]
+[64]
 
-./Chapters/5Implementation.tex:689: Package glossaries Error: Glossary entry `h
+./Chapters/5Implementation.tex:727: Package glossaries Error: Glossary entry `h
 ttps' has not been defined.
 
 See the glossaries package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.689 ...e} server is configured to use\ac{https} 
+l.727 ...e} server is configured to use\ac{https} 
                                                   with a real certificate ge...
 
 You need to define a glossary entry before you can use it.
 
 
-./Chapters/5Implementation.tex:694: Package glossaries Error: Glossary entry `h
+./Chapters/5Implementation.tex:732: Package glossaries Error: Glossary entry `h
 ttps' has not been defined.
 
 See the glossaries package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.694 ...hority (CA) certificate during\ac{https} 
+l.732 ...hority (CA) certificate during\ac{https} 
                                                   requests. Future iteration...
 
 You need to define a glossary entry before you can use it.
 
-
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[62]
 File: Figures/5Implementation/student_login.png Graphic file (type bmp)
 <Figures/5Implementation/student_login.png>
 ) (./Chapters/6TestingEvaluation.tex
@@ -3393,7 +3539,16 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[63]
+[65]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[66]
 Chapter 6.
 
 
@@ -3404,10 +3559,19 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[64
+[67
 
 ]
-Overfull \hbox (40.8573pt too wide) in paragraph at lines 88--90
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[68]
+Overfull \hbox (40.8573pt too wide) in paragraph at lines 100--102
 [][][][][][][][][][][][][][][][][][][] [][] [][][][][][][][][][][][] [][] [][][
 ] [][] [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] [][
 ] [][][][][][][][] []
@@ -3422,151 +3586,80 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[65]
-Package pgfplots info on input line 150: boxplot: got lower quartile=3.4188263e
-1
-Package pgfplots info on input line 150: boxplot: got median=3.4329254e1
-Package pgfplots info on input line 150: boxplot: got upper quartile=3.7586864e
-1
-Package pgfplots info on input line 150: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 150: boxplot: got lower whisker=3.4170579e1
-
-Package pgfplots info on input line 150: boxplot: got upper whisker=3.9176289e1
-
-Package pgfplots info on input line 157: boxplot: got lower quartile=3.4205817e
-1
-Package pgfplots info on input line 157: boxplot: got median=3.4390095e1
-Package pgfplots info on input line 157: boxplot: got upper quartile=3.4430176e
-1
-Package pgfplots info on input line 157: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 157: boxplot: got lower whisker=3.4181023e1
-
-Package pgfplots info on input line 157: boxplot: got upper whisker=3.4469319e1
-
-Package pgfplots info on input line 164: boxplot: got lower quartile=3.2160986e
-1
-Package pgfplots info on input line 164: boxplot: got median=3.2203489e1
-Package pgfplots info on input line 164: boxplot: got upper quartile=3.2226132e
-1
-Package pgfplots info on input line 164: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 164: boxplot: got lower whisker=3.2137275e1
-
-Package pgfplots info on input line 164: boxplot: got upper whisker=3.2277591e1
-
-
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[66]
-Package pgfplots info on input line 211: Using 'lua backend=false' for axis: x 
-coord trafo unsupported.
-
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[67]
-Package pgfplots info on input line 288: boxplot: got lower quartile=1.75874e-1
-
-Package pgfplots info on input line 288: boxplot: got median=5.92217e-1
-Package pgfplots info on input line 288: boxplot: got upper quartile=1.021761e0
-
-Package pgfplots info on input line 288: boxplot: got sample size=1.3e1
-Package pgfplots info on input line 288: boxplot: got lower whisker=2.0318e-2
-Package pgfplots info on input line 288: boxplot: got upper whisker=1.463433e0
-Package pgfplots info on input line 295: boxplot: got lower quartile=1.166758e0
-
-Package pgfplots info on input line 295: boxplot: got median=1.952946e0
-Package pgfplots info on input line 295: boxplot: got upper quartile=4.111049e0
-
-Package pgfplots info on input line 295: boxplot: got sample size=1.3e1
-Package pgfplots info on input line 295: boxplot: got lower whisker=7.73281e-1
-Package pgfplots info on input line 295: boxplot: got upper whisker=5.706726e0
-Package pgfplots info on input line 302: boxplot: got lower quartile=6.1688153e
--1
-Package pgfplots info on input line 302: boxplot: got median=1.216185e0
-Package pgfplots info on input line 302: boxplot: got upper quartile=2.479502e0
-
-Package pgfplots info on input line 302: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 302: boxplot: got lower whisker=3.76477e-1
-Package pgfplots info on input line 302: boxplot: got upper whisker=4.316962e0
-
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
-[68]
-Package pgfplots info on input line 345: Using 'lua backend=false' for axis: x 
-coord trafo unsupported.
-Package pgfplots info on input line 409: boxplot: got lower quartile=3.3487799e
--1
-Package pgfplots info on input line 409: boxplot: got median=8.77047e-1
-Package pgfplots info on input line 409: boxplot: got upper quartile=1.588237e0
-
-Package pgfplots info on input line 409: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 409: boxplot: got lower whisker=2.9702e-2
-Package pgfplots info on input line 409: boxplot: got upper whisker=2.575067e0
-Package pgfplots info on input line 416: boxplot: got lower quartile=3.0092477e
-1
-Package pgfplots info on input line 416: boxplot: got median=6.4345415e1
-Package pgfplots info on input line 416: boxplot: got upper quartile=7.942919e1
-
-Package pgfplots info on input line 416: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 416: boxplot: got lower whisker=5.421e-2
-Package pgfplots info on input line 416: boxplot: got upper whisker=1.35324717e
-2
-Package pgfplots info on input line 423: boxplot: got lower quartile=8.064415e-
-1
-Package pgfplots info on input line 423: boxplot: got median=1.202665e0
-Package pgfplots info on input line 423: boxplot: got upper quartile=3.558636e0
-
-Package pgfplots info on input line 423: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 423: boxplot: got lower whisker=2.855e-2
-Package pgfplots info on input line 423: boxplot: got upper whisker=6.666383e0
-
-
-
-Package fancyhdr Warning: \headheight is too small (14.0pt): 
-(fancyhdr)                Make it at least 18.99997pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.99997pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
-
 [69]
-Package pgfplots info on input line 453: boxplot: got lower quartile=3.3487799e
--1
-Package pgfplots info on input line 453: boxplot: got median=8.77047e-1
-Package pgfplots info on input line 453: boxplot: got upper quartile=1.588237e0
 
-Package pgfplots info on input line 453: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 453: boxplot: got lower whisker=2.9702e-2
-Package pgfplots info on input line 453: boxplot: got upper whisker=2.575067e0
-Package pgfplots info on input line 460: boxplot: got lower quartile=8.064415e-
+./Chapters/6TestingEvaluation.tex:152: Package PGF Math Error: Unknown function
+ `Impl' (in 'Impl').
+
+See the PGF Math package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.152 ...         coordinates {(Impl, 36.942013)};
+                                                  
+This error message was generated by an \errmessage
+command, so I can't give any explicit help.
+Pretend that you're Hercule Poirot: Examine all clues,
+and deduce the truth by order and method.
+
+
+./Chapters/6TestingEvaluation.tex:156: Package PGF Math Error: Unknown function
+ `Impl' (in 'Impl').
+
+See the PGF Math package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.156 ...         coordinates {(Impl, 34.927078)};
+                                                  
+(That was another \errmessage.)
+
+
+./Chapters/6TestingEvaluation.tex:160: Package PGF Math Error: Unknown function
+ `Impl' (in 'Impl').
+
+See the PGF Math package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.160 ...         coordinates {(Impl, 32.197323)};
+                                                  
+(That was another \errmessage.)
+
+
+Package pgfplots Warning: Axis range for axis x is approximately empty; enlargi
+ng it (it is [0.0:0.0]) on input line 163.
+
+ [warning /pgfplots/warning/approx empty range enlarged]
+Package pgfplots info on input line 193: boxplot: got lower quartile=3.4188263e
 1
-Package pgfplots info on input line 460: boxplot: got median=1.202665e0
-Package pgfplots info on input line 460: boxplot: got upper quartile=3.558636e0
+Package pgfplots info on input line 193: boxplot: got median=3.4329254e1
+Package pgfplots info on input line 193: boxplot: got upper quartile=3.7586864e
+1
+Package pgfplots info on input line 193: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 193: boxplot: got lower whisker=3.4170579e1
 
-Package pgfplots info on input line 460: boxplot: got sample size=1.5e1
-Package pgfplots info on input line 460: boxplot: got lower whisker=2.855e-2
-Package pgfplots info on input line 460: boxplot: got upper whisker=6.666383e0
-Package pgfplots info on input line 491: Using 'lua backend=false' for axis: x 
-coord trafo unsupported.
+Package pgfplots info on input line 193: boxplot: got upper whisker=3.9176289e1
 
+Package pgfplots info on input line 200: boxplot: got lower quartile=3.4205817e
+1
+Package pgfplots info on input line 200: boxplot: got median=3.4390095e1
+Package pgfplots info on input line 200: boxplot: got upper quartile=3.4430176e
+1
+Package pgfplots info on input line 200: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 200: boxplot: got lower whisker=3.4181023e1
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Package pgfplots info on input line 200: boxplot: got upper whisker=3.4469319e1
+
+Package pgfplots info on input line 207: boxplot: got lower quartile=3.2160986e
+1
+Package pgfplots info on input line 207: boxplot: got median=3.2203489e1
+Package pgfplots info on input line 207: boxplot: got upper quartile=3.2226132e
+1
+Package pgfplots info on input line 207: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 207: boxplot: got lower whisker=3.2137275e1
+
+Package pgfplots info on input line 207: boxplot: got upper whisker=3.2277591e1
 
 
 
@@ -3578,6 +3671,9 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [70]
+Package pgfplots info on input line 254: Using 'lua backend=false' for axis: x 
+coord trafo unsupported.
+
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3587,35 +3683,30 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [71]
-Overfull \hbox (4.3648pt too wide) in paragraph at lines 550--550
-[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
-vm' - got timeout[] 
- []
+Package pgfplots info on input line 331: boxplot: got lower quartile=1.75874e-1
 
+Package pgfplots info on input line 331: boxplot: got median=5.92217e-1
+Package pgfplots info on input line 331: boxplot: got upper quartile=1.021761e0
 
-Overfull \hbox (4.3648pt too wide) in paragraph at lines 562--562
-[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
-vm' - got timeout[] 
- []
+Package pgfplots info on input line 331: boxplot: got sample size=1.3e1
+Package pgfplots info on input line 331: boxplot: got lower whisker=2.0318e-2
+Package pgfplots info on input line 331: boxplot: got upper whisker=1.463433e0
+Package pgfplots info on input line 338: boxplot: got lower quartile=1.166758e0
 
+Package pgfplots info on input line 338: boxplot: got median=1.952946e0
+Package pgfplots info on input line 338: boxplot: got upper quartile=4.111049e0
 
-Overfull \hbox (4.3648pt too wide) in paragraph at lines 564--564
-[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
-vm' - got timeout[] 
- []
+Package pgfplots info on input line 338: boxplot: got sample size=1.3e1
+Package pgfplots info on input line 338: boxplot: got lower whisker=7.73281e-1
+Package pgfplots info on input line 338: boxplot: got upper whisker=5.706726e0
+Package pgfplots info on input line 345: boxplot: got lower quartile=6.1688153e
+-1
+Package pgfplots info on input line 345: boxplot: got median=1.216185e0
+Package pgfplots info on input line 345: boxplot: got upper quartile=2.479502e0
 
-
-Overfull \hbox (4.3648pt too wide) in paragraph at lines 573--573
-[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
-vm' - got timeout[] 
- []
-
-
-Overfull \hbox (4.3648pt too wide) in paragraph at lines 575--575
-[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
-vm' - got timeout[] 
- []
-
+Package pgfplots info on input line 345: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 345: boxplot: got lower whisker=3.76477e-1
+Package pgfplots info on input line 345: boxplot: got upper whisker=4.316962e0
 
 
 
@@ -3626,7 +3717,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [72]
-Package pgfplots info on input line 611: Using 'lua backend=false' for axis: x 
+Package pgfplots info on input line 388: Using 'lua backend=false' for axis: x 
 coord trafo unsupported.
 
 
@@ -3638,6 +3729,119 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
 [73]
+Package pgfplots info on input line 460: boxplot: got lower quartile=3.3487799e
+-1
+Package pgfplots info on input line 460: boxplot: got median=8.77047e-1
+Package pgfplots info on input line 460: boxplot: got upper quartile=1.588237e0
+
+Package pgfplots info on input line 460: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 460: boxplot: got lower whisker=2.9702e-2
+Package pgfplots info on input line 460: boxplot: got upper whisker=2.575067e0
+Package pgfplots info on input line 467: boxplot: got lower quartile=3.0092477e
+1
+Package pgfplots info on input line 467: boxplot: got median=6.4345415e1
+Package pgfplots info on input line 467: boxplot: got upper quartile=7.942919e1
+
+Package pgfplots info on input line 467: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 467: boxplot: got lower whisker=5.421e-2
+Package pgfplots info on input line 467: boxplot: got upper whisker=1.35324717e
+2
+Package pgfplots info on input line 474: boxplot: got lower quartile=8.064415e-
+1
+Package pgfplots info on input line 474: boxplot: got median=1.202665e0
+Package pgfplots info on input line 474: boxplot: got upper quartile=3.558636e0
+
+Package pgfplots info on input line 474: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 474: boxplot: got lower whisker=2.855e-2
+Package pgfplots info on input line 474: boxplot: got upper whisker=6.666383e0
+Package pgfplots info on input line 504: boxplot: got lower quartile=3.3487799e
+-1
+Package pgfplots info on input line 504: boxplot: got median=8.77047e-1
+Package pgfplots info on input line 504: boxplot: got upper quartile=1.588237e0
+
+Package pgfplots info on input line 504: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 504: boxplot: got lower whisker=2.9702e-2
+Package pgfplots info on input line 504: boxplot: got upper whisker=2.575067e0
+Package pgfplots info on input line 511: boxplot: got lower quartile=8.064415e-
+1
+Package pgfplots info on input line 511: boxplot: got median=1.202665e0
+Package pgfplots info on input line 511: boxplot: got upper quartile=3.558636e0
+
+Package pgfplots info on input line 511: boxplot: got sample size=1.5e1
+Package pgfplots info on input line 511: boxplot: got lower whisker=2.855e-2
+Package pgfplots info on input line 511: boxplot: got upper whisker=6.666383e0
+Package pgfplots info on input line 542: Using 'lua backend=false' for axis: x 
+coord trafo unsupported.
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[74]
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[75]
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 601--601
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
+ []
+
+
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 613--613
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
+ []
+
+
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 615--615
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
+ []
+
+
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 624--624
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
+ []
+
+
+Overfull \hbox (4.3648pt too wide) in paragraph at lines 626--626
+[]\TU/lmtt/m/n/10.95 can't lock file '/var/lock/pve-manager/pve-storage-local-l
+vm' - got timeout[] 
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[76]
+Package pgfplots info on input line 662: Using 'lua backend=false' for axis: x 
+coord trafo unsupported.
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[77]
 File: Figures/6TestingEvaluation/web_app_login.png Graphic file (type bmp)
 <Figures/6TestingEvaluation/web_app_login.png>
 File: Figures/6TestingEvaluation/web_app_create_exercise.png Graphic file (type
@@ -3652,7 +3856,13 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[74]
+[78]
+Overfull \hbox (2.92583pt too wide) in paragraph at lines 718--721
+\TU/Arial(0)/m/n/10.95 checks to be executed on the specified devices. Currentl
+y, only \TU/lmtt/m/n/10.95 ping \TU/Arial(0)/m/n/10.95 and \TU/lmtt/m/n/10.95 t
+raceroute
+ []
+
 File: Figures/6TestingEvaluation/web_app_exercise.png Graphic file (type bmp)
 <Figures/6TestingEvaluation/web_app_exercise.png>
 File: Figures/6TestingEvaluation/web_app_manage_exercise.png Graphic file (type
@@ -3667,7 +3877,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[75]
+[79]
 File: Figures/6TestingEvaluation/web_app_assessment_exercise.png Graphic file (
 type bmp)
 <Figures/6TestingEvaluation/web_app_assessment_exercise.png>
@@ -3680,7 +3890,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[76]
+[80]
 Chapter 7.
 
 
@@ -3691,7 +3901,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[77
+[81
 
 ]
 
@@ -3702,7 +3912,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[78]) (./main.bbl (./main.brf)
+[82]) (./main.bbl (./main.brf)
 \tf@brf=\write13
 \openout13 = `main.brf'.
 
@@ -3715,7 +3925,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[79]) (./Appendices/AppendixNornir.tex
+[83]
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3724,7 +3934,16 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[80
+[84]) (./Appendices/AppendixNornir.tex
+
+
+Package fancyhdr Warning: \headheight is too small (14.0pt): 
+(fancyhdr)                Make it at least 18.99997pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.99997pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
+
+[85
 
 ]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
@@ -3738,7 +3957,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[81
+[86
 
 ]) (./Appendices/AppendixPVE.tex
 
@@ -3749,7 +3968,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[82]
+[87]
 
 
 Package fancyhdr Warning: \headheight is too small (14.0pt): 
@@ -3758,7 +3977,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[83
+[88
 
 ]
 Overfull \hbox (125.08853pt too wide) in paragraph at lines 52--52
@@ -3793,7 +4012,7 @@ Package fancyhdr Warning: \headheight is too small (14.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-4.99997pt}.
 
-[84] (./main.aux)
+[89] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -3803,17 +4022,17 @@ L3 programming layer <2025-01-18>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C65138832BC5E41CD5A06E31AC2A7602;20338.
+(rerunfilecheck)             Checksum: 4581D56676A37BFA61D2E3F98375123D;20489.
 Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: 5A8853B719C47B77BEF6186635B5F8A2;814.
+(rerunfilecheck)             Checksum: 0B26E74989AD6A91AB7E39D9266B48A8;1008.
  ) 
 Here is how much of TeX's memory you used:
- 66239 strings out of 473840
- 1593977 string characters out of 5729725
- 2162391 words of memory out of 5000000
- 88236 multiletter control sequences out of 15000+600000
- 568653 words of font info for 98 fonts, out of 8000000 for 9000
+ 66419 strings out of 473840
+ 1597782 string characters out of 5729725
+ 2162695 words of memory out of 5000000
+ 88412 multiletter control sequences out of 15000+600000
+ 568661 words of font info for 99 fonts, out of 8000000 for 9000
  1351 hyphenation exceptions out of 8191
- 120i,19n,129p,2378b,2374s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 120i,19n,129p,2378b,2368s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (94 pages).
+Output written on main.pdf (99 pages).

@@ -1,0 +1,137 @@
+spacing in cover 
+spelling mistakes in Resumo, Abstract
+Added a sentence explaining broadly what was done in the first phase of this project (work by pedro santos) in Resumo and Abstract
+Keywords: Emulação -> emulação, Emulation -> emulation, Added "teaching tool" and "ferramenta de ensino"
+
+Added IT to acknowledgments
+
+chapter 1:
+Changed opening sentence to not give the idea that demand is on the rise in todays market
+
+1.1
+added an example of previous work 
+changed  "inconsistency" bullet point
+
+1.2
+moved link to github repo to start of chapter 5
+
+chapter 2:
+
+2.1
+added "exact" to "Emulation"
+added "aspects of" to "Simulation"
+
+2.2
+added a short explanation of REST APIs when they are first mentioned
+
+2.2.1
+rewrote to clarify components of sytem
+added figure of gns3 architecture
+
+2.2.1.1
+clarified what "compute instances" are
+
+2.2.1.2
+clarified VIRL and QEMU
+
+2.2.1.3
+gui -> graphics
+setup -> set up
+
+2.3.1
+defined vnc
+
+old section 2.4 merged into section 2.1, becoming subsection 2.1.1
+
+new section 2.4 renamed from "LDAP" to "Authentication with LDAP"
+
+2.4 
+slight rewording at the end of first paragraph
+"to authenticate into labs’ computers." -> "to authenticate labs' users"
+
+2.7.1
+added definition of YAML
+rewrote final sentence
+
+
+chapter 3
+removed some repetitive text from introduction to chapter
+
+3.1 
+title "assesment"-> "Assesment"
+rewrote second paragraph for clairty
+
+3.1.1 
+rewrote last paragraph
+
+3.2
+removed repetitive text from second to last paragraph
+
+chapter 4
+
+4.2
+rewrote first paragraph
+
+4.2.2
+clarified the issue and measures in the first and second paragraph respectively
+
+4.2.3
+changed second paragraph to highlight why pve firewall is necessary
+
+4.2.5
+added additional explanations about linked clone usage at the end
+
+4.3 
+rewrote set up of base gns3 template vm on 2nd paragraphs
+moved text near the end detailing horizontal expansion into section 4.2 
+
+4.4.1
+renamed from "Interface Component" to "User Interface Component"
+
+4.4.4 
+Added diagram about nornir modules
+"design pattern" -> "design paradigm"
+
+4.4.6
+corrected cardinalities of figure 4.4 (database)
+
+4.5.2
+Added use case diagram
+
+5.1
+removed "highlighted limitations in the original architecture.", added referencing to chapter 6 evaluation
+
+5.1.1
+additional explanations on why multithreading/multiprocessing are not as efficient as asyncio
+Clarified in last paragraph, limited async support by flask
+
+5.1.2
+removed repetitive text from last paragraph, added referencing to explanation from earlier subsection
+
+5.1.4
+changed text summary to a table
+
+5.5
+added references to previous work
+
+chapter 6
+added text about focus of evaluation being on infra-level
+added text about flask bottlenecking ssd I/O
+added sample size to all graphs' title
+
+6.1.1.1
+corrected data pool size for first task
+replaced table with barplot
+added text about sample sizes statistical significance
+
+6.1.1.3
+added explanation to why batch size 1 was slower
+added explanation to scaling from batch size 100 to 200
+changed typo in subsection title
+
+
+chapter 7
+
+7.2
+expanded text on pve role based access control
+

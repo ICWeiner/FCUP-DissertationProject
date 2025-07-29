@@ -20,33 +20,28 @@ configurations and executing tests across a virtual network.
 
 While automated assessment systems are well established in the field of programming education, receiving student-submitted 
 code and running it against predefined test cases, equivalent systems for network exercises are far less common. Tools like 
-Mooshak\cite{Leal2003567} and similar platforms have proven effective for evaluating programming assignments and are widely adopted in academic 
+Mooshak \cite{Leal2003567} and similar platforms have proven effective for evaluating programming assignments and are widely adopted in academic 
 settings.
 
 At first glance, adapting automated assessment approaches to network topologies may seem straightforward. 
-However, network assessment introduces a set of challenges.
-
-In the case of our project, where we also desire to host the work environments for students to complete their assignments on, 
-one major challenge lies in automating the provisioning of said work environments. This includes not only preparing and 
-configuring the necessary infrastructure, but also implementing orchestration mechanisms to assign individual environments 
-to students in a scalable and manageable way.
-
-Another challenge involves validating the configuration of multiple devices in a distributed and stateful environment. These 
-devices may differ in type, vendor, or firmware version, requiring tailored communication methods and output validation strategies 
-for each case.
+However, network assessment introduces a set of challenges like validating the configuration of multiple devices in a distributed and 
+stateful environment. These devices may differ in type, vendor, or firmware version, requiring tailored communication methods and output 
+validation strategies for each case.
 
 This chapter explores existing tools, in particular, Mooshak and Packet Tracer, highlighting their capabilities, limitations, and how our  
 project builds upon or diverges from them.
 
-\section{Automated assessment Systems}
+\section{Automated Assessment Systems}
     While not directly related, programming assessment systems are the main inspiration for this project. They are widely
     deployed in universities and other educational institutions. These systems receive, as input, code from students and 
     subsequently run tests on it, outputting a score and even being configurable to provide students the first test case that 
     they failed in, guiding students to the solution without handing it out.
 
-    The main differentiator between these systems and the one proposed in this project is the ability to solve a network 
-    exercise using multiple configurations across multiple devices, while automated assessment systems will expect
-    the same output every time, given the same input.
+    A key differentiator of the proposed system is its support for multiple valid configurations across several devices to achieve 
+    a correct solution to a network exercise. In contrast, many existing automated assessment systems, particularly those used in 
+    programming, assume a single expected output for a given input, which does not accommodate the variability and flexibility 
+    often found in networking scenarios.
+
     
     One key difference is that automated assessment systems dont always provide a working environment for the 
     students to test their code, owing to the fact that students might prefer to user their own development environment for 
@@ -69,7 +64,7 @@ project builds upon or diverges from them.
         for the same inputs giving a score based on the the amount of test cases passed.
 
         Mooshak provides a structured approach to test coding and problem solving skills. It begins by offering a problem statement 
-        coupled with an optional image and an example test case, normally in the form of input and expected output, as can be seen in 
+        coupled with an optional image and an example test case, in the form of input and expected output, as can be seen in 
         Figure~\ref{fig:mooshak1}
 
         \begin{figure}
@@ -94,9 +89,9 @@ project builds upon or diverges from them.
         Mooshak also includes some features designed to drive competition between students, like a real time leaderboard and
         the ability to have more than 100\% of the score for a given contest.
 
-        The system however is not without its limitations as it uses plain text files for its test cases and validates the output 
-        of student's code character by character, which can lead to false negatives if the output is not formatted exactly as
-        expected.
+        However, the system has limitations. It relies on plain text files for test cases and performs character-by-character output 
+        comparison. This strict matching can result in false negatives when a student's output is functionally correct but formatted 
+        differently than expected.
 
 \section{Cisco Packet Tracer}
 
@@ -139,6 +134,9 @@ project builds upon or diverges from them.
     Packet Tracer also offers a separate interface for applying configurations or services on devices, allowing students to completely skip 
     the devices' native interface seen in Figure~\ref{fig:packet_tracer3}.
 
+    This feature can be seen as valuable in very early stages of teaching, but quickly becomes counter-productive as students should 
+    grow accustomed to navigating the devices' native interfaces to properly configure them, better preparing them for professional environments.
+
     \begin{figure}
         \centering
         \includegraphics[width=10cm]{3RelatedWork/packet_tracer3.png}
@@ -147,18 +145,15 @@ project builds upon or diverges from them.
     \label{fig:packet_tracer3}
     \end{figure}
 
-    This feature can be seen as valuable in very early stages of teaching, but quickly becomes counter-productive as students should 
-    grow accustomed to navigating the devices' native interfaces to properly configure them, better preparing them for professional environments.
+    While Packet Tracer is highly accessible and effective for introducing basic networking concepts, it is a closed-source, proprietary tool 
+    designed primarily for Cisco hardware simulation. Its feature set is tailored for entry-level instruction and lacks the extensibility, platform 
+    flexibility, and integration capabilities required for more advanced or automated assessment workflows. For example, Packet Tracer does not support 
+    running custom operating system images or integrating external automation tools via\ac{api}s, which limits its applicability in more complex or 
+    open-ended environments.
 
-    While Packet Tracer is highly accessible and effective for introducing networking fundamentals, it is a closed-source, 
-    proprietary tool limited to simulating a small pool of, mostly Cisco, hardware and features. Its functionality is optimized for very early 
-    network teaching  purposes rather than for flexibility, extensibility, or integration into larger automated workflows. It also doesn't contain 
-    all hardware and software features of Cisco\ac{ios} devices, as well as having only partial or even completely missing support for protocols.
-
-    In contrast, this project aim to allow for a more realistic and extensible lab environment. The use of real operating 
+    In contrast, this project aims to allow for a more realistic and extensible lab environment. The use of real operating 
     systems and support of a wide range of vendor platforms for routers and switches, as well as Linux-based\ac{vm}s 
-    is highly desirable. This allows for a more realistic experience, as students will be able to work with the same tools and 
-    operating systems that they will encounter in real-world scenarios.
+    is highly desirable.
 
     Therefore, while Cisco Packet Tracer remains a valuable educational tool, the needs of this project called for a more 
     flexible and open architecture.

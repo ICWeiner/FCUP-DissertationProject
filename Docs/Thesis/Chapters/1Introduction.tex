@@ -14,16 +14,15 @@
 % Write text in here
 % Use \subsection and \subsubsection to organize text
 
-Digital change has greatly raised the need for those who work in the field of\ac{cs}. Among the various specializations within it, network 
-administration continues to be essential, due to the fundamental role that networks play in supporting the operation and connectivity 
-of all digital systems.
+Network administration remains a fundamental discipline within\ac{cs}, given the central role that networked systems play in the functioning, 
+scalability, and security of modern digital infrastructures.
 
 Modern organizations require professionals who can design, configure, and troubleshoot increasingly complex network environments. 
 Effective education must therefore bridge theoretical knowledge with practical implementation, particularly through hands-on learning 
 that simulates real-world scenarios. Yet current training and assessment methods fail to meet these needs at scale, creating a growing gap 
 between academic preparation and professional requirements.
 
-This project aims to build an initial version of a system capable of assisting the training in the topic of network administration, building upon previous 
+This project aims to build an initial version of a system capable of assisting training in the topic of network administration, building upon previous 
 work of \citet{santos2024} which solved a series of individual problems relevant to this topic, without building a system out of them.
 
 \section{Need for Automated Assessment}
@@ -40,11 +39,15 @@ work of \citet{santos2024} which solved a series of individual problems relevant
   \begin{itemize}
     \item \textbf{Time-consuming}: Manual checks grow linearly with class size.
     \item \textbf{Error-prone}: Human reviewers may overlook misconfigurations.
-    \item \textbf{Inconsistent}: Subjective grading criteria lead to unfair assessments.
+    \item \textbf{Risk of inconsistency}: Automated assessment ensures fully deterministic and consistent evaluation.
   \end{itemize}
 
   Automating assessments would reduce instructor workload, freeing time for student support as well as ensure consistent, objective grading 
   and simultaneously enable immediate feedback for learners.
+
+  Previous work by \citet{santos2024} has shown that it is possible to automate the validation of basic network commands, such as verifying 
+  the output of a ping command between a specific machine and a target IP address. This demonstrates that connectivity checks 
+  can be automated, paving the way for network automated assessment.
 
   \subsection{Limitations of Current Solutions}
 
@@ -76,7 +79,7 @@ work of \citet{santos2024} which solved a series of individual problems relevant
   Achieving this will require further development of the components as well as creating capabilities to communicate between 
   them.
 
-  All source code developed as part of this project is publicly available at: \url{https://github.com/ICWeiner/FCUP-DissertationProject}
+  
 
 \section{Organization}
 

@@ -184,3 +184,7 @@ constants.py
 
 /uploads
 database.db
+
+fastapi.*
+pve.*
+client.pem

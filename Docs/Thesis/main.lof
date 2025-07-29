@@ -3,33 +3,37 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces A simple network topology example in the GNS3 Web UI}}{7}{figure.caption.5}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces A figure showcasing the deployment of a\ac {wsgi} application. Illustration by Reena Kamra }}{12}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces A simple diagram showcasing the architecture of GNS3. Recreation of architecture shown in GNS3's official docs.}}{7}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces A simple network topology example in the GNS3 Web UI}}{8}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces A figure showcasing the deployment of a\ac {wsgi} application. Illustration by Reena Kamra }}{13}{figure.caption.7}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces A screenshot of a mooshak exercise page}}{22}{figure.caption.7}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces A screenshot of a Packet Tracer exercise}}{23}{figure.caption.8}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces A screenshot of a Packet Tracer's Activity Wizard}}{24}{figure.caption.9}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces A screenshot of a Packet Tracer's configuration}}{24}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces A screenshot of a mooshak exercise page}}{23}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces A screenshot of a Packet Tracer exercise}}{24}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A screenshot of a Packet Tracer's Activity Wizard}}{24}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces A screenshot of a Packet Tracer's configuration}}{25}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces A diagram showcasing how components interact with each other on a high level}}{28}{figure.caption.12}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces A diagram showcasing how one node hosts various students}}{33}{figure.caption.13}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces A diagram showcasing a high level overview of the system's main components}}{37}{figure.caption.14}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces A diagram of the database}}{39}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces A diagram showcasing how components interact with each other on a high level}}{29}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces A diagram showcasing how one node hosts various students}}{34}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces A diagram showcasing the module structure}}{38}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces A diagram showcasing a high level overview of the system's main components}}{39}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces A diagram of the database}}{41}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces A diagram of the database}}{43}{figure.caption.18}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces A diagram showcasing the process of login via institutional credentials}}{63}{figure.caption.23}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces A diagram showcasing the process of login via institutional credentials}}{66}{figure.caption.27}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Boxplot comparison of execution time variability for Template VM creation.}}{67}{figure.caption.26}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Average execution time to clone increasing number of\ac {vm}s across different implementations.}}{68}{figure.caption.27}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Boxplot comparison of execution time variability for VM cloning.}}{68}{figure.caption.28}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Average execution time to delete increasing number of\ac {vm}s across different implementations.}}{69}{figure.caption.29}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Boxplot comparison of execution time variability for VM deleting.}}{70}{figure.caption.30}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Boxplot comparison of execution time variability of Flask and FastAPI for VM deleting.}}{70}{figure.caption.31}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Grouped bar chart showing VM operation times. Cloning time is labeled to highlight the rising trend. Results from Flask running purely sequential code}}{71}{figure.caption.32}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces Bar chart showing VM cloning times after cleanup, at baseline, and in the worst case scenario.}}{73}{figure.caption.37}%
-\contentsline {figure}{\numberline {6.9}{\ignorespaces A screenshot of the login page}}{74}{figure.caption.38}%
-\contentsline {figure}{\numberline {6.10}{\ignorespaces A screenshot of the create exercise page}}{74}{figure.caption.39}%
-\contentsline {figure}{\numberline {6.11}{\ignorespaces A screenshot of the exercise page}}{75}{figure.caption.40}%
-\contentsline {figure}{\numberline {6.12}{\ignorespaces A screenshot of the exercise management page}}{76}{figure.caption.41}%
-\contentsline {figure}{\numberline {6.13}{\ignorespaces A screenshot of the exercise management page}}{76}{figure.caption.42}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Average execution time for Template VM creation across implementations.}}{70}{figure.caption.29}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Boxplot comparison of execution time variability for Template VM creation.}}{70}{figure.caption.30}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Average execution time to clone increasing number of\ac {vm}s across different implementations.}}{71}{figure.caption.31}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Boxplot comparison of execution time variability for VM cloning.}}{72}{figure.caption.32}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Average execution time to delete increasing number of\ac {vm}s across different implementations.}}{73}{figure.caption.33}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Boxplot comparison of execution time variability for VM deletion.}}{74}{figure.caption.34}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Boxplot comparison of execution time variability of Flask and FastAPI for VM deletion.}}{74}{figure.caption.35}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Grouped bar chart showing VM operation times. Cloning time is labeled to highlight the rising trend. Results from Flask running purely sequential code}}{75}{figure.caption.36}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Bar chart showing VM cloning times after cleanup, at baseline, and in the worst case scenario.}}{77}{figure.caption.41}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces A screenshot of the login page}}{78}{figure.caption.42}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces A screenshot of the create exercise page}}{78}{figure.caption.43}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces A screenshot of the exercise page}}{79}{figure.caption.44}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces A screenshot of the exercise management page}}{80}{figure.caption.45}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces A screenshot of the exercise management page}}{80}{figure.caption.46}%
 \addvspace {10\p@ }
 \contentsfinish 

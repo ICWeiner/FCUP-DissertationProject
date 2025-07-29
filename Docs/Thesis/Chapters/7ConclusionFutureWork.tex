@@ -25,7 +25,7 @@ devices, and a web back-end built using FastAPI that facilitated communication b
 
 One of the central objectives was to allow students to initiate assessments on demand. This was achieved through the use of 
 the developed modules, which input a command to a given virtual network device, determine the correct command depending of 
-its type (e.g. Cisco router, Linux VM have different syntax for a traceroute). This effort was made to ensure support for a 
+its type (e.g. Cisco router, Linux VM have different syntax for a \texttt{traceroute}). This effort was made to ensure support for a 
 diverse range of device types and vendors, as exposure to heterogeneous network environments better prepares students for 
 the complexity of professional settings. While the current implementations has only support for a few device types, the 
 modular structure can easily be expanded upon for broader compatibility in the future. The modules developed during the 
@@ -58,9 +58,13 @@ components.
 \section{Future Work}
     Building on the current system, future work should aim for several things. In terms of security and access control, the 
     groundwork was laid for role-based authentication. However, further exploration is needed into\ac{pve}'s native role and 
-    permission system. At present,\ac{pve} assumes administrative access if authenticated, which is suitable for development 
-    but not for production deployment, with only the web application doing role checking. A more fine-grained approach—where 
-    roles such as "student" and "teacher" are mapped to restricted scopes in\ac{pve}—remains an important area for future work.
+    permission system. At present, \ac{pve} grants full administrative access to authenticated users, which is acceptable for development environments 
+    but poses significant security concerns in production. Currently, role-based access control is enforced solely within the web 
+    application layer, meaning that users such as students and teachers interact with the underlying\ac{pve} infrastructure using elevated 
+    privileges. A more secure and fine-grained authorization model—where roles like "student" and "teacher" are mapped to 
+    corresponding restricted scopes within\ac{pve} itself—remains a critical area for future development. Implementing this would 
+    help enforce the principle of least privilege and provide a more robust separation of concerns between the application logic and 
+    infrastructure permissions.
 
     It would also be desirable to expand on the assignment definition model to introduce versioning, as well as introducing 
     capabilities to create more complex grading of exercises including but not limited to adding exercise sub-lines and 

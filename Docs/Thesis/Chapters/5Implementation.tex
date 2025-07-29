@@ -26,17 +26,20 @@ considerations for error handling, VM orchestration, and asynchronous task execu
 Together, these sections provide a clear view into how the architecture translates into a working system, one emphasizing 
 modularity and scalability as guiding principles throughout the implementation.
 
+All source code developed as part of this project is publicly available at: \url{https://github.com/ICWeiner/FCUP-DissertationProject}
+
 % Write text in here
 % Use \subsection and \subsubsection to organize text
 
 \section{FastAPI Adoption: Overcoming Flask's Shortcomings}
 
-    As the web application matured, increasing demands on concurrency and responsiveness highlighted limitations in the original architecture. 
+    As the web application matured, demand for concurrency and responsiveness increased. This will be discussed further in Chapter~\ref{Chapter6TestingEvaluation}.
     While Flask offered a lightweight and productive starting point, its synchronous foundations and lack of native asynchronous support became 
     a bottleneck for I/O-heavy workloads. This section outlines the successive iterations of the back-end framework, beginning with Flask, 
     transitioning through solutions like Celery and Quart, and culminating in the migration to FastAPI. 
 
     \subsection{Initial setup: Flask}
+    \label{sec:chap5_flask}
 
         Initially, Flask served as the framework for the web application, providing the necessary infrastructure to handle\ac{http} 
         requests, render Jinja2 HTML templates, and manage application routing. Its flexibility and minimalistic approach allow for the 
@@ -48,8 +51,16 @@ modularity and scalability as guiding principles throughout the implementation.
         clear that leveraging Python's native \texttt{asyncio} would benefit the project, but a significant portion of the existing codebase, 
         including Flask itself, relied on non async-compatible libraries. This limitation stemmed from Flask's foundation on\ac{wsgi}, a 
         synchronous standard developed long before Python's asyncio was introduced.\ac{wsgi} operates strictly in a blocking request-response 
-        model, requiring each request to complete fully before processing the next. While traditional workarounds like multi-threading 
-        or multi-processing can mitigate this, they introduce complexity and are better suited for\ac{cpu}-bound tasks than I/O-bound workloads.
+        model, requiring each request to complete fully before processing the next. 
+
+        Traditional workarounds like multi-threading or multi-processing can mitigate some of \ac{wsgi}'s limitations, they are generally 
+        more suitable for\ac{cpu}-bound tasks. Both approaches introduce additional complexity such as synchronization issues, race conditions, 
+        and increased memory overhead. For I/O-bound tasks—such as handling concurrent\ac{http} requests or interacting with remote\ac{api}s—these traditional 
+        models are often inefficient, as threads or processes may remain idle while waiting for external operations to complete.
+
+        In contrast, Python's \texttt{asyncio} framework is specifically designed for I/O-bound concurrency. It uses an event loop to manage multiple tasks 
+        cooperatively within a single thread. This makes \texttt{asyncio} more efficient and scalable in web applications where responsiveness and concurrency 
+        are essential, and where tasks spend most of their time waiting on I/O rather than performing computation.
 
         To address these constraints, several approaches were considered:
 
@@ -71,7 +82,13 @@ modularity and scalability as guiding principles throughout the implementation.
 
         While Flask remained suitable for early development, emerging requirements—particularly those involving asynchronous 
         communication for more scalable I/O operations—eventually led to a need to explore architectural shifts, due to 
-        Flask's limited async support and\ac{wsgi} heritage. 
+        Flask's limited async support and\ac{wsgi} heritage. While recent versions allow defining \texttt{async def} routes, the framework does 
+        not provide full asynchronous request handling out of the box. This means that Flask cannot handle multiple concurrent requests as fully 
+        asynchronous frameworks like\ac{asgi}-compliant frameworks. Additionally, many Flask extensions and middlewares are not designed to work 
+        in an asynchronous context, which can lead to unexpected behavior or performance bottlenecks when attempting to use async features in more 
+        complex applications. All these downsides led to the exploration of alternatives, as the project was still in earlier development stages, 
+        so the cost of migration would not be as significant as in later stages.
+
     
     \subsection{Second setup: Flask + Celery}
 
@@ -123,11 +140,11 @@ modularity and scalability as guiding principles throughout the implementation.
         This can be a concern in resource-constrained environments or during development.This overhead became especially evident 
         during early integration tests.
 
-        As the project evolved and tests were performed, it became increasingly clear that Celery's benefits lend themselves better 
-        to\ac{cpu}-bound workloads, as opposed to our I/O-bound ones, and they did not outweigh its resource and architectural costs for 
-        the current use case. This realization prompted an exploration of more lightweight asynchronous alternatives, eventually 
-        culminating in an investigation into\ac{asgi}-compliant frameworks with native async capabilities and simpler concurrency 
-        management.
+        As tests were performed, it became increasingly clear that Celery's benefits lend themselves better 
+        to\ac{cpu}-bound workloads, as opposed to our I/O-bound ones, for reasons that were already detailed in Subsection~\ref{sec:chap5_flask} 
+        and they did not outweigh the resource and architectural costs, for our workloads. This realization prompted an exploration of more 
+        lightweight asynchronous alternatives, eventually culminating in an investigation into\ac{asgi}-compliant frameworks with native async 
+        capabilities and simpler concurrency management.
 
     \subsection{Third setup: Quart, an ASGI-compliant Flask reimplementation}
 
@@ -138,7 +155,7 @@ modularity and scalability as guiding principles throughout the implementation.
         existing Flask projects that would benefit from asynchronous capabilities.
 
         However, after evaluation it was revealed that there are significant limitations in Quart's ecosystem, namely its lack of 
-        maturity. While Quart itself required minmal changes to code orignally written for Flask, many critical Flask extensions we 
+        maturity. While Quart itself required minimal changes to code orignally written for Flask, many critical Flask extensions we 
         relied on - including ones that provided authentication capabilities, database integration, among others - either lacked Quart 
         equivalents or had poorly maintained implementations. We discovered many Quart-specific packages were either abandoned, documented 
         only through sparse READMEs, or failed to match their Flask counterparts in functionality. For instance, the Flask-Login equivalent 
@@ -160,23 +177,43 @@ modularity and scalability as guiding principles throughout the implementation.
         reimplementation, that could provide robust \texttt{asyncio} support without sacrificing ecosystem stability.
 
     \subsection{Final Decision: FastAPI Migration}
+        To better evaluate the trade-offs between different architectural approaches for supporting asynchronous workloads, 
+        we compared our current Flask-based setup with an enhanced Flask + Celery configuration and the FastAPI framework. 
+        Table~\ref{tab:implementation_comparison} summarizes key differences across aspects such as async support, concurrency models, complexity, and 
+        suitability for various types of workloads.
 
-        After thorough evaluation of the previous options, we ultimately selected FastAPI as our framework of choice. 
-        The decision was driven by FastAPI's native\ac{asgi} support, which provides built-in asynchronous capabilities 
-        without requiring additional infrastructure components. Unlike our Flask + Celery implementation that demanded 
-        separate worker processes and message brokers, FastAPI achieves comparable performance under high concurrency through 
-        \texttt{asyncio}-compatible architecture, which enables concurrent non-blocking I/O, while significantly reducing system 
-        complexity and operational overhead. The framework's performance characteristics proved particularly advantageous 
-        for our I/O-bound operations, matching Celery's throughput in load testing but having a simpler application 
-        architecture.
+        \begin{table}[H]
+            \centering
+            \caption{Comparison of Flask, Flask + Celery, and FastAPI}
+            \scriptsize
+            \begin{tabular}{|p{4cm}|p{3.3cm}|p{3.3cm}|p{3.3cm}|}
+                \hline
+                \textbf{Aspect} & \textbf{Flask} & \textbf{Flask + Celery} & \textbf{FastAPI} \\
+                \hline
+                Async Support & Limited; WSGI-based, synchronous by design & Background tasks offloaded to Celery workers & Native \ac{asgi} support; fully async with \texttt{asyncio} \\
+                \hline
+                Concurrency Model & Can implement Multi-threading or Multi-processing (Manual) & Task queues; good for parallel background work & Non-blocking I/O using async/await \\
+                \hline
+                Best Fit For & Simple, low-load synchronous applications & CPU-bound and/or deferred workloads & I/O-bound, high-concurrency APIs \\
+                \hline
+                Architecture Complexity & Minimal, single-process app & High: requires workers, message broker, and Flask app coordination & Moderate, single-process app with async flow \\
+                \hline
+                I/O-bound Task Handling & Poor; threads block on I/O & Offloaded to background workers & Efficient via async handlers \\
+                \hline
+                CPU-bound Task Handling & Possible with multi-processing & Good with multiple Celery workers & Possible with multi-processing\\
+                \hline
+                Data Validation & Manual or with external libs (e.g. WTForms) & Same as Flask & Built-in via Pydantic models \\
+                \hline
+                API Documentation & Manual or using Flask-RESTX / Swagger tools & Same as Flask & Automatic OpenAPI documentation \\
+                \hline
+                Learning Curve & Low & Moderate; adds inter-process complexity & Moderate; async model + modern Python features \\
+                \hline
+                Operational Overhead & Very low & High; needs message brokers and task monitoring & Very Low \\
+                \hline
+            \end{tabular}
+            \label{tab:implementation_comparison}
+        \end{table}
 
-        The transition to FastAPI brought multiple technical benefits beyond just asynchronous capabilities. The framework's 
-        integrated OpenAPI documentation generation and Pydantic-based data validation significantly improved our development 
-        workflow and\ac{api} reliability. While the migration required adapting our route handlers and internal logic, as well as 
-        dependency management patterns, this investment was offset by FastAPI's excellent documentation and growing ecosystem. 
-        FastAPI emerged as the most balanced solution, combining mature production readiness with modern features and approachable 
-        syntax. The framework's design addressed our immediate performance requirements but also established a solid foundation for 
-        future enhancements.
 
 \section{Project structure}
 
@@ -226,7 +263,7 @@ modularity and scalability as guiding principles throughout the implementation.
         access details. This approach adheres to\ac{dry} principles while ensuring maintainability as the project scales.
         
         \subsubsection{Python}
-            All application components were developed in Python 3.10+, chosen for its mature \texttt{async/await} implementation and 
+            All application components were developed in Python 3.10+, chosen for its mature \\\texttt{async/await} implementation and 
             robust type system. FastAPI serves as our web framework, having replaced earlier Flask + Celery-based prototypes 
             due to its superior native async support. External API communications are handled through HTTPX for 
             asynchronous\ac{http}\ac{rest} interactions, while network device configuration validation is managed via Nornir.
@@ -311,7 +348,7 @@ modularity and scalability as guiding principles throughout the implementation.
         \texttt{utils/} provides shared utility functions and classes that don't belong to specific domains.
 
     \subsection{inventory/}
-        The \texttt{inventory/} directory contains YAML configuration files that store static device information 
+        The \texttt{inventory/} directory contains\ac{yaml} configuration files that store static device information 
         for each topology. These files serve as a device registry, enabling Nornir to immediately access device 
         specifications without runtime type checking. This approach significantly improves automation performance 
         by eliminating redundant device discovery operations. This information is derived from the \texttt{gns3project} files 
@@ -351,7 +388,7 @@ modularity and scalability as guiding principles throughout the implementation.
 
         \paragraph{Implementation Notes:}
         \begin{enumerate}
-            \item The YAML structure enables easy integration with Nornir's inventory plugins
+            \item The\ac{yaml} structure enables easy integration with Nornir's inventory plugins
             \item Port assignments do not follow any specific order
             \item Credential fields use \texttt{null} values for unauthenticated devices like\ac{vpcs}
         \end{enumerate}
@@ -396,8 +433,8 @@ modularity and scalability as guiding principles throughout the implementation.
         Developers can implement new test modules by extending the base \texttt{CommandModule} class. This requires 
         implementing device-specific command methods (\texttt{\_command\_vpcs()}, etc.) 
         and corresponding response interpreters (\texttt{interpret\_vpcs\_response()}, etc.) with the benefit of not 
-        having to worry about anything about nornir and its inventory system. The system currently includes Ping and 
-        Traceroute implementations, with the modular design. Developers can use the bundled Ping module that 
+        having to worry about anything about nornir and its inventory system. The system currently includes \texttt{ping} and 
+        \texttt{traceroute} implementations, with the modular design. Developers can use the bundled \texttt{ping} module that 
         demonstrates this pattern, taking parameters and evaluating success based on configurable packet loss 
         tolerance.
 
@@ -428,7 +465,7 @@ modularity and scalability as guiding principles throughout the implementation.
         \end{itemize}
 
         \subsubsection{Error Handling}
-            The library implements a consistent error handling approach through the \texttt{@handle\_network\_errors} 
+            The library implements a consistent error handling approach through the \\\texttt{@handle\_network\_errors} 
             decorator, which manages network-related exceptions while preserving application-level errors. This 
             decorator specifically intercepts basic connectivity issues (host unreachable, timeouts) and\ac{http} 404 
             responses, causing it to return \texttt{False}, signaling a failure, and maintaining detailed error logging. All 
@@ -554,7 +591,7 @@ modularity and scalability as guiding principles throughout the implementation.
     \subsection{Exercise Management Module}
         This module handles the complete exercise workflow from creation to validation. Instructors can upload 
         network topologies, by providing \texttt{gns3project} files and validation criteria using the previously mentioned 
-        validation modules, namely Ping and Traceroute, during exercise creation. Students receive filtered 
+        validation modules, namely \texttt{ping} and \texttt{traceroute}, during exercise creation. Students receive filtered 
         exercise lists based on which they are enrolled in. The validation subsystem uses the developed modules 
         to validate instructor defined criteria, providing automated feedback for students. All provisioning of\ac{vm}s for 
         students to work on assignments occurs automatically when students are enrolled in exercises.
@@ -632,12 +669,13 @@ modularity and scalability as guiding principles throughout the implementation.
     is needed with the host\ac{vm}.
 
     By default, the \texttt{gns3-server} does not support launching\ac{qemu}-based devices with both an auxiliary telnet console 
-    and\ac{spice} graphical access simultaneously. This limitation posed a problem for the system's design, which requires console 
-    access for automated validation (via telnet) while still offering users a\ac{gui} for interactive use. 
+    and\ac{spice} graphical access simultaneously. A more detailed explanation on this is available in \cite{santos2024}. This 
+    limitation posed a problem for the system's design, which requires console access for automated validation (via telnet) while 
+    still offering users a\ac{gui} for interactive use. 
 
-    To overcome this, modifications were made to the \texttt{gns3-server} source code to enable an auxiliary telnet console port 
-    while retaining\ac{spice} support.\ac{spice} is a remote display protocol that allows users to interact with\ac{vm}s through 
-    a\ac{gui}. These source code changes enable the server to launch\ac{qemu} instances with the appropriate\ac{spice} 
+    To overcome this, modifications detailed in \cite{santos2024} were made to the \texttt{gns3-server} source code to enable an 
+    auxiliary telnet console port while retaining\ac{spice} support.\ac{spice} is a remote display protocol that allows users to 
+    interact with\ac{vm}s through a\ac{gui}. These source code changes enable the server to launch\ac{qemu} instances with the appropriate\ac{spice} 
     options, facilitating enhanced remote access and control over the virtualized devices. A more detailed explanation and rationale 
     for these changes can be found in the first iteration of this project \cite{santos2024}, as this is were they were developed.
 

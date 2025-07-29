@@ -31,6 +31,8 @@ the time spent playing board games and just being herself, as well as her family
 Furthermore i would like to thank my Master's supervisor Professor Rui Prior for allowing me to explore this topic, as well 
 as all the ideas and feedback he gave me during development.
 
+Likewise i would like to thank Instituto de Telecomunicações (UIDB/50008/2020) for hosting this work.
+
 Lastly i would like to thank Ginjas, for just being him.
 
 Thank you.
@@ -56,19 +58,20 @@ Thank you.
 	degree={Mestrado em Engenharia de Redes e Sistemas Informáticos},
 	nameconnector={por},
         keywordsname={Palavras-chave},
-        keywords={ Proxmox VE, GNS3, automação, Nornir, FastAPI, assíncrono, comunicação, Emulação}]
+        keywords={ Proxmox VE, GNS3, automação, Nornir, FastAPI, assíncrono, comunicação, emulação, ferramenta de ensino}]
 \begin{otherlanguage}{portuguese}
 
-Os métodos convencionais de formação em rede, que dependem fortemente do hardware físico, são muitas vezes proibitivamente 
+Os métodos convencionais de formação em rede de computadores, que dependem fortemente do hardware físico, são muitas vezes proibitivamente 
 caros e não são escaláveis. As tecnologias de virtualização e emulação resolvem esta limitação, permitindo a execução 
-simultânea de vários dispositivos simulados numa unica maquina. No entanto, a avaliação da correção das configurações dos 
-dispositivos de rede continua a ser um processo manual, propenso a erros, em que as configurações incorrectas podem conduzir 
+simultânea de vários dispositivos simulados numa única máquina. No entanto, a avaliação da correção das configurações dos 
+dispositivos de rede continua a ser um processo manual, propenso a erros, em que configurações incorrectas podem conduzir 
 a falhas críticas em toda a rede.
 
-Este trabalho representa a segunda fase no desenvolvimento de um sistema capaz de efetuar uma avaliação automatizada de topologias 
-de rede com suporte para um ambiente de dispositivos heterogéneos, no seguimento direto de um trabalho anterior. O sistema 
-terá como objetivo fornecer um ambiente de trabalho completo para os alunos, uma interface Web para que tanto os alunos como 
-os professores possam interagir com a plataforma e capacidades para automatizar a avaliação das configurações feitas pelos 
+A primeira fase deste projeto, conduzida por um estudante anterior, centrou-se na investigação da viabilidade de construir um sistema deste 
+tipo e na produção de um conjunto de componentes soltos. Este trabalho representa a segunda fase, focando-se no desenho e implementação de um 
+sistema para avaliação automática de topologias de rede, com suporte para um ambiente de dispositivos heterogéneos, no seguimento direto de um 
+trabalho anterior. O sistema terá como objetivo fornecer um ambiente de trabalho completo para os alunos, uma interface Web para que tanto os 
+alunos como os professores possam interagir com a plataforma e capacidades para automatizar a avaliação das configurações feitas pelos 
 alunos, permitindo que os professores se concentrem no ensino e na orientação dos alunos, em vez de terem de efetuar 
 verificações manuais repetitivas dos trabalhos dos alunos.
 
@@ -86,14 +89,15 @@ garantir que o sistema pode escalar.
 \addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
 \begin{abstract} 
 
-Conventional network training methods, which depend heavily on physical hardware, are often prohibitively expensive and lack scalability. 
+Conventional computer network teaching methods, which depend heavily on physical hardware, are often prohibitively expensive and lack scalability. 
 Virtualization and emulation technologies address this limitation by allowing multiple simulated devices to run concurrently 
 on a single system. Nevertheless, assessing the correctness of network device configurations continues to be a manual, 
 error-prone process, where misconfigurations can lead to critical failures across the network.
 
-This work represents the second phase in developing a system for automated assessment of network topologies, designed to support 
-a diverse range of network devices. Building upon previous research, the system aims to deliver a complete, web-based working 
-environment where both students and instructors can interact with the platform. Its key feature is the automation of configuration 
+The first phase of this project, conducted by a previous student, focused on investigating the viability of building such a system and 
+producing a set of loose components. This work represents the second phase,centered on designing and implementing a system for automated assessment 
+of network topologies, designed to support a diverse range of network devices. Building upon previous research, the system aims to deliver a complete, 
+web-based working environment where both students and instructors can interact with the platform. Its key feature is the automation of configuration 
 assessments made by students, which reduces the manual workload for instructors, allowing them to focus more on teaching and guiding 
 rather than repetitive checking of assignments.
 
@@ -229,8 +233,13 @@ scale.
 
 \newacronym{cpu}{CPU}{Central Processing Unit}
 
+\newacronym{virl}{VIRL}{Virtual Internet Routing Lab}
 
+\newacronym{vnc}{VNC}{Virtual Network Computing}
 
+\newacronym{yaml}{YAML}{YAML Ain't Markup Language}
+
+\newacronym{ssd}{SSD}{Solid State Drive}
 
 
 
